@@ -1,11 +1,11 @@
-package display.test;
+package test;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import display.GameObj;
-import display.Game;
-import display.MainLoop;
+import overhead.MainLoop;
+import abstractions.Game;
+import abstractions.GameObj;
 
 public class EventFireTest extends Game{
 	
