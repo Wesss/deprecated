@@ -5,7 +5,8 @@ import overhead.GamePanel;
 /**
  * This represents the Game component that handles all of the data unique to the game itself
  * 
- * @author Wesley
+ * @author Wesley Cox
+ * @last_edited 11/10/15
  */
 public abstract class Game {
 	public static int PANEL_X;

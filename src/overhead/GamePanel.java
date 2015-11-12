@@ -16,10 +16,13 @@ import abstractions.Game;
 
 /**
  * Handles the display of the given game.
+ * 
  * TODO try/compare instead of letting java's mainframe handle repaint requests,
  * 		keep hold of graphics object and redraw in a self-defined loop
+ * TODO: create non-parallel abstraction?
  * 
- * @author Wesley
+ * @author Wesley Cox
+ * @last_edited 11/10/15
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {

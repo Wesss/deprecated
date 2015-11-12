@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,6 +7,10 @@ import overhead.MainLoop;
 import abstractions.Game;
 import abstractions.GameObj;
 
+/**
+ * @author Wesley Cox
+ * @last_edited 11/11/15
+ */
 public class BaseTest extends Game{
 
 	public static void main(String args[]) {

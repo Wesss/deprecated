@@ -5,7 +5,8 @@ import java.awt.Graphics;
 /**
  * This class represents an object of the game that can be displayed
  * 
- * @author Wesley
+ * @author Wesley Cox
+ * @last_edited 11/10/15
  *
  */
 public interface GameObj {

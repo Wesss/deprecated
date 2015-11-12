@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -7,6 +7,10 @@ import overhead.MainLoop;
 import abstractions.Game;
 import abstractions.GameObj;
 
+/**
+ * @author Wesley Cox
+ * @last_edited 11/11/15
+ */
 public class EventFireTest extends Game{
 	
 	public static void main(String args[]) {

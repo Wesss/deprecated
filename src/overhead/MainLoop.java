@@ -11,10 +11,12 @@ import abstractions.GameObj;
  * 
  * NOTE: Main loop is not actually stored here. The Main Loop resides in GamePanel.
  * Given naming makes adding objects to the MainLoop more intuitive.
- * TODO: still untested
  * 
- * @author Wesley
- *
+ * TODO: still untested
+ * TODO: create non-parallel abstraction?
+ * 
+ * @author Wesley Cox
+ * @last_edited 11/10/15
  */
 public class MainLoop {
 	
