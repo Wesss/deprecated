@@ -3,13 +3,12 @@ package tests;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import overhead.MainLoop;
-import abstractions.Game;
+import overhead.Game;
 import abstractions.GameObj;
 
 /**
  * @author Wesley Cox
- * @last_edited 11/11/15
+ * @last_edited 6/20/15
  */
 public class BaseTest extends Game{
 
@@ -24,7 +23,7 @@ public class BaseTest extends Game{
 
 	@Override
 	public void initiallize() {
-		MainLoop.add(new Line(), 0);
+		mainLoop.add(new Line(), 0);
 	}
 
 	@Override

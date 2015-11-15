@@ -3,13 +3,12 @@ package tests;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import overhead.MainLoop;
-import abstractions.Game;
+import overhead.Game;
 import abstractions.GameObj;
 
 /**
  * @author Wesley Cox
- * @last_edited 11/11/15
+ * @last_edited 6/20/15
  */
 public class EventFireTest extends Game{
 	
@@ -31,11 +30,11 @@ public class EventFireTest extends Game{
 		
 		for (int i = 0; i < log.length; i++) {
 			log[i] = new GameString(20, 430 - (i * 20));
-			MainLoop.add(log[i], 0);
+			mainLoop.add(log[i], 0);
 		}
 		
 		mouseLoc = new GameString(20, 460);
-		MainLoop.add(mouseLoc, 0);
+		mainLoop.add(mouseLoc, 0);
 	}
 
 	@Override

@@ -12,8 +12,6 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import abstractions.Game;
-
 /**
  * Handles the display of the given game.
  * 
@@ -22,38 +20,60 @@ import abstractions.Game;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 11/10/15
+ * @last_edited 11/14/15
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
+	
 	private Game game;
+	private MainLoop mainLoop;
+
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
+	
+	private static GamePanel currentGamePanel;
+	
+	/**
+	 * @return the last instantiated GamePanel
+	 */
+	protected static GamePanel getCurrentGamePanel() {
+		return currentGamePanel;
+	}
+	
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
     
 	/**
 	 * Creates a new GamePanel of specified size for given game g
 	 * 
-	 * @param g the game to display
-	 * 		<UL><LI> must not be null </UL>
 	 * @param width the width of the display's panel (in pixels)
 	 * 		<UL><LI> must be > 0 </UL>
 	 * @param height the height of the display's panel (in pixels)
 	 * 		<UL><LI> must be > 0 </UL>
 	 */
-    public GamePanel(Game g, int width, int height) {
-    	this(g, new Dimension(width, height));
+    protected GamePanel(int width, int height) {
+    	this(new Dimension(width, height));
     }
     
     /**
 	 * Creates a new GamePanel of specified size for given game g
 	 * 
-	 * @param g the game to display
-	 * 		<UL><LI> must not be null </UL>
 	 * @param gameArea the dimensions of the area that the game takes up (in pixels)
 	 * 		<UL><LI> must not be null </UL>
 	 */
-    public GamePanel(Game g, Dimension gameArea) {
+    protected GamePanel(Dimension gameArea) {
     	super();
-    	game = g;
+    	currentGamePanel = this;
     	
     	this.setPreferredSize(gameArea);
     	createFrame();
@@ -62,17 +82,14 @@ public class GamePanel extends JPanel {
         addKeyListener(new KeyLis());
         addMouseListener(new MousePressLis());
         addMouseMotionListener(new MouseMoveLis());
-        
-        Thread t = new Thread(new Animate(60));
-        t.run();
     }
-
-	@Override
-    public void paintComponent(Graphics g) {
-        synchronized (game) {
-            super.paintComponent(g);
-        	MainLoop.nextFrame(g);
-        }
+    
+    /**
+     * TODO
+     */
+    protected void setReferences() {
+    	game = Game.getCurrentGame();
+    	mainLoop = MainLoop.getCurrentMainLoop();
     }
     
     /**
@@ -87,6 +104,22 @@ public class GamePanel extends JPanel {
     	frame.pack();
     	frame.setVisible(true);
     }
+    
+	//////////////////////////////////////////////////
+	// Overhead Functionality
+	//////////////////////////////////////////////////
+
+	@Override
+    public void paintComponent(Graphics g) {
+        synchronized (game) {
+            super.paintComponent(g);
+        	mainLoop.nextFrame(g);
+        }
+    }
+
+	//////////////////////////////////////////////////
+	// Event Listeners
+	//////////////////////////////////////////////////
     
     /**
      * This class passes key press/release events to the game
@@ -180,42 +213,6 @@ public class GamePanel extends JPanel {
     		synchronized (game) {
     			game.mouseMoved(x, y);
     		}
-    	}
-    }
-    
-    /**
-     * This Thread fires an update and a screen refresh to the game based on
-     * its desired frames per seconds
-     */
-    private class Animate implements Runnable {
-
-    	private int waitTime;
-    	
-    	/**
-    	 * @param fps the desired refresh rate of the screen measured in frames per second
-    	 */
-    	public Animate(int fps) {
-    		waitTime = 1000 / fps;
-    	}
-    	
-    	@Override
-    	public void run() {
-    		while (!Thread.interrupted()) {
-    			try {
-    				//TODO apparently repaint only quickly signals java to later call paintComponent();
-    				//	Timing code should envelope the paintComponent code
-    				long startTime = System.currentTimeMillis();
-                    repaint();
-                    long endTime = System.currentTimeMillis();
-                    
-                    if (startTime - endTime < waitTime) {
-                    	Thread.sleep(waitTime - (startTime - endTime));
-                    }
-                } catch (Exception e) {
-                	e.printStackTrace();
-                	System.exit(1);
-                }
-            }
     	}
     }
 }

@@ -1,39 +1,85 @@
-package abstractions;
+package overhead;
 
-import overhead.GamePanel;
 
 /**
  * This represents the Game component that handles all of the data unique to the game itself
+ * 
+ * TODO somehow make this an interface?
  * 
  * @author Wesley Cox
  * @last_edited 11/10/15
  */
 public abstract class Game {
+
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
+	protected MainLoop mainLoop;
+
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
+	
 	public static int PANEL_X;
 	public static int PANEL_Y;
 	
+	private static Game currentGame;
+	
 	/**
-	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE initialize METHOD OTHERWISE RACE CONDITIONS WILL OCCUR
+	 * @return the last instantiated Game
+	 */
+	protected static Game getCurrentGame() {
+		return currentGame;
+	}
+	
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
+	
+	/**
+	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE initialize METHOD
+	 * OTHERWISE RACE CONDITIONS WILL OCCUR
+	 * 
 	 * @param x width of the game panel
 	 * @param y height of the game panel
 	 */
-	public Game(int x, int y) {
+	protected Game(int x, int y) {
 		PANEL_X = x;
 		PANEL_Y = y;
+		currentGame = this;
+		
+		mainLoop = new MainLoop();
+		GamePanel panel = new GamePanel(x, y);
+		
+		mainLoop.setReferences();
+		panel.setReferences();
+		
+		//main loop must start after initiallization
 		initiallize();
-		@SuppressWarnings("unused")
-		GamePanel gp = new GamePanel(this, x, y);
+		mainLoop.start();
 	}
+    
+	//////////////////////////////////////////////////
+	// Abstract Methods
+	//////////////////////////////////////////////////
 	
 	/**
 	 * This method will be called before the draw/event main loop is started
-	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE THIS METHOD OTHERWISE RACE CONDITIONS WILL OCCUR
+	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE THIS METHOD
+	 * OTHERWISE RACE CONDITIONS WILL OCCUR
 	 */
 	public abstract void initiallize();
+	
 	/**
-	 * Fires appropriate commands when the provided key (on the keyboard) is initially pressed.
-	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can be more efficiently compared
-	 * with KeyEvent.(key constant). ie. KeyEvent.VK_A == key would return true if the pressed key was the 'a' key
+	 * Fires appropriate commands when the provided key (on the keyboard)
+	 * is initially pressed.
+	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can
+	 * be more efficiently compared with KeyEvent.(key constant).
+	 * ie. KeyEvent.VK_A == key would return true if the pressed key was the 'a' key
 	 * 
 	 * @param key the unicode character of the key being pressed.
 	 */
@@ -41,8 +87,9 @@ public abstract class Game {
 	
 	/**
 	 * Fires appropriate commands when the provided key (on the keyboard) is released.
-	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can be more efficiently compared
-	 * with KeyEvent.(key constant). ie. KeyEvent.VK_A == key would return true if the pressed key was the 'a' key
+	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can
+	 * be more efficiently compared with KeyEvent.(key constant).
+	 * ie. KeyEvent.VK_A == key would return true if the pressed key was the 'a' key
 	 * 
 	 * @param key the unicode character of the key being pressed.
 	 */
