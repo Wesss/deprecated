@@ -30,19 +30,26 @@ public class GamePanel extends JPanel {
 	private Game game;
     
 	/**
-	 * TODO
+	 * Creates a new GamePanel of specified size for given game g
+	 * 
 	 * @param g the game to display
+	 * 		<UL><LI> must not be null </UL>
 	 * @param width the width of the display's panel (in pixels)
+	 * 		<UL><LI> must be > 0 </UL>
 	 * @param height the height of the display's panel (in pixels)
+	 * 		<UL><LI> must be > 0 </UL>
 	 */
     public GamePanel(Game g, int width, int height) {
     	this(g, new Dimension(width, height));
     }
     
     /**
-	 * TODO
+	 * Creates a new GamePanel of specified size for given game g
+	 * 
 	 * @param g the game to display
+	 * 		<UL><LI> must not be null </UL>
 	 * @param gameArea the dimensions of the area that the game takes up (in pixels)
+	 * 		<UL><LI> must not be null </UL>
 	 */
     public GamePanel(Game g, Dimension gameArea) {
     	super();
@@ -69,7 +76,8 @@ public class GamePanel extends JPanel {
     }
     
     /**
-     * TODO
+     * Creates the JFrame (aka window border) for this Panel and
+     * fits this Panel into it.
      */
     private void createFrame() {
     	JFrame frame = new JFrame();
@@ -81,9 +89,11 @@ public class GamePanel extends JPanel {
     }
     
     /**
-     * TODO
-     * @author Wesley
-     *
+     * This class passes key press/release events to the game
+     * 
+     * Key event are filtered such that only when a key is pressed
+     * will keyPressed() be fired (instead of multiple firings when
+     * a key is held down).
      */
     private class KeyLis implements KeyListener {
     	
@@ -121,9 +131,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * TODO
-     * @author Wesley
-     *
+     * This class passes mouse press, release, and movement events to the game
      */
     private class MousePressLis implements MouseListener {
 
@@ -178,15 +186,12 @@ public class GamePanel extends JPanel {
     /**
      * This Thread fires an update and a screen refresh to the game based on
      * its desired frames per seconds
-     * 
-     * @author Wesley
      */
     private class Animate implements Runnable {
 
     	private int waitTime;
     	
     	/**
-    	 * 
     	 * @param fps the desired refresh rate of the screen measured in frames per second
     	 */
     	public Animate(int fps) {
