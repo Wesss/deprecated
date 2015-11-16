@@ -8,6 +8,12 @@ import game.DodgerGame;
 import game.Movable;
 import game.Player;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited 11/15/15
+ */
 public class Circle extends Movable implements Enemy {
 	
 	private static final int OFFSCREEN_BUFFER = 10000;
@@ -17,7 +23,13 @@ public class Circle extends Movable implements Enemy {
 	private Player player;
 	
 	/**
-	 * Spawns an enemy circle
+	 * TODO
+	 * 
+	 * @param x
+	 * @param y
+	 * @param direction
+	 * @param speed
+	 * @param radius
 	 */
 	public Circle(int x, int y, int direction, int speed, int radius) {
 		super(x, y);
@@ -29,6 +41,9 @@ public class Circle extends Movable implements Enemy {
 		player = Player.getPlayer();
 	}
 	
+	/**
+	 * @return true if the circle is completely offscreen, false otherwise
+	 */
 	private boolean offScreen() {
 		return (x + radius < -OFFSCREEN_BUFFER || x - radius > DodgerGame.PANEL_X + OFFSCREEN_BUFFER ||
 				y + radius < -OFFSCREEN_BUFFER || y - radius > DodgerGame.PANEL_Y + OFFSCREEN_BUFFER);
@@ -36,6 +51,9 @@ public class Circle extends Movable implements Enemy {
 	
 	//*************************************** Update Methods ********************************************//
 	
+	/**
+	 * TODO
+	 */
 	@Override
 	public void update() {
 		move(velx, vely);
@@ -47,18 +65,30 @@ public class Circle extends Movable implements Enemy {
 			MainLoop.remove(this);
 		}
 	}
-
+	
+	/**
+	 * TODO
+	 */
 	@Override
 	public boolean isCollided(Player player) {
 		return (hypotenuse(Math.abs(player.x() - x), Math.abs(player.y() - y)) <= Player.HITBOX_RADIUS + radius);
 	}
 	
+	/**
+	 * TODO move to Math-Random
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	private static int hypotenuse(int x, int y) {
 		return (int)Math.sqrt((x * x) + (y * y));
 	}
 
 	//*************************************** Paint Methods ********************************************//
 	
+	/**
+	 * TODO
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);

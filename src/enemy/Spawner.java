@@ -2,6 +2,12 @@ package enemy;
 
 import overhead.MainLoop;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public class Spawner {
 	private int x = 0;
 	private int y = 0;

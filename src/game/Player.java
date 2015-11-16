@@ -7,9 +7,10 @@ import overhead_interfaces.GameObj;
 import enemy.Enemy;
 
 /**
- * The red dot the player controls in the game
+ * This class represents the red dot the player controls within the game
+ * 
  * @author Wesley Cox
- *
+ * @last_edited Summer 2015
  */
 public class Player extends Movable implements GameObj{
 	

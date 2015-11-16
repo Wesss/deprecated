@@ -7,13 +7,37 @@ import overhead.Game;
 import overhead.MainLoop;
 import enemy.Script;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public class DodgerGame extends Game {
 	
-	//***************************** Static Level ************************************//
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
 	
 	private static enum State{
 		MENU, GAME
 	}
+	
+	private Player player;
+	private Menu menu;
+	private State state;
+	
+	private Script curScript;
+	private Queue<Script> scriptQueue;
+	private int level;
+	
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
 	
 	private static DodgerGame game;
 	
@@ -26,12 +50,10 @@ public class DodgerGame extends Game {
 		}
 		return game;
 	}
-
-	//****************************** Initialization *********************************//
 	
-	private Player player;
-	private Menu menu;
-	private State state;
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
 	
 	public static void main(String args[]) {
 		new DodgerGame();
@@ -47,7 +69,9 @@ public class DodgerGame extends Game {
 		game = this;
 	}
 	
-	//****************************** Game State Switching ******************************//
+	//////////////////////////////////////////////////
+	// Game mode handling
+	//////////////////////////////////////////////////
 	
 	public void menuMode() {
 		state = State.MENU;
@@ -70,11 +94,10 @@ public class DodgerGame extends Game {
 		nextLevel();
 	}
 	
-	//****************************** Level/Script handlers *********************************//
-	
-	private Script curScript;
-	private Queue<Script> scriptQueue;
-	private int level;
+
+	//////////////////////////////////////////////////
+	// Level Script handlers
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
@@ -92,12 +115,17 @@ public class DodgerGame extends Game {
 		}
 	}
 	
+	/**
+	 * @return the current level of the game
+	 */
 	public int getLevel() {
 		return level;
 	}
 	
-	//****************************** Key-press callees ********************************//
-
+	//////////////////////////////////////////////////
+	// Key-press callees
+	//////////////////////////////////////////////////
+	
 	@Override
 	public void keyPressed(int keyCode) {
 		switch (state) {
@@ -158,8 +186,8 @@ public class DodgerGame extends Game {
 		}
 	}
 
-	//**************** The mouse is not used in this game *****************************//
 	
+	//The mouse is not used in this game
 	@Override
 	public void mousePressed(int x, int y, int button) {}
 	@Override

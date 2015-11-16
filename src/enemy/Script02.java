@@ -6,6 +6,12 @@ import random_number_generators.ModRandom;
 import overhead.Game;
 import enemy.Spawner.Type;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public class Script02 extends Script {
 
 	private static final int SECT_COUNT = 10;

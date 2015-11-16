@@ -5,6 +5,12 @@ import java.awt.Graphics;
 import overhead.Game;
 import overhead_interfaces.GameObj;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public class Menu implements GameObj {
 	
 	//***************************** Static Level **********************************//

@@ -8,6 +8,12 @@ import overhead_interfaces.GameObj;
 import overhead.MainLoop;
 import game.DodgerGame;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public abstract class Script implements GameObj{
 	
 	//************************ Static Level ******************************//

@@ -1,5 +1,11 @@
 package game;
 
+/**
+ * TODO
+ * 
+ * @author Wesley Cox
+ * @last_edited Summer 2015
+ */
 public abstract class Movable {
 	protected int x, y; //the coordinates of the object on the panel
 	protected int x2, y2; //decipixel offset
