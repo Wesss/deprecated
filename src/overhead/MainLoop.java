@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import abstractions.GameObj;
+import overhead_interfaces.GameObj;
 
 /**
  * This class keeps track of all GameObjs in a game an repeatedly updates
@@ -15,7 +15,7 @@ import abstractions.GameObj;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 11/10/15
+ * @last_edited 11/15/15
  */
 public class MainLoop {
 
@@ -29,15 +29,15 @@ public class MainLoop {
 
 	private GamePanel panel;
 	
-	private HashMap<Integer, HashSet<GameObj>> layer2objs;
-	private HashMap<GameObj, Integer> obj2layer;
-	private int maxLayer;
+	private static HashMap<Integer, HashSet<GameObj>> layer2objs;
+	private static HashMap<GameObj, Integer> obj2layer;
+	private static int maxLayer;
 	
-	private HashMap<GameObj, Integer> delayedAdd;
-	private HashSet<GameObj> delayedRemove;
+	private static HashMap<GameObj, Integer> delayedAdd;
+	private static HashSet<GameObj> delayedRemove;
 	
 	//////////////////////////////////////////////////
-	// Static level
+	// Static-Reference level
 	//////////////////////////////////////////////////
 	
 	private static MainLoop currentMainLoop;
@@ -93,7 +93,7 @@ public class MainLoop {
 	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of draw-able objects
 	 */
-	public void add(GameObj obj) {
+	public static void add(GameObj obj) {
 		add(obj, 0);
 	}
 	
@@ -105,7 +105,7 @@ public class MainLoop {
 	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of draw-able objects
 	 */
-	public void add(GameObj obj, int layer) {
+	public static void add(GameObj obj, int layer) {
 		if (contains(obj)) {
 			throw new RuntimeException("Tried to add obj " + obj
 					+ " to painter whilst already a part of the drawable set");
@@ -123,7 +123,7 @@ public class MainLoop {
 	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of MainLoop objects
 	 */
-	private void addDelayed(GameObj obj, int layer) {
+	private static void addDelayed(GameObj obj, int layer) {
 		obj2layer.put(obj, layer);
 		
 		if (!layer2objs.containsKey(layer)) {
@@ -140,7 +140,7 @@ public class MainLoop {
 	 * @return true when given object exists within the set of objects to painted
 	 * 		and updated with the MainLoop
 	 */
-	public boolean contains(GameObj obj) {
+	public static boolean contains(GameObj obj) {
 		return (obj2layer.containsKey(obj) || delayedAdd.keySet().contains(obj))
 				&& !delayedRemove.contains(obj);
 	}
@@ -149,7 +149,7 @@ public class MainLoop {
 	 * removes an object from the set of objects to be painted and updated with the MainLoop
 	 * @param obj the Object to remove
 	 */
-	public void remove(GameObj obj) {
+	public static void remove(GameObj obj) {
 		if (!contains(obj)) {
 			throw new IllegalArgumentException("Tried to remove non-existant obj "
 					+ obj + " from the MainLoop");
@@ -164,7 +164,7 @@ public class MainLoop {
 	 * @param obj the object to be removed the loop
 	 * @requires obj is not already in the set of MainLoop objects
 	 */
-	private void removeDelayed(GameObj obj) {
+	private static void removeDelayed(GameObj obj) {
 		layer2objs.get(obj2layer.get(obj)).remove(obj);
 		obj2layer.remove(obj);
 		delayedAdd.remove(obj);
@@ -173,7 +173,7 @@ public class MainLoop {
 	/**
 	 * Clears all game objects from the Main Loop
 	 */
-	public void clear() {
+	public static void clear() {
 		for(GameObj obj : obj2layer.keySet()) {
 			if (!delayedRemove.contains(obj))
 				remove(obj);

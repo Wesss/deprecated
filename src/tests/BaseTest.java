@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import overhead.Game;
-import abstractions.GameObj;
+import overhead.MainLoop;
+import overhead_interfaces.GameObj;
 
 /**
  * @author Wesley Cox
@@ -23,7 +24,7 @@ public class BaseTest extends Game{
 
 	@Override
 	public void initiallize() {
-		mainLoop.add(new Line(), 0);
+		MainLoop.add(new Line(), 0);
 	}
 
 	@Override

@@ -3,7 +3,8 @@ package tests;
 import java.awt.Graphics;
 
 import overhead.Game;
-import abstractions.GameObj;
+import overhead.MainLoop;
+import overhead_interfaces.GameObj;
 
 /**
  * @author Wesley Cox
@@ -22,10 +23,10 @@ public class BasicAnimationTest extends Game{
 	
 	@Override
 	public void initiallize() {
-		mainLoop.add(new WrapCircle(500, 70, 40), 0);
-		mainLoop.add(new Display1(), 0);
-		mainLoop.add(new Display2(), 0);
-		mainLoop.add(new Display3(), 0);
+		MainLoop.add(new WrapCircle(500, 70, 40), 0);
+		MainLoop.add(new Display1(), 0);
+		MainLoop.add(new Display2(), 0);
+		MainLoop.add(new Display3(), 0);
 	}
 
 	@Override

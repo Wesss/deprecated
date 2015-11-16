@@ -4,7 +4,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import overhead.Game;
-import abstractions.GameObj;
+import overhead.MainLoop;
+import overhead_interfaces.GameObj;
 
 /**
  * @author Wesley Cox
@@ -30,11 +31,11 @@ public class EventFireTest extends Game{
 		
 		for (int i = 0; i < log.length; i++) {
 			log[i] = new GameString(20, 430 - (i * 20));
-			mainLoop.add(log[i], 0);
+			MainLoop.add(log[i], 0);
 		}
 		
 		mouseLoc = new GameString(20, 460);
-		mainLoop.add(mouseLoc, 0);
+		MainLoop.add(mouseLoc, 0);
 	}
 
 	@Override
