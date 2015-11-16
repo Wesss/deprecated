@@ -11,7 +11,7 @@ import enemy.Script;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/15/15
  */
 public class DodgerGame extends Game {
 	

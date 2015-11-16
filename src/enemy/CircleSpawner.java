@@ -6,22 +6,38 @@ import overhead.MainLoop;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/15/15
  */
-public class Spawner {
-	private int x = 0;
-	private int y = 0;
-	private int direction = 0;
-	private int speed = 1;
-	private int radius = 1;
-	public enum Type {
-		CIRCLE
-	}
-	private Type type;
+public class CircleSpawner {
 	
-	public Spawner(Type type) {
-		this.type = type;
+	/**
+	 * TODO create abstraction to spawn any type of enemy
+	 */
+	
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
+	private int x;
+	private int y;
+	private int direction;
+	private int speed;
+	private int radius;
+	
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
+	
+	public CircleSpawner() {
+		radius = 1;
 	}
+	
+	//////////////////////////////////////////////////
+	// Manipulation
+	//////////////////////////////////////////////////
 	
 	/**
 	 * sets the x coordinate for subsequently made Circles
@@ -71,9 +87,6 @@ public class Spawner {
 	 * @return a new Enemy instance based on the most recent parameter settings
 	 */
 	public void spawn() {
-		switch (type) {
-		case CIRCLE :
-			MainLoop.add(new Circle(x, y, direction, speed, radius));
-		}
+		MainLoop.add(new Circle(x, y, direction, speed, radius));
 	}
 }

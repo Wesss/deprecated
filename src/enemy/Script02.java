@@ -4,7 +4,7 @@ import java.util.Random;
 
 import random_number_generators.ModRandom;
 import overhead.Game;
-import enemy.Spawner.Type;
+import enemy.Enemy.EnemyType;
 
 /**
  * TODO
@@ -17,19 +17,19 @@ public class Script02 extends Script {
 	private static final int SECT_COUNT = 10;
 	private static final int SECT_LENGTH_Y = Game.PANEL_Y / SECT_COUNT;
 	
-	private Spawner spawn1;
-	private Spawner spawn2;
+	private CircleSpawner spawn1;
+	private CircleSpawner spawn2;
 	private ModRandom sectRand;
 	private Random rand;
 	
 	public Script02() {
-		spawn1 = new Spawner(Type.CIRCLE);
+		spawn1 = new CircleSpawner();
 		spawn1.setRadius(5);
 		spawn1.setSpeed(20);
 		spawn1.setDir(180);
 		spawn1.setX(Game.PANEL_X + 5);
 		
-		spawn2 = new Spawner(Type.CIRCLE);
+		spawn2 = new CircleSpawner();
 		spawn2.setRadius(10);
 		spawn2.setSpeed(7);
 		spawn2.setDir(0);

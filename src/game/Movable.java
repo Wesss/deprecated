@@ -4,11 +4,28 @@ package game;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/15/15
  */
 public abstract class Movable {
+	
+	/**
+	 * TODO make this an interface somehow?
+	 */
+	
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
+	
 	protected int x, y; //the coordinates of the object on the panel
 	protected int x2, y2; //decipixel offset
+	
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
 	
 	/**
 	 * Sets the initial position of this obj
@@ -21,6 +38,10 @@ public abstract class Movable {
 		x2 = 0;
 		y2 = 0;
 	}
+	
+	//////////////////////////////////////////////////
+	// Manipulation
+	//////////////////////////////////////////////////
 	
 	public int x() {
 		return x;

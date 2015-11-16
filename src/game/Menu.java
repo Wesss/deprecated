@@ -9,11 +9,23 @@ import overhead_interfaces.GameObj;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/15/15
  */
 public class Menu implements GameObj {
 	
-	//***************************** Static Level **********************************//
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
+	/**
+	 * TODO
+	 */
+	private DodgerGame game;
+	private int curSelection = 0;
+	
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
 	
 	private static final int MENU_START_X = Game.PANEL_X / 3 - 100;
 	private static final int MENU_START_Y = Game.PANEL_Y / 3;
@@ -21,16 +33,17 @@ public class Menu implements GameObj {
 	private static final int CONTROLS_START_Y = MENU_START_Y;
 	private static final int NEW_LINE_MARGIN = 20;
 	
-	//***************************** Instance Level *********************************//
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
 	
-	private DodgerGame game;
 	public Menu(DodgerGame game) {
 		this.game = game;
 	}
 	
-	//***************************** Manipulation Methods ******************************//
-
-	private static int curSelection = 0;
+	//////////////////////////////////////////////////
+	// Manipulation
+	//////////////////////////////////////////////////
 	
 	public void up() {
 		curSelection = positiveMod(curSelection - 1, 2);
@@ -57,8 +70,10 @@ public class Menu implements GameObj {
     //No update is needed
 	@Override
 	public void update() {}
-
-	//******************************** Paint Methods *********************************//
+	
+	//////////////////////////////////////////////////
+	// Painting
+	//////////////////////////////////////////////////
 	
 	@Override
 	public void draw(Graphics g) {
@@ -74,5 +89,4 @@ public class Menu implements GameObj {
 		g.drawString("Arrow Keys to move", CONTROLS_START_X, CONTROLS_START_Y + NEW_LINE_MARGIN);
 		g.drawString("Shift to slow down", CONTROLS_START_X, CONTROLS_START_Y + 2 * NEW_LINE_MARGIN);
 	}
-
 }

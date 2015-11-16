@@ -10,11 +10,27 @@ import enemy.Enemy;
  * This class represents the red dot the player controls within the game
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/15/15
  */
 public class Player extends Movable implements GameObj{
+
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
 	
-	/****************************** Class level methods ***********************************/
+	/**
+	 * TODO
+	 */
+	private boolean moveUp, moveDown, moveLeft, moveRight, upPriority, leftPriority; //direction of player movement
+	private boolean isSlow; //intentional slow-down of player
+	private DodgerGame game;
+	
+	private int lives;
+	private int respawnTimer;
+	
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
 
 	public static final int HITBOX_RADIUS = 7;
 	private static final int SPEED = 38;
@@ -23,22 +39,27 @@ public class Player extends Movable implements GameObj{
 	private static final int SLOW_DIAG_SPEED = 14;
 	private static Player player;
 	
+	/**
+	 * TODO
+	 * @return the current player instance
+	 */
 	public static Player getPlayer() {
 		if (player == null)
 			throw new RuntimeException("Attempted to getPlayer before initiallization");
 		return player;
 	}
 	
-	/****************************************** Instance fields ************************************/
-	
-	private boolean moveUp, moveDown, moveLeft, moveRight, upPriority, leftPriority; //direction of player movement
-	private boolean isSlow; //intentional slow-down of player
-	private DodgerGame game;
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
 	
 	public Player(DodgerGame game) {
 		super(250, 250);
 		this.game = game;
-		Stats.initialize();
+		
+		lives = 3;
+		respawnTimer = 0;
+		game = DodgerGame.getDodgerGame();
 		player = this;
 		
 		moveUp = false;
@@ -50,7 +71,9 @@ public class Player extends Movable implements GameObj{
 		isSlow = false;
 	}
 	
-	/***************************************** Event methods ****************************************/
+	//////////////////////////////////////////////////
+	// Manipulation
+	//////////////////////////////////////////////////
 	
 	public void setUp(boolean setting) {
 		moveUp = setting;
@@ -76,7 +99,17 @@ public class Player extends Movable implements GameObj{
 		isSlow = setting;
 	}
 	
-	//**************************************** Update Methods **************************************//
+	private boolean isInvulnerable() {
+		return respawnTimer > 0;
+	}
+	
+	private void setInvulnerable(int count) {
+		respawnTimer = count;
+	}
+	
+	//////////////////////////////////////////////////
+	// Update
+	//////////////////////////////////////////////////
 	
 	@Override
 	public void update() {
@@ -90,7 +123,8 @@ public class Player extends Movable implements GameObj{
 		}
 		
 		checkBorder();
-		Stats.update();
+		if (isInvulnerable())
+			respawnTimer--;
 	}
 
 	/**
@@ -160,23 +194,25 @@ public class Player extends Movable implements GameObj{
 	}
 	
 	public void collided(Enemy enemy) {
-		if (!Stats.isInvulnerable()) {
-			Stats.lives--;
-			if (Stats.lives > 0) {
-				Stats.setInvulnerable(100);
+		if (!isInvulnerable()) {
+			lives--;
+			if (lives > 0) {
+				setInvulnerable(100);
 			} else {
 				game.menuMode();
 			}
 		}
 	}
 	
-	//****************************************** Painting methods ***********************************//
+	//////////////////////////////////////////////////
+	// Painting
+	//////////////////////////////////////////////////
 	
 	@Override
 	public void draw(Graphics g) {
-		if (Stats.respawnTimer % 2 == 0)
+		if (respawnTimer % 2 == 0)
 			drawPlayer(g, x, y);
-		Stats.draw(g);
+		drawStats(g);
 	}
 	
 	private static void drawPlayer(Graphics g, int x, int y) {
@@ -186,41 +222,11 @@ public class Player extends Movable implements GameObj{
 		g.setColor(Color.BLACK);
 		g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
 	}
-
-	//****************************** Player Statistics/Overhead ******************************//
-	private static class Stats {
-		public static int lives;
-		public static int respawnTimer;
-		public static DodgerGame game;
-		
-		public static void initialize() {
-			lives = 3;
-			respawnTimer = 0;
-			game = DodgerGame.getDodgerGame();
+	
+	private void drawStats(Graphics g) {
+		for(int i = 0; i < lives - 1; i++) {
+			drawPlayer(g, Border.RIGHT_BORDER - ((i * 2 + 1) * (HITBOX_RADIUS + 3)), Border.BOT_BORDER + 2 * HITBOX_RADIUS);
 		}
-		
-		//******************** Manipulation ***************************//
-		
-		public static boolean isInvulnerable() {
-			return respawnTimer > 0;
-		}
-		
-		public static void setInvulnerable(int count) {
-			respawnTimer = count;
-		}
-		
-		//******************** Update and Paint *************************//
-		
-		public static void update() {
-			if (isInvulnerable())
-				respawnTimer--;
-		}
-		
-		public static void draw(Graphics g) {
-			for(int i = 0; i < lives - 1; i++) {
-				drawPlayer(g, Border.RIGHT_BORDER - ((i * 2 + 1) * (HITBOX_RADIUS + 3)), Border.BOT_BORDER + 2 * HITBOX_RADIUS);
-			}
-			g.drawString("Wave " + game.getLevel() + "!", Border.LEFT_BORDER + 3, Border.BOT_BORDER + 20);
-		}
+		g.drawString("Wave " + game.getLevel() + "!", Border.LEFT_BORDER + 3, Border.BOT_BORDER + 20);
 	}
 }
