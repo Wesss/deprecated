@@ -12,11 +12,17 @@ import game.DodgerGame;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/18/15
  */
 public abstract class Script implements GameObj{
 	
-	//************************ Static Level ******************************//
+	/**
+	 * TODO turn this into an object that takes ScriptBehaviors?
+	 */
+	
+	//////////////////////////////////////////////////
+	// Static level
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
@@ -47,7 +53,9 @@ public abstract class Script implements GameObj{
 		MainLoop.remove(script);
 	}
 	
-	//********************* Instance Methods ****************************//
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
 	
 	public int stepCount; //represents the current mainloop cycle since this Script's run frame
 	private DodgerGame game;
@@ -72,14 +80,16 @@ public abstract class Script implements GameObj{
 	//No painting needed
 	public void draw(Graphics g) {}
 	
-	//***************************** Convenient Script Writing Macros *************************//
+	//////////////////////////////////////////////////
+	// private functions
+	//////////////////////////////////////////////////
 	
 	/**
 	 * @param low the lower step bound
 	 * @param high the higher step bound
 	 * @return true when current stepCount falls in between given low and high values
 	 */
-	public boolean between(int low, int high) {
+	protected boolean between(int low, int high) {
 		return (low <= stepCount && stepCount <= high);
 	}
 }

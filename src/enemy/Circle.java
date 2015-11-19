@@ -9,18 +9,25 @@ import game.Movable;
 import game.Player;
 
 /**
- * TODO
+ * A Circle object represents a basic enemy circle the player must avoid
  * 
  * @author Wesley Cox
- * @last_edited 11/15/15
+ * @last_edited 11/18/15
  */
 public class Circle extends Movable implements Enemy {
 	
 	private static final int OFFSCREEN_BUFFER = 10000;
-
-	//************************************* Instance Methods **************************************//
+	
+	//////////////////////////////////////////////////
+	// Definition
+	//////////////////////////////////////////////////
+	
 	private int velx, vely, radius;
 	private Player player;
+	
+	//////////////////////////////////////////////////
+	// Initialization
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
@@ -49,7 +56,9 @@ public class Circle extends Movable implements Enemy {
 				y + radius < -OFFSCREEN_BUFFER || y - radius > DodgerGame.PANEL_Y + OFFSCREEN_BUFFER);
 	}
 	
-	//*************************************** Update Methods ********************************************//
+	//////////////////////////////////////////////////
+	// Update
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
@@ -83,8 +92,10 @@ public class Circle extends Movable implements Enemy {
 	private static int hypotenuse(int x, int y) {
 		return (int)Math.sqrt((x * x) + (y * y));
 	}
-
-	//*************************************** Paint Methods ********************************************//
+	
+	//////////////////////////////////////////////////
+	// Painting
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
