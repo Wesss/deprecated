@@ -2,9 +2,8 @@ package enemy;
 
 import java.util.Random;
 
-import random_number_generators.ModRandom;
 import overhead.Game;
-import enemy.Enemy.EnemyType;
+import random_number_generators.ModRandom;
 
 /**
  * TODO
