@@ -23,15 +23,14 @@ public class EventFireTest implements Game{
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(new EventFireTest(), dim);
+		Overhead.startGame(EventFireTest.class, dim);
 		while(true) {}
 	}
 
 	private GameString[] log;
 	private GameString mouseLoc;
 	
-	@Override
-	public void initiallize() {
+	public EventFireTest() {
 		log = new GameString[20];
 		
 		for (int i = 0; i < log.length; i++) {

@@ -10,14 +10,6 @@ package overhead_interfaces;
 public interface Game {
 	
 	/**
-	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE THIS METHOD
-	 * OTHERWISE RACE CONDITIONS WILL OCCUR
-	 * <p>
-	 * This method will be called once before the game is started
-	 */
-	public void initiallize();
-	
-	/**
 	 * Fires appropriate commands when the provided key (on the keyboard)
 	 * is initially pressed.
 	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can

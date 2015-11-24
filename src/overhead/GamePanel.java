@@ -62,6 +62,9 @@ public class GamePanel extends JPanel {
 	 */
     protected GamePanel(Dimension gameArea) {
     	super();
+    	//TODO Overhead BUG3: this line of code fixes pre-init
+    	//event errors by giving the events empty methods to call.
+    	game = new EmptyGame();
     	
     	this.setPreferredSize(gameArea);
     	createFrame();
@@ -70,6 +73,14 @@ public class GamePanel extends JPanel {
         addKeyListener(new KeyLis());
         addMouseListener(new MousePressLis());
         addMouseMotionListener(new MouseMoveLis());
+    }
+    
+    private class EmptyGame implements Game {
+		public void keyPressed(int keyCode) {}
+		public void keyReleased(int keyCode) {}
+		public void mousePressed(int x, int y, int button) {}
+		public void mouseReleased(int x, int y, int button) {}
+		public void mouseMoved(int x, int y) {}
     }
     
     /**

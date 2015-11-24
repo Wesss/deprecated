@@ -22,12 +22,11 @@ public class BasicAnimationTest implements Game{
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(new BasicAnimationTest(), dim);
+		Overhead.startGame(BasicAnimationTest.class, dim);
 		while(true) {}
 	}
 	
-	@Override
-	public void initiallize() {
+	public BasicAnimationTest() {
 		MainLoop.add(new WrapCircle(500, 70, 40), 0);
 		MainLoop.add(new Display1(), 0);
 		MainLoop.add(new Display2(), 0);
