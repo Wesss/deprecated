@@ -7,10 +7,12 @@ import java.util.HashSet;
 import overhead_interfaces.GameObj;
 
 /**
- * This class keeps track of all GameObjs in a game an repeatedly updates
+ * This class keeps track of all GameObjs in a game and repeatedly updates
  * and draws them 60 times per second
  * 
+ * TODO: make class non-static?
  * TODO: make update cycle dynamic
+ * TODO: fix timing code
  * TODO: still untested
  * TODO: create non-parallel abstraction?
  * 
@@ -37,19 +39,6 @@ public class MainLoop {
 	private static HashSet<GameObj> delayedRemove;
 	
 	//////////////////////////////////////////////////
-	// Static-Reference level
-	//////////////////////////////////////////////////
-	
-	private static MainLoop currentMainLoop;
-	
-	/**
-	 * @return the last instantiated MainLoop
-	 */
-	protected static MainLoop getCurrentMainLoop() {
-		return currentMainLoop;
-	}
-	
-	//////////////////////////////////////////////////
 	// Initialization
 	//////////////////////////////////////////////////
 	
@@ -57,8 +46,6 @@ public class MainLoop {
 	 * TODO
 	 */
 	protected MainLoop() {
-		currentMainLoop = this;
-		
 		layer2objs = new HashMap<Integer, HashSet<GameObj>>();
 		obj2layer = new HashMap<GameObj, Integer>();
 		maxLayer = 0;
@@ -68,14 +55,15 @@ public class MainLoop {
 	}
 	
 	/**
-	 * TODO
+	 * 
+	 * @param p the GamePanel displaying the game
 	 */
-	protected void setReferences() {
-    	panel = GamePanel.getCurrentGamePanel();
+	protected void setReferences(GamePanel p) {
+    	panel = p;
 	}
 	
 	/**
-	 * TODO
+	 * starts the update/repaint cycle
 	 */
 	protected void start() {
         Thread t = new Thread(new Animate(60));

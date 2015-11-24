@@ -2,21 +2,18 @@ package overhead_interfaces;
 
 
 /**
- * This represents the Game component that handles all of the data unique to the game itself
+ * This represents a Game that handles all of the data unique to the game itself
  * 
  * @author Wesley Cox
  * @last_edited 11/23/15
  */
 public interface Game {
 	
-	//////////////////////////////////////////////////
-	// Abstract Methods
-	//////////////////////////////////////////////////
-	
 	/**
-	 * This method will be called before the draw/event main loop is started
 	 * DO NOT USE THE CONSTRUCTOR TO INITIALIZE ANYTHING. USE THIS METHOD
 	 * OTHERWISE RACE CONDITIONS WILL OCCUR
+	 * <p>
+	 * This method will be called once before the game is started
 	 */
 	public void initiallize();
 	

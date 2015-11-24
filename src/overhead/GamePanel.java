@@ -37,19 +37,6 @@ public class GamePanel extends JPanel {
 	
 	private Game game;
 	private MainLoop mainLoop;
-
-	//////////////////////////////////////////////////
-	// Static level
-	//////////////////////////////////////////////////
-	
-	private static GamePanel currentGamePanel;
-	
-	/**
-	 * @return the last instantiated GamePanel
-	 */
-	protected static GamePanel getCurrentGamePanel() {
-		return currentGamePanel;
-	}
 	
 	//////////////////////////////////////////////////
 	// Initialization
@@ -75,7 +62,6 @@ public class GamePanel extends JPanel {
 	 */
     protected GamePanel(Dimension gameArea) {
     	super();
-    	currentGamePanel = this;
     	
     	this.setPreferredSize(gameArea);
     	createFrame();
@@ -87,12 +73,13 @@ public class GamePanel extends JPanel {
     }
     
     /**
-     * TODO
-     * @param g
+     * Sets the references needed for this class to function
+     * @param g The Game this Panel displays
+     * @param m The MainLoop powering the Game
      */
-    protected void setReferences(Game g) {
+    protected void setReferences(Game g, MainLoop m) {
     	game = g;
-    	mainLoop = MainLoop.getCurrentMainLoop();
+    	mainLoop = m;
     }
     
     /**

@@ -10,7 +10,8 @@ import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
- * TODO
+ * Test for EventListeners
+ * (Key press/release, Mouse press/release, mouse position)
  * 
  * @author Wesley Cox
  * @last_edited 11/23/15

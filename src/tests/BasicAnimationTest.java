@@ -9,6 +9,9 @@ import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
+ * Test for Animation
+ * (Update and Paint cycles)
+ * 
  * @author Wesley Cox
  * @last_edited 11/23/15
  */

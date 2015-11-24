@@ -10,6 +10,9 @@ import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
+ * Test for Panel/Window operations
+ * (Move, Minimize, Close, Static Display)
+ * 
  * @author Wesley Cox
  * @last_edited 11/23/15
  */
@@ -30,32 +33,19 @@ public class BaseTest implements Game{
 	}
 
 	@Override
-	public void keyPressed(int keyCode) {
-	}
+	public void keyPressed(int keyCode) {}
 
 	@Override
-	public void keyReleased(int keyCode) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(int keyCode) {}
 
 	@Override
-	public void mousePressed(int x, int y, int button) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(int x, int y, int button) {}
 
 	@Override
-	public void mouseReleased(int x, int y, int button) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(int x, int y, int button) {}
 
 	@Override
-	public void mouseMoved(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(int x, int y) {}
 	
 	private class Line implements GameObj {
 
