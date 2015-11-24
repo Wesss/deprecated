@@ -10,7 +10,7 @@ import game.Player;
 
 /**
  * A Circle object represents a basic enemy circle the player must avoid
- * 
+ *  
  * @author Wesley Cox
  * @last_edited 11/18/15
  */
