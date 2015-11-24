@@ -2,14 +2,13 @@ package game;
 
 import java.awt.Graphics;
 
-import overhead.Game;
 import overhead_interfaces.GameObj;
 
 /**
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited 11/15/15
+ * @last_edited 11/23/15
  */
 public class Menu implements GameObj {
 	
@@ -27,9 +26,9 @@ public class Menu implements GameObj {
 	// Static level
 	//////////////////////////////////////////////////
 	
-	private static final int MENU_START_X = Game.PANEL_X / 3 - 100;
-	private static final int MENU_START_Y = Game.PANEL_Y / 3;
-	private static final int CONTROLS_START_X = Game.PANEL_X / 3 + 100;
+	private static final int MENU_START_X = DodgerGame.PANEL_X / 3 - 100;
+	private static final int MENU_START_Y = DodgerGame.PANEL_Y / 3;
+	private static final int CONTROLS_START_X = DodgerGame.PANEL_X / 3 + 100;
 	private static final int CONTROLS_START_Y = MENU_START_Y;
 	private static final int NEW_LINE_MARGIN = 20;
 	

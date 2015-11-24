@@ -1,20 +1,20 @@
 package enemy;
 
-import java.util.Random;
-
-import overhead.Game;
+import game.DodgerGame;
 import random_number_generators.ModRandom;
+
+import java.util.Random;
 
 /**
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 11/23/2015
  */
 public class Script01 extends Script{
 	
 	private static final int SECT_COUNT = 10;
-	private static final int SECT_LENGTH_Y = Game.PANEL_Y / SECT_COUNT;
+	private static final int SECT_LENGTH_Y = DodgerGame.PANEL_Y / SECT_COUNT;
 	//private static final int SECT_LENGTH_X = Game.PANEL_X / SECT_COUNT; not needed
 	
 	private CircleSpawner spawn1;
@@ -47,7 +47,7 @@ public class Script01 extends Script{
 		}
 		if (stepCount == 500) {
 			spawn1.setDir(180);
-			spawn1.setX(Game.PANEL_X + 10);
+			spawn1.setX(DodgerGame.PANEL_X + 10);
 		}
 	}
 }

@@ -1,9 +1,9 @@
 package enemy;
 
-import java.util.Random;
-
-import overhead.Game;
+import game.DodgerGame;
 import random_number_generators.ModRandom;
+
+import java.util.Random;
 
 /**
  * TODO
@@ -14,7 +14,7 @@ import random_number_generators.ModRandom;
 public class Script02 extends Script {
 
 	private static final int SECT_COUNT = 10;
-	private static final int SECT_LENGTH_Y = Game.PANEL_Y / SECT_COUNT;
+	private static final int SECT_LENGTH_Y = DodgerGame.PANEL_Y / SECT_COUNT;
 	
 	private CircleSpawner spawn1;
 	private CircleSpawner spawn2;
@@ -26,7 +26,7 @@ public class Script02 extends Script {
 		spawn1.setRadius(5);
 		spawn1.setSpeed(20);
 		spawn1.setDir(180);
-		spawn1.setX(Game.PANEL_X + 5);
+		spawn1.setX(DodgerGame.PANEL_X + 5);
 		
 		spawn2 = new CircleSpawner();
 		spawn2.setRadius(10);

@@ -1,10 +1,12 @@
 package game;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Queue;
 
-import overhead.Game;
 import overhead.MainLoop;
+import overhead.Overhead;
+import overhead_interfaces.Game;
 import enemy.Script;
 
 /**
@@ -13,7 +15,7 @@ import enemy.Script;
  * @author Wesley Cox
  * @last_edited 11/15/15
  */
-public class DodgerGame extends Game {
+public class DodgerGame implements Game {
 	
 	//////////////////////////////////////////////////
 	// Definition
@@ -22,6 +24,9 @@ public class DodgerGame extends Game {
 	/**
 	 * TODO
 	 */
+	
+	public static final int PANEL_X = 500;
+	public static final int PANEL_Y = 500;
 	
 	private static enum State{
 		MENU, GAME
@@ -56,11 +61,9 @@ public class DodgerGame extends Game {
 	//////////////////////////////////////////////////
 	
 	public static void main(String args[]) {
-		new DodgerGame();
-	}
-	
-	private DodgerGame() {
-		super(500, 500);
+		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
+		Overhead.startGame(new DodgerGame(), dim);
+		while(true) {}
 	}
 
 	@Override

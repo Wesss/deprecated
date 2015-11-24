@@ -10,7 +10,7 @@ import enemy.Enemy;
  * This class represents the red dot the player controls within the game
  * 
  * @author Wesley Cox
- * @last_edited 11/18/15
+ * @last_edited 11/23/15
  */
 public class Player extends Movable implements GameObj{
 
@@ -57,9 +57,9 @@ public class Player extends Movable implements GameObj{
 	public static final int HITBOX_RADIUS = 7;
 	private static final int DISPLAY_RADIUS = 8;
 	private static final int SPEED = 38;
-	private static final int DIAG_SPEED = (int)Math.sqrt(SPEED);
+	private static final int DIAG_SPEED = (int)(SPEED / Math.sqrt(2));
 	private static final int SLOW_SPEED = 19;
-	private static final int SLOW_DIAG_SPEED = (int)Math.sqrt(SLOW_SPEED);
+	private static final int SLOW_DIAG_SPEED = (int)(SLOW_SPEED / Math.sqrt(2));
 	private static final int RESPAWN_TIME = 100;
 	private static Player player;
 	
@@ -69,7 +69,7 @@ public class Player extends Movable implements GameObj{
 	 */
 	public static Player getPlayer() {
 		if (player == null)
-			throw new RuntimeException("Attempted to getPlayer before initiallization");
+			throw new RuntimeException("Attempted to get Player before initiallization");
 		return player;
 	}
 	
@@ -83,7 +83,6 @@ public class Player extends Movable implements GameObj{
 		
 		lives = 3;
 		respawnTimer = 0;
-		game = DodgerGame.getDodgerGame();
 		player = this;
 		
 		moveUp = false;
