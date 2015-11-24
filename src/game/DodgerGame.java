@@ -1,11 +1,9 @@
 package game;
 
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Queue;
 
 import overhead.MainLoop;
-import overhead.Overhead;
 import overhead_interfaces.Game;
 import enemy.Script;
 
@@ -59,9 +57,8 @@ public class DodgerGame implements Game {
 	//////////////////////////////////////////////////
 	// Initialization
 	//////////////////////////////////////////////////
-
-	@Override
-	public void initiallize() {
+	
+	public DodgerGame() {
 		menuMode();
 		game = this;
 	}
