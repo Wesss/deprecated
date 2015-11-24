@@ -15,7 +15,7 @@ import overhead_interfaces.GameObj;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 11/15/15
+ * @last_edited 11/23/15
  */
 public class MainLoop {
 
@@ -79,7 +79,7 @@ public class MainLoop {
 	 */
 	protected void start() {
         Thread t = new Thread(new Animate(60));
-        t.run();
+        t.start();
 	}
 	
 	//////////////////////////////////////////////////

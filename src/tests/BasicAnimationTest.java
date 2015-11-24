@@ -1,24 +1,26 @@
 package tests;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 
-import overhead.Game;
+import overhead.Overhead;
 import overhead.MainLoop;
+import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
  * @author Wesley Cox
- * @last_edited 6/20/15
+ * @last_edited 11/23/15
  */
-public class BasicAnimationTest extends Game{
+public class BasicAnimationTest implements Game{
+	
+	private static final int PANEL_X = 600;
+	private static final int PANEL_Y = 600;
 	
 	public static void main(String args[]) {
-		new BasicAnimationTest();
+		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
+		Overhead.startGame(new BasicAnimationTest(), dim);
 		while(true) {}
-	}
-	
-	public BasicAnimationTest() {
-		super(600, 600);
 	}
 	
 	@Override

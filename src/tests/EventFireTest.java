@@ -1,25 +1,29 @@
 package tests;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import overhead.Game;
+import overhead.Overhead;
 import overhead.MainLoop;
+import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
+ * TODO
+ * 
  * @author Wesley Cox
- * @last_edited 6/20/15
+ * @last_edited 11/23/15
  */
-public class EventFireTest extends Game{
+public class EventFireTest implements Game{
+	
+	private static final int PANEL_X = 500;
+	private static final int PANEL_Y = 500;
 	
 	public static void main(String args[]) {
-		new EventFireTest();
+		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
+		Overhead.startGame(new EventFireTest(), dim);
 		while(true) {}
-	}
-
-	public EventFireTest() {
-		super(500, 500);
 	}
 
 	private GameString[] log;

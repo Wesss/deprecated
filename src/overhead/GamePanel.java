@@ -12,6 +12,8 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import overhead_interfaces.Game;
+
 /**
  * Handles the display of the given game.
  * 
@@ -86,9 +88,10 @@ public class GamePanel extends JPanel {
     
     /**
      * TODO
+     * @param g
      */
-    protected void setReferences() {
-    	game = Game.getCurrentGame();
+    protected void setReferences(Game g) {
+    	game = g;
     	mainLoop = MainLoop.getCurrentMainLoop();
     }
     
