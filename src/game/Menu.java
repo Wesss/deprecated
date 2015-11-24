@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import overhead_interfaces.GameObj;
 
 /**
- * TODO
+ * This class represents the start menu
  * 
  * @author Wesley Cox
  * @last_edited 11/23/15

@@ -13,10 +13,23 @@ import enemy.Enemy;
  * @last_edited 11/23/15
  */
 public class Player extends Movable implements GameObj{
+	
+	/**
+	 * TODO make singleton or get rid of static reference-getting
+	 */
 
 	//////////////////////////////////////////////////
 	// Definition
 	//////////////////////////////////////////////////
+
+	public static final int HITBOX_RADIUS = 7;
+	private static final int DISPLAY_RADIUS = 8;
+	private static final int SPEED = 38;
+	private static final int DIAG_SPEED = (int)(SPEED / Math.sqrt(2));
+	private static final int SLOW_SPEED = 19;
+	private static final int SLOW_DIAG_SPEED = (int)(SLOW_SPEED / Math.sqrt(2));
+	private static final int RESPAWN_TIME = 100;
+	private static Player player;
 	
 	/**
 	 * The player is moving in a direction, defined as:
@@ -51,30 +64,7 @@ public class Player extends Movable implements GameObj{
 	private int respawnTimer;
 	
 	//////////////////////////////////////////////////
-	// Static level
-	//////////////////////////////////////////////////
-
-	public static final int HITBOX_RADIUS = 7;
-	private static final int DISPLAY_RADIUS = 8;
-	private static final int SPEED = 38;
-	private static final int DIAG_SPEED = (int)(SPEED / Math.sqrt(2));
-	private static final int SLOW_SPEED = 19;
-	private static final int SLOW_DIAG_SPEED = (int)(SLOW_SPEED / Math.sqrt(2));
-	private static final int RESPAWN_TIME = 100;
-	private static Player player;
-	
-	/**
-	 * TODO
-	 * @return the current player instance
-	 */
-	public static Player getPlayer() {
-		if (player == null)
-			throw new RuntimeException("Attempted to get Player before initiallization");
-		return player;
-	}
-	
-	//////////////////////////////////////////////////
-	// Initialization
+	// Initialization & References
 	//////////////////////////////////////////////////
 	
 	public Player(DodgerGame game) {
@@ -92,6 +82,16 @@ public class Player extends Movable implements GameObj{
 		upPriority = false;
 		leftPriority = false;
 		isSlow = false;
+	}
+	
+	/**
+	 * TODO
+	 * @return the current player instance
+	 */
+	public static Player getPlayer() {
+		if (player == null)
+			throw new RuntimeException("Attempted to get Player before initiallization");
+		return player;
 	}
 	
 	//////////////////////////////////////////////////

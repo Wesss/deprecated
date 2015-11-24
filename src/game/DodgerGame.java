@@ -13,7 +13,7 @@ import enemy.Script;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited 11/15/15
+ * @last_edited 11/23/15
  */
 public class DodgerGame implements Game {
 	
@@ -21,16 +21,16 @@ public class DodgerGame implements Game {
 	// Definition
 	//////////////////////////////////////////////////
 	
-	/**
-	 * TODO
-	 */
-	
 	public static final int PANEL_X = 500;
 	public static final int PANEL_Y = 500;
 	
 	private static enum State{
 		MENU, GAME
 	}
+	
+	/**
+	 * TODO
+	 */
 	
 	private Player player;
 	private Menu menu;
@@ -59,12 +59,6 @@ public class DodgerGame implements Game {
 	//////////////////////////////////////////////////
 	// Initialization
 	//////////////////////////////////////////////////
-	
-	public static void main(String args[]) {
-		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(new DodgerGame(), dim);
-		while(true) {}
-	}
 
 	@Override
 	public void initiallize() {

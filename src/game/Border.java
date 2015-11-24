@@ -13,7 +13,7 @@ import overhead_interfaces.GameObj;
 public class Border implements GameObj {
 	
 	//////////////////////////////////////////////////
-	// Static level
+	// Definition
 	//////////////////////////////////////////////////
 
 	private static final int TOP_MARGIN = 100;
