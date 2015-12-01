@@ -10,9 +10,9 @@ import enemy.Enemy;
  * This class represents the red dot the player controls within the game
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 12/01/15
  */
-public class Player extends Movable implements GameObj{
+public class Player implements GameObj{
 	
 	/**
 	 * TODO make singleton or get rid of static reference-getting
@@ -56,6 +56,7 @@ public class Player extends Movable implements GameObj{
 	 * 	respawnTimer >= 0
 	 * 								
 	 */
+	private Position position;
 	private boolean moveUp, moveDown, moveLeft, moveRight, upPriority, leftPriority;
 	private boolean isSlow;
 	private DodgerGame game;
@@ -67,8 +68,12 @@ public class Player extends Movable implements GameObj{
 	// Initialization & References
 	//////////////////////////////////////////////////
 	
+	/**
+	 * TODO
+	 * @param game
+	 */
 	public Player(DodgerGame game) {
-		super(250, 250);
+		position = new Position(250, 250);
 		this.game = game;
 		
 		lives = 3;
@@ -92,6 +97,25 @@ public class Player extends Movable implements GameObj{
 		if (player == null)
 			throw new RuntimeException("Attempted to get Player before initiallization");
 		return player;
+	}
+	
+	//////////////////////////////////////////////////
+	// Instance Information
+	//////////////////////////////////////////////////
+	
+	public int x() {
+		return position.x();
+	}
+	
+	public int y() {
+		return position.y();
+	}
+	
+	/**
+	 * @return true if the player is currently invulnerable
+	 */
+	private boolean isInvulnerable() {
+		return respawnTimer > 0;
 	}
 	
 	//////////////////////////////////////////////////
@@ -140,13 +164,6 @@ public class Player extends Movable implements GameObj{
 	 */
 	public void setSlow(boolean setting) {
 		isSlow = setting;
-	}
-	
-	/**
-	 * @return true if the player is currently invulnerable
-	 */
-	private boolean isInvulnerable() {
-		return respawnTimer > 0;
 	}
 	
 	/**
@@ -201,28 +218,28 @@ public class Player extends Movable implements GameObj{
 	private void movePlayer(int speed, int diagSpeed, int h, int v) {
 		if (h > 0 && v == 0) {
 			//right
-			move(speed, 0);
+			position.move(speed, 0);
 		} else if (h > 0 && v < 0) {
 			//up-right
-			move(diagSpeed, -diagSpeed);
+			position.move(diagSpeed, -diagSpeed);
 		} else if (h == 0 && v < 0) {
 			//up
-			move(0, -speed);
+			position.move(0, -speed);
 		} else if (h < 0 && v < 0) {
 			//up-left
-			move(-diagSpeed, -diagSpeed);
+			position.move(-diagSpeed, -diagSpeed);
 		} else if (h < 0 && v == 0) {
 			//left
-			move(-speed, 0);
+			position.move(-speed, 0);
 		} else if (h < 0 && v > 0) {
 			//down-left
-			move(-diagSpeed, diagSpeed);
+			position.move(-diagSpeed, diagSpeed);
 		} else if (h == 0 && v > 0) {
 			//down
-			move(0, speed);
+			position.move(0, speed);
 		} else if (h > 0 && v > 0) {
 			//down-right
-			move(diagSpeed, diagSpeed);
+			position.move(diagSpeed, diagSpeed);
 		}
 	}
 	
@@ -230,19 +247,19 @@ public class Player extends Movable implements GameObj{
 	 * snap player back if the dot crossed a border
 	 */
 	private void checkBorder() {
-		if (x < Border.LEFT_BORDER + HITBOX_RADIUS) {
+		if (position.x() < Border.LEFT_BORDER + HITBOX_RADIUS) {
 			//left border collision
-			x = Border.LEFT_BORDER + HITBOX_RADIUS;
-		} else if (x > Border.RIGHT_BORDER - HITBOX_RADIUS) {
+			position.snap(Border.LEFT_BORDER + HITBOX_RADIUS, position.y());
+		} else if (position.x() > Border.RIGHT_BORDER - HITBOX_RADIUS) {
 			//right border collision
-			x = Border.RIGHT_BORDER - HITBOX_RADIUS;
+			position.snap(Border.RIGHT_BORDER - HITBOX_RADIUS, position.y());
 		}
-		if (y < Border.TOP_BORDER + HITBOX_RADIUS) {
+		if (position.y() < Border.TOP_BORDER + HITBOX_RADIUS) {
 			//left border collision
-			y = Border.TOP_BORDER + HITBOX_RADIUS;
-		} else if (y > Border.BOT_BORDER - HITBOX_RADIUS) {
+			position.snap(position.x(), Border.TOP_BORDER + HITBOX_RADIUS);
+		} else if (position.y() > Border.BOT_BORDER - HITBOX_RADIUS) {
 			//right border collision
-			y = Border.BOT_BORDER - HITBOX_RADIUS;
+			position.snap(position.x(), Border.BOT_BORDER - HITBOX_RADIUS);
 		}
 	}
 	
@@ -268,16 +285,16 @@ public class Player extends Movable implements GameObj{
 	
 	@Override
 	public void draw(Graphics g) {
-		//flicker player drawing if we are invulnerable
+		//flicker player if we are invulnerable
 		if (respawnTimer % 2 == 0)
-			drawPlayer(g, x, y);
+			drawPlayer(g, position.x(), position.y());
 		drawStats(g);
 	}
 	
 	/**
 	 * Draw the player as a red circle centered around (x,y)
 	 */
-	private static void drawPlayer(Graphics g, int x, int y) {
+	private void drawPlayer(Graphics g, int x, int y) {
 		g.setColor(Color.RED);
 		g.fillOval(x - DISPLAY_RADIUS, y - DISPLAY_RADIUS, DISPLAY_RADIUS * 2, DISPLAY_RADIUS * 2);
 		g.setColor(Color.BLACK);
