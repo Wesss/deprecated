@@ -22,7 +22,7 @@ import overhead_interfaces.Game;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 11/14/15
+ * @last_edited 12/01/15
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
@@ -112,10 +112,12 @@ public class GamePanel extends JPanel {
 
 	@Override
     public void paintComponent(Graphics g) {
-        synchronized (game) {
-            super.paintComponent(g);
-        	mainLoop.nextFrame(g);
-        }
+		if (mainLoop != null) //TODO Overhead BUG3: this method is fired once on panel initialaztion
+							  //(before game is initiallized. In that case do nothing
+	        synchronized (game) {
+	            super.paintComponent(g);
+	        	mainLoop.nextFrame(g);
+	        }
     }
 
 	//////////////////////////////////////////////////

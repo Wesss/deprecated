@@ -24,7 +24,7 @@ public class Overhead {
 	 * result in a nullPointer error (replicated in BaseTest)
 	 * game appeared unaffected after initialization completed
 	 * 
-	 * 		pre-initialization event errors temporaraly patched (see GamePanel
+	 * 		pre-initialization event errors temporaraly patched (see GamePanel)
 	 */
 	
 	/**
