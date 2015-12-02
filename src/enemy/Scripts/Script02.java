@@ -1,5 +1,7 @@
-package enemy;
+package enemy.Scripts;
 
+import enemy.CircleSpawner;
+import enemy.Script;
 import game.DodgerGame;
 import random_number_generators.ModRandom;
 

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import enemy.Scripts.Script01;
+import enemy.Scripts.Script02;
 import overhead_interfaces.GameObj;
 import overhead.MainLoop;
 import game.DodgerGame;
@@ -12,7 +14,7 @@ import game.DodgerGame;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited 11/18/15
+ * @last_edited 12/01/15
  */
 public abstract class Script implements GameObj{
 	
@@ -57,7 +59,7 @@ public abstract class Script implements GameObj{
 	// Definition
 	//////////////////////////////////////////////////
 	
-	public int stepCount; //represents the current mainloop cycle since this Script's run frame
+	public int stepCount; //represents the current mainloop cycle since this Script began
 	private DodgerGame game;
 	
 	/**

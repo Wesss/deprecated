@@ -87,7 +87,6 @@ public class DodgerGame implements Game {
 		level = 0;
 		nextLevel();
 	}
-	
 
 	//////////////////////////////////////////////////
 	// Level Script handlers
