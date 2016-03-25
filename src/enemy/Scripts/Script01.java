@@ -1,7 +1,6 @@
-package enemy.Scripts;
+package enemy.scripts;
 
 import enemy.CircleSpawner;
-import enemy.Script;
 import game.DodgerGame;
 import random_number_generators.ModRandom;
 
@@ -11,9 +10,9 @@ import java.util.Random;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited 11/23/2015
+ * @last_edited 3/24/16
  */
-public class Script01 extends Script{
+public class Script01 implements Script{
 	
 	private static final int SECT_COUNT = 10;
 	private static final int SECT_LENGTH_Y = DodgerGame.PANEL_Y / SECT_COUNT;
@@ -31,25 +30,23 @@ public class Script01 extends Script{
 		sectRand = new ModRandom(SECT_COUNT);
 		rand = new Random();
 	}
-	
+
 	@Override
-	public int endStep() {
-		return 1250;
-	}
-	
-	@Override
-	public void step() {
-		if (stepCount == 1) {
+	public void update(int frame) {
+		if (frame == 1) {
 			spawn1.setDir(0);
 			spawn1.setX(-10);
 		}
-		if (between(50, 900) && stepCount % 5 == 0) {
+		if (Scripts.between(50, frame, 900) && frame % 5 == 0) {
 			spawn1.setY(sectRand.next() * SECT_LENGTH_Y + rand.nextInt(SECT_LENGTH_Y));
 			spawn1.spawn();
 		}
-		if (stepCount == 500) {
+		if (frame == 500) {
 			spawn1.setDir(180);
 			spawn1.setX(DodgerGame.PANEL_X + 10);
+		}
+		if (frame == 1250) {
+			Scripts.deactivate(this);
 		}
 	}
 }

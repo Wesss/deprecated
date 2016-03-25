@@ -1,7 +1,6 @@
-package enemy.Scripts;
+package enemy.scripts;
 
 import enemy.CircleSpawner;
-import enemy.Script;
 import game.DodgerGame;
 import random_number_generators.ModRandom;
 
@@ -11,9 +10,9 @@ import java.util.Random;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited Summer 2015
+ * @last_edited 3/24/16
  */
-public class Script02 extends Script {
+public class Script02 implements Script {
 
 	private static final int SECT_COUNT = 10;
 	private static final int SECT_LENGTH_Y = DodgerGame.PANEL_Y / SECT_COUNT;
@@ -39,30 +38,28 @@ public class Script02 extends Script {
 		sectRand = new ModRandom(SECT_COUNT);
 		rand = new Random();
 	}
-	
+
 	@Override
-	public void step() {
-		if (between(50, 1300) && stepCount % 4 == 0) {
+	public void update(int frame) {
+		if (Scripts.between(50, frame, 1300) && frame % 4 == 0) {
 			spawn1.setY(sectRand.next() * SECT_LENGTH_Y + rand.nextInt(SECT_LENGTH_Y));
 			spawn1.spawn();
 		}
-		if (stepCount == 400 || stepCount == 700) {
+		if (frame == 400 || frame == 700) {
 			for (int i = 0; i < 5; i++) {
 				spawn2.setY(2 * i * SECT_LENGTH_Y + 20);
 				spawn2.spawn();
 			}
 		}
-		if (stepCount == 550) {
+		if (frame == 550) {
 			for (int i = 0; i < 5; i++) {
 				spawn2.setY((2 * i + 1) * SECT_LENGTH_Y + 20);
 				spawn2.spawn();
 			}
 		}
-	}
-
-	@Override
-	public int endStep() {
-		return 1600;
+		if (frame == 1600) {
+			Scripts.deactivate(this);
+		}
 	}
 
 }
