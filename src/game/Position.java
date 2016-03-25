@@ -9,6 +9,10 @@ package game;
  */
 public class Position {
 	
+	/**
+	 * TODO abstract deci-ints into its own class in Math-Random.numbers
+	 */
+	
 	//////////////////////////////////////////////////
 	// Definition
 	//////////////////////////////////////////////////

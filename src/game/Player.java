@@ -308,6 +308,6 @@ public class Player implements GameObj{
 		for(int i = 0; i < lives - 1; i++) {
 			drawPlayer(g, Border.RIGHT_BORDER - ((i * 2 + 1) * (HITBOX_RADIUS + 3)), Border.BOT_BORDER + 2 * HITBOX_RADIUS);
 		}
-		g.drawString("Wave " + game.getLevel() + "!", Border.LEFT_BORDER + 3, Border.BOT_BORDER + 20);
+		//g.drawString("Wave " + game.getLevel() + "!", Border.LEFT_BORDER + 3, Border.BOT_BORDER + 20);
 	}
 }

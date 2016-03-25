@@ -1,17 +1,21 @@
 package game;
 
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import overhead.MainLoop;
 import overhead_interfaces.Game;
-import enemy.Script;
+import enemy.scripts.Script;
+import enemy.scripts.Script01;
+import enemy.scripts.Script02;
+import enemy.scripts.Scripter;
 
 /**
- * TODO
+ * This class represents the dodging game itself
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 12/02/15
  */
 public class DodgerGame implements Game {
 	
@@ -27,16 +31,18 @@ public class DodgerGame implements Game {
 	}
 	
 	/**
-	 * TODO
+	 * A DodgerGame represents the dodging game, where:
+	 * 	player is the object the player controls
+	 * 	menu is the start menu
+	 * 
+	 *  TODO is there a better way/different place to handle these fields?
+	 * 	state reprsents the high-level state the game is currently in
+	 * 	level represents the player's current level
 	 */
 	
 	private Player player;
 	private Menu menu;
 	private State state;
-	
-	private Script curScript;
-	private Queue<Script> scriptQueue;
-	private int level;
 	
 	//////////////////////////////////////////////////
 	// Static level
@@ -45,6 +51,7 @@ public class DodgerGame implements Game {
 	private static DodgerGame game;
 	
 	/**
+	 * TODO remove this
 	 * @return the current player object
 	 */
 	public static DodgerGame getDodgerGame() {
@@ -81,38 +88,14 @@ public class DodgerGame implements Game {
 		
 		player = new Player(this);
 		
+		Queue<Script> levelQueue = new LinkedList<>();
+		levelQueue.add(new Script01());
+		levelQueue.add(new Script02());
+		
+		new Scripter(this, levelQueue);
+		
 		MainLoop.add(player, 1);
 		MainLoop.add(new Border(), 2);
-		scriptQueue = Script.createScriptQueue();
-		level = 0;
-		nextLevel();
-	}
-
-	//////////////////////////////////////////////////
-	// Level Script handlers
-	//////////////////////////////////////////////////
-	
-	/**
-	 * TODO
-	 */
-	public void nextLevel() {
-		if (scriptQueue.isEmpty()) {
-			curScript = null;
-			menuMode();
-		} else {
-			if (curScript != null)
-				Script.end(curScript);
-			level++;
-			curScript = scriptQueue.remove();
-			Script.run(curScript);
-		}
-	}
-	
-	/**
-	 * @return the current level of the game
-	 */
-	public int getLevel() {
-		return level;
 	}
 	
 	//////////////////////////////////////////////////

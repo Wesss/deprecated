@@ -8,16 +8,24 @@ import overhead_interfaces.GameObj;
  * This class represents the start menu
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 12/02/15
  */
 public class Menu implements GameObj {
+	
+	/**
+	 * This class is basically a quick hack to a start menu
+	 * 
+	 * TODO create a menu abstraction (to use as start, pause, "click to continue" types)
+	 */
 	
 	//////////////////////////////////////////////////
 	// Definition
 	//////////////////////////////////////////////////
 	
 	/**
-	 * TODO
+	 * This class represents the start menu, where:
+	 * 	game is the game this menu belongs to
+	 * 	curSelection represents the option the user pointer is pointing to
 	 */
 	private DodgerGame game;
 	private int curSelection = 0;
