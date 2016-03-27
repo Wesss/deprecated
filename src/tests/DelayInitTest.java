@@ -10,25 +10,30 @@ import overhead_interfaces.Game;
 import overhead_interfaces.GameObj;
 
 /**
- * Test for Panel/Window operations
- * (Move, Minimize, Close, Display)
+ * Test for Long initialization times
  * 
  * @author Wesley Cox
  * @last_edited 3/27/15
  */
-public class BaseTest implements Game{
+public class DelayInitTest implements Game{
 
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(BaseTest.class, dim);
+		Overhead.startGame(DelayInitTest.class, dim);
 		while(true) {}
 	}
 	
-	public BaseTest() {
-		MainLoop.add(new Line(), 0);
+	public DelayInitTest() {
+		int sum = 0;
+		for (int i = 0; i < 100000; i ++) {
+			for (int j = 0; j < 100000; j++) {
+				sum += j;
+			}
+		}
+		MainLoop.add(new Num(sum), 0);
 	}
 
 	@Override
@@ -46,12 +51,18 @@ public class BaseTest implements Game{
 	@Override
 	public void mouseMoved(int x, int y) {}
 	
-	private class Line implements GameObj {
+	private class Num implements GameObj {
+		
+		private int num;
+		
+		public Num(int num) {
+			this.num = num;
+		}
 
 		@Override
 		public void draw(Graphics g) {
 			g.setColor(Color.BLACK);
-			g.drawLine(100, 100, 400, 400);
+			g.drawString("" + num, 100, 100);
 		}
 
 		@Override
