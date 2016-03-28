@@ -13,7 +13,7 @@ import numbers.MyMath;
  * A Circle object represents a basic enemy circle the player must avoid
  *  
  * @author Wesley Cox
- * @last_edited 12/01/15
+ * @last_edited 3/27/16
  */
 public class Circle implements Enemy {
 	
@@ -36,6 +36,7 @@ public class Circle implements Enemy {
 	private Position position;
 	private int velx, vely, radius;
 	private Player player;
+	private MainLoop mainLoop;
 	
 	//////////////////////////////////////////////////
 	// Initialization
@@ -50,7 +51,7 @@ public class Circle implements Enemy {
 	 * @param speed
 	 * @param radius
 	 */
-	public Circle(int x, int y, int direction, int speed, int radius) {
+	public Circle(int x, int y, int direction, int speed, int radius, MainLoop mainLoop) {
 		position = new Position(x, y);
 			
 		velx = (int)(speed * Math.cos(Math.toRadians(direction)));
@@ -85,7 +86,7 @@ public class Circle implements Enemy {
 			player.collided(this);
 		}
 		if(offScreen()) {
-			MainLoop.remove(this);
+			mainLoop.remove(this);
 		}
 	}
 	

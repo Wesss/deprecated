@@ -2,6 +2,7 @@ package enemy.scripts;
 
 import enemy.CircleSpawner;
 import game.DodgerGame;
+import overhead.MainLoop;
 import random_number_generators.ModRandom;
 
 import java.util.Random;
@@ -22,8 +23,8 @@ public class Script01 implements Script{
 	private ModRandom sectRand;
 	private Random rand;
 	
-	public Script01() {
-		spawn1 = new CircleSpawner();
+	public Script01(MainLoop mainLoop) {
+		spawn1 = new CircleSpawner(mainLoop);
 		spawn1.setRadius(8);
 		spawn1.setSpeed(20);
 		

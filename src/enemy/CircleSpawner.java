@@ -6,7 +6,7 @@ import overhead.MainLoop;
  * TODO
  * 
  * @author Wesley Cox
- * @last_edited 11/15/15
+ * @last_edited 3/27/16
  */
 public class CircleSpawner {
 	
@@ -26,13 +26,15 @@ public class CircleSpawner {
 	private int direction;
 	private int speed;
 	private int radius;
+	private MainLoop mainLoop;
 	
 	//////////////////////////////////////////////////
 	// Initialization
 	//////////////////////////////////////////////////
 	
-	public CircleSpawner() {
+	public CircleSpawner(MainLoop mainLoop) {
 		radius = 1;
+		this.mainLoop = mainLoop;
 	}
 	
 	//////////////////////////////////////////////////
@@ -87,6 +89,6 @@ public class CircleSpawner {
 	 * @return a new Enemy instance based on the most recent parameter settings
 	 */
 	public void spawn() {
-		MainLoop.add(new Circle(x, y, direction, speed, radius));
+		mainLoop.add(new Circle(x, y, direction, speed, radius, mainLoop));
 	}
 }

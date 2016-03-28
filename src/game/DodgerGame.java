@@ -15,7 +15,7 @@ import enemy.scripts.Scripter;
  * This class represents the dodging game itself
  * 
  * @author Wesley Cox
- * @last_edited 12/02/15
+ * @last_edited 3/27/16
  */
 public class DodgerGame implements Game {
 	
@@ -25,6 +25,7 @@ public class DodgerGame implements Game {
 	
 	public static final int PANEL_X = 500;
 	public static final int PANEL_Y = 500;
+	public static final int FPS = 60;
 	
 	private static enum State{
 		MENU, GAME
@@ -34,40 +35,25 @@ public class DodgerGame implements Game {
 	 * A DodgerGame represents the dodging game, where:
 	 * 	player is the object the player controls
 	 * 	menu is the start menu
+	 *  MainLoop is the update cycle created for this game
 	 * 
 	 *  TODO is there a better way/different place to handle these fields?
-	 * 	state reprsents the high-level state the game is currently in
+	 * 	state represents the high-level state the game is currently in
 	 * 	level represents the player's current level
 	 */
 	
 	private Player player;
 	private Menu menu;
 	private State state;
-	
-	//////////////////////////////////////////////////
-	// Static level
-	//////////////////////////////////////////////////
-	
-	private static DodgerGame game;
-	
-	/**
-	 * TODO remove this
-	 * @return the current player object
-	 */
-	public static DodgerGame getDodgerGame() {
-		if (game == null) {
-			throw new RuntimeException("Attempted to get game reference before initialization");
-		}
-		return game;
-	}
+	private MainLoop mainLoop;
 	
 	//////////////////////////////////////////////////
 	// Initialization
 	//////////////////////////////////////////////////
 	
-	public DodgerGame() {
+	public DodgerGame(MainLoop mainLoop) {
+		this.mainLoop = mainLoop;
 		menuMode();
-		game = this;
 	}
 	
 	//////////////////////////////////////////////////
@@ -76,26 +62,26 @@ public class DodgerGame implements Game {
 	
 	public void menuMode() {
 		state = State.MENU;
-		MainLoop.clear();
+		mainLoop.clear();
 		
 		menu = new Menu(this);
-		MainLoop.add(menu);
+		mainLoop.add(menu);
 	}
 	
 	public void gameMode() {
 		state = State.GAME;
-		MainLoop.clear();
+		mainLoop.clear();
 		
 		player = new Player(this);
 		
 		Queue<Script> levelQueue = new LinkedList<>();
-		levelQueue.add(new Script01());
-		levelQueue.add(new Script02());
+		levelQueue.add(new Script01(mainLoop));
+		levelQueue.add(new Script02(mainLoop));
 		
-		new Scripter(this, levelQueue);
+		new Scripter(this, levelQueue, mainLoop);
 		
-		MainLoop.add(player, 1);
-		MainLoop.add(new Border(), 2);
+		mainLoop.add(player, 1);
+		mainLoop.add(new Border(), 2);
 	}
 	
 	//////////////////////////////////////////////////

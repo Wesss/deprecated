@@ -12,7 +12,7 @@ import overhead_interfaces.GameObj;
  * Runs Overhead involving script execution
  * 
  * @author Wesley Cox
- * @last_edited 3/24/16
+ * @last_edited 3/27/16
  */
 public class Scripter implements GameObj {
 	
@@ -36,11 +36,11 @@ public class Scripter implements GameObj {
 	 * TODO
 	 * @param levelQueue the levels to be run
 	 */
-	public Scripter(DodgerGame game, Queue<Script> levelQueue) {
+	public Scripter(DodgerGame game, Queue<Script> levelQueue, MainLoop mainLoop) {
 		this.game = game;
 		this.levelQueue = levelQueue;
 		startNext();
-		MainLoop.add(this);
+		mainLoop.add(this);
 	}
 	
 	//////////////////////////////////////////////////
