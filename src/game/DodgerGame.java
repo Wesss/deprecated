@@ -17,7 +17,7 @@ import enemy.scripts.Scripter;
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public class DodgerGame implements Game {
+public class DodgerGame implements DodgeGame {
 	
 	//////////////////////////////////////////////////
 	// Definition
@@ -60,7 +60,7 @@ public class DodgerGame implements Game {
 	// Game mode handling
 	//////////////////////////////////////////////////
 	
-	public void menuMode() {
+	private void menuMode() {
 		state = State.MENU;
 		mainLoop.clear();
 		
@@ -68,7 +68,7 @@ public class DodgerGame implements Game {
 		mainLoop.add(menu);
 	}
 	
-	public void gameMode() {
+	private void gameMode() {
 		state = State.GAME;
 		mainLoop.clear();
 		
@@ -85,7 +85,31 @@ public class DodgerGame implements Game {
 	}
 	
 	//////////////////////////////////////////////////
-	// Key-press callees
+	// Game state "Events"
+	//////////////////////////////////////////////////
+	
+	@Override
+	public void menuExitGame() {
+		System.exit(0);
+	}
+	
+	@Override
+	public void menuStartGame() {
+		gameMode();
+	}
+	
+	@Override
+	public void playerOutOfLives() {
+		menuMode();
+	}
+	
+	@Override
+	public void scripterOutOfLevels() {
+		menuMode();
+	}
+	
+	//////////////////////////////////////////////////
+	// Key-press Events
 	//////////////////////////////////////////////////
 	
 	@Override
@@ -147,7 +171,6 @@ public class DodgerGame implements Game {
 		case MENU :
 		}
 	}
-
 	
 	//The mouse is not used in this game
 	@Override

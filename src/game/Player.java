@@ -10,7 +10,7 @@ import enemy.Enemy;
  * This class represents the red dot the player controls within the game
  * 
  * @author Wesley Cox
- * @last_edited 12/01/15
+ * @last_edited 3/27/16
  */
 public class Player implements GameObj{
 	
@@ -51,7 +51,6 @@ public class Player implements GameObj{
 	 * The player is invulnerable if respawnTimer > 0
 	 * 
 	 * Representation Invariant:
-	 * 	game != null
 	 * 	lives >= 0
 	 * 	respawnTimer >= 0
 	 * 								
@@ -59,9 +58,9 @@ public class Player implements GameObj{
 	private Position position;
 	private boolean moveUp, moveDown, moveLeft, moveRight, upPriority, leftPriority;
 	private boolean isSlow;
-	private DodgerGame game;
+	private DodgeGame game;
 	
-	private int lives; //TODO move to DodgerGame?
+	private int lives;
 	private int respawnTimer;
 	
 	//////////////////////////////////////////////////
@@ -72,7 +71,7 @@ public class Player implements GameObj{
 	 * TODO
 	 * @param game
 	 */
-	public Player(DodgerGame game) {
+	public Player(DodgeGame game) {
 		position = new Position(250, 250);
 		this.game = game;
 		
@@ -274,7 +273,7 @@ public class Player implements GameObj{
 			if (lives > 0) {
 				setInvulnerable(RESPAWN_TIME);
 			} else {
-				game.menuMode();
+				game.playerOutOfLives();
 			}
 		}
 	}

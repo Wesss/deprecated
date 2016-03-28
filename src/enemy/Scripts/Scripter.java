@@ -55,7 +55,7 @@ public class Scripter implements GameObj {
 	private void startNext() {
 		if (levelQueue.isEmpty()) {
 			inLevel = false;
-			game.menuMode(); //TODO create different function call
+			game.scripterOutOfLevels();
 		} else {
 			inLevel = true;
 			curScript = levelQueue.remove();

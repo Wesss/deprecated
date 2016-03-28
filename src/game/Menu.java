@@ -63,10 +63,10 @@ public class Menu implements GameObj {
 	public void select() {
 		switch (curSelection) {
 		case 0 :
-			game.gameMode();
+			game.menuStartGame();
 			break;
 		case 1 :
-			System.exit(0);
+			game.menuExitGame();
 		}
 	}
 	
