@@ -1,6 +1,8 @@
 package overhead;
 
 import java.awt.Dimension;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import overhead_interfaces.Game;
 
@@ -9,43 +11,58 @@ import overhead_interfaces.Game;
  * the entire Overhead of a Game.
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 3/27/16
  */
 public class Overhead {
 	
 	/**
-	 * TODO get rid of class parameter passing somehow (factory method?)
-	 * 
 	 * Bugs
-	 * TODO BUG1: Some rare race condition still exists (via dodger gDodgerame startup)
+	 * TODO BUG1: Some rare race condition still exists (via dodger DodgerGame startup)
 	 * TODO BUG2: Sometimes keyboard listener does not work upon startup (via EventFireTest)
-	 * 
-	 * TODO BUG3: upon a game take a long time to initialize, a single repaint call all events fed into the game
-	 * result in a nullPointer error (replicated in BaseTest)
-	 * game appeared unaffected after initialization completed
-	 * 
-	 * 		pre-initialization event errors temporaraly patched (see GamePanel)
 	 */
 	
 	/**
-	 * Runs the given game; providing EventListeners, Panel/Frame, and
-	 * the MainLoop
+	 * <b> Given game class must contain a constructor of type Game() or Game(MainLoop).</b>
+	 * Instantiates and runs a game of the given class;
+	 * If constructor of type Game(MainLoop) exists, then that constructor is called passing in the MainLoop
+	 * created for this game. Otherwise Game() is called.
+	 * The game runs at a speed of given fps (frames per second) on a panel of given dimension.
+	 * 
 	 * @param <T> The type of game to instantiate
 	 * 
 	 * @param gametype the class of the type of game to instantiate (reached with MyGame.class)
 	 * @param dimension the size of the window the game is to be played on
+	 * 
+	 * @return the MainLoop created for this game
 	 */
-	public static <T extends Game> void startGame(Class<T> gametype, Dimension dimension) {
-		MainLoop mainLoop = new MainLoop();
+	public static <T extends Game> MainLoop startGame(Class<T> gametype, int fps, Dimension dimension) {
+		MainLoop mainLoop = new MainLoop(fps);
 		GamePanel panel = new GamePanel(dimension);
 		
 		Game game = null;
+		
 		try {
-			game = gametype.newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			System.exit(1);
-		} catch (IllegalAccessException e) {
+			Constructor<?> emptyConstructor = null;
+			
+			Constructor<?>[] constructors = gametype.getConstructors();
+			for (int i = 0; i < constructors.length; i++) {
+				Class<?>[] parameters = constructors[i].getParameterTypes();
+				if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
+					game = (Game)constructors[i].newInstance(mainLoop);
+				} else if (parameters.length == 0) {
+					emptyConstructor = constructors[i];
+				}
+			}
+			
+			if (game == null) {
+				if (emptyConstructor != null) {
+					game = (Game)emptyConstructor.newInstance();
+				} else {
+					throw new RuntimeException("given game class does not contain an appropriate constructor");
+				}
+			}
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -54,6 +71,8 @@ public class Overhead {
 		panel.setReferences(game, mainLoop);
 		
 		mainLoop.start();
+		
+		return mainLoop;
 	}
 	
 	/**

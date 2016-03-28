@@ -13,24 +13,25 @@ import overhead_interfaces.GameObj;
  * (Update and Paint cycles)
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 3/27/16
  */
 public class BasicAnimationTest implements Game{
 	
 	private static final int PANEL_X = 600;
 	private static final int PANEL_Y = 600;
+	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(BasicAnimationTest.class, dim);
+		Overhead.startGame(BasicAnimationTest.class, FPS, dim);
 		while(true) {}
 	}
 	
-	public BasicAnimationTest() {
-		MainLoop.add(new WrapCircle(500, 70, 40), 0);
-		MainLoop.add(new Display1(), 0);
-		MainLoop.add(new Display2(), 0);
-		MainLoop.add(new Display3(), 0);
+	public BasicAnimationTest(MainLoop mainLoop) {
+		mainLoop.add(new WrapCircle(500, 70, 40), 0);
+		mainLoop.add(new Display1(), 0);
+		mainLoop.add(new Display2(), 0);
+		mainLoop.add(new Display3(), 0);
 	}
 
 	@Override

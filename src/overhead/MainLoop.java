@@ -7,8 +7,7 @@ import java.util.HashSet;
 import overhead_interfaces.GameObj;
 
 /**
- * This class keeps track of all GameObjs in a game and repeatedly updates
- * and draws them 60 times per second
+ * This singleton class keeps track of all GameObjs in a game and repeatedly updates in fixed time intervals
  * 
  * TODO: make class non-static?
  * TODO: make update cycle dynamic
@@ -17,7 +16,7 @@ import overhead_interfaces.GameObj;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 3/27/16
  */
 public class MainLoop {
 
@@ -28,15 +27,18 @@ public class MainLoop {
 	/**
 	 * TODO
 	 */
-
+	
+	private MainLoop singleton = null;
 	private GamePanel panel;
 	
-	private static HashMap<Integer, HashSet<GameObj>> layer2objs;
-	private static HashMap<GameObj, Integer> obj2layer;
-	private static int maxLayer;
+    private Thread updateCycle;
 	
-	private static HashMap<GameObj, Integer> delayedAdd;
-	private static HashSet<GameObj> delayedRemove;
+	private HashMap<Integer, HashSet<GameObj>> layerToObj;
+	private HashMap<GameObj, Integer> objToLayer;
+	private int maxLayer;
+	
+	private HashMap<GameObj, Integer> delayedAdd;
+	private HashSet<GameObj> delayedRemove;
 	
 	//////////////////////////////////////////////////
 	// Initialization
@@ -44,18 +46,24 @@ public class MainLoop {
 	
 	/**
 	 * TODO
+	 * @param FPS
 	 */
-	protected MainLoop() {
-		layer2objs = new HashMap<Integer, HashSet<GameObj>>();
-		obj2layer = new HashMap<GameObj, Integer>();
-		maxLayer = 0;
+	protected MainLoop(int FPS) {
+		if (singleton != null)
+			throw new RuntimeException("Atempted to create a second MainLoop");
 		
+		singleton = this;
+		updateCycle = new Thread(new Animate(FPS));
+		
+		layerToObj = new HashMap<Integer, HashSet<GameObj>>();
+		objToLayer = new HashMap<GameObj, Integer>();
+		maxLayer = 0;
 		delayedAdd = new HashMap<GameObj, Integer>();
 		delayedRemove = new HashSet<GameObj>();
 	}
 	
 	/**
-	 * 
+	 * TODO
 	 * @param p the GamePanel displaying the game
 	 */
 	protected void setReferences(GamePanel p) {
@@ -66,8 +74,7 @@ public class MainLoop {
 	 * starts the update/repaint cycle
 	 */
 	protected void start() {
-        Thread t = new Thread(new Animate(60));
-        t.start();
+        updateCycle.start();
 	}
 	
 	//////////////////////////////////////////////////
@@ -78,10 +85,9 @@ public class MainLoop {
 	 * Adds an object to the set of objects to painted and updated with the MainLoop
 	 * with default layer 0
 	 * @param obj the object to be added to the loop
-	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of draw-able objects
 	 */
-	public static void add(GameObj obj) {
+	public void add(GameObj obj) {
 		add(obj, 0);
 	}
 	
@@ -93,7 +99,7 @@ public class MainLoop {
 	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of draw-able objects
 	 */
-	public static void add(GameObj obj, int layer) {
+	public void add(GameObj obj, int layer) {
 		if (contains(obj)) {
 			throw new RuntimeException("Tried to add obj " + obj
 					+ " to painter whilst already a part of the drawable set");
@@ -111,16 +117,16 @@ public class MainLoop {
 	 *		Update order and Paint order within a single layer are undefined.
 	 * @requires obj is not already in the set of MainLoop objects
 	 */
-	private static void addDelayed(GameObj obj, int layer) {
-		obj2layer.put(obj, layer);
+	private void addDelayed(GameObj obj, int layer) {
+		objToLayer.put(obj, layer);
 		
-		if (!layer2objs.containsKey(layer)) {
-			layer2objs.put(layer, new HashSet<GameObj>());
+		if (!layerToObj.containsKey(layer)) {
+			layerToObj.put(layer, new HashSet<GameObj>());
 			if (layer > maxLayer) {
 				maxLayer = layer;
 			}
 		}
-		layer2objs.get(layer).add(obj);
+		layerToObj.get(layer).add(obj);
 	}
 	
 	/**
@@ -128,8 +134,8 @@ public class MainLoop {
 	 * @return true when given object exists within the set of objects to painted
 	 * 		and updated with the MainLoop
 	 */
-	public static boolean contains(GameObj obj) {
-		return (obj2layer.containsKey(obj) || delayedAdd.keySet().contains(obj))
+	public boolean contains(GameObj obj) {
+		return (objToLayer.containsKey(obj) || delayedAdd.keySet().contains(obj))
 				&& !delayedRemove.contains(obj);
 	}
 	
@@ -137,7 +143,7 @@ public class MainLoop {
 	 * removes an object from the set of objects to be painted and updated with the MainLoop
 	 * @param obj the Object to remove
 	 */
-	public static void remove(GameObj obj) {
+	public void remove(GameObj obj) {
 		if (!contains(obj)) {
 			throw new IllegalArgumentException("Tried to remove non-existant obj "
 					+ obj + " from the MainLoop");
@@ -152,17 +158,17 @@ public class MainLoop {
 	 * @param obj the object to be removed the loop
 	 * @requires obj is not already in the set of MainLoop objects
 	 */
-	private static void removeDelayed(GameObj obj) {
-		layer2objs.get(obj2layer.get(obj)).remove(obj);
-		obj2layer.remove(obj);
+	private void removeDelayed(GameObj obj) {
+		layerToObj.get(objToLayer.get(obj)).remove(obj);
+		objToLayer.remove(obj);
 		delayedAdd.remove(obj);
 	}
 	
 	/**
 	 * Clears all game objects from the Main Loop
 	 */
-	public static void clear() {
-		for(GameObj obj : obj2layer.keySet()) {
+	public void clear() {
+		for(GameObj obj : objToLayer.keySet()) {
 			if (!delayedRemove.contains(obj))
 				remove(obj);
 		}
@@ -178,8 +184,8 @@ public class MainLoop {
 	 */
 	protected void nextFrame(Graphics g) {
 		for (int i = 0; i <= maxLayer; i++) {
-			if (layer2objs.containsKey(i)) {
-				HashSet<GameObj> objs = layer2objs.get(i);
+			if (layerToObj.containsKey(i)) {
+				HashSet<GameObj> objs = layerToObj.get(i);
 				for (GameObj obj : objs) {
 					obj.update();
 				}
@@ -194,16 +200,14 @@ public class MainLoop {
 		delayedRemove.clear();
 		
 		for (int i = 0; i <= maxLayer; i++) {
-			if (layer2objs.containsKey(i)) {
-				HashSet<GameObj> objs = layer2objs.get(i);
+			if (layerToObj.containsKey(i)) {
+				HashSet<GameObj> objs = layerToObj.get(i);
 				for (GameObj obj : objs) {
 					obj.draw(g);
 				}
 			}
 		}
 	}
-	
-
     
     /**
      * This Thread fires an update and a screen refresh to the game based on

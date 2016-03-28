@@ -13,27 +13,28 @@ import overhead_interfaces.GameObj;
  * Test for Long initialization times
  * 
  * @author Wesley Cox
- * @last_edited 3/27/15
+ * @last_edited 3/27/16
  */
 public class DelayInitTest implements Game{
 
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
+	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(DelayInitTest.class, dim);
+		Overhead.startGame(DelayInitTest.class, FPS, dim);
 		while(true) {}
 	}
 	
-	public DelayInitTest() {
+	public DelayInitTest(MainLoop mainLoop) {
 		int sum = 0;
 		for (int i = 0; i < 100000; i ++) {
 			for (int j = 0; j < 100000; j++) {
 				sum += j;
 			}
 		}
-		MainLoop.add(new Num(sum), 0);
+		mainLoop.add(new Num(sum), 0);
 	}
 
 	@Override

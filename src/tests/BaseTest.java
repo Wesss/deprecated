@@ -14,21 +14,22 @@ import overhead_interfaces.GameObj;
  * (Move, Minimize, Close, Display)
  * 
  * @author Wesley Cox
- * @last_edited 3/27/15
+ * @last_edited 3/27/16
  */
 public class BaseTest implements Game{
 
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
+	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(BaseTest.class, dim);
+		Overhead.startGame(BaseTest.class, FPS, dim);
 		while(true) {}
 	}
 	
-	public BaseTest() {
-		MainLoop.add(new Line(), 0);
+	public BaseTest(MainLoop mainLoop) {
+		mainLoop.add(new Line(), 0);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import overhead_interfaces.Game;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 3/27/15
+ * @last_edited 3/27/16
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
@@ -32,7 +32,13 @@ public class GamePanel extends JPanel {
 	//////////////////////////////////////////////////
 	
 	/**
-	 * TODO
+	 * After creation, but before setReferences:
+	 * game == EmptyGame
+	 * mainLoop == null
+	 * Even as user events and repaint requests come in, they will be ignored until setReferences is called.
+	 * 
+	 * After setReferences:
+	 * game and mainLoop are set to appropriately initialized overhead objects
 	 */
 	
 	private Game game;
@@ -62,8 +68,6 @@ public class GamePanel extends JPanel {
 	 */
     protected GamePanel(Dimension gameArea) {
     	super();
-    	//TODO Overhead BUG3: this line of code fixes pre-init
-    	//event errors by giving the events empty methods to call.
     	game = new EmptyGame();
     	
     	this.setPreferredSize(gameArea);
@@ -112,8 +116,7 @@ public class GamePanel extends JPanel {
 
 	@Override
     public void paintComponent(Graphics g) {
-		if (mainLoop != null) //TODO Overhead BUG3: this method is fired once on panel initialaztion
-							  //(before game is initiallized. In that case do nothing
+		if (mainLoop != null)
 	        synchronized (game) {
 	            super.paintComponent(g);
 	        	mainLoop.nextFrame(g);
@@ -209,8 +212,8 @@ public class GamePanel extends JPanel {
 		 * Represents an event where the mouse is simply moved, regardless of
 		 * whether or not the mouse is pressed.
 		 * 
-		 * @param x x coordinate of the current mouse position
-		 * @param y y coordinate of the current mouse position
+		 * @param x coordinate of the current mouse position
+		 * @param y coordinate of the current mouse position
 		 */
     	private void mouseMovedTo(int x, int y) {
     		synchronized (game) {

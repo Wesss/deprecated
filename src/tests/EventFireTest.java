@@ -14,32 +14,33 @@ import overhead_interfaces.GameObj;
  * (Key press/release, Mouse press/release, mouse position)
  * 
  * @author Wesley Cox
- * @last_edited 11/23/15
+ * @last_edited 3/27/16
  */
 public class EventFireTest implements Game{
 	
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
+	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(EventFireTest.class, dim);
+		Overhead.startGame(EventFireTest.class, FPS, dim);
 		while(true) {}
 	}
 
 	private GameString[] log;
 	private GameString mouseLoc;
 	
-	public EventFireTest() {
+	public EventFireTest(MainLoop mainLoop) {
 		log = new GameString[20];
 		
 		for (int i = 0; i < log.length; i++) {
 			log[i] = new GameString(20, 430 - (i * 20));
-			MainLoop.add(log[i], 0);
+			mainLoop.add(log[i], 0);
 		}
 		
 		mouseLoc = new GameString(20, 460);
-		MainLoop.add(mouseLoc, 0);
+		mainLoop.add(mouseLoc, 0);
 	}
 
 	@Override
