@@ -36,7 +36,7 @@ public class Overhead {
 	 * @return the MainLoop created for this game
 	 */
 	public static <T extends Game> MainLoop startGame(Class<T> gametype, int fps, Dimension dimension) {
-		MainLoop mainLoop = new MainLoop(fps);
+		MainLoop mainLoop = MainLoop.init(fps);
 		GamePanel panel = new GamePanel(dimension);
 		
 		Game game = null;

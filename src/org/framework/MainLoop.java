@@ -70,14 +70,7 @@ public class MainLoop {
 	// Initialization
 	//////////////////////////////////////////////////
 	
-	/**
-	 * TODO
-	 * @param FPS
-	 */
-	protected MainLoop(int FPS) {
-		if (singleton != null)
-			throw new RuntimeException("Atempted to create a second MainLoop");
-		
+	private MainLoop(int FPS) {
 		singleton = this;
 		updateCycle = new Thread(new Animate(FPS));
 		
@@ -88,6 +81,18 @@ public class MainLoop {
 		markedRemove = new HashSet<GameObj>();
 	}
 	
+	/**
+	 * @param FPS the desired frames(updates) per second 
+	 */
+	protected static MainLoop init(int FPS) {
+		if (singleton != null)
+			throw new RuntimeException("Atempted to initiallize a second MainLoop");
+		return new MainLoop(FPS);
+	}
+	
+	/**
+	 * @return the MainLoop currently being run
+	 */
 	public static MainLoop getMainLoop() {
 		if (singleton == null)
 			throw new RuntimeException("MainLoop not initialized");
