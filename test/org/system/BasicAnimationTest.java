@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import org.framework.MainLoop;
-import org.framework.Overhead;
-import org.framework.interfaces.Game;
+import org.framework.GameFramework;
+import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -15,7 +15,7 @@ import org.framework.interfaces.GameObj;
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public class BasicAnimationTest implements Game{
+public class BasicAnimationTest implements GameEventListener{
 	
 	private static final int PANEL_X = 600;
 	private static final int PANEL_Y = 600;
@@ -23,7 +23,7 @@ public class BasicAnimationTest implements Game{
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(BasicAnimationTest.class, FPS, dim);
+		GameFramework.startGame(BasicAnimationTest.class, FPS, dim);
 		while(true) {}
 	}
 	

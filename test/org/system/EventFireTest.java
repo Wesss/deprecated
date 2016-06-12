@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import org.framework.MainLoop;
-import org.framework.Overhead;
-import org.framework.interfaces.Game;
+import org.framework.GameFramework;
+import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -16,7 +16,7 @@ import org.framework.interfaces.GameObj;
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public class EventFireTest implements Game{
+public class EventFireTest implements GameEventListener{
 	
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
@@ -24,7 +24,7 @@ public class EventFireTest implements Game{
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(EventFireTest.class, FPS, dim);
+		GameFramework.startGame(EventFireTest.class, FPS, dim);
 		while(true) {}
 	}
 

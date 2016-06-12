@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.framework.interfaces.Game;
+import org.framework.interfaces.GameEventListener;
 
 /**
  * Handles the display of the given game.
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
 	 * game and mainLoop are set to appropriately initialized overhead objects
 	 */
 	
-	private Game game;
+	private GameEventListener game;
 	private MainLoop mainLoop;
 	
 	//////////////////////////////////////////////////
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(new MouseMoveLis());
     }
     
-    private class EmptyGame implements Game {
+    private class EmptyGame implements GameEventListener {
 		public void keyPressed(int keyCode) {}
 		public void keyReleased(int keyCode) {}
 		public void mousePressed(int x, int y, int button) {}
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel {
      * @param g The Game this Panel displays
      * @param m The MainLoop powering the Game
      */
-    protected void setReferences(Game g, MainLoop m) {
+    protected void setReferences(GameEventListener g, MainLoop m) {
     	game = g;
     	mainLoop = m;
     }

@@ -7,7 +7,7 @@ package org.framework.interfaces;
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public interface Game {
+public interface GameEventListener {
 	
 	/**
 	 * Fires appropriate commands when the provided key (on the keyboard)

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.framework.interfaces.Game;
+import org.framework.interfaces.GameEventListener;
 
 /**
  * This is a non-instantiable function holding class that is responsible for running
@@ -13,7 +13,7 @@ import org.framework.interfaces.Game;
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public class Overhead {
+public class GameFramework {
 	
 	/**
 	 * Bugs
@@ -35,11 +35,11 @@ public class Overhead {
 	 * 
 	 * @return the MainLoop created for this game
 	 */
-	public static <T extends Game> MainLoop startGame(Class<T> gametype, int fps, Dimension dimension) {
+	public static <T extends GameEventListener> MainLoop startGame(Class<T> gametype, int fps, Dimension dimension) {
 		MainLoop mainLoop = MainLoop.init(fps);
 		GamePanel panel = new GamePanel(dimension);
 		
-		Game game = null;
+		GameEventListener game = null;
 		
 		try {
 			Constructor<?> emptyConstructor = null;
@@ -48,7 +48,7 @@ public class Overhead {
 			for (int i = 0; i < constructors.length; i++) {
 				Class<?>[] parameters = constructors[i].getParameterTypes();
 				if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
-					game = (Game)constructors[i].newInstance(mainLoop);
+					game = (GameEventListener)constructors[i].newInstance(mainLoop);
 				} else if (parameters.length == 0) {
 					emptyConstructor = constructors[i];
 				}
@@ -56,7 +56,7 @@ public class Overhead {
 			
 			if (game == null) {
 				if (emptyConstructor != null) {
-					game = (Game)emptyConstructor.newInstance();
+					game = (GameEventListener)emptyConstructor.newInstance();
 				} else {
 					throw new RuntimeException("given game class does not contain an appropriate constructor");
 				}
@@ -78,5 +78,5 @@ public class Overhead {
 	/**
 	 * Disables creation
 	 */
-	private Overhead() {}
+	private GameFramework() {}
 }

@@ -135,8 +135,8 @@ public class MainLoop {
 	 * Adds an object to the set of objects to painted and updated with the MainLoop
 	 * @param obj the object to be added to the loop
 	 * @param layer the layer in which the object is to be painted <br>
-	 * 		Layer 0 represents the back-most layer of drawing. <br>
-	 *		Update order and Paint order within a single layer are undefined.
+	 * 		<UL><LI> Layer 0 represents the back-most layer of drawing.
+	 *		<LI> Update order and Paint order within a single layer are undefined. </UL>
 	 * @requires obj is not already in the set of draw-able objects
 	 */
 	public void add(GameObj obj, int layer) {
