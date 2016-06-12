@@ -21,9 +21,9 @@ public class GameFramework {
 	 */
 	
 	/**
-	 * <b> Given game class must contain a constructor of type Game() or Game(MainLoop).</b>
+	 * <b> Given game class must contain a constructor of type GameEventListener() or GameEventListener(MainLoop).</b>
 	 * Instantiates and runs a game of the given class;
-	 * If constructor of type Game(MainLoop) exists, then that constructor is called passing in the MainLoop
+	 * If constructor of type GameEventListener(MainLoop) exists, then that constructor is called passing in the MainLoop
 	 * created for this game. Otherwise Game() is called.
 	 * The game runs at a speed of given fps (frames per second) on a panel of given dimension.
 	 * 
