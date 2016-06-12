@@ -9,8 +9,6 @@ import org.framework.interfaces.GameObj;
 /**
  * This singleton class keeps track of all GameObjs in a game and repeatedly updates in fixed time intervals
  * 
- * TODO: make class non-static?
- * TODO: make update cycle dynamic
  * TODO: fix timing code
  * TODO: still untested
  * TODO: create non-parallel abstraction?
@@ -82,6 +80,7 @@ public class MainLoop {
 	}
 	
 	/**
+	 * Initializes the MainLoop
 	 * @param FPS the desired frames(updates) per second 
 	 */
 	protected static MainLoop init(int FPS) {
@@ -91,16 +90,7 @@ public class MainLoop {
 	}
 	
 	/**
-	 * @return the MainLoop currently being run
-	 */
-	public static MainLoop getMainLoop() {
-		if (singleton == null)
-			throw new RuntimeException("MainLoop not initialized");
-		return singleton;
-	}
-	
-	/**
-	 * TODO
+	 * Sets up proper references needed to run the MainLoop
 	 * @param p the GamePanel displaying the game
 	 */
 	protected void setReferences(GamePanel p) {
@@ -108,10 +98,20 @@ public class MainLoop {
 	}
 	
 	/**
-	 * starts the update/repaint cycle
+	 * Starts the update/repaint cycle
+	 * @requires setReferences be called before this
 	 */
 	protected void start() {
         updateCycle.start();
+	}
+	
+	/**
+	 * @return the MainLoop currently being run
+	 */
+	public static MainLoop getMainLoop() {
+		if (singleton == null)
+			throw new RuntimeException("MainLoop not initialized");
+		return singleton;
 	}
 	
 	//////////////////////////////////////////////////
