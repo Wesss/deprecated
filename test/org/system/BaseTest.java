@@ -1,4 +1,4 @@
-package tests;
+package org.system;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,12 +10,13 @@ import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
 
 /**
- * Test for Long initialization times
+ * Test for Panel/Window operations
+ * (Move, Minimize, Close, Display)
  * 
  * @author Wesley Cox
  * @last_edited 3/27/16
  */
-public class DelayInitTest implements Game{
+public class BaseTest implements Game{
 
 	private static final int PANEL_X = 500;
 	private static final int PANEL_Y = 500;
@@ -23,18 +24,12 @@ public class DelayInitTest implements Game{
 	
 	public static void main(String args[]) {
 		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		Overhead.startGame(DelayInitTest.class, FPS, dim);
+		Overhead.startGame(BaseTest.class, FPS, dim);
 		while(true) {}
 	}
 	
-	public DelayInitTest(MainLoop mainLoop) {
-		int sum = 0;
-		for (int i = 0; i < 100000; i ++) {
-			for (int j = 0; j < 100000; j++) {
-				sum += j;
-			}
-		}
-		mainLoop.add(new Num(sum), 0);
+	public BaseTest(MainLoop mainLoop) {
+		mainLoop.add(new Line(), 0);
 	}
 
 	@Override
@@ -52,18 +47,12 @@ public class DelayInitTest implements Game{
 	@Override
 	public void mouseMoved(int x, int y) {}
 	
-	private class Num implements GameObj {
-		
-		private int num;
-		
-		public Num(int num) {
-			this.num = num;
-		}
+	private class Line implements GameObj {
 
 		@Override
 		public void draw(Graphics g) {
 			g.setColor(Color.BLACK);
-			g.drawString("" + num, 100, 100);
+			g.drawLine(100, 100, 400, 400);
 		}
 
 		@Override
