@@ -22,7 +22,6 @@ import org.framework.interfaces.GameEventListener;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {

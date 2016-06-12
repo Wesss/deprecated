@@ -5,7 +5,6 @@ package org.framework.interfaces;
  * This represents an event listener that handles player input
  * 
  * @author Wesley Cox
- * last edited 6/12/16
  */
 public interface GameEventListener {
 	

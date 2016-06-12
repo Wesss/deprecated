@@ -6,7 +6,6 @@ import java.awt.Graphics;
  * This class represents an object of the game that can be displayed
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  *
  */
 public interface GameObj {

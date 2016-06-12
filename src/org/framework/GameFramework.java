@@ -11,7 +11,6 @@ import org.framework.interfaces.GameEventListener;
  * the entire Overhead of a Game.
  * 
  * @author Wesley Cox
- * last_edited 6/12/16
  */
 public class GameFramework {
 	

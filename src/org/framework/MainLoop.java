@@ -14,7 +14,6 @@ import org.framework.interfaces.GameObj;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * last_edited 6/12/16
  */
 public class MainLoop {
 
