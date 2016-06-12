@@ -115,7 +115,7 @@ public class MainLoop {
 	}
 	
 	//////////////////////////////////////////////////
-	// User Interaction
+	// User Interface
 	//////////////////////////////////////////////////
 	
 	/**
@@ -146,27 +146,6 @@ public class MainLoop {
 	}
 	
 	/**
-	 * Workaround to avoid concurrent Set modification if an obj's update method
-	 * 		adds another obj to the MainLoop
-	 * @param obj the object to be added to the loop
-	 * @param layer the layer in which the object is to be painted
-	 * 		Layer 0 represents the back-most layer of drawing.
-	 *		Update order and Paint order within a single layer are undefined.
-	 * @requires obj is not already in the set of MainLoop objects
-	 */
-	private void addDelayed(GameObj obj, int layer) {
-		objToLayer.put(obj, layer);
-		
-		if (!layerToObj.containsKey(layer)) {
-			layerToObj.put(layer, new HashSet<GameObj>());
-			if (layer > maxLayer) {
-				maxLayer = layer;
-			}
-		}
-		layerToObj.get(layer).add(obj);
-	}
-	
-	/**
 	 * @param obj the object to check for
 	 * @return true when given object exists within the set of objects to painted
 	 * 		and updated with the MainLoop
@@ -190,18 +169,6 @@ public class MainLoop {
 	}
 	
 	/**
-	 * Workaround to avoid concurrent Set modification if an obj's update method
-	 * 		adds another obj to the MainLoop
-	 * @param obj the object to be removed the loop
-	 * @requires obj is not already in the set of MainLoop objects
-	 */
-	private void removeDelayed(GameObj obj) {
-		layerToObj.get(objToLayer.get(obj)).remove(obj);
-		objToLayer.remove(obj);
-		markedAdd.remove(obj);
-	}
-	
-	/**
 	 * Clears all game objects from the Main Loop
 	 */
 	public void clear() {
@@ -216,7 +183,40 @@ public class MainLoop {
 	//////////////////////////////////////////////////
 	
 	/**
-	 * draws out the current state of the game
+	 * Add all GameObjs from markedAdd to the MainLoop
+	 */
+	private void resolveAdds() {
+		for (GameObj obj : markedAdd.keySet()) {
+			int layer = markedAdd.get(obj);
+			
+			objToLayer.put(obj, layer);
+			if (!layerToObj.containsKey(layer)) {
+				layerToObj.put(layer, new HashSet<GameObj>());
+				if (layer > maxLayer) {
+					maxLayer = layer;
+				}
+			}
+			layerToObj.get(layer).add(obj);
+		}
+		
+		markedAdd.clear();
+	}
+	
+	/**
+	 * Remove all GameObjs from markedRemove from the MainLoop
+	 */
+	private void resolveRemoves() {
+		for (GameObj obj : markedRemove) {
+			layerToObj.get(objToLayer.get(obj)).remove(obj);
+			objToLayer.remove(obj);
+			markedAdd.remove(obj);
+		}
+		
+		markedRemove.clear();
+	}
+	
+	/**
+	 * Moves the game state up one frame/update cycle
 	 * @param g The graphics object to paint with
 	 */
 	protected void nextFrame(Graphics g) {
@@ -229,12 +229,8 @@ public class MainLoop {
 			}
 		}
 		
-		for (GameObj obj : markedAdd.keySet())
-			addDelayed(obj, markedAdd.get(obj));
-		for (GameObj obj : markedRemove)
-			removeDelayed(obj);
-		markedAdd.clear();
-		markedRemove.clear();
+		resolveAdds();
+		resolveRemoves();
 		
 		for (int i = 0; i <= maxLayer; i++) {
 			if (layerToObj.containsKey(i)) {
