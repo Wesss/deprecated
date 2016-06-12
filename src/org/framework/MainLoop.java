@@ -1,10 +1,10 @@
-package overhead;
+package org.framework;
 
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import overhead_interfaces.GameObj;
+import org.framework.interfaces.GameObj;
 
 /**
  * This singleton class keeps track of all GameObjs in a game and repeatedly updates in fixed time intervals

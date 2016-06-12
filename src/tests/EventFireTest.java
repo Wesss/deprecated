@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import overhead.Overhead;
-import overhead.MainLoop;
-import overhead_interfaces.Game;
-import overhead_interfaces.GameObj;
+import org.framework.MainLoop;
+import org.framework.Overhead;
+import org.framework.interfaces.Game;
+import org.framework.interfaces.GameObj;
 
 /**
  * Test for EventListeners

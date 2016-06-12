@@ -1,4 +1,4 @@
-package overhead;
+package org.framework;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import overhead_interfaces.Game;
+import org.framework.interfaces.Game;
 
 /**
  * Handles the display of the given game.

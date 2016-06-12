@@ -1,4 +1,4 @@
-package overhead_interfaces;
+package org.framework.interfaces;
 
 import java.awt.Graphics;
 
