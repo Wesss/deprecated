@@ -16,7 +16,7 @@ import org.framework.interfaces.GameObj;
  * TODO: create non-parallel abstraction?
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
+ * last_edited 6/12/16
  */
 public class MainLoop {
 
@@ -24,21 +24,47 @@ public class MainLoop {
 	// Definition
 	//////////////////////////////////////////////////
 	
-	/**
-	 * TODO
+	// singleton object
+	private static MainLoop singleton = null;
+	
+	/* 
+	 * Framework objects
+	 *  
+	 * panel != null
+	 * updateCycle != null
 	 */
-	
-	private MainLoop singleton = null;
 	private GamePanel panel;
-	
     private Thread updateCycle;
 	
+    /*  
+     * Representation of all the game objects currently being updated by the MainLoop
+     * 
+     * layerToObj != null
+     * objToLayer != null
+     * maxLayer >= 0;
+     * For each GameObj obj and its associated Layer i in the MainLoop
+     * 		layerToObj.get(i).contains(obj) == true
+     * 		objsToLayer.get(obj) == i
+     * 		No other entries exist
+     * maxLayer == max(all layers in layerToObj.keyset())
+     * 		== 0 if no gameobjs present
+     */
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private HashMap<GameObj, Integer> objToLayer;
 	private int maxLayer;
 	
-	private HashMap<GameObj, Integer> delayedAdd;
-	private HashSet<GameObj> delayedRemove;
+	/* 
+	 * GameObjs to be added or removed at the end of each cycle
+	 * 
+	 * markedAdd != null
+	 * markedRemove != null
+	 * For each GameObj obj in markedAdd.keyset()
+	 * 		obj is not present in MainLoop
+	 * For each GameObj obj in markedRemove
+	 * 		obj is present in MainLoop
+	 */
+	private HashMap<GameObj, Integer> markedAdd;
+	private HashSet<GameObj> markedRemove;
 	
 	//////////////////////////////////////////////////
 	// Initialization
@@ -58,8 +84,14 @@ public class MainLoop {
 		layerToObj = new HashMap<Integer, HashSet<GameObj>>();
 		objToLayer = new HashMap<GameObj, Integer>();
 		maxLayer = 0;
-		delayedAdd = new HashMap<GameObj, Integer>();
-		delayedRemove = new HashSet<GameObj>();
+		markedAdd = new HashMap<GameObj, Integer>();
+		markedRemove = new HashSet<GameObj>();
+	}
+	
+	public static MainLoop getMainLoop() {
+		if (singleton == null)
+			throw new RuntimeException("MainLoop not initialized");
+		return singleton;
 	}
 	
 	/**
@@ -105,7 +137,7 @@ public class MainLoop {
 					+ " to painter whilst already a part of the drawable set");
 		}
 		
-		delayedAdd.put(obj, layer);
+		markedAdd.put(obj, layer);
 	}
 	
 	/**
@@ -135,8 +167,8 @@ public class MainLoop {
 	 * 		and updated with the MainLoop
 	 */
 	public boolean contains(GameObj obj) {
-		return (objToLayer.containsKey(obj) || delayedAdd.keySet().contains(obj))
-				&& !delayedRemove.contains(obj);
+		return (objToLayer.containsKey(obj) || markedAdd.keySet().contains(obj))
+				&& !markedRemove.contains(obj);
 	}
 	
 	/**
@@ -149,7 +181,7 @@ public class MainLoop {
 					+ obj + " from the MainLoop");
 		}
 		
-		delayedRemove.add(obj);
+		markedRemove.add(obj);
 	}
 	
 	/**
@@ -161,7 +193,7 @@ public class MainLoop {
 	private void removeDelayed(GameObj obj) {
 		layerToObj.get(objToLayer.get(obj)).remove(obj);
 		objToLayer.remove(obj);
-		delayedAdd.remove(obj);
+		markedAdd.remove(obj);
 	}
 	
 	/**
@@ -169,13 +201,13 @@ public class MainLoop {
 	 */
 	public void clear() {
 		for(GameObj obj : objToLayer.keySet()) {
-			if (!delayedRemove.contains(obj))
+			if (!markedRemove.contains(obj))
 				remove(obj);
 		}
 	}
 	
 	//////////////////////////////////////////////////
-	// Overhead Functionality
+	// Framework Functionality
 	//////////////////////////////////////////////////
 	
 	/**
@@ -192,12 +224,12 @@ public class MainLoop {
 			}
 		}
 		
-		for (GameObj obj : delayedAdd.keySet())
-			addDelayed(obj, delayedAdd.get(obj));
-		for (GameObj obj : delayedRemove)
+		for (GameObj obj : markedAdd.keySet())
+			addDelayed(obj, markedAdd.get(obj));
+		for (GameObj obj : markedRemove)
 			removeDelayed(obj);
-		delayedAdd.clear();
-		delayedRemove.clear();
+		markedAdd.clear();
+		markedRemove.clear();
 		
 		for (int i = 0; i <= maxLayer; i++) {
 			if (layerToObj.containsKey(i)) {
