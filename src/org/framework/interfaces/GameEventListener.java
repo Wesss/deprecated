@@ -2,10 +2,10 @@ package org.framework.interfaces;
 
 
 /**
- * This represents a Game that handles all of the data unique to the game itself
+ * This represents an event listener that handles player input
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
+ * last edited 6/12/16
  */
 public interface GameEventListener {
 	

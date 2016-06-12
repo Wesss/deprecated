@@ -14,7 +14,6 @@ import org.framework.interfaces.GameObj;
  * (Key press/release, Mouse press/release, mouse position)
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  */
 public class EventFireTest implements GameEventListener{
 	

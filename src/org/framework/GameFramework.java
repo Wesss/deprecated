@@ -11,7 +11,7 @@ import org.framework.interfaces.GameEventListener;
  * the entire Overhead of a Game.
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
+ * last_edited 6/12/16
  */
 public class GameFramework {
 	
@@ -28,14 +28,14 @@ public class GameFramework {
 	 * created for this game. Otherwise Game() is called.
 	 * The game runs at a speed of given fps (frames per second) on a panel of given dimension.
 	 * 
-	 * @param <T> The type of game to instantiate
+	 * @param <T> The type GameEventListener to use
 	 * 
-	 * @param gametype the class of the type of game to instantiate (reached with MyGame.class)
+	 * @param listener the class of the type of game to instantiate (reached with MyGame.class)
 	 * @param dimension the size of the window the game is to be played on
 	 * 
 	 * @return the MainLoop created for this game
 	 */
-	public static <T extends GameEventListener> MainLoop startGame(Class<T> gametype, int fps, Dimension dimension) {
+	public static <T extends GameEventListener> MainLoop startGame(Class<T> listener, int fps, Dimension dimension) {
 		MainLoop mainLoop = MainLoop.init(fps);
 		GamePanel panel = new GamePanel(dimension);
 		
@@ -44,7 +44,7 @@ public class GameFramework {
 		try {
 			Constructor<?> emptyConstructor = null;
 			
-			Constructor<?>[] constructors = gametype.getConstructors();
+			Constructor<?>[] constructors = listener.getConstructors();
 			for (int i = 0; i < constructors.length; i++) {
 				Class<?>[] parameters = constructors[i].getParameterTypes();
 				if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {

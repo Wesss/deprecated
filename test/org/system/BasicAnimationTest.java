@@ -13,7 +13,6 @@ import org.framework.interfaces.GameObj;
  * (Update and Paint cycles)
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  */
 public class BasicAnimationTest implements GameEventListener{
 	

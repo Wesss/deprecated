@@ -13,7 +13,6 @@ import org.framework.interfaces.GameObj;
  * Test for Long initialization times
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  */
 public class DelayInitTest implements GameEventListener{
 

@@ -14,7 +14,6 @@ import org.framework.interfaces.GameObj;
  * (Move, Minimize, Close, Display)
  * 
  * @author Wesley Cox
- * @last_edited 3/27/16
  */
 public class BaseTest implements GameEventListener{
 
