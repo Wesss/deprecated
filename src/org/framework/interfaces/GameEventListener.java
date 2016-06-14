@@ -9,6 +9,14 @@ package org.framework.interfaces;
 public interface GameEventListener {
 	
 	/**
+	 * Passes in an instantiated game (to enable callbacks).<br>
+	 * This is called before any events are fired.
+	 * 
+	 * @param game a newly instantiated game whose class was passed into GameFramework.gamestart()
+	 */
+	public void acceptGame(Game game);
+	
+	/**
 	 * Fires appropriate commands when the provided key (on the keyboard)
 	 * is initially pressed.
 	 * Specific Keys can be found using KeyEvent.getKeyText(key) and can
