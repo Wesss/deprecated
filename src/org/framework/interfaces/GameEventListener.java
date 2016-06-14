@@ -13,6 +13,7 @@ public interface GameEventListener {
 	 * This is called before any events are fired.
 	 * 
 	 * @param game a newly instantiated game whose class was passed into GameFramework.gamestart()
+	 * TODO for now client is forced to cast to their specific game type
 	 */
 	public void acceptGame(Game game);
 	

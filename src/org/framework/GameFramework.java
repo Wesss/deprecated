@@ -1,6 +1,5 @@
 package org.framework;
 
-import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -16,8 +15,10 @@ import org.framework.interfaces.GameEventListener;
  */
 public class GameFramework {
 	
+	public static final GameEventListener EMPTY_GAME_LISTENER = new EmptyGameListener();
+	
 	/**
-	 * Bugs
+	 * Bugs TODO move to issue tracker
 	 * TODO BUG1: Some rare race condition still exists (via dodger DodgerGame startup)
 	 */
 	
@@ -88,23 +89,30 @@ public class GameFramework {
 														AspectRatio ratio,
 														int updatesPerSecond) {
 		MainLoop mainLoop = MainLoop.init(updatesPerSecond);
-		GamePanel panel = new GamePanel(ratio);
+		GamePanel panel = new GamePanel(500, 500); // TODO
 		
 		Game newGame = null;
 		
 		try {
-			Constructor<?> emptyConstructor = null;
+			Constructor<?> gameConstructor = null;
 			
 			Constructor<?>[] constructors = game.getConstructors();
-			for (int i = 0; i < constructors.length; i++) {
+			for (int i = 0; i < constructors.length; i++) { // TODO refactor to while loop
 				Class<?>[] parameters = constructors[i].getParameterTypes();
-				if (parameters.length == 0) {
-					emptyConstructor = constructors[i];
+				if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
+					gameConstructor = constructors[i];
+				} else if (parameters.length == 0) {
+					if (gameConstructor == null)
+						gameConstructor = constructors[i];
 				}
 			}
 			
-			if (emptyConstructor != null) {
-				newGame = (Game)emptyConstructor.newInstance();
+			if (gameConstructor != null) {
+				if (gameConstructor.getParameterTypes().length == 1) {
+					newGame = (Game)gameConstructor.newInstance(mainLoop);
+				} else {
+					newGame = (Game)gameConstructor.newInstance();
+				}
 			} else {
 				throw new RuntimeException("given game class does not contain an empty constructor");
 			}
@@ -115,13 +123,23 @@ public class GameFramework {
 		}
 		
 		mainLoop.setReferences(panel);
-		panel.setReferences(newGame, mainLoop);
+		panel.setReferences(listener, mainLoop);
+		listener.acceptGame(newGame);
 		mainLoop.start();
-		return null;
+		return mainLoop;
 	}
 	
 	/**
 	 * Disables creation
 	 */
 	private GameFramework() {}
+	
+	private static class EmptyGameListener implements GameEventListener {
+		public void keyPressed(int keyCode) {}
+		public void keyReleased(int keyCode) {}
+		public void mousePressed(int x, int y, int button) {}
+		public void mouseReleased(int x, int y, int button) {}
+		public void mouseMoved(int x, int y) {}
+		public void acceptGame(Game game) {}
+    }
 }

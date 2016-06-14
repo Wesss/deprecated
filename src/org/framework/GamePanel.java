@@ -40,7 +40,7 @@ public class GamePanel extends JPanel {
 	 * game and mainLoop are set to appropriately initialized overhead objects
 	 */
 	
-	private GameEventListener game;
+	private GameEventListener gameEventListener;
 	private MainLoop mainLoop;
 	
 	//////////////////////////////////////////////////
@@ -67,7 +67,7 @@ public class GamePanel extends JPanel {
 	 */
     protected GamePanel(Dimension gameArea) {
     	super();
-    	game = new EmptyGame();
+    	gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
     	
     	this.setPreferredSize(gameArea);
     	createFrame();
@@ -78,21 +78,13 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(new MouseMoveLis());
     }
     
-    private class EmptyGame implements GameEventListener {
-		public void keyPressed(int keyCode) {}
-		public void keyReleased(int keyCode) {}
-		public void mousePressed(int x, int y, int button) {}
-		public void mouseReleased(int x, int y, int button) {}
-		public void mouseMoved(int x, int y) {}
-    }
-    
     /**
      * Sets the references needed for this class to function
      * @param g The Game this Panel displays
      * @param m The MainLoop powering the Game
      */
     protected void setReferences(GameEventListener g, MainLoop m) {
-    	game = g;
+    	gameEventListener = g;
     	mainLoop = m;
     }
     
@@ -110,13 +102,13 @@ public class GamePanel extends JPanel {
     }
     
 	//////////////////////////////////////////////////
-	// Overhead Functionality
+	// Framework Functionality
 	//////////////////////////////////////////////////
 
 	@Override
     public void paintComponent(Graphics g) {
 		if (mainLoop != null)
-	        synchronized (game) {
+	        synchronized (gameEventListener) {
 	            super.paintComponent(g);
 	        	mainLoop.nextFrame(g);
 	        }
@@ -144,10 +136,10 @@ public class GamePanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
         	int code = e.getKeyCode();
-        	synchronized (game) {
+        	synchronized (gameEventListener) {
         		if (!pressedKeys.contains(code)) {
         			pressedKeys.add(code);
-					game.keyPressed(code);
+					gameEventListener.keyPressed(code);
 				}
         	}
         }
@@ -155,10 +147,10 @@ public class GamePanel extends JPanel {
         @Override
         public void keyReleased(KeyEvent e) {
         	int code = e.getKeyCode();
-    		synchronized (game) {
+    		synchronized (gameEventListener) {
     			if (pressedKeys.contains(code)) {
             		pressedKeys.remove(code);
-					game.keyReleased(code);
+					gameEventListener.keyReleased(code);
 				}
         	}
         	
@@ -175,15 +167,15 @@ public class GamePanel extends JPanel {
 
     	@Override
     	public void mousePressed(MouseEvent e) {
-    		synchronized (game) {
-				game.mousePressed(e.getX(), e.getY(), e.getButton());
+    		synchronized (gameEventListener) {
+				gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
     		}
     	}
 
     	@Override
     	public void mouseReleased(MouseEvent e) {
-    		synchronized (game) {
-				game.mouseReleased(e.getX(), e.getY(), e.getButton());
+    		synchronized (gameEventListener) {
+				gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
 			}
     	}
     	
@@ -215,8 +207,8 @@ public class GamePanel extends JPanel {
 		 * @param y coordinate of the current mouse position
 		 */
     	private void mouseMovedTo(int x, int y) {
-    		synchronized (game) {
-    			game.mouseMoved(x, y);
+    		synchronized (gameEventListener) {
+    			gameEventListener.mouseMoved(x, y);
     		}
     	}
     }
