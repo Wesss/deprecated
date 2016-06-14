@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import org.framework.interfaces.AspectRatio;
+import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 
 /**
@@ -72,6 +74,21 @@ public class GameFramework {
 		mainLoop.start();
 		
 		return mainLoop;
+	}
+	
+	/**
+	 * TODO
+	 * @param game
+	 * @param listener
+	 * @param ratio
+	 * @param updatesPerSecond
+	 * @return
+	 */
+	public static <T extends Game> MainLoop startGame(Class<T> game, GameEventListener listener,
+														AspectRatio ratio,
+														int updatesPerSecond) {
+		// TODO
+		return null;
 	}
 	
 	/**
