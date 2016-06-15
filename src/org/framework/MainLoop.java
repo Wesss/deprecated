@@ -80,12 +80,15 @@ public class MainLoop {
 	
 	/**
 	 * Initializes the MainLoop
-	 * @param FPS the desired frames(updates) per second 
+	 * @param updatesPerSecond the desired frames(updates) per second 
+	 * @requires updatesPerSecond > 0
 	 */
-	protected static MainLoop init(int FPS) {
+	protected static MainLoop init(int updatesPerSecond) {
+		if (updatesPerSecond <= 0)
+			throw new IllegalArgumentException("updatesPerSecond must be positive");
 		if (singleton != null)
 			throw new RuntimeException("Atempted to initiallize a second MainLoop");
-		return new MainLoop(FPS);
+		return new MainLoop(updatesPerSecond);
 	}
 	
 	/**
