@@ -1,28 +1,27 @@
 package org.system;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import org.framework.MainLoop;
 import org.framework.GameFramework;
-import org.framework.interfaces.GameEventListener;
+import org.framework.interfaces.AspectRatio;
+import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
 
 /**
  * Test for Long initialization times
+ * This test computers a large sum while initializing the game.
+ * The Player should not be able to work the panel/game into an incorrect state
  * 
  * @author Wesley Cox
  */
-public class DelayInitTest implements GameEventListener{
-
-	private static final int PANEL_X = 500;
-	private static final int PANEL_Y = 500;
+public class DelayInitTest implements Game{
+	
 	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
-		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		GameFramework.startGame(DelayInitTest.class, FPS, dim);
+		GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, AspectRatio.ONE_TO_ONE, FPS);
 		while(true) {}
 	}
 	
@@ -35,21 +34,6 @@ public class DelayInitTest implements GameEventListener{
 		}
 		mainLoop.add(new Num(sum), 0);
 	}
-
-	@Override
-	public void keyPressed(int keyCode) {}
-
-	@Override
-	public void keyReleased(int keyCode) {}
-
-	@Override
-	public void mousePressed(int x, int y, int button) {}
-
-	@Override
-	public void mouseReleased(int x, int y, int button) {}
-
-	@Override
-	public void mouseMoved(int x, int y) {}
 	
 	private class Num implements GameObj {
 		
