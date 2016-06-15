@@ -1,11 +1,11 @@
 package org.system;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import org.framework.MainLoop;
 import org.framework.GameFramework;
-import org.framework.interfaces.GameEventListener;
+import org.framework.interfaces.AspectRatio;
+import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -14,15 +14,14 @@ import org.framework.interfaces.GameObj;
  * 
  * @author Wesley Cox
  */
-public class BasicAnimationTest implements GameEventListener{
+public class BasicAnimationTest implements Game{
 	
-	private static final int PANEL_X = 600;
-	private static final int PANEL_Y = 600;
+	private static final int PANEL_X = 500;
+	// private static final int PANEL_Y = 600;
 	private static final int FPS = 60;
 	
 	public static void main(String args[]) {
-		Dimension dim = new Dimension(PANEL_X, PANEL_Y);
-		GameFramework.startGame(BasicAnimationTest.class, FPS, dim);
+		GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, AspectRatio.ONE_TO_ONE, FPS);
 		while(true) {}
 	}
 	
@@ -31,26 +30,6 @@ public class BasicAnimationTest implements GameEventListener{
 		mainLoop.add(new Display1(), 0);
 		mainLoop.add(new Display2(), 0);
 		mainLoop.add(new Display3(), 0);
-	}
-
-	@Override
-	public void keyPressed(int keyCode) {
-	}
-
-	@Override
-	public void keyReleased(int keyCode) {
-	}
-
-	@Override
-	public void mousePressed(int x, int y, int button) {
-	}
-
-	@Override
-	public void mouseReleased(int x, int y, int button) {
-	}
-
-	@Override
-	public void mouseMoved(int x, int y) {
 	}
 	
 	/**************************************** Basic Shapes *************************************************/
