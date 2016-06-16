@@ -160,13 +160,9 @@ public class MainLoop {
 		// TODO
 	}
 	
-	public AdvancedInterface advancedInterface() {
+	public MainLoopAdvancedInterface advancedInterface() {
 		// TODO
 		return null;
-	}
-	
-	public class AdvancedInterface {
-		
 	}
 	
 	//////////////////////////////////////////////////
