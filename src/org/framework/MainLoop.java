@@ -120,67 +120,53 @@ public class MainLoop {
 	}
 	
 	//////////////////////////////////////////////////
-	// User Interface (API)
+	// Basic User Interface (API)
 	//////////////////////////////////////////////////
 	
-	/**
-	 * Adds an object to the set of objects to painted and updated with the MainLoop
-	 * with default layer 0
-	 * @param obj the object to be added to the loop
-	 * @requires obj is not already in the set of draw-able objects
-	 */
 	public void add(GameObj obj) {
-		add(obj, 0);
+		// TODO
 	}
 	
-	/**
-	 * Adds an object to the set of objects to painted and updated with the MainLoop
-	 * @param obj the object to be added to the loop
-	 * @param layer the layer in which the object is to be painted <br>
-	 * 		<UL><LI> Layer 0 represents the back-most layer of drawing.
-	 *		<LI> Update order and Paint order within a single layer are undefined. </UL>
-	 * @requires obj is not already in the set of draw-able objects
-	 */
-	public void add(GameObj obj, int layer) {
-		if (contains(obj)) {
-			throw new RuntimeException("Tried to add obj " + obj
-					+ " to painter whilst already a part of the drawable set");
-		}
-		
-		markedAdd.put(obj, layer);
+	public void addBackground(GameObj obj) {
+		// TODO
 	}
 	
-	/**
-	 * @param obj the object to check for
-	 * @return true when given object exists within the set of objects to painted
-	 * 		and updated with the MainLoop
-	 */
 	public boolean contains(GameObj obj) {
-		return (objToLayer.containsKey(obj) || markedAdd.keySet().contains(obj))
-				&& !markedRemove.contains(obj);
+		// TODO
+		return false;
 	}
 	
-	/**
-	 * removes an object from the set of objects to be painted and updated with the MainLoop
-	 * @param obj the Object to remove
-	 */
 	public void remove(GameObj obj) {
-		if (!contains(obj)) {
-			throw new IllegalArgumentException("Tried to remove non-existant obj "
-					+ obj + " from the MainLoop");
-		}
-		
-		markedRemove.add(obj);
+		// TODO
 	}
 	
-	/**
-	 * Clears all game objects from the Main Loop
-	 */
-	public void clear() {
-		for(GameObj obj : objToLayer.keySet()) {
-			if (!markedRemove.contains(obj))
-				remove(obj);
-		}
+	public void markClear() {
+		// TODO
+	}
+	
+	public void markClearForeground() {
+		// TODO
+	}
+	
+	public void markClearBackground() {
+		// TODO
+	}
+	
+	public void addPostClear(GameObj obj) {
+		// TODO
+	}
+	
+	public void addPostClearBackground(GameObj obj) {
+		// TODO
+	}
+	
+	public AdvancedInterface advancedInterface() {
+		// TODO
+		return null;
+	}
+	
+	public class AdvancedInterface {
+		
 	}
 	
 	//////////////////////////////////////////////////
