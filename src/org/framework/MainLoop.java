@@ -80,11 +80,13 @@ public class MainLoop {
 		singleton = this;
 		updateCycle = new Thread(new Animate(FPS));
 		
-		layerToObj = new HashMap<Integer, HashSet<GameObj>>();
-		objToLayer = new HashMap<GameObj, Integer>();
-		maxLayer = 0;
-		markedAdd = new HashMap<GameObj, Integer>();
-		markedRemove = new HashSet<GameObj>();
+		layerToObj = new HashMap<>();
+		maxLayer = -1;
+		priorityToObj = new HashMap<>();
+		maxPriority = -1;
+		
+		groupToAction = new HashMap<>();
+		maxGroup = -1;
 	}
 	
 	/**
