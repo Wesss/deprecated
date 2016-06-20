@@ -32,6 +32,8 @@ public class MainLoop {
     /*  
      * Representation of all the game objects currently being tracked by the MainLoop
      * 
+     * TODO duplication
+     * 
      * layerToObj != null
      * maxLayer == layerToObj.keyset()'s maximum when non-empty, -1 when empty
      * for each layer in layerToObj.keset()
