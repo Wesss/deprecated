@@ -60,8 +60,10 @@ public class MainLoop {
 	 * For each GameObj obj in markedRemove
 	 * 		obj is present in MainLoop
 	 */
-	private HashMap<GameObj, Integer> markedAdd;
-	private HashSet<GameObj> markedRemove;
+//	private HashMap<GameObj, Integer> markedAdd;
+//	private HashSet<GameObj> markedRemove;
+	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
+	private Hash
 	
 	//////////////////////////////////////////////////
 	// Initialization
