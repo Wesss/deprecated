@@ -32,14 +32,13 @@ public class MainLoop {
     /*  
      * Representation of all the game objects currently being tracked by the MainLoop
      * 
-     * TODO duplication
-     * 
      * layerToObj != null
      * maxLayer == layerToObj.keyset()'s maximum when non-empty, -1 when empty
      * for each layer in layerToObj.keset()
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
      * 		layerToObj.get(layer) also exists in priorityToObj
+     * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
      * 
      * priorityToObj != null
      * maxPriority == priorityToObj.keyset()'s maximum when non-empty, -1 when empty
@@ -47,6 +46,7 @@ public class MainLoop {
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
 	 * 		priorityToObj.get(layer) also exists in layerToObj
+     * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
      */
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
