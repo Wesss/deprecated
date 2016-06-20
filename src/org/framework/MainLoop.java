@@ -9,10 +9,6 @@ import org.framework.interfaces.GameObj;
 /**
  * This singleton class keeps track of all GameObjs in a game and repeatedly updates in fixed time intervals
  * 
- * TODO: fix timing code
- * TODO: still untested
- * TODO: create non-parallel abstraction?
- * 
  * @author Wesley Cox
  */
 public class MainLoop {
@@ -34,36 +30,45 @@ public class MainLoop {
     private Thread updateCycle;
 	
     /*  
-     * Representation of all the game objects currently being updated by the MainLoop
+     * Representation of all the game objects currently being tracked by the MainLoop
      * 
      * layerToObj != null
-     * objToLayer != null
-     * maxLayer >= 0;
-     * For each GameObj obj and its associated Layer i in the MainLoop
-     * 		layerToObj.get(i).contains(obj) == true
-     * 		objsToLayer.get(obj) == i
-     * 		No other entries exist
-     * maxLayer == max(all layers in layerToObj.keyset())
-     * 		== 0 if no gameobjs present
+     * maxLayer == layerToObj.keyset()'s maximum when non-empty, -1 when empty
+     * for each layer in layerToObj.keset()
+	 * 		layerToObj.get(layer) != null
+	 * 		!layerToObj.get(layer).isEmpty
+     * 		layerToObj.get(layer) also exists in priorityToObj
+     * 
+     * priorityToObj != null
+     * maxPriority == priorityToObj.keyset()'s maximum when non-empty, -1 when empty
+     * for each layer in layerToObj.keset()
+	 * 		priorityToObj.get(priority) != null
+	 * 		!priorityToObj.get(priority).isEmpty
+	 * 		priorityToObj.get(layer) also exists in layerToObj
      */
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
-	private HashMap<GameObj, Integer> objToLayer;
 	private int maxLayer;
+	private HashMap<Integer, HashSet<GameObj>> priorityToObj;
+	private int maxPriority;
 	
 	/* 
-	 * GameObjs to be added or removed at the end of each cycle
+	 * MainLoop actions to be performed during the cycle-changing process
 	 * 
-	 * markedAdd != null
-	 * markedRemove != null
-	 * For each GameObj obj in markedAdd.keyset()
-	 * 		obj is not present in MainLoop
-	 * For each GameObj obj in markedRemove
-	 * 		obj is present in MainLoop
+	 * groupToAction != null
+	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, -1 when empty
+	 * for each group in groupToAction.keset()
+	 * 		groupToAction.get(group) != null
+	 * 		!groupToAction.get(group).isEmpty
+	 * for each MainLoopAction action being stored within groupToAction
+	 * 		if action is a MainLoopAddAction
+	 * 			TODO
+	 * 		if action is a MainLoopRemoveAction
+	 * 			TODO
 	 */
 //	private HashMap<GameObj, Integer> markedAdd;
 //	private HashSet<GameObj> markedRemove;
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
-	private Hash
+	private int maxGroup;
 	
 	//////////////////////////////////////////////////
 	// Initialization
