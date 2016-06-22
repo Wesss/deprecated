@@ -4,6 +4,13 @@ import org.framework.interfaces.GameObj;
 
 public class MainLoopAdvancedInterface {
 	
+	// the MainLoop being modified by this interface
+	private MainLoop loop;
+	
+	protected MainLoopAdvancedInterface(MainLoop loop) {
+		this.loop = loop;
+	}
+	
 	public void addAction(MainLoopAction action, int actionGroup) {
 		// TODO
 	}
@@ -39,8 +46,10 @@ public class MainLoopAdvancedInterface {
 		private int priority;
 		private int layer;
 		
-		protected MainLoopAddAction() {
-			//TODO
+		protected MainLoopAddAction(GameObj obj, int priority, int layer) {
+			this.obj = obj;
+			this.priority = priority;
+			this.layer = layer;
 		}
 		
 		protected GameObj getObj() {
@@ -62,8 +71,8 @@ public class MainLoopAdvancedInterface {
 	protected class MainLoopRemoveAction implements MainLoopAction {
 		private GameObj obj;
 		
-		protected MainLoopRemoveAction() {
-			//TODO
+		protected MainLoopRemoveAction(GameObj obj) {
+			this.obj = obj;
 		}
 		
 		protected GameObj getObj() {

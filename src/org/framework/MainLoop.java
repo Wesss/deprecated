@@ -33,7 +33,7 @@ public class MainLoop {
      * Representation of all the game objects currently being tracked by the MainLoop
      * 
      * layerToObj != null
-     * maxLayer == layerToObj.keyset()'s maximum when non-empty, -1 when empty
+     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, -1 when empty
      * for each layer in layerToObj.keset()
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
@@ -41,7 +41,7 @@ public class MainLoop {
      * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
      * 
      * priorityToObj != null
-     * maxPriority == priorityToObj.keyset()'s maximum when non-empty, -1 when empty
+     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, -1 when empty
      * for each layer in layerToObj.keset()
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
