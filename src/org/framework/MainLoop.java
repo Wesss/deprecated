@@ -67,8 +67,6 @@ public class MainLoop {
 	 * 		if action is a MainLoopRemoveAction
 	 * 			TODO
 	 */
-//	private HashMap<GameObj, Integer> markedAdd;
-//	private HashSet<GameObj> markedRemove;
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
 	private int maxGroup;
 	
