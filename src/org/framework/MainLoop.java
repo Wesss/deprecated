@@ -97,7 +97,8 @@ public class MainLoop {
 			throw new IllegalArgumentException("updatesPerSecond must be positive");
 		if (singleton != null)
 			throw new RuntimeException("Atempted to initiallize a second MainLoop");
-		return new MainLoop(updatesPerSecond);
+		singleton = new MainLoop(updatesPerSecond);
+		return singleton;
 	}
 	
 	/**
