@@ -1,16 +1,18 @@
 package org.unit;
 
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.framework.GamePanel;
 import org.framework.MainLoop;
+import org.framework.interfaces.GameObj;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class MainLoopTest{
 	
@@ -21,6 +23,8 @@ public class MainLoopTest{
 	
 	private static MainLoop mainloop = null;
 	private static GamePanel mockPanel = mock(GamePanel.class);
+	
+	private GameObj mockObj;
 	
 	//////////////////////////////////////////////////
 	// Helpers
@@ -41,12 +45,15 @@ public class MainLoopTest{
 			ref.invoke(mainloop, mockPanel);
 		} catch (SecurityException | IllegalArgumentException | NoSuchMethodException
 				| IllegalAccessException | InvocationTargetException e) {
-			Exception ex = e;
+			e.printStackTrace();
 			fail();
-			System.out.println(e.toString() + " " + e.getMessage());
 		}
-		System.out.println("ASDF2");
 		
+	}
+	
+	@Before
+	public void setup2() {
+		mockObj = mock(GameObj.class);
 	}
 	
 	//////////////////////////////////////////////////
@@ -93,12 +100,15 @@ public class MainLoopTest{
 	}
 	
 	//////////////////////////////////////////////////
-	// Advanced API Tests
+	// Basic API Tests
 	//////////////////////////////////////////////////
 	
 	@Test
 	public void AddTest() {
-		// TODO
+		mainloop.add(mockObj);
+		
+		Mockito.verifyZeroInteractions(mockObj);
+		//TODO check additions to hashmaps somehow
 	}
 	
 }
