@@ -3,8 +3,8 @@ package org.system;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import org.framework.MainLoop;
 import org.framework.GameFramework;
+import org.framework.MainLoop;
 import org.framework.interfaces.AspectRatio;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;

@@ -1,7 +1,9 @@
 package org.unit;
 
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,7 +14,6 @@ import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public class MainLoopTest{
 	
@@ -104,10 +105,10 @@ public class MainLoopTest{
 	//////////////////////////////////////////////////
 	
 	@Test
-	public void AddTest() {
+	public void addSimple() {
 		mainloop.add(mockObj);
 		
-		Mockito.verifyZeroInteractions(mockObj);
+		verifyZeroInteractions(mockObj);
 		//TODO check additions to hashmaps somehow
 	}
 	

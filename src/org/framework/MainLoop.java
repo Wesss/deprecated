@@ -17,9 +17,6 @@ public class MainLoop {
 	// Definition
 	//////////////////////////////////////////////////
 	
-	// singleton object
-	private static MainLoop singleton = null;
-	
 	/* 
 	 * Framework objects
 	 *  
@@ -74,8 +71,7 @@ public class MainLoop {
 	// Initialization
 	//////////////////////////////////////////////////
 	
-	private MainLoop(int FPS) {
-		singleton = this;
+	protected MainLoop(int FPS) {
 		updateCycle = new Thread(new Animate(FPS));
 		
 		layerToObj = new HashMap<>();
@@ -85,20 +81,6 @@ public class MainLoop {
 		
 		groupToAction = new HashMap<>();
 		maxGroup = -1;
-	}
-	
-	/**
-	 * Initializes the MainLoop
-	 * @param updatesPerSecond the desired frames(updates) per second 
-	 * @requires updatesPerSecond > 0
-	 */
-	protected static MainLoop init(int updatesPerSecond) {
-		if (updatesPerSecond <= 0)
-			throw new IllegalArgumentException("updatesPerSecond must be positive");
-		if (singleton != null)
-			throw new RuntimeException("Atempted to initiallize a second MainLoop");
-		singleton = new MainLoop(updatesPerSecond);
-		return singleton;
 	}
 	
 	/**
@@ -118,15 +100,6 @@ public class MainLoop {
 			throw new RuntimeException("references not yet set");
 		}
         updateCycle.start();
-	}
-	
-	/**
-	 * @return the MainLoop currently being run
-	 */
-	public static MainLoop getMainLoop() {
-		if (singleton == null)
-			throw new RuntimeException("MainLoop not initialized");
-		return singleton;
 	}
 	
 	//////////////////////////////////////////////////
@@ -183,33 +156,33 @@ public class MainLoop {
 	 * Add all GameObjs from markedAdd to the MainLoop
 	 */
 	private void resolveAdds() {
-		for (GameObj obj : markedAdd.keySet()) {
-			int layer = markedAdd.get(obj);
-			
-			objToLayer.put(obj, layer);
-			if (!layerToObj.containsKey(layer)) {
-				layerToObj.put(layer, new HashSet<GameObj>());
-				if (layer > maxLayer) {
-					maxLayer = layer;
-				}
-			}
-			layerToObj.get(layer).add(obj);
-		}
-		
-		markedAdd.clear();
+//		for (GameObj obj : markedAdd.keySet()) {
+//			int layer = markedAdd.get(obj);
+//			
+//			objToLayer.put(obj, layer);
+//			if (!layerToObj.containsKey(layer)) {
+//				layerToObj.put(layer, new HashSet<GameObj>());
+//				if (layer > maxLayer) {
+//					maxLayer = layer;
+//				}
+//			}
+//			layerToObj.get(layer).add(obj);
+//		}
+//		
+//		markedAdd.clear();
 	}
 	
 	/**
 	 * Remove all GameObjs from markedRemove from the MainLoop
 	 */
 	private void resolveRemoves() {
-		for (GameObj obj : markedRemove) {
-			layerToObj.get(objToLayer.get(obj)).remove(obj);
-			objToLayer.remove(obj);
-			markedAdd.remove(obj);
-		}
-		
-		markedRemove.clear();
+//		for (GameObj obj : markedRemove) {
+//			layerToObj.get(objToLayer.get(obj)).remove(obj);
+//			objToLayer.remove(obj);
+//			markedAdd.remove(obj);
+//		}
+//		
+//		markedRemove.clear();
 	}
 	
 	/**

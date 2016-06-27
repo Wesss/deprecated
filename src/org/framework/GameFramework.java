@@ -36,45 +36,6 @@ public class GameFramework {
 	 * 
 	 * @return the MainLoop created for this game
 	 */
-//	public static <T extends GameEventListener> MainLoop startGame(Class<T> listener, int fps, Dimension dimension) {
-//		MainLoop mainLoop = MainLoop.init(fps);
-//		GamePanel panel = new GamePanel(dimension);
-//		
-//		GameEventListener game = null;
-//		
-//		try {
-//			Constructor<?> emptyConstructor = null;
-//			
-//			Constructor<?>[] constructors = listener.getConstructors();
-//			for (int i = 0; i < constructors.length; i++) {
-//				Class<?>[] parameters = constructors[i].getParameterTypes();
-//				if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
-//					game = (GameEventListener)constructors[i].newInstance(mainLoop);
-//				} else if (parameters.length == 0) {
-//					emptyConstructor = constructors[i];
-//				}
-//			}
-//			
-//			if (game == null) {
-//				if (emptyConstructor != null) {
-//					game = (GameEventListener)emptyConstructor.newInstance();
-//				} else {
-//					throw new RuntimeException("given game class does not contain an appropriate constructor");
-//				}
-//			}
-//		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-//				| InvocationTargetException e) {
-//			e.printStackTrace();
-//			System.exit(1);
-//		}
-//		
-//		mainLoop.setReferences(panel);
-//		panel.setReferences(game, mainLoop);
-//		
-//		mainLoop.start();
-//		
-//		return mainLoop;
-//	}
 	
 	/**
 	 * TODO
@@ -88,7 +49,8 @@ public class GameFramework {
 														GameEventListener listener,
 														AspectRatio ratio,
 														int updatesPerSecond) {
-		MainLoop mainLoop = MainLoop.init(updatesPerSecond);
+		MainLoopFactory.constructMainLoop(updatesPerSecond);
+		MainLoop mainLoop = MainLoopFactory.getMainLoop();
 		GamePanel panel = new GamePanel(500, 500); // TODO
 		
 		Game newGame = null;
