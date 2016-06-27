@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -146,6 +147,36 @@ public class MainLoop {
 	public MainLoopAdvancedInterface advancedInterface() {
 		// TODO
 		return null;
+	}
+	
+	//////////////////////////////////////////////////
+	// Advanced User Interface (API)
+	//////////////////////////////////////////////////
+	
+	protected void addAction(MainLoopAction action, int actionGroup) {
+		// TODO
+	}
+
+	protected boolean containsAction(MainLoopAction action) {
+		// TODO
+		return false;
+	}
+	
+	protected boolean containsAction(MainLoopAction action, int actionGroup) {
+		// TODO
+		return false;
+	}
+	
+	protected void removeAction(MainLoopAction action) {
+		// TODO
+	}
+	
+	protected void clearActions() {
+		// TODO
+	}
+	
+	protected void clearActionGroup(int actionGroup) {
+		// TODO
 	}
 	
 	//////////////////////////////////////////////////

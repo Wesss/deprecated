@@ -1,5 +1,6 @@
 package org.framework;
 
+import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.interfaces.GameObj;
 
 public class MainLoopAdvancedInterface {
@@ -12,33 +13,31 @@ public class MainLoopAdvancedInterface {
 	}
 	
 	public void addAction(MainLoopAction action, int actionGroup) {
-		// TODO
+		loop.addAction(action, actionGroup);
 	}
 
 	public boolean containsAction(MainLoopAction action) {
-		// TODO
-		return false;
+		return loop.containsAction(action);
 	}
 	
 	public boolean containsAction(MainLoopAction action, int actionGroup) {
-		// TODO
-		return false;
+		return loop.containsAction(action, actionGroup);
 	}
 	
 	public void removeAction(MainLoopAction action) {
-		// TODO
+		loop.removeAction(action);
 	}
 	
 	public void clearActions() {
-		// TODO
+		loop.clearActions();
 	}
 	
 	public void clearActionGroup(int actionGroup) {
-		// TODO
+		loop.clearActionGroup(actionGroup);
 	}
 	
 	public static interface MainLoopAction {
-		// TODO
+		// TODO change to enum
 	}
 	
 	protected class MainLoopAddAction implements MainLoopAction {
