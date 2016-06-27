@@ -248,4 +248,14 @@ public class MainLoop {
             }
     	}
     }
+    
+
+	//////////////////////////////////////////////////
+	// Testing
+	//////////////////////////////////////////////////
+    
+    @SuppressWarnings("unused")
+	private void assertValid() {
+    	// TODO
+    }
 }
