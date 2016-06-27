@@ -1,6 +1,6 @@
 package org.unit;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 import org.framework.GamePanel;
 import org.framework.MainLoop;
+import org.framework.MainLoopFactory;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,27 +24,32 @@ public class MainLoopTest{
 	public static final int STRESSTEST_UPS = 300;
 	
 	private static MainLoop mainloop = null;
+	private static Method mainloopValidate = null;
 	private static GamePanel mockPanel = mock(GamePanel.class);
 	
 	private GameObj mockObj;
 	
 	//////////////////////////////////////////////////
-	// Helpers
+	// Setup
 	//////////////////////////////////////////////////
 	
 	@BeforeClass
-	public static void setup() {
+	public static void setupClass() {
 		reset(mockPanel);
 		mainloop = null;
 		
 		try {
-			Method init = MainLoop.class.getDeclaredMethod("init", int.class);
+			Method init = MainLoopFactory.class.getDeclaredMethod("constructMainLoop", int.class);
 			init.setAccessible(true);
-			mainloop = (MainLoop) init.invoke(null, STANDARD_UPS);
+			init.invoke(null, STANDARD_UPS);
+			mainloop = (MainLoop) MainLoopFactory.getMainLoop();
 			
 			Method ref = MainLoop.class.getDeclaredMethod("setReferences", GamePanel.class);
 			ref.setAccessible(true);
 			ref.invoke(mainloop, mockPanel);
+			
+			mainloopValidate = MainLoop.class.getDeclaredMethod("assertValid");
+			mainloopValidate.setAccessible(true);
 		} catch (SecurityException | IllegalArgumentException | NoSuchMethodException
 				| IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
@@ -53,51 +59,13 @@ public class MainLoopTest{
 	}
 	
 	@Before
-	public void setup2() {
+	public void setup() {
 		mockObj = mock(GameObj.class);
 	}
 	
-	//////////////////////////////////////////////////
-	// Init Tests
-	//////////////////////////////////////////////////
-	
-	// @Rule
-    // public ExpectedException thrown = ExpectedException.none();
-
 	@Test
-	public void initStandardTest() {
-//		try {
-//			Method init = MainLoop.class.getDeclaredMethod("init", int.class);
-//			init.setAccessible(true);
-//			MainLoop mainloop = (MainLoop) init.invoke(null, STANDARD_UPS);
-//			assertNotNull(mainloop);
-//		} catch (SecurityException | IllegalArgumentException | NoSuchMethodException
-//				| IllegalAccessException | InvocationTargetException e) {
-//			fail();
-//		}
-	}
-	
-	@Test
-	public void initZeroTest() {
-		// thrown.expect(IllegalArgumentException.class);
-		// thrown.expectMessage("updatesPerSecond must be positive");
-//		Method init;
-//		Exception caught = null;
-//		try {
-//			init = MainLoop.class.getDeclaredMethod("init", int.class);
-//			init.setAccessible(true);
-//			MainLoop mainloop = (MainLoop) init.invoke(null, NO_UPS);
-//			assertNotNull(mainloop);
-//		} catch (NoSuchMethodException |
-//				SecurityException |
-//				IllegalAccessException |
-//				IllegalArgumentException e) {
-//			fail();
-//		} catch (InvocationTargetException e) {
-//			caught  = null;
-//		}
+	public void testSetup() {
 		
-//		assertNotNull(caught);
 	}
 	
 	//////////////////////////////////////////////////
@@ -105,11 +73,17 @@ public class MainLoopTest{
 	//////////////////////////////////////////////////
 	
 	@Test
-	public void addSimple() {
+	public void add0() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		mainloop.add(mockObj);
-		
+		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
-		//TODO check additions to hashmaps somehow
+	}
+	
+	@Test
+	public void add1() {
+		mainloop.add(mockObj);
+		assertTrue(mainloop.contains(mockObj));
+		verifyZeroInteractions(mockObj);
 	}
 	
 }
