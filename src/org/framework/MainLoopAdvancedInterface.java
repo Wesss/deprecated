@@ -52,18 +52,15 @@ public class MainLoopAdvancedInterface {
 		}
 		
 		protected GameObj getObj() {
-			//TODO
-			return null;
+			return obj;
 		}
 		
 		protected int getPriority() {
-			//TODO
-			return -1;
+			return priority;
 		}
 		
 		protected int getLayer() {
-			//TODO
-			return -1;
+			return layer;
 		}
 	}
 	
@@ -75,8 +72,7 @@ public class MainLoopAdvancedInterface {
 		}
 		
 		protected GameObj getObj() {
-			//TODO
-			return null;
+			return obj;
 		}
 	}
 	
