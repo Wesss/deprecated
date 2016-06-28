@@ -33,11 +33,11 @@ public class EventFireTest implements Game{
 		
 		for (int i = 0; i < log.length; i++) {
 			log[i] = new GameString(20, 430 - (i * 20));
-			mainLoop.add(log[i], 0);
+			mainLoop.add(log[i]);
 		}
 		
 		mouseLoc = new GameString(20, 460);
-		mainLoop.add(mouseLoc, 0);
+		mainLoop.add(mouseLoc);
 	}
 	
 	public void newEvent(String s) {

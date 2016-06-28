@@ -65,7 +65,7 @@ public class MainLoopTest{
 	
 	@Test
 	public void testSetup() {
-		
+		// just see if setup works correctly
 	}
 	
 	//////////////////////////////////////////////////

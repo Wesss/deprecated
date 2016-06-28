@@ -32,7 +32,7 @@ public class DelayInitTest implements Game{
 				sum += j;
 			}
 		}
-		mainLoop.add(new Num(sum), 0);
+		mainLoop.add(new Num(sum));
 	}
 	
 	private class Num implements GameObj {

@@ -26,10 +26,10 @@ public class BasicAnimationTest implements Game{
 	}
 	
 	public BasicAnimationTest(MainLoop mainLoop) {
-		mainLoop.add(new WrapCircle(500, 70, 40), 0);
-		mainLoop.add(new Display1(), 0);
-		mainLoop.add(new Display2(), 0);
-		mainLoop.add(new Display3(), 0);
+		mainLoop.add(new WrapCircle(500, 70, 40));
+		mainLoop.add(new Display1());
+		mainLoop.add(new Display2());
+		mainLoop.add(new Display3());
 	}
 	
 	/**************************************** Basic Shapes *************************************************/

@@ -20,7 +20,8 @@ public class MainLoop {
 	
 	/* 
 	 * Framework objects
-	 *  
+	 * 
+	 * Post start:
 	 * panel != null
 	 * updateCycle != null
 	 */
@@ -287,6 +288,61 @@ public class MainLoop {
     
     @SuppressWarnings("unused")
 	private void assertValid() {
-    	// TODO
+    	checknot(updateCycle != null);
+    	checknot(updateCycle.isAlive() && panel == null);
+    	// TODO game obj check
+    	// TODO action check
     }
+    
+    private void check(boolean check) {
+    	check(check, "");
+    }
+    
+    private void check(boolean check, String msg) {
+    	checknot(!check, msg);
+    }
+    
+    private void checknot(boolean badcheck) {
+    	checknot(badcheck, "");
+    }
+    
+    private void checknot(boolean badcheck, String msg) {
+    	if (badcheck)
+    		throw new RuntimeException(msg);
+    }
+	
+    /*  
+     * Representation of all the game objects currently being tracked by the MainLoop
+     * 
+     * layerToObj != null
+     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, -1 when empty
+     * for each layer in layerToObj.keset()
+	 * 		layerToObj.get(layer) != null
+	 * 		!layerToObj.get(layer).isEmpty
+     * 		layerToObj.get(layer) also exists in priorityToObj
+     * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
+     * 
+     * priorityToObj != null
+     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, -1 when empty
+     * for each layer in layerToObj.keset()
+	 * 		priorityToObj.get(priority) != null
+	 * 		!priorityToObj.get(priority).isEmpty
+	 * 		priorityToObj.get(layer) also exists in layerToObj
+     * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
+     */
+	
+	/* 
+	 * MainLoop actions to be performed during the cycle-changing process
+	 * 
+	 * groupToAction != null
+	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, -1 when empty
+	 * for each group in groupToAction.keset()
+	 * 		groupToAction.get(group) != null
+	 * 		!groupToAction.get(group).isEmpty
+	 * for each MainLoopAction action being stored within groupToAction
+	 * 		if action is a MainLoopAddAction
+	 * 			TODO
+	 * 		if action is a MainLoopRemoveAction
+	 * 			TODO
+	 */
 }
