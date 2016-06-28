@@ -68,6 +68,11 @@ public class MainLoopTest{
 		// just see if setup works correctly
 	}
 	
+	@Test
+	public void testInit() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		mainloopValidate.invoke(mainloop);
+	}
+	
 	//////////////////////////////////////////////////
 	// Basic API Tests
 	//////////////////////////////////////////////////

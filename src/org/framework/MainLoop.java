@@ -1,8 +1,11 @@
 package org.framework;
 
+import static org.junit.Assert.*;
+
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.interfaces.GameObj;
@@ -32,7 +35,7 @@ public class MainLoop {
      * Representation of all the game objects currently being tracked by the MainLoop
      * 
      * layerToObj != null
-     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, -1 when empty
+     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
      * for each layer in layerToObj.keset()
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
@@ -40,7 +43,7 @@ public class MainLoop {
      * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
      * 
      * priorityToObj != null
-     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, -1 when empty
+     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
      * for each layer in layerToObj.keset()
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
@@ -56,7 +59,7 @@ public class MainLoop {
 	 * MainLoop actions to be performed during the cycle-changing process
 	 * 
 	 * groupToAction != null
-	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, -1 when empty
+	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, 0 when empty
 	 * for each group in groupToAction.keset()
 	 * 		groupToAction.get(group) != null
 	 * 		!groupToAction.get(group).isEmpty
@@ -77,12 +80,12 @@ public class MainLoop {
 		updateCycle = new Thread(new Animate(FPS));
 		
 		layerToObj = new HashMap<>();
-		maxLayer = -1;
+		maxLayer = 0;
 		priorityToObj = new HashMap<>();
-		maxPriority = -1;
+		maxPriority = 0;
 		
 		groupToAction = new HashMap<>();
-		maxGroup = -1;
+		maxGroup = 0;
 	}
 	
 	/**
@@ -288,48 +291,48 @@ public class MainLoop {
     
     @SuppressWarnings("unused")
 	private void assertValid() {
-    	checknot(updateCycle != null);
-    	checknot(updateCycle.isAlive() && panel == null);
-    	// TODO game obj check
+    	assertNotNull(updateCycle);
+    	assertFalse(updateCycle.isAlive() && panel == null);
+    	assertTrue(maxLayer >= 0);
+    	assertTrue(maxPriority >= 0);
+    	assertNotNull(layerToObj);
+    	assertNotNull(priorityToObj);
+    	
+    	Set<GameObj> layerObjs = new HashSet<>();
+    	Set<GameObj> priorityObjs = new HashSet<>();
+    	
+    	Set<Integer> layers = layerToObj.keySet();
+    	Set<Integer> priorities = layerToObj.keySet();
+    	
+    	int mlayer = 0;
+    	for (int layer : layers) {
+    		mlayer = Math.max(mlayer, layer);
+    		Set<GameObj> objs = layerToObj.get(layer);
+    		assertNotNull(objs);
+    		assertFalse(objs.isEmpty());
+    		for (GameObj obj : objs) {
+    			assertFalse("duplicate layer objs", layerObjs.contains(obj));
+    			layerObjs.add(obj);
+    		}
+    	}
+    	assertTrue(mlayer <= maxLayer);
+    	int mprior = 0;
+    	for (int priority : priorities) {
+    		mprior = Math.max(mprior, priority);
+    		Set<GameObj> objs = layerToObj.get(priority);
+    		assertNotNull(objs);
+    		assertFalse(objs.isEmpty());
+    		for (GameObj obj : objs) {
+    			assertTrue("priority obj not in layerobjs", layerObjs.remove(obj));
+    			assertFalse("duplicate priority objs", layerObjs.contains(obj));
+    			layerObjs.add(obj);
+    		}
+    	}
+    	assertTrue(mprior <= maxPriority);
+    	assertTrue("layer obj not in priority objs", layerObjs.isEmpty());
+    		
     	// TODO action check
     }
-    
-    private void check(boolean check) {
-    	check(check, "");
-    }
-    
-    private void check(boolean check, String msg) {
-    	checknot(!check, msg);
-    }
-    
-    private void checknot(boolean badcheck) {
-    	checknot(badcheck, "");
-    }
-    
-    private void checknot(boolean badcheck, String msg) {
-    	if (badcheck)
-    		throw new RuntimeException(msg);
-    }
-	
-    /*  
-     * Representation of all the game objects currently being tracked by the MainLoop
-     * 
-     * layerToObj != null
-     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, -1 when empty
-     * for each layer in layerToObj.keset()
-	 * 		layerToObj.get(layer) != null
-	 * 		!layerToObj.get(layer).isEmpty
-     * 		layerToObj.get(layer) also exists in priorityToObj
-     * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
-     * 
-     * priorityToObj != null
-     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, -1 when empty
-     * for each layer in layerToObj.keset()
-	 * 		priorityToObj.get(priority) != null
-	 * 		!priorityToObj.get(priority).isEmpty
-	 * 		priorityToObj.get(layer) also exists in layerToObj
-     * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
-     */
 	
 	/* 
 	 * MainLoop actions to be performed during the cycle-changing process
