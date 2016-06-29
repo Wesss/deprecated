@@ -8,6 +8,4 @@ import org.unit.MainLoopTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ GameFrameworkTest.class, MainLoopTest.class })
-public class AllUnitTests {
-
-}
+public class AllUnitTests {}

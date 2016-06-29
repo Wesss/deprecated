@@ -151,9 +151,9 @@ public class MainLoop {
 		// TODO
 	}
 	
+	// TODO
 	public MainLoopAdvancedInterface advancedInterface() {
-		// TODO
-		return null;
+		return new MainLoopAdvancedInterface(this);
 	}
 	
 	//////////////////////////////////////////////////

@@ -1,6 +1,5 @@
 package org.framework;
 
-import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.interfaces.GameObj;
 
 public class MainLoopAdvancedInterface {
@@ -12,32 +11,54 @@ public class MainLoopAdvancedInterface {
 		this.loop = loop;
 	}
 	
-	public void addAction(MainLoopAction action, int actionGroup) {
+	// TODO
+	public void insertAction(MainLoopAction action, int actionGroup) {
 		loop.addAction(action, actionGroup);
 	}
 
+	// TODO
 	public boolean containsAction(MainLoopAction action) {
 		return loop.containsAction(action);
 	}
 	
+	// TODO
 	public boolean containsAction(MainLoopAction action, int actionGroup) {
 		return loop.containsAction(action, actionGroup);
 	}
 	
-	public void removeAction(MainLoopAction action) {
+	// TODO
+	public void deleteAction(MainLoopAction action) {
 		loop.removeAction(action);
 	}
 	
-	public void clearActions() {
+	// TODO
+	public void deleteAllActions() {
 		loop.clearActions();
 	}
 	
-	public void clearActionGroup(int actionGroup) {
+	// TODO
+	public void deleteAllActionsGroup(int actionGroup) {
 		loop.clearActionGroup(actionGroup);
 	}
 	
+	// TODO
+	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
+		return new MainLoopAddAction(obj, priority, layer);
+	}
+	
+	// TODO
+	public MainLoopAction createRemoveAction(GameObj obj) {
+		return new MainLoopRemoveAction(obj);
+	}
+
+	// TODO
+	public MainLoopAction createClearAction(GameObj obj) {
+		return new MainLoopClearAction();
+	}
+	
+	// TODO
 	public static interface MainLoopAction {
-		// TODO change to enum
+		// TODO change to enum?
 	}
 	
 	protected class MainLoopAddAction implements MainLoopAction {
