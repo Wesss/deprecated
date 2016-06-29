@@ -91,4 +91,12 @@ public class MainLoopTest{
 		verifyZeroInteractions(mockObj);
 	}
 	
+	@Test
+	public void contains0() {
+		assertFalse(mainloop.contains(mockObj));
+		mainloop.add(mockObj);
+		assertTrue(mainloop.contains(mockObj));
+		verifyZeroInteractions(mockObj);
+	}
+	
 }

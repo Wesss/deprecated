@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.framework.MainLoopAdvancedInterface.MainLoopAction;
+import org.framework.MainLoopAdvancedInterface.MainLoopAddAction;
+import org.framework.MainLoopAdvancedInterface.MainLoopClearAction;
+import org.framework.MainLoopAdvancedInterface.MainLoopRemoveAction;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -29,27 +32,27 @@ public class MainLoop {
 	 * updateCycle != null
 	 */
 	private GamePanel panel;
-    private Thread updateCycle;
+	private Thread updateCycle;
 	
-    /*  
-     * Representation of all the game objects currently being tracked by the MainLoop
-     * 
-     * layerToObj != null
-     * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
-     * for each layer in layerToObj.keset()
+	/*  
+	 * Representation of all the game objects currently being tracked by the MainLoop
+	 * 
+	 * layerToObj != null
+	 * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
+	 * for each layer in layerToObj.keset()
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
-     * 		layerToObj.get(layer) also exists in priorityToObj
-     * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
-     * 
-     * priorityToObj != null
-     * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
-     * for each layer in layerToObj.keset()
+	 * 		layerToObj.get(layer) also exists in priorityToObj
+	 * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
+	 * 
+	 * priorityToObj != null
+	 * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
+	 * for each layer in layerToObj.keset()
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
 	 * 		priorityToObj.get(layer) also exists in layerToObj
-     * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
-     */
+	 * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
+	 */
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
 	private HashMap<Integer, HashSet<GameObj>> priorityToObj;
@@ -93,7 +96,7 @@ public class MainLoop {
 	 * @param p the GamePanel displaying the game
 	 */
 	protected void setReferences(GamePanel p) {
-    	panel = p;
+		panel = p;
 	}
 	
 	/**
@@ -104,7 +107,7 @@ public class MainLoop {
 		if (panel == null) {
 			throw new RuntimeException("references not yet set");
 		}
-        updateCycle.start();
+		updateCycle.start();
 	}
 	
 	//////////////////////////////////////////////////
@@ -246,106 +249,129 @@ public class MainLoop {
 			}
 		}
 	}
-    
-    /**
-     * This Thread fires an update and a screen refresh to the game based on
-     * its desired frames per seconds
-     */
-    private class Animate implements Runnable {
+	
+	/**
+	 * This Thread fires an update and a screen refresh to the game based on
+	 * its desired frames per seconds
+	 */
+	private class Animate implements Runnable {
 
-    	private int waitTime;
-    	
-    	/**
-    	 * @param fps the desired refresh rate of the screen measured in frames per second
-    	 */
-    	public Animate(int fps) {
-    		waitTime = 1000 / fps;
-    	}
-    	
-    	@Override
-    	public void run() {
-    		while (!Thread.interrupted()) {
-    			try {
-    				//TODO apparently repaint only quickly signals java to later
-    				//call paintComponent();
-    				//	Timing code should envelope the paintComponent code
-    				long startTime = System.currentTimeMillis();
-                    panel.repaint();
-                    long endTime = System.currentTimeMillis();
-                    
-                    if (startTime - endTime < waitTime) {
-                    	Thread.sleep(waitTime - (startTime - endTime));
-                    }
-                } catch (Exception e) {
-                	e.printStackTrace();
-                	System.exit(1);
-                }
-            }
-    	}
-    }
-    
+		private int waitTime;
+		
+		/**
+		 * @param fps the desired refresh rate of the screen measured in frames per second
+		 */
+		public Animate(int fps) {
+			waitTime = 1000 / fps;
+		}
+		
+		@Override
+		public void run() {
+			while (!Thread.interrupted()) {
+				try {
+					//TODO apparently repaint only quickly signals java to later
+					//call paintComponent();
+					//	Timing code should envelope the paintComponent code
+					long startTime = System.currentTimeMillis();
+					panel.repaint();
+					long endTime = System.currentTimeMillis();
+					
+					if (startTime - endTime < waitTime) {
+						Thread.sleep(waitTime - (startTime - endTime));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+			}
+		}
+	}
+	
 
 	//////////////////////////////////////////////////
 	// Testing
 	//////////////////////////////////////////////////
-    
-    @SuppressWarnings("unused")
-	private void assertValid() {
-    	assertNotNull(updateCycle);
-    	assertFalse(updateCycle.isAlive() && panel == null);
-    	assertTrue(maxLayer >= 0);
-    	assertTrue(maxPriority >= 0);
-    	assertNotNull(layerToObj);
-    	assertNotNull(priorityToObj);
-    	
-    	Set<GameObj> layerObjs = new HashSet<>();
-    	Set<GameObj> priorityObjs = new HashSet<>();
-    	
-    	Set<Integer> layers = layerToObj.keySet();
-    	Set<Integer> priorities = layerToObj.keySet();
-    	
-    	int mlayer = 0;
-    	for (int layer : layers) {
-    		mlayer = Math.max(mlayer, layer);
-    		Set<GameObj> objs = layerToObj.get(layer);
-    		assertNotNull(objs);
-    		assertFalse(objs.isEmpty());
-    		for (GameObj obj : objs) {
-    			assertFalse("duplicate layer objs", layerObjs.contains(obj));
-    			layerObjs.add(obj);
-    		}
-    	}
-    	assertTrue(mlayer <= maxLayer);
-    	int mprior = 0;
-    	for (int priority : priorities) {
-    		mprior = Math.max(mprior, priority);
-    		Set<GameObj> objs = layerToObj.get(priority);
-    		assertNotNull(objs);
-    		assertFalse(objs.isEmpty());
-    		for (GameObj obj : objs) {
-    			assertTrue("priority obj not in layerobjs", layerObjs.remove(obj));
-    			assertFalse("duplicate priority objs", layerObjs.contains(obj));
-    			layerObjs.add(obj);
-    		}
-    	}
-    	assertTrue(mprior <= maxPriority);
-    	assertTrue("layer obj not in priority objs", layerObjs.isEmpty());
-    		
-    	// TODO action check
-    }
 	
-	/* 
-	 * MainLoop actions to be performed during the cycle-changing process
-	 * 
-	 * groupToAction != null
-	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, -1 when empty
-	 * for each group in groupToAction.keset()
-	 * 		groupToAction.get(group) != null
-	 * 		!groupToAction.get(group).isEmpty
-	 * for each MainLoopAction action being stored within groupToAction
-	 * 		if action is a MainLoopAddAction
-	 * 			TODO
-	 * 		if action is a MainLoopRemoveAction
-	 * 			TODO
-	 */
+	@SuppressWarnings("unused")
+	private void assertValid() {
+		// framework
+		assertNotNull(updateCycle);
+		assertFalse(updateCycle.isAlive() && panel == null);
+
+		// game objs
+		assertTrue(maxLayer >= 0);
+		assertTrue(maxPriority >= 0);
+		assertNotNull(layerToObj);
+		assertNotNull(priorityToObj);
+		
+		Set<GameObj> layerObjs = new HashSet<>();
+		Set<GameObj> objStore = new HashSet<>();
+		Set<Integer> layers = layerToObj.keySet();
+		Set<Integer> priorities = layerToObj.keySet();
+		
+		int mlayer = 0;
+		for (int layer : layers) {
+			mlayer = Math.max(mlayer, layer);
+			Set<GameObj> objs = layerToObj.get(layer);
+			assertNotNull(objs);
+			assertFalse(objs.isEmpty());
+			for (GameObj obj : objs) {
+				assertFalse("duplicate layer objs", layerObjs.contains(obj));
+				layerObjs.add(obj);
+			}
+		}
+		assertTrue(mlayer <= maxLayer);
+		int mprior = 0;
+		for (int priority : priorities) {
+			mprior = Math.max(mprior, priority);
+			Set<GameObj> objs = layerToObj.get(priority);
+			assertNotNull(objs);
+			assertFalse(objs.isEmpty());
+			for (GameObj obj : objs) {
+				assertTrue("priority obj not in layerobjs", layerObjs.remove(obj));
+				assertFalse("duplicate priority objs", layerObjs.contains(obj));
+				objStore.add(obj);
+			}
+		}
+		assertTrue(mprior <= maxPriority);
+		assertTrue("layer obj not in priority objs", layerObjs.isEmpty());
+		
+		// actions
+		assertTrue(maxGroup >= 0);
+		assertNotNull(groupToAction);
+		Set<MainLoopAction> actionStore = new HashSet<>();
+		Set<Integer> groups = groupToAction.keySet();
+		
+		int mgroup = 0;
+		for (int group : groups) {
+			mgroup = Math.max(mgroup, group);
+			Set<MainLoopAction> actions = groupToAction.get(group);
+			assertNotNull(actions);
+			assertFalse(actions.isEmpty());
+			for (MainLoopAction action : actions) {
+				assertFalse("duplicate actions", actionStore.contains(action));
+				actionStore.add(action);
+			}
+		}
+		Set<MainLoopAction> actionDump = new HashSet<>();
+		Set<GameObj> addObjDump = new HashSet<>();
+		Set<GameObj> remObjDump = new HashSet<>();
+		for (MainLoopAction action : actionStore) {
+			if (action instanceof MainLoopAddAction) {
+				MainLoopAddAction add = (MainLoopAddAction) action;
+				assertFalse(objStore.contains(add.getObj()));
+				assertFalse(addObjDump.contains(add.getObj()));
+				addObjDump.add(add.getObj());
+			} else if (action instanceof MainLoopRemoveAction) {
+				MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
+				assertFalse(objStore.contains(rem.getObj()));
+				assertFalse(remObjDump.contains(rem.getObj()));
+				addObjDump.add(rem.getObj());
+			} else if (action instanceof MainLoopClearAction) {
+				// nothing
+			} else {
+				fail("unknown action type recieved");
+			}
+		}
+	}
 }
