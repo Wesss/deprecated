@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
+import java.awt.Graphics;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -29,9 +30,11 @@ public class MainLoopTest{
 	private static MainLoopAdvancedInterface advInter = null;
 	
 	private static Method mainloopValidate = null;
-	private static GamePanel mockPanel = mock(GamePanel.class);
+	private static Method nextFrame = null;
 	
-	private GameObj mockObj;
+	private static Graphics mockGraphic = mock(Graphics.class);
+	private static GamePanel mockPanel = mock(GamePanel.class);
+	private GameObj mockObj = mock(GameObj.class);
 	
 	//////////////////////////////////////////////////
 	// Setup
@@ -53,6 +56,9 @@ public class MainLoopTest{
 			
 			mainloopValidate = MainLoop.class.getDeclaredMethod("assertValid");
 			mainloopValidate.setAccessible(true);
+
+			nextFrame = MainLoop.class.getDeclaredMethod("nextFrame", Graphics.class);
+			nextFrame.setAccessible(true);
 		} catch (SecurityException | IllegalArgumentException | NoSuchMethodException
 				| IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
@@ -64,7 +70,6 @@ public class MainLoopTest{
 	@Before
 	public void setup() {
 		reset(mockPanel);
-		mockObj = mock(GameObj.class);
 	}
 	
 	@Test
@@ -76,6 +81,8 @@ public class MainLoopTest{
 	public void testInit() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		mainloopValidate.invoke(mainloop);
 	}
+	
+	
 	
 	//////////////////////////////////////////////////
 	// Basic API Tests
@@ -128,7 +135,14 @@ public class MainLoopTest{
 		advInter.insertAction(action, 0);
 		assertTrue(advInter.containsAction(action));
 		assertTrue(advInter.containsAction(action, 0));
+		assertFalse(advInter.con(action, 0));
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
+	}
+	
+	@Test
+	public void advNextFrame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
+		mainloopValidate.invoke(mainloop);
 	}
 }

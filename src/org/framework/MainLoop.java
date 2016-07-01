@@ -160,6 +160,11 @@ public class MainLoop {
 	// Advanced User Interface (API)
 	//////////////////////////////////////////////////
 	
+	protected boolean containsAdv(GameObj obj) {
+		// TODO
+		return false;
+	}
+	
 	protected void addAction(MainLoopAction action, int actionGroup) {
 		// TODO
 	}
