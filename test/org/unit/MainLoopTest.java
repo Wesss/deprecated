@@ -32,7 +32,7 @@ public class MainLoopTest{
 	private static Method mainloopValidate = null;
 	private static Method nextFrame = null;
 	
-	private static Graphics mockGraphic = mock(Graphics.class);
+	private static Graphics mockGraphics = mock(Graphics.class);
 	private static GamePanel mockPanel = mock(GamePanel.class);
 	private GameObj mockObj = mock(GameObj.class);
 	
@@ -130,7 +130,7 @@ public class MainLoopTest{
 	}
 	
 	@Test
-	public void advAddContainsAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void advContainsAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction action = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(action, 0);
 		assertTrue(advInter.containsAction(action));
@@ -141,8 +141,19 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advRemoveAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction action = advInter.createAddAction(mockObj, 0, 0);
+		advInter.insertAction(action, 0);
+		advInter.deleteAction(action);
+		assertFalse(advInter.containsAction(action));
+		assertFalse(advInter.containsAction(action, 0));
+		mainloopValidate.invoke(mainloop);
+		verifyZeroInteractions(mockObj);
+	}
+	
+	@Test
 	public void advNextFrame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
+		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
 	}
 }
