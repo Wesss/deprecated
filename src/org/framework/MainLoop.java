@@ -40,18 +40,24 @@ public class MainLoop {
 	 * layerToObj != null
 	 * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
 	 * for each layer in layerToObj.keset()
+	 * 		layer >= 0
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
-	 * 		layerToObj.get(layer) also exists in priorityToObj
-	 * 		layerToObj.get(layer) does not exist anywhere else in layerToObj
+	 * for each GameObj obj being stored within layerToObj
+	 * 		obj != null
+	 * 		obj also exists in priorityToObj
+	 * 		obj does not exist anywhere else in layerToObj
 	 * 
 	 * priorityToObj != null
 	 * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
-	 * for each layer in layerToObj.keset()
+	 * for each priority in priorityToObj.keset()
+	 * 		priority >= 0
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
-	 * 		priorityToObj.get(layer) also exists in layerToObj
-	 * 		priorityToObj.get(layer) does not exist anywhere else in priorityToObj
+	 * for each GameObj obj being stored within priorityToObj
+	 * 		obj != null
+	 * 		obj also exists in layerToObj
+	 * 		obj does not exist anywhere else in priorityToObj
 	 */
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
@@ -64,13 +70,17 @@ public class MainLoop {
 	 * groupToAction != null
 	 * maxGroup == groupToAction.keyset()'s maximum when non-empty, 0 when empty
 	 * for each group in groupToAction.keset()
+	 * 		group >= 0
 	 * 		groupToAction.get(group) != null
 	 * 		!groupToAction.get(group).isEmpty
 	 * for each MainLoopAction action being stored within groupToAction
+	 * 		action != null;
 	 * 		if action is a MainLoopAddAction
+	 * 			action.obj != null
 	 * 			action.obj is not already a part of the main loop
 	 * 			action.obj is not present in another add action
 	 * 		if action is a MainLoopRemoveAction
+	 * 			action.obj != null
 	 * 			action.obj is a part of the main loop
 	 * 			action.obj is not present in another remove action
 	 */
@@ -327,11 +337,13 @@ public class MainLoop {
 		
 		int mlayer = 0;
 		for (int layer : layers) {
+			assertTrue(layer >= 0);
 			mlayer = Math.max(mlayer, layer);
 			Set<GameObj> objs = layerToObj.get(layer);
 			assertNotNull(objs);
 			assertFalse(objs.isEmpty());
 			for (GameObj obj : objs) {
+				assertNotNull(obj);
 				assertFalse("duplicate layer objs", layerObjs.contains(obj));
 				layerObjs.add(obj);
 			}
@@ -339,11 +351,13 @@ public class MainLoop {
 		assertTrue(mlayer <= maxLayer);
 		int mprior = 0;
 		for (int priority : priorities) {
+			assertTrue(priority >= 0);
 			mprior = Math.max(mprior, priority);
 			Set<GameObj> objs = layerToObj.get(priority);
 			assertNotNull(objs);
 			assertFalse(objs.isEmpty());
 			for (GameObj obj : objs) {
+				assertNotNull(obj);
 				assertTrue("priority obj not in layerobjs", layerObjs.remove(obj));
 				assertFalse("duplicate priority objs", layerObjs.contains(obj));
 				objStore.add(obj);
@@ -360,11 +374,13 @@ public class MainLoop {
 		
 		int mgroup = 0;
 		for (int group : groups) {
+			assertTrue(group >= 0);
 			mgroup = Math.max(mgroup, group);
 			Set<MainLoopAction> actions = groupToAction.get(group);
 			assertNotNull(actions);
 			assertFalse(actions.isEmpty());
 			for (MainLoopAction action : actions) {
+				assertNotNull(action);
 				assertFalse("duplicate actions", actionStore.contains(action));
 				actionStore.add(action);
 			}
@@ -375,11 +391,13 @@ public class MainLoop {
 		for (MainLoopAction action : actionStore) {
 			if (action instanceof MainLoopAddAction) {
 				MainLoopAddAction add = (MainLoopAddAction) action;
+				assertNotNull(add.getObj());
 				assertFalse(objStore.contains(add.getObj()));
 				assertFalse(addObjDump.contains(add.getObj()));
 				addObjDump.add(add.getObj());
 			} else if (action instanceof MainLoopRemoveAction) {
 				MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
+				assertNotNull(rem.getObj());
 				assertFalse(objStore.contains(rem.getObj()));
 				assertFalse(remObjDump.contains(rem.getObj()));
 				addObjDump.add(rem.getObj());

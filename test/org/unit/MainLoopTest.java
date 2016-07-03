@@ -115,7 +115,7 @@ public class MainLoopTest{
 	//////////////////////////////////////////////////
 	
 	@Test
-	public void advAddAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void advInsertAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
@@ -125,6 +125,13 @@ public class MainLoopTest{
 	public void advContainsNoAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		assertFalse(advInter.containsAction(advInter.createAddAction(mockObj, 0, 0)));
 		assertFalse(advInter.containsAction(advInter.createAddAction(mockObj, 0, 0), 0));
+		mainloopValidate.invoke(mainloop);
+		verifyZeroInteractions(mockObj);
+	}
+	
+	@Test
+	public void advDeleteNoAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		advInter.deleteAction(advInter.createAddAction(mockObj, 0, 0));
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
 	}
@@ -141,7 +148,7 @@ public class MainLoopTest{
 	}
 	
 	@Test
-	public void advRemoveAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void advDeleteAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction action = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(action, 0);
 		advInter.deleteAction(action);
@@ -159,10 +166,10 @@ public class MainLoopTest{
 
 	/*
 	-insadd
-	-conact/
+	-conact
+	deladd
 	-insadd conadd
 	-insadd deladd
-	deladd
 	insadd insadd
 	-nextfr
 	insadd nextfr
