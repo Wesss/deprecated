@@ -202,10 +202,6 @@ public class MainLoop {
 		// TODO
 	}
 	
-	protected void clearActionGroup(int actionGroup) {
-		// TODO
-	}
-	
 	//////////////////////////////////////////////////
 	// Framework Functionality
 	//////////////////////////////////////////////////

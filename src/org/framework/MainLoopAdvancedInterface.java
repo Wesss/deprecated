@@ -37,11 +37,6 @@ public class MainLoopAdvancedInterface {
 	}
 	
 	// TODO
-	public void deleteAllActionsGroup(int actionGroup) {
-		loop.clearActionGroup(actionGroup);
-	}
-	
-	// TODO
 	public boolean contains(GameObj obj) {
 		return loop.containsAdv(obj);
 	}

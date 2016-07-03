@@ -156,4 +156,26 @@ public class MainLoopTest{
 		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
 	}
+
+	/*
+	-insadd
+	-conact/
+	-insadd conadd
+	-insadd deladd
+	deladd
+	insadd insadd
+	-nextfr
+	insadd nextfr
+	conobj
+	insadd nextfr conobj
+	insadd nextfr insrem nextfr
+	delAll
+	insadd insclr delAll
+	insclr nextfr
+	insadd insadd2 <group>
+	insadd insadd2 nextfr <paint>
+	insadd insadd2 nextfr nextfr <priority>
+	insadd insadd2 nextfr insclr nextfr
+	insadd insadd2 nextfr insclr insrem(group 2) nextfr
+	*/
 }
