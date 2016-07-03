@@ -21,7 +21,7 @@ public class MainLoopAdvancedInterface {
 	 * TODO
 	 * @param action
 	 * @param actionGroup
-	 * @throws IllegalArgumentException if actionGroup < 0 or action == null
+	 * @throws IllegalArgumentException if actionGroup < 0, action == null
 	 */
 	public void insertAction(MainLoopAction action, int actionGroup) {
 		loop.addAction(action, actionGroup);
@@ -51,16 +51,30 @@ public class MainLoopAdvancedInterface {
 	public boolean contains(GameObj obj) {
 		return loop.containsAdv(obj);
 	}
-	
-	// TODO
+
+	/**
+	 * TODO
+	 * @param obj
+	 * @param priority
+	 * @param layer
+	 * @return
+	 * @throws IllegalArguementException if obj == null, priority < 0, layer < 0
+	 */
 	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
-		// TODO check args
+		if (obj == null || priority < 0 || layer < 0)
+			throw new IllegalArgumentException("Illegal Add Action creation");
 		return new MainLoopAddAction(obj, priority, layer);
 	}
 	
-	// TODO
+	/**
+	 * TODO
+	 * @param obj
+	 * @return
+	 * @throws IllegalArgumentException if obj == null
+	 */
 	public MainLoopAction createRemoveAction(GameObj obj) {
-		// TODO check args
+		if (obj == null)
+			throw new IllegalArgumentException("Illegal Remove Action creation");
 		return new MainLoopRemoveAction(obj);
 	}
 
