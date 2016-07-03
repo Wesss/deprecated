@@ -68,9 +68,11 @@ public class MainLoop {
 	 * 		!groupToAction.get(group).isEmpty
 	 * for each MainLoopAction action being stored within groupToAction
 	 * 		if action is a MainLoopAddAction
-	 * 			TODO
+	 * 			action.obj is not already a part of the main loop
+	 * 			action.obj is not present in another add action
 	 * 		if action is a MainLoopRemoveAction
-	 * 			TODO
+	 * 			action.obj is a part of the main loop
+	 * 			action.obj is not present in another remove action
 	 */
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
 	private int maxGroup;
@@ -166,7 +168,17 @@ public class MainLoop {
 	}
 	
 	protected void addAction(MainLoopAction action, int actionGroup) {
-		// TODO
+		if (actionGroup < 0) {
+			throw new IllegalArgumentException("actionGroup must be >= 0");
+		}
+		
+		if (!groupToAction.containsKey(actionGroup)) {
+			HashSet<MainLoopAction> set = new HashSet<>();
+			set.add(action);
+			groupToAction.put(actionGroup, set);
+		} else {
+			groupToAction.get(actionGroup).add(action);
+		}
 	}
 
 	protected boolean containsAction(MainLoopAction action) {
