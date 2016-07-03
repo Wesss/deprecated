@@ -1,8 +1,14 @@
 package org.framework;
 
 import org.framework.interfaces.GameObj;
-
+/**
+ * TODO
+ *
+ * @author Wesley
+ */
 public class MainLoopAdvancedInterface {
+	
+	// TODO getActions, getObjs
 	
 	// the MainLoop being modified by this interface
 	private MainLoop loop;
@@ -11,7 +17,12 @@ public class MainLoopAdvancedInterface {
 		this.loop = loop;
 	}
 	
-	// TODO
+	/**
+	 * TODO
+	 * @param action
+	 * @param actionGroup
+	 * @throws IllegalArgumentException if actionGroup < 0 or action == null
+	 */
 	public void insertAction(MainLoopAction action, int actionGroup) {
 		loop.addAction(action, actionGroup);
 	}
@@ -43,16 +54,18 @@ public class MainLoopAdvancedInterface {
 	
 	// TODO
 	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
+		// TODO check args
 		return new MainLoopAddAction(obj, priority, layer);
 	}
 	
 	// TODO
 	public MainLoopAction createRemoveAction(GameObj obj) {
+		// TODO check args
 		return new MainLoopRemoveAction(obj);
 	}
 
 	// TODO
-	public MainLoopAction createClearAction(GameObj obj) {
+	public MainLoopAction createClearAction() {
 		return new MainLoopClearAction();
 	}
 	
