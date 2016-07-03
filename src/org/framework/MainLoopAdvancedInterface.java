@@ -12,11 +12,6 @@ public class MainLoopAdvancedInterface {
 	}
 	
 	// TODO
-	public void contains(GameObj obj) {
-		loop.containsAdv(obj);
-	}
-	
-	// TODO
 	public void insertAction(MainLoopAction action, int actionGroup) {
 		loop.addAction(action, actionGroup);
 	}
@@ -44,6 +39,11 @@ public class MainLoopAdvancedInterface {
 	// TODO
 	public void deleteAllActionsGroup(int actionGroup) {
 		loop.clearActionGroup(actionGroup);
+	}
+	
+	// TODO
+	public boolean contains(GameObj obj) {
+		return loop.containsAdv(obj);
 	}
 	
 	// TODO

@@ -135,7 +135,7 @@ public class MainLoopTest{
 		advInter.insertAction(action, 0);
 		assertTrue(advInter.containsAction(action));
 		assertTrue(advInter.containsAction(action, 0));
-		assertFalse(advInter.con(action, 0));
+		assertFalse(advInter.contains(mockObj));
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
 	}
