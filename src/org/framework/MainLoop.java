@@ -173,13 +173,20 @@ public class MainLoop {
 	//////////////////////////////////////////////////
 	
 	protected boolean containsAdv(GameObj obj) {
+		if (obj == null) {
+			return false;
+		}
+		
 		// TODO
 		return false;
 	}
 	
-	protected void addAction(MainLoopAction action, int actionGroup) {
+	protected void insertAction(MainLoopAction action, int actionGroup) {
 		if (actionGroup < 0) {
-			throw new IllegalArgumentException("actionGroup must be >= 0");
+			throw new IllegalArgumentException("invalid actionGroup of " + actionGroup);
+		}
+		if (action == null) {
+			throw new IllegalArgumentException("null action inserted into mainloop");
 		}
 		
 		if (!groupToAction.containsKey(actionGroup)) {
@@ -192,6 +199,9 @@ public class MainLoop {
 	}
 
 	protected boolean containsAction(MainLoopAction action) {
+		if (action == null)
+			return false;
+		
 		for (int group : groupToAction.keySet()) {
 			if (groupToAction.get(group).contains(action))
 				return true;
@@ -200,15 +210,21 @@ public class MainLoop {
 	}
 	
 	protected boolean containsAction(MainLoopAction action, int actionGroup) {
+		if (action == null)
+			return false;
+		
 		return (groupToAction.containsKey(actionGroup) &&
 				groupToAction.get(actionGroup).contains(action));
 	}
 	
-	protected void removeAction(MainLoopAction action) {
+	protected void deleteAction(MainLoopAction action) {
+		if (action == null)
+			return;
+		
 		// TODO
 	}
 	
-	protected void clearActions() {
+	protected void deleteAllActions() {
 		// TODO
 	}
 	

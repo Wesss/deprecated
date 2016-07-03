@@ -24,7 +24,7 @@ public class MainLoopAdvancedInterface {
 	 * @throws IllegalArgumentException if actionGroup < 0, action == null
 	 */
 	public void insertAction(MainLoopAction action, int actionGroup) {
-		loop.addAction(action, actionGroup);
+		loop.insertAction(action, actionGroup);
 	}
 
 	// TODO
@@ -39,12 +39,12 @@ public class MainLoopAdvancedInterface {
 	
 	// TODO
 	public void deleteAction(MainLoopAction action) {
-		loop.removeAction(action);
+		loop.deleteAction(action);
 	}
 	
 	// TODO
 	public void deleteAllActions() {
-		loop.clearActions();
+		loop.deleteAllActions();
 	}
 	
 	// TODO
