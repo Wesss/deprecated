@@ -182,13 +182,16 @@ public class MainLoop {
 	}
 
 	protected boolean containsAction(MainLoopAction action) {
-		// TODO
+		for (int group : groupToAction.keySet()) {
+			if (groupToAction.get(group).contains(action))
+				return true;
+		}
 		return false;
 	}
 	
 	protected boolean containsAction(MainLoopAction action, int actionGroup) {
-		// TODO
-		return false;
+		return (groupToAction.containsKey(actionGroup) &&
+				groupToAction.get(actionGroup).contains(action));
 	}
 	
 	protected void removeAction(MainLoopAction action) {
