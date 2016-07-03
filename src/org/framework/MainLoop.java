@@ -221,7 +221,10 @@ public class MainLoop {
 		if (action == null)
 			return;
 		
-		// TODO
+		for (int group : groupToAction.keySet()) {
+			if (groupToAction.get(group).remove(action))
+				break;
+		}
 	}
 	
 	protected void deleteAllActions() {
