@@ -159,7 +159,7 @@ public class MainLoop {
 		// TODO
 	}
 	
-	public void addPostClearBackground(GameObj obj) {
+	public void addBackgroundPostClear(GameObj obj) {
 		// TODO
 	}
 	
