@@ -225,7 +225,7 @@ public class MainLoop {
 			HashSet<MainLoopAction> actions = groupToAction.get(group);
 			if (actions.remove(action)) {
 				if (actions.isEmpty()) {
-					groupToAction.remove(actions);
+					groupToAction.remove(group);
 				}
 				break;
 			}
