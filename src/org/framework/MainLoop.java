@@ -14,7 +14,8 @@ import org.framework.MainLoopAdvancedInterface.MainLoopRemoveAction;
 import org.framework.interfaces.GameObj;
 
 /**
- * This singleton class keeps track of all GameObjs in a game and repeatedly updates in fixed time intervals
+ * This singleton class keeps track of all GameObjs in a game
+ * and repeatedly updates them in fixed time intervals
  * 
  * @author Wesley Cox
  */
@@ -37,6 +38,12 @@ public class MainLoop {
 	/*  
 	 * Representation of all the game objects currently being tracked by the MainLoop
 	 * 
+	 * allObjs != null TODO
+	 * for each GameObj obj in allObjs
+	 * 		obj also exists in layerToObj TODO
+	 * 		obj also exists in priorityToObj TODO
+	 * 		
+	 * 
 	 * layerToObj != null
 	 * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
 	 * for each layer in layerToObj.keset()
@@ -46,6 +53,7 @@ public class MainLoop {
 	 * for each GameObj obj being stored within layerToObj
 	 * 		obj != null
 	 * 		obj also exists in priorityToObj
+	 * 		obj also exists in allObjs TODO
 	 * 		obj does not exist anywhere else in layerToObj
 	 * 
 	 * priorityToObj != null
@@ -57,8 +65,10 @@ public class MainLoop {
 	 * for each GameObj obj being stored within priorityToObj
 	 * 		obj != null
 	 * 		obj also exists in layerToObj
+	 * 		obj also exists in allObjs TODO
 	 * 		obj does not exist anywhere else in priorityToObj
 	 */
+	private HashSet<GameObj> allObjs;
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
 	private HashMap<Integer, HashSet<GameObj>> priorityToObj;
@@ -77,14 +87,27 @@ public class MainLoop {
 	 * 		action != null;
 	 * 		if action is a MainLoopAddAction
 	 * 			action.obj != null
+	 * 			action.obj also exists in addActionObjs TODO
 	 * 			action.obj is not already a part of the main loop
 	 * 			action.obj is not present in another add action
 	 * 		if action is a MainLoopRemoveAction
 	 * 			action.obj != null
+	 * 			action.obj also exists in remActionObjs TODO
 	 * 			action.obj is a part of the main loop
 	 * 			action.obj is not present in another remove action
+	 * 
+	 * addActionObjs != null TODO
+	 * for each GameObj obj in addActionObjs
+	 * 		obj also exists in an addAction in groupToAction TODO
+	 * 
+	 * remActionObjs != null TODO
+	 * for each GameObj obj in remActionObjs
+	 * 		obj also exists in an removeAction in groupToAction TODO
 	 */
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
+	private HashSet<GameObj> addActionObjs;
+	private HashSet<GameObj> remActionObjs;
+
 	private int maxGroup;
 	
 	//////////////////////////////////////////////////
