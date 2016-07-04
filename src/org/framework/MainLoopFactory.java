@@ -4,16 +4,16 @@ public class MainLoopFactory {
 	
 	// TODO create FactoryFactory to be able to test initialization
 	
-	private static MainLoop singleton = null;
+	private MainLoop singleton = null;
 	
-	public static MainLoop getMainLoop() {
+	public MainLoop getMainLoop() {
 		if (singleton == null) {
 			throw new RuntimeException("MainLoop has not been constructed yet");
 		}
 		return singleton;
 	}
 	
-	protected static void constructMainLoop(int updatesPerSecond) {
+	protected void constructMainLoop(int updatesPerSecond) {
 		if (updatesPerSecond <= 0)
 			throw new IllegalArgumentException("updatesPerSecond must be positive");
 		if (singleton != null)

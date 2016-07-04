@@ -222,8 +222,13 @@ public class MainLoop {
 			return;
 		
 		for (int group : groupToAction.keySet()) {
-			if (groupToAction.get(group).remove(action))
+			HashSet<MainLoopAction> actions = groupToAction.get(group);
+			if (actions.remove(action)) {
+				if (actions.isEmpty()) {
+					groupToAction.remove(actions);
+				}
 				break;
+			}
 		}
 	}
 	

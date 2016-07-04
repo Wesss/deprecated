@@ -14,6 +14,7 @@ import org.framework.MainLoop;
 import org.framework.MainLoopAdvancedInterface;
 import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.MainLoopFactory;
+import org.framework.MainLoopFactoryFactory;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -26,29 +27,34 @@ public class MainLoopTest{
 	public static final int STANDARD_UPS = 60;
 	public static final int STRESSTEST_UPS = 300;
 	
-	private static MainLoop mainloop = null;
-	private static MainLoopAdvancedInterface advInter = null;
+	private MainLoop mainloop = null;
+	private MainLoopAdvancedInterface advInter = null;
 	
-	private static Method mainloopValidate = null;
-	private static Method nextFrame = null;
+	private Method mainloopValidate = null;
+	private Method nextFrame = null;
 	
-	private static Graphics mockGraphics = mock(Graphics.class);
-	private static GamePanel mockPanel = mock(GamePanel.class);
+	private Graphics mockGraphics = mock(Graphics.class);
+	private GamePanel mockPanel = mock(GamePanel.class);
 	private GameObj mockObj = mock(GameObj.class);
 	
 	//////////////////////////////////////////////////
 	// Setup
 	//////////////////////////////////////////////////
 	
-	@BeforeClass
-	public static void setupClass() {
-		mainloop = null;
+	@Before
+	public void setup() {
+		reset(mockPanel, mockGraphics, mockObj);
 		
+		mainloop = null;
 		try {
+			Method getFactory = MainLoopFactoryFactory.class.getDeclaredMethod("getMainLoopFactory");
+			getFactory.setAccessible(true);
+			MainLoopFactory factory = (MainLoopFactory) getFactory.invoke(null);
+			
 			Method init = MainLoopFactory.class.getDeclaredMethod("constructMainLoop", int.class);
 			init.setAccessible(true);
-			init.invoke(null, STANDARD_UPS);
-			mainloop = (MainLoop) MainLoopFactory.getMainLoop();
+			init.invoke(factory, STANDARD_UPS);
+			mainloop = (MainLoop) factory.getMainLoop();
 			
 			Method ref = MainLoop.class.getDeclaredMethod("setReferences", GamePanel.class);
 			ref.setAccessible(true);
@@ -65,11 +71,6 @@ public class MainLoopTest{
 			fail();
 		}
 		advInter = mainloop.advancedInterface();
-	}
-	
-	@Before
-	public void setup() {
-		reset(mockPanel);
 	}
 	
 	@Test

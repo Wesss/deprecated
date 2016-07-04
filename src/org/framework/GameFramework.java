@@ -49,8 +49,9 @@ public class GameFramework {
 														GameEventListener listener,
 														AspectRatio ratio,
 														int updatesPerSecond) {
-		MainLoopFactory.constructMainLoop(updatesPerSecond);
-		MainLoop mainLoop = MainLoopFactory.getMainLoop();
+		MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
+		factory.constructMainLoop(updatesPerSecond);
+		MainLoop mainLoop = factory.getMainLoop();
 		GamePanel panel = new GamePanel(500, 500); // TODO
 		
 		Game newGame = null;
