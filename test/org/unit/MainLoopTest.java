@@ -159,6 +159,14 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advInsertSameObjTwice() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
+		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 1);
+		mainloopValidate.invoke(mainloop);
+		verifyZeroInteractions(mockObj);
+	}
+	
+	@Test
 	public void advNextFrame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
@@ -167,7 +175,7 @@ public class MainLoopTest{
 	/*
 	-insadd
 	-conact
-	deladd
+	-deladd
 	-insadd conadd
 	-insadd deladd
 	insadd insadd
