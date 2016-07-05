@@ -168,7 +168,7 @@ public class MainLoopTest{
 	}
 	
 	@Test
-	public void advNextFrame() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void advNextFrameNoObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
 	}
@@ -179,7 +179,8 @@ public class MainLoopTest{
 	-deladd
 	-insadd conadd
 	-insadd deladd
-	insadd insadd
+	-insadd insadd
+	insadd insadd2
 	-nextfr
 	insadd nextfr
 	conobj

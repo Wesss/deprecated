@@ -117,6 +117,7 @@ public class MainLoop {
 	protected MainLoop(int FPS) {
 		updateCycle = new Thread(new Animate(FPS));
 		
+		allObjs = new HashSet<>();
 		layerToObj = new HashMap<>();
 		maxLayer = 0;
 		priorityToObj = new HashMap<>();
@@ -124,6 +125,8 @@ public class MainLoop {
 		
 		groupToAction = new HashMap<>();
 		maxGroup = 0;
+		addActionObjs = new HashSet<>();
+		remActionObjs = new HashSet<>();
 	}
 	
 	/**
@@ -219,6 +222,12 @@ public class MainLoop {
 		} else {
 			groupToAction.get(actionGroup).add(action);
 		}
+		
+		if (action instanceof MainLoopAddAction) {
+			addActionObjs.add(((MainLoopAddAction)action).getObj());
+		} else if (action instanceof MainLoopRemoveAction) {
+			remActionObjs.add(((MainLoopRemoveAction)action).getObj());
+		}
 	}
 
 	protected boolean containsAction(MainLoopAction action) {
@@ -252,6 +261,12 @@ public class MainLoop {
 				}
 				break;
 			}
+		}
+		
+		if (action instanceof MainLoopAddAction) {
+			addActionObjs.remove(((MainLoopAddAction)action).getObj());
+		} else if (action instanceof MainLoopRemoveAction) {
+			remActionObjs.remove(((MainLoopRemoveAction)action).getObj());
 		}
 	}
 	
