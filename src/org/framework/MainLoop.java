@@ -38,10 +38,10 @@ public class MainLoop {
 	/*  
 	 * Representation of all the game objects currently being tracked by the MainLoop
 	 * 
-	 * allObjs != null TODO
+	 * allObjs != null
 	 * for each GameObj obj in allObjs
-	 * 		obj also exists in layerToObj TODO
-	 * 		obj also exists in priorityToObj TODO
+	 * 		obj also exists in layerToObj
+	 * 		obj also exists in priorityToObj
 	 * 		
 	 * 
 	 * layerToObj != null
@@ -53,7 +53,7 @@ public class MainLoop {
 	 * for each GameObj obj being stored within layerToObj
 	 * 		obj != null
 	 * 		obj also exists in priorityToObj
-	 * 		obj also exists in allObjs TODO
+	 * 		obj also exists in allObjs
 	 * 		obj does not exist anywhere else in layerToObj
 	 * 
 	 * priorityToObj != null
@@ -374,55 +374,58 @@ public class MainLoop {
 		// game objs
 		assertTrue(maxLayer >= 0);
 		assertTrue(maxPriority >= 0);
+		assertNotNull(allObjs);
 		assertNotNull(layerToObj);
 		assertNotNull(priorityToObj);
 		
-		Set<GameObj> layerObjs = new HashSet<>();
-		Set<GameObj> objStore = new HashSet<>();
+		Set<GameObj> layerObjStore = new HashSet<>();
+		Set<GameObj> priorityObjStore = new HashSet<>();
 		Set<Integer> layers = layerToObj.keySet();
 		Set<Integer> priorities = layerToObj.keySet();
 		
-		int mlayer = 0;
 		for (int layer : layers) {
 			assertTrue(layer >= 0);
-			mlayer = Math.max(mlayer, layer);
+			assertTrue(maxLayer >= layer);
 			Set<GameObj> objs = layerToObj.get(layer);
 			assertNotNull(objs);
 			assertFalse(objs.isEmpty());
 			for (GameObj obj : objs) {
 				assertNotNull(obj);
-				assertFalse("duplicate layer objs", layerObjs.contains(obj));
-				layerObjs.add(obj);
+				assertFalse("duplicate layer objs", layerObjStore.contains(obj));
+				layerObjStore.add(obj);
 			}
 		}
-		assertTrue(mlayer <= maxLayer);
-		int mprior = 0;
+		
 		for (int priority : priorities) {
 			assertTrue(priority >= 0);
-			mprior = Math.max(mprior, priority);
-			Set<GameObj> objs = layerToObj.get(priority);
+			assertTrue(maxPriority >= priority);
+			Set<GameObj> objs = priorityToObj.get(priority);
 			assertNotNull(objs);
 			assertFalse(objs.isEmpty());
 			for (GameObj obj : objs) {
 				assertNotNull(obj);
-				assertTrue("priority obj not in layerobjs", layerObjs.remove(obj));
-				assertFalse("duplicate priority objs", layerObjs.contains(obj));
-				objStore.add(obj);
+				assertFalse("duplicate priority objs", priorityObjStore.contains(obj));
+				priorityObjStore.add(obj);
 			}
 		}
-		assertTrue(mprior <= maxPriority);
-		assertTrue("layer obj not in priority objs", layerObjs.isEmpty());
+		
+		assertEquals(allObjs, priorityObjStore);
+		assertEquals(allObjs, layerObjStore);
 		
 		// actions
 		assertTrue(maxGroup >= 0);
 		assertNotNull(groupToAction);
+		assertNotNull(addActionObjs);
+		assertNotNull(remActionObjs);
+		
 		Set<MainLoopAction> actionStore = new HashSet<>();
+		Set<GameObj> addObjStore = new HashSet<>();
+		Set<GameObj> remObjStore = new HashSet<>();
 		Set<Integer> groups = groupToAction.keySet();
 		
-		int mgroup = 0;
 		for (int group : groups) {
 			assertTrue(group >= 0);
-			mgroup = Math.max(mgroup, group);
+			assertTrue(maxGroup >= group);
 			Set<MainLoopAction> actions = groupToAction.get(group);
 			assertNotNull(actions);
 			assertFalse(actions.isEmpty());
@@ -430,29 +433,28 @@ public class MainLoop {
 				assertNotNull(action);
 				assertFalse("duplicate actions", actionStore.contains(action));
 				actionStore.add(action);
+				
+				if (action instanceof MainLoopAddAction) {
+					MainLoopAddAction add = (MainLoopAddAction) action;
+					assertNotNull(add.getObj());
+					assertFalse(allObjs.contains(add.getObj()));
+					assertFalse(addObjStore.contains(add.getObj()));
+					addObjStore.add(add.getObj());
+				} else if (action instanceof MainLoopRemoveAction) {
+					MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
+					assertNotNull(rem.getObj());
+					assertTrue(allObjs.contains(rem.getObj()));
+					assertFalse(remObjStore.contains(rem.getObj()));
+					remObjStore.add(rem.getObj());
+				} else if (action instanceof MainLoopClearAction) {
+					// nothing
+				} else {
+					fail("unknown action type recieved");
+				}
 			}
 		}
-		Set<MainLoopAction> actionDump = new HashSet<>();
-		Set<GameObj> addObjDump = new HashSet<>();
-		Set<GameObj> remObjDump = new HashSet<>();
-		for (MainLoopAction action : actionStore) {
-			if (action instanceof MainLoopAddAction) {
-				MainLoopAddAction add = (MainLoopAddAction) action;
-				assertNotNull(add.getObj());
-				assertFalse(objStore.contains(add.getObj()));
-				assertFalse(addObjDump.contains(add.getObj()));
-				addObjDump.add(add.getObj());
-			} else if (action instanceof MainLoopRemoveAction) {
-				MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
-				assertNotNull(rem.getObj());
-				assertFalse(objStore.contains(rem.getObj()));
-				assertFalse(remObjDump.contains(rem.getObj()));
-				addObjDump.add(rem.getObj());
-			} else if (action instanceof MainLoopClearAction) {
-				// nothing
-			} else {
-				fail("unknown action type recieved");
-			}
-		}
+		
+		assertEquals(addObjStore, addActionObjs);
+		assertEquals(remObjStore, remActionObjs);
 	}
 }
