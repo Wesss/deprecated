@@ -1,9 +1,7 @@
 package org.unit;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.*;
 
 import java.awt.Graphics;
 import java.lang.reflect.InvocationTargetException;
@@ -36,6 +34,7 @@ public class MainLoopTest{
 	private Graphics mockGraphics = mock(Graphics.class);
 	private GamePanel mockPanel = mock(GamePanel.class);
 	private GameObj mockObj = mock(GameObj.class);
+	private GameObj mockObj2 = mock(GameObj.class);
 	
 	//////////////////////////////////////////////////
 	// Setup
@@ -162,7 +161,7 @@ public class MainLoopTest{
 	@Test
 	public void advInsertSameObjTwice() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
-		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 1);
+		advInter.insertAction(advInter.createAddAction(mockObj2, 0, 0), 0);
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
 	}
@@ -172,6 +171,17 @@ public class MainLoopTest{
 		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
 	}
+	
+	@Test
+	public void advNextFrameInsertObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
+		advInter.insertAction(insert, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		assertFalse(advInter.containsAction(insert));
+		assertTrue(advInter.contains(mockObj));
+		mainloopValidate.invoke(mainloop);
+		verify(mockObj).update();
+	}
 
 	/*
 	-insadd
@@ -180,10 +190,9 @@ public class MainLoopTest{
 	-insadd conadd
 	-insadd deladd
 	-insadd insadd
-	insadd insadd2
 	-nextfr
-	insadd nextfr
 	conobj
+	-insadd nextfr
 	insadd nextfr conobj
 	insadd nextfr insrem nextfr
 	delAll
