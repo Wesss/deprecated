@@ -215,18 +215,22 @@ public class MainLoop {
 			throw new IllegalArgumentException("null action inserted into mainloop");
 		}
 		
+		if (action instanceof MainLoopAddAction) {
+			MainLoopAddAction add = (MainLoopAddAction) action;
+			if (addActionObjs.contains(add.getObj()) || allObjs.contains(add)) {
+				throw new IllegalArgumentException("duplicate obj inserted into MainLoop");
+			}
+			addActionObjs.add(add.getObj());
+		} else if (action instanceof MainLoopRemoveAction) {
+			remActionObjs.add(((MainLoopRemoveAction)action).getObj());
+		}
+		
 		if (!groupToAction.containsKey(actionGroup)) {
 			HashSet<MainLoopAction> set = new HashSet<>();
 			set.add(action);
 			groupToAction.put(actionGroup, set);
 		} else {
 			groupToAction.get(actionGroup).add(action);
-		}
-		
-		if (action instanceof MainLoopAddAction) {
-			addActionObjs.add(((MainLoopAddAction)action).getObj());
-		} else if (action instanceof MainLoopRemoveAction) {
-			remActionObjs.add(((MainLoopRemoveAction)action).getObj());
 		}
 	}
 
