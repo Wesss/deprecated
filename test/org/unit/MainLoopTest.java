@@ -137,6 +137,11 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advContainsNoObj() {
+		assertFalse(advInter.contains(mockObj));
+	}
+	
+	@Test
 	public void advContainsAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction action = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(action, 0);
@@ -165,12 +170,26 @@ public class MainLoopTest{
 	}
 	
 	@Test
-	public void advNextFrameInsertObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void advInsertObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(insert, 0);
 		nextFrame.invoke(mainloop, mockGraphics);
 		assertFalse(advInter.containsAction(insert));
 		assertTrue(advInter.contains(mockObj));
+		mainloopValidate.invoke(mainloop);
+		verify(mockObj).update();
+	}
+	
+	@Test
+	public void advRemoveObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
+		advInter.insertAction(insert, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		MainLoopAction remove = advInter.createRemoveAction(mockObj);
+		advInter.insertAction(remove, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		assertFalse(advInter.containsAction(remove));
+		assertFalse(advInter.contains(mockObj));
 		mainloopValidate.invoke(mainloop);
 		verify(mockObj).update();
 	}
@@ -193,7 +212,8 @@ public class MainLoopTest{
 		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
 		nextFrame.invoke(mainloop, mockGraphics);
 		try {
-			advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);fail();
+			advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
+			fail();
 		} catch (IllegalArgumentException e) {}
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
@@ -203,13 +223,12 @@ public class MainLoopTest{
 	-insadd
 	-conact
 	-deladd
+	-conobj
 	-insadd conadd
 	-insadd deladd
 	-nextfr
-	conobj
-	-insadd nextfr
-	insadd nextfr conobj
-	insadd nextfr insrem nextfr
+	-insadd nextfr conobj
+	-insadd nextfr insrem nextfr
 	delAll
 	insadd insclr delAll
 	insclr nextfr

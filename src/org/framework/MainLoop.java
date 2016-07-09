@@ -283,61 +283,35 @@ public class MainLoop {
 	//////////////////////////////////////////////////
 	
 	/**
-	 * Add all GameObjs from markedAdd to the MainLoop
-	 */
-	private void resolveAdds() {
-//		for (GameObj obj : markedAdd.keySet()) {
-//			int layer = markedAdd.get(obj);
-//			
-//			objToLayer.put(obj, layer);
-//			if (!layerToObj.containsKey(layer)) {
-//				layerToObj.put(layer, new HashSet<GameObj>());
-//				if (layer > maxLayer) {
-//					maxLayer = layer;
-//				}
-//			}
-//			layerToObj.get(layer).add(obj);
-//		}
-//		
-//		markedAdd.clear();
-	}
-	
-	/**
-	 * Remove all GameObjs from markedRemove from the MainLoop
-	 */
-	private void resolveRemoves() {
-//		for (GameObj obj : markedRemove) {
-//			layerToObj.get(objToLayer.get(obj)).remove(obj);
-//			objToLayer.remove(obj);
-//			markedAdd.remove(obj);
-//		}
-//		
-//		markedRemove.clear();
-	}
-	
-	/**
 	 * Moves the game state up one frame/update cycle
 	 * @param g The graphics object to paint with
 	 */
 	protected void nextFrame(Graphics g) {
-		for (int i = 0; i <= maxLayer; i++) {
-			if (layerToObj.containsKey(i)) {
-				HashSet<GameObj> objs = layerToObj.get(i);
-				for (GameObj obj : objs) {
+		updateObjs();
+		resolveActions();
+		paintObjs(g);
+	}
+	
+	private void updateObjs() {
+		for (int i = 0; i < maxPriority; i++) {
+			HashSet<GameObj> objs = priorityToObj.get(i);
+			if (objs != null) {
+				for (GameObj obj : objs)
 					obj.update();
-				}
 			}
 		}
-		
-		resolveAdds();
-		resolveRemoves();
-		
-		for (int i = 0; i <= maxLayer; i++) {
-			if (layerToObj.containsKey(i)) {
-				HashSet<GameObj> objs = layerToObj.get(i);
-				for (GameObj obj : objs) {
+	}
+	
+	private void resolveActions() {
+		// TODO
+	}
+	
+	private void paintObjs(Graphics g) {
+		for (int i = 0; i < maxLayer; i++) {
+			HashSet<GameObj> objs = layerToObj.get(i);
+			if (objs != null) {
+				for (GameObj obj : objs)
 					obj.draw(g);
-				}
 			}
 		}
 	}
