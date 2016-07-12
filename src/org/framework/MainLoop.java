@@ -122,9 +122,10 @@ public class MainLoop {
 	protected MainLoop(int FPS) {
 		updateCycle = new Thread(new Animate(FPS));
 		
-		allObjs = new HashSet<>();
+		objToLayer = new HashMap<>();
 		layerToObj = new HashMap<>();
 		maxLayer = 0;
+		objToPriority = new HashMap<>();
 		priorityToObj = new HashMap<>();
 		maxPriority = 0;
 		
@@ -231,12 +232,19 @@ public class MainLoop {
 		
 		if (action instanceof MainLoopAddAction) {
 			MainLoopAddAction add = (MainLoopAddAction) action;
-			if (addActionObjs.contains(add.getObj()) || allObjs.contains(add)) {
-				throw new IllegalArgumentException("duplicate obj inserted into MainLoop");
+			if (addActionObjs.contains(add.getObj()) || containsAdv(add.getObj())) {
+				throw new IllegalArgumentException("queued to insert duplicate objs into MainLoop");
 			}
 			addActionObjs.add(add.getObj());
 		} else if (action instanceof MainLoopRemoveAction) {
-			remActionObjs.add(((MainLoopRemoveAction)action).getObj());
+			MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
+			if (remActionObjs.contains(rem.getObj())) {
+				throw new IllegalArgumentException("queued to remove duplicate objs from MainLoop");
+			}
+			if (!containsAdv(rem.getObj())) {
+				throw new IllegalArgumentException("queued to remove non-existant obj from MainLoop");
+			}
+			remActionObjs.add(rem.getObj());
 		}
 		
 		if (!groupToAction.containsKey(actionGroup)) {
