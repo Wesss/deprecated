@@ -38,39 +38,44 @@ public class MainLoop {
 	/*  
 	 * Representation of all the game objects currently being tracked by the MainLoop
 	 * 
-	 * allObjs != null
-	 * for each GameObj obj in allObjs
-	 * 		obj also exists in layerToObj
-	 * 		obj also exists in priorityToObj
-	 * 		
+	 * 
+	 * objToLayer != null
+	 * for each (obj --> layer) pair in objToLayer TODO
+	 * 		layerToObj.get(layer) contains obj TODO
+	 * 
+	 * objToPriority != null
+	 * for each key value pair (obj --> layer) in objToPriority TODO
+	 * 		priorityToObj.get(priority) contains obj TODO
+	 * 
+	 * objToLayer.keySet is equivalent to objToPriority.keyset
 	 * 
 	 * layerToObj != null
 	 * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
-	 * for each layer in layerToObj.keset()
+	 * for each (layer --> objs) pair in layerToObj.keset()
 	 * 		layer >= 0
 	 * 		layerToObj.get(layer) != null
 	 * 		!layerToObj.get(layer).isEmpty
-	 * for each GameObj obj being stored within layerToObj
-	 * 		obj != null
-	 * 		obj also exists in priorityToObj
-	 * 		obj also exists in allObjs
-	 * 		obj does not exist anywhere else in layerToObj
+	 * 		for each obj being stored within objs
+	 * 			obj != null
+	 * 			obj also exists in priorityToObj
+	 * 			obj also exists in objToLayer, objToPriority, priorityToObj
+	 * 			obj does not exist anywhere else in layerToObj
 	 * 
 	 * priorityToObj != null
 	 * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
-	 * for each priority in priorityToObj.keset()
+	 * for each (priority --> objs) pair in priorityToObj.keset()
 	 * 		priority >= 0
 	 * 		priorityToObj.get(priority) != null
 	 * 		!priorityToObj.get(priority).isEmpty
-	 * for each GameObj obj being stored within priorityToObj
-	 * 		obj != null
-	 * 		obj also exists in layerToObj
-	 * 		obj also exists in allObjs TODO
-	 * 		obj does not exist anywhere else in priorityToObj
+	 * 		for each obj being stored within objs
+	 * 			obj != null
+	 * 			obj also exists in objToLayer, layerToObj, objToPriority
+	 * 			obj does not exist anywhere else in priorityToObj
 	 */
-	private HashSet<GameObj> allObjs;
+	private HashMap<GameObj, Integer> objToLayer; //TODO
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
+	private HashMap<GameObj, Integer> objToPriority; //TODO
 	private HashMap<Integer, HashSet<GameObj>> priorityToObj;
 	private int maxPriority;
 	
@@ -152,39 +157,48 @@ public class MainLoop {
 	// Basic User Interface (API)
 	//////////////////////////////////////////////////
 	
+	//TODO
 	public void add(GameObj obj) {
 		// TODO
 	}
-	
+
+	//TODO
 	public void addBackground(GameObj obj) {
 		// TODO
 	}
-	
+
+	//TODO
 	public boolean contains(GameObj obj) {
 		// TODO
 		return false;
 	}
-	
+
+	//TODO
 	public void remove(GameObj obj) {
 		// TODO
 	}
-	
+
+	//TODO
 	public void markClear() {
 		// TODO
 	}
-	
+
+	//TODO
 	public void markClearForeground() {
 		// TODO
 	}
-	
+
+	//TODO
 	public void markClearBackground() {
 		// TODO
 	}
-	
+
+	//TODO
 	public void addPostClear(GameObj obj) {
 		// TODO
 	}
-	
+
+	//TODO
 	public void addBackgroundPostClear(GameObj obj) {
 		// TODO
 	}
@@ -367,9 +381,20 @@ public class MainLoop {
 		// game objs
 		assertTrue(maxLayer >= 0);
 		assertTrue(maxPriority >= 0);
-		assertNotNull(allObjs);
+		assertNotNull(objToLayer);
 		assertNotNull(layerToObj);
+		assertNotNull(objToPriority);
 		assertNotNull(priorityToObj);
+		
+		for (GameObj obj : objToLayer.keySet()) {
+			assertNotNull(obj);
+			assertTrue(layerToObj.get(objToLayer.get(obj)).contains(obj));
+		}
+		
+		for (GameObj obj : objToPriority.keySet()) {
+			assertNotNull(obj);
+			assertTrue(priorityToObj.get(objToPriority.get(obj)).contains(obj));
+		}
 		
 		Set<GameObj> layerObjStore = new HashSet<>();
 		Set<GameObj> priorityObjStore = new HashSet<>();
@@ -402,8 +427,10 @@ public class MainLoop {
 			}
 		}
 		
-		assertEquals(allObjs, priorityObjStore);
-		assertEquals(allObjs, layerObjStore);
+		assertEquals(objToPriority.keySet(), objToLayer.keySet());
+		assertEquals(objToPriority.keySet(), priorityObjStore);
+		assertEquals(objToLayer.keySet(), layerObjStore);
+		Set<GameObj> allObjs = layerObjStore;
 		
 		// actions
 		assertTrue(maxGroup >= 0);

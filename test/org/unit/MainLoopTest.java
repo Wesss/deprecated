@@ -227,10 +227,10 @@ public class MainLoopTest{
 	-insadd conadd
 	-insadd deladd
 	-nextfr
-	-insadd nextfr conobj
-	-insadd nextfr insrem nextfr
 	delAll
 	insadd insclr delAll
+	-insadd nextfr conobj
+	-insadd nextfr insrem nextfr
 	insclr nextfr
 	insadd insadd2 <group>
 	insadd insadd2 nextfr <paint>
