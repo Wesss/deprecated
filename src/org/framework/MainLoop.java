@@ -40,12 +40,12 @@ public class MainLoop {
 	 * 
 	 * 
 	 * objToLayer != null
-	 * for each (obj --> layer) pair in objToLayer TODO
-	 * 		layerToObj.get(layer) contains obj TODO
+	 * for each (obj --> layer) pair in objToLayer
+	 * 		layerToObj.get(layer) contains obj
 	 * 
 	 * objToPriority != null
-	 * for each key value pair (obj --> layer) in objToPriority TODO
-	 * 		priorityToObj.get(priority) contains obj TODO
+	 * for each key value pair (obj --> layer) in objToPriority
+	 * 		priorityToObj.get(priority) contains obj
 	 * 
 	 * objToLayer.keySet is equivalent to objToPriority.keyset
 	 * 
@@ -92,26 +92,10 @@ public class MainLoop {
 	 * 		action != null;
 	 * 		if action is a MainLoopAddAction
 	 * 			action.obj != null
-	 * 			action.obj also exists in addActionObjs TODO
-	 * 			action.obj is not already a part of the main loop
-	 * 			action.obj is not present in another add action
 	 * 		if action is a MainLoopRemoveAction
 	 * 			action.obj != null
-	 * 			action.obj also exists in remActionObjs TODO
-	 * 			action.obj is a part of the main loop
-	 * 			action.obj is not present in another remove action
-	 * 
-	 * addActionObjs != null TODO
-	 * for each GameObj obj in addActionObjs
-	 * 		obj also exists in an addAction in groupToAction TODO
-	 * 
-	 * remActionObjs != null TODO
-	 * for each GameObj obj in remActionObjs
-	 * 		obj also exists in an removeAction in groupToAction TODO
 	 */
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
-	private HashSet<GameObj> addActionObjs;
-	private HashSet<GameObj> remActionObjs;
 
 	private int maxGroup;
 	
@@ -131,8 +115,6 @@ public class MainLoop {
 		
 		groupToAction = new HashMap<>();
 		maxGroup = 0;
-		addActionObjs = new HashSet<>();
-		remActionObjs = new HashSet<>();
 	}
 	
 	/**
@@ -230,23 +212,6 @@ public class MainLoop {
 			throw new IllegalArgumentException("null action inserted into mainloop");
 		}
 		
-		if (action instanceof MainLoopAddAction) {
-			MainLoopAddAction add = (MainLoopAddAction) action;
-			if (addActionObjs.contains(add.getObj()) || containsAdv(add.getObj())) {
-				throw new IllegalArgumentException("queued to insert duplicate objs into MainLoop");
-			}
-			addActionObjs.add(add.getObj());
-		} else if (action instanceof MainLoopRemoveAction) {
-			MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
-			if (remActionObjs.contains(rem.getObj())) {
-				throw new IllegalArgumentException("queued to remove duplicate objs from MainLoop");
-			}
-			if (!containsAdv(rem.getObj())) {
-				throw new IllegalArgumentException("queued to remove non-existant obj from MainLoop");
-			}
-			remActionObjs.add(rem.getObj());
-		}
-		
 		if (!groupToAction.containsKey(actionGroup)) {
 			HashSet<MainLoopAction> set = new HashSet<>();
 			set.add(action);
@@ -287,12 +252,6 @@ public class MainLoop {
 				}
 				break;
 			}
-		}
-		
-		if (action instanceof MainLoopAddAction) {
-			addActionObjs.remove(((MainLoopAddAction)action).getObj());
-		} else if (action instanceof MainLoopRemoveAction) {
-			remActionObjs.remove(((MainLoopRemoveAction)action).getObj());
 		}
 	}
 	
@@ -465,8 +424,6 @@ public class MainLoop {
 		// actions
 		assertTrue(maxGroup >= 0);
 		assertNotNull(groupToAction);
-		assertNotNull(addActionObjs);
-		assertNotNull(remActionObjs);
 		
 		Set<MainLoopAction> actionStore = new HashSet<>();
 		Set<GameObj> addObjStore = new HashSet<>();
@@ -503,8 +460,5 @@ public class MainLoop {
 				}
 			}
 		}
-		
-		assertEquals(addObjStore, addActionObjs);
-		assertEquals(remObjStore, remActionObjs);
 	}
 }

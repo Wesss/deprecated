@@ -238,7 +238,7 @@ public class MainLoopTest{
 	insadd insadd2 nextfr insclr insrem(group 2) nextfr
 	
 	badcalls
-	 TODO remove these
+	 TODO redo these
 	-insadd insadd
 	-insadd nextfr insadd
 	*/
