@@ -173,10 +173,11 @@ public class MainLoopTest{
 		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(insert, 0);
 		nextFrame.invoke(mainloop, mockGraphics);
+		
 		assertFalse(advInter.containsAction(insert));
 		assertTrue(advInter.contains(mockObj));
 		mainloopValidate.invoke(mainloop);
-		verify(mockObj).update();
+		verify(mockObj).draw(mockGraphics);
 	}
 	
 	@Test
@@ -187,10 +188,12 @@ public class MainLoopTest{
 		MainLoopAction remove = advInter.createRemoveAction(mockObj);
 		advInter.insertAction(remove, 0);
 		nextFrame.invoke(mainloop, mockGraphics);
+		
 		assertFalse(advInter.containsAction(remove));
 		assertFalse(advInter.contains(mockObj));
 		mainloopValidate.invoke(mainloop);
 		verify(mockObj).update();
+		verify(mockObj).draw(mockGraphics);
 	}
 	
 	/* bad calls */

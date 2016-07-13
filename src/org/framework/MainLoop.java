@@ -1,6 +1,7 @@
 package org.framework;
 
 import static org.junit.Assert.*;
+import static java.lang.Math.*;
 
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -20,6 +21,9 @@ import org.framework.interfaces.GameObj;
  * @author Wesley Cox
  */
 public class MainLoop {
+	
+	// TODO abstract out index/obj pairings
+	// TODO refactor Animate Thread into its own class
 
 	//////////////////////////////////////////////////
 	// Definition
@@ -72,10 +76,10 @@ public class MainLoop {
 	 * 			obj also exists in objToLayer, layerToObj, objToPriority
 	 * 			obj does not exist anywhere else in priorityToObj
 	 */
-	private HashMap<GameObj, Integer> objToLayer; //TODO
+	private HashMap<GameObj, Integer> objToLayer;
 	private HashMap<Integer, HashSet<GameObj>> layerToObj;
 	private int maxLayer;
-	private HashMap<GameObj, Integer> objToPriority; //TODO
+	private HashMap<GameObj, Integer> objToPriority;
 	private HashMap<Integer, HashSet<GameObj>> priorityToObj;
 	private int maxPriority;
 	
@@ -301,6 +305,8 @@ public class MainLoop {
 					action.acceptResolution(this);
 			}
 		}
+		groupToAction.clear();
+		maxGroup = 0;
 	}
 	
 	protected void visitResolution(MainLoopAction action) {
@@ -308,15 +314,74 @@ public class MainLoop {
 	}
 	
 	protected void visitResolution(MainLoopAddAction action) {
+		Integer prevLayer = objToLayer.get(action.getObj());
+		Integer prevPriority = objToPriority.get(action.getObj());
 		
+		if (prevLayer != null && prevPriority != null) {
+			removeObjIndexPair(layerToObj, objToLayer, action.getObj(), prevLayer);
+			if (!layerToObj.containsKey(prevLayer)) {
+				layerToObj.remove(prevLayer);
+				if (prevLayer == maxLayer)
+					maxLayer--; // TODO actually find max efficiently
+			}
+			removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), prevPriority);
+			if (!priorityToObj.containsKey(prevPriority)) {
+				priorityToObj.remove(prevPriority);
+				if (prevPriority == maxPriority) {
+					maxPriority--;
+				}
+			}
+		}
+		
+		objToLayer.put(action.getObj(), action.getLayer());
+		objToPriority.put(action.getObj(), action.getPriority());
+		if (!layerToObj.containsKey(action.getLayer()))
+			layerToObj.put(action.getLayer(), new HashSet<>());
+		layerToObj.get(action.getLayer()).add(action.getObj());
+		if (!priorityToObj.containsKey(action.getPriority()))
+			priorityToObj.put(action.getPriority(), new HashSet<>());
+		priorityToObj.get(action.getPriority()).add(action.getObj());
+		
+		maxLayer = max(maxLayer, action.getLayer());
+		maxPriority = max(maxPriority, action.getPriority());
 	}
 	
 	protected void visitResolution(MainLoopRemoveAction action) {
-		
+		int layer = objToLayer.get(action.getObj());
+		int priority = objToPriority.get(action.getObj());
+		removeObjIndexPair(layerToObj, objToLayer, action.getObj(), layer);
+		if (!layerToObj.containsKey(layer)) {
+			layerToObj.remove(layer);
+			if (layer == maxLayer)
+				maxLayer--; // TODO duplicated above in Add resolution
+		}
+		removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
+		if (!priorityToObj.containsKey(priority)) {
+			priorityToObj.remove(priority);
+			if (priority == maxPriority) {
+				maxPriority--;
+			}
+		}
 	}
 	
 	protected void visitResolution(MainLoopClearAction action) {
-		
+		objToLayer.clear();
+		layerToObj.clear();
+		maxLayer = 0;
+		objToPriority.clear();
+		priorityToObj.clear();
+		maxPriority = 0;
+	}
+	
+	private void removeObjIndexPair(HashMap<Integer, HashSet<GameObj>> indexToObjs,
+									HashMap<GameObj, Integer> objToIndex,
+									GameObj obj,
+									int index) {
+		objToIndex.remove(obj);
+		indexToObjs.get(index).remove(obj);
+		if (indexToObjs.get(index).isEmpty()) {
+			indexToObjs.remove(index);
+		}
 	}
 	
 	/**
