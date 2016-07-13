@@ -15,7 +15,6 @@ import org.framework.MainLoopFactory;
 import org.framework.MainLoopFactoryFactory;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MainLoopTest{
@@ -239,7 +238,7 @@ public class MainLoopTest{
 	insadd insadd2 nextfr insclr insrem(group 2) nextfr
 	
 	badcalls
-	
+	 TODO remove these
 	-insadd insadd
 	-insadd nextfr insadd
 	*/

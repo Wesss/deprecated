@@ -9,6 +9,7 @@ import org.framework.interfaces.GameObj;
 public class MainLoopAdvancedInterface {
 	
 	// TODO getActions, getObjs
+	// TODO check name matching on mainloop callbacks
 	
 	// the MainLoop being modified by this interface
 	private MainLoop loop;
@@ -16,6 +17,10 @@ public class MainLoopAdvancedInterface {
 	protected MainLoopAdvancedInterface(MainLoop loop) {
 		this.loop = loop;
 	}
+	
+	//////////////////////////////////////////////////
+	// Public Interface
+	//////////////////////////////////////////////////
 	
 	/**
 	 * TODO
@@ -51,6 +56,10 @@ public class MainLoopAdvancedInterface {
 	public boolean contains(GameObj obj) {
 		return loop.containsAdv(obj);
 	}
+	
+	//////////////////////////////////////////////////
+	// Actions
+	//////////////////////////////////////////////////
 
 	/**
 	 * TODO
@@ -84,11 +93,13 @@ public class MainLoopAdvancedInterface {
 	}
 	
 	// TODO
-	public static interface MainLoopAction {
-		// TODO change to enum?
+	public static abstract class MainLoopAction {
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
 	}
 	
-	protected class MainLoopAddAction implements MainLoopAction {
+	protected class MainLoopAddAction extends MainLoopAction {
 		private GameObj obj;
 		private int priority;
 		private int layer;
@@ -112,7 +123,7 @@ public class MainLoopAdvancedInterface {
 		}
 	}
 	
-	protected class MainLoopRemoveAction implements MainLoopAction {
+	protected class MainLoopRemoveAction extends MainLoopAction {
 		private GameObj obj;
 		
 		protected MainLoopRemoveAction(GameObj obj) {
@@ -124,7 +135,7 @@ public class MainLoopAdvancedInterface {
 		}
 	}
 	
-	protected class MainLoopClearAction implements MainLoopAction {
+	protected class MainLoopClearAction extends MainLoopAction {
 		
 		protected MainLoopClearAction() {
 			// nothing!

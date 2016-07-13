@@ -317,15 +317,11 @@ public class MainLoop {
 	private void updateObjs() {
 		for (int i = 0; i < maxPriority; i++) {
 			HashSet<GameObj> objs = priorityToObj.get(i);
-			if (objs != null) {
+			if (objs != null) { // TODO remove these checks for null
 				for (GameObj obj : objs)
 					obj.update();
 			}
 		}
-	}
-	
-	private void resolveActions() {
-		// TODO
 	}
 	
 	private void paintObjs(Graphics g) {
@@ -336,6 +332,32 @@ public class MainLoop {
 					obj.draw(g);
 			}
 		}
+	}
+	
+	private void resolveActions() {
+		for (int i = 0; i < maxGroup; i++) {
+			HashSet<MainLoopAction> actions = groupToAction.get(i);
+			if (actions != null) {
+				for (MainLoopAction action : actions)
+					action.acceptResolution(this);
+			}
+		}
+	}
+	
+	protected void visitResolution(MainLoopAction action) {
+		throw new RuntimeException("visited unknown action type");
+	}
+	
+	protected void visitResolution(MainLoopAddAction action) {
+		
+	}
+	
+	protected void visitResolution(MainLoopRemoveAction action) {
+		
+	}
+	
+	protected void visitResolution(MainLoopClearAction action) {
+		
 	}
 	
 	/**
