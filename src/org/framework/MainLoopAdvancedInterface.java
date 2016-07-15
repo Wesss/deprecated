@@ -122,6 +122,10 @@ public class MainLoopAdvancedInterface {
 		protected int getLayer() {
 			return layer;
 		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
 	}
 	
 	protected class MainLoopRemoveAction extends MainLoopAction {
@@ -134,12 +138,20 @@ public class MainLoopAdvancedInterface {
 		protected GameObj getObj() {
 			return obj;
 		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
 	}
 	
 	protected class MainLoopClearAction extends MainLoopAction {
 		
 		protected MainLoopClearAction() {
 			// nothing!
+		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
 		}
 	}
 }

@@ -100,7 +100,6 @@ public class MainLoop {
 	 * 			action.obj != null
 	 */
 	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
-
 	private int maxGroup;
 	
 	//////////////////////////////////////////////////
@@ -204,8 +203,7 @@ public class MainLoop {
 			return false;
 		}
 		
-		// TODO
-		return false;
+		return objToLayer.containsKey(obj);
 	}
 	
 	protected void insertAction(MainLoopAction action, int actionGroup) {
@@ -223,6 +221,7 @@ public class MainLoop {
 		} else {
 			groupToAction.get(actionGroup).add(action);
 		}
+		maxGroup = max(maxGroup, actionGroup);
 	}
 
 	protected boolean containsAction(MainLoopAction action) {
@@ -260,7 +259,8 @@ public class MainLoop {
 	}
 	
 	protected void deleteAllActions() {
-		// TODO
+		groupToAction.clear();
+		maxGroup = 0;
 	}
 	
 	//////////////////////////////////////////////////
@@ -278,7 +278,7 @@ public class MainLoop {
 	}
 	
 	private void updateObjs() {
-		for (int i = 0; i < maxPriority; i++) {
+		for (int i = 0; i <= maxPriority; i++) {
 			HashSet<GameObj> objs = priorityToObj.get(i);
 			if (objs != null) { // TODO remove these checks for null
 				for (GameObj obj : objs)
@@ -288,7 +288,7 @@ public class MainLoop {
 	}
 	
 	private void paintObjs(Graphics g) {
-		for (int i = 0; i < maxLayer; i++) {
+		for (int i = 0; i <= maxLayer; i++) {
 			HashSet<GameObj> objs = layerToObj.get(i);
 			if (objs != null) {
 				for (GameObj obj : objs)
@@ -298,7 +298,7 @@ public class MainLoop {
 	}
 	
 	private void resolveActions() {
-		for (int i = 0; i < maxGroup; i++) {
+		for (int i = 0; i <= maxGroup; i++) {
 			HashSet<MainLoopAction> actions = groupToAction.get(i);
 			if (actions != null) {
 				for (MainLoopAction action : actions)
@@ -321,13 +321,13 @@ public class MainLoop {
 			removeObjIndexPair(layerToObj, objToLayer, action.getObj(), prevLayer);
 			if (!layerToObj.containsKey(prevLayer)) {
 				layerToObj.remove(prevLayer);
-				if (prevLayer == maxLayer)
+				if (prevLayer == maxLayer && maxLayer > 0)
 					maxLayer--; // TODO actually find max efficiently
 			}
 			removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), prevPriority);
 			if (!priorityToObj.containsKey(prevPriority)) {
 				priorityToObj.remove(prevPriority);
-				if (prevPriority == maxPriority) {
+				if (prevPriority == maxPriority && maxLayer > 0) {
 					maxPriority--;
 				}
 			}
@@ -352,13 +352,13 @@ public class MainLoop {
 		removeObjIndexPair(layerToObj, objToLayer, action.getObj(), layer);
 		if (!layerToObj.containsKey(layer)) {
 			layerToObj.remove(layer);
-			if (layer == maxLayer)
+			if (layer == maxLayer && maxLayer > 0)
 				maxLayer--; // TODO duplicated above in Add resolution
 		}
 		removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
 		if (!priorityToObj.containsKey(priority)) {
 			priorityToObj.remove(priority);
-			if (priority == maxPriority) {
+			if (priority == maxPriority && maxLayer > 0) {
 				maxPriority--;
 			}
 		}
@@ -491,8 +491,6 @@ public class MainLoop {
 		assertNotNull(groupToAction);
 		
 		Set<MainLoopAction> actionStore = new HashSet<>();
-		Set<GameObj> addObjStore = new HashSet<>();
-		Set<GameObj> remObjStore = new HashSet<>();
 		Set<Integer> groups = groupToAction.keySet();
 		
 		for (int group : groups) {
@@ -509,15 +507,9 @@ public class MainLoop {
 				if (action instanceof MainLoopAddAction) {
 					MainLoopAddAction add = (MainLoopAddAction) action;
 					assertNotNull(add.getObj());
-					assertFalse(allObjs.contains(add.getObj()));
-					assertFalse(addObjStore.contains(add.getObj()));
-					addObjStore.add(add.getObj());
 				} else if (action instanceof MainLoopRemoveAction) {
 					MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
 					assertNotNull(rem.getObj());
-					assertTrue(allObjs.contains(rem.getObj()));
-					assertFalse(remObjStore.contains(rem.getObj()));
-					remObjStore.add(rem.getObj());
 				} else if (action instanceof MainLoopClearAction) {
 					// nothing
 				} else {
