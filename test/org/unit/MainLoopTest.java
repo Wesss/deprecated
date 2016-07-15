@@ -9,14 +9,13 @@ import java.lang.reflect.Method;
 
 import org.framework.GamePanel;
 import org.framework.MainLoop;
+import org.framework.MainLoop.MainLoopAction;
 import org.framework.MainLoopAdvancedInterface;
-import org.framework.MainLoopAdvancedInterface.MainLoopAction;
 import org.framework.MainLoopFactory;
 import org.framework.MainLoopFactoryFactory;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public class MainLoopTest{
 	
@@ -261,7 +260,7 @@ public class MainLoopTest{
 	-insadd insadd
 	-insadd nextfr insadd nextfr
 	-insadd nextfr insrem nextfr
-	insclr nextfr
+	insclr nextfr TODO
 	insadd insadd2 <group>
 	insadd insadd2 nextfr <paint>
 	insadd insadd2 nextfr nextfr <priority>

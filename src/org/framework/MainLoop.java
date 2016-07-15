@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.framework.MainLoopAdvancedInterface.MainLoopAction;
-import org.framework.MainLoopAdvancedInterface.MainLoopAddAction;
-import org.framework.MainLoopAdvancedInterface.MainLoopClearAction;
-import org.framework.MainLoopAdvancedInterface.MainLoopRemoveAction;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -99,7 +95,7 @@ public class MainLoop {
 	 * 		if action is a MainLoopRemoveAction
 	 * 			action.obj != null
 	 */
-	private HashMap<Integer, HashSet<MainLoopAdvancedInterface.MainLoopAction>> groupToAction;
+	private HashMap<Integer, HashSet<MainLoopAction>> groupToAction;
 	private int maxGroup;
 	
 	//////////////////////////////////////////////////
@@ -146,6 +142,7 @@ public class MainLoop {
 	//TODO
 	public void add(GameObj obj) {
 		// TODO
+		insertAction(createAddAction(obj, 1, 1), 0);
 	}
 
 	//TODO
@@ -421,6 +418,102 @@ public class MainLoop {
 		}
 	}
 	
+	//////////////////////////////////////////////////
+	// Domain
+	//////////////////////////////////////////////////
+	
+	// TODO
+	public static abstract class MainLoopAction {
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
+	}
+	
+	protected class MainLoopAddAction extends MainLoopAction {
+		private GameObj obj;
+		private int priority;
+		private int layer;
+		
+		protected MainLoopAddAction(GameObj obj, int priority, int layer) {
+			this.obj = obj;
+			this.priority = priority;
+			this.layer = layer;
+		}
+		
+		protected GameObj getObj() {
+			return obj;
+		}
+		
+		protected int getPriority() {
+			return priority;
+		}
+		
+		protected int getLayer() {
+			return layer;
+		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
+	}
+	
+	protected class MainLoopRemoveAction extends MainLoopAction {
+		private GameObj obj;
+		
+		protected MainLoopRemoveAction(GameObj obj) {
+			this.obj = obj;
+		}
+		
+		protected GameObj getObj() {
+			return obj;
+		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
+	}
+	
+	protected class MainLoopClearAction extends MainLoopAction {
+		
+		protected MainLoopClearAction() {
+			// nothing!
+		}
+		
+		protected void acceptResolution(MainLoop loop) {
+			loop.visitResolution(this);
+		}
+	}
+	
+	/**
+	 * TODO
+	 * @param obj
+	 * @param priority
+	 * @param layer
+	 * @return
+	 * @throws IllegalArguementException if obj == null, priority < 0, layer < 0
+	 */
+	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
+		if (obj == null || priority < 0 || layer < 0)
+			throw new IllegalArgumentException("Illegal Add Action creation");
+		return new MainLoopAddAction(obj, priority, layer);
+	}
+	
+	/**
+	 * TODO
+	 * @param obj
+	 * @return
+	 * @throws IllegalArgumentException if obj == null
+	 */
+	public MainLoopAction createRemoveAction(GameObj obj) {
+		if (obj == null)
+			throw new IllegalArgumentException("Illegal Remove Action creation");
+		return new MainLoopRemoveAction(obj);
+	}
+
+	// TODO
+	public MainLoopAction createClearAction() {
+		return new MainLoopClearAction();
+	}
 
 	//////////////////////////////////////////////////
 	// Testing
