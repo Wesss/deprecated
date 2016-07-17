@@ -20,6 +20,7 @@ public class MainLoop {
 	
 	// TODO abstract out index/obj pairings
 	// TODO refactor Animate Thread into its own class
+	// TODO split class, too large?
 
 	//////////////////////////////////////////////////
 	// Definition
@@ -139,21 +140,40 @@ public class MainLoop {
 	// Basic User Interface (API)
 	//////////////////////////////////////////////////
 	
-	//TODO
+	private static final int BACKGROUND_LAYER = 0;
+	private static final int FOREGROUND_LAYER = 1;
+	
+	private static final int DEFAULT_PRIORITY = 0;
+	
+	private static final int DEFAULT_ACTIONGROUP = 0;
+	private static final int CLEAR_ACTIONGROUP = 1;
+	private static final int POSTCLEAR_ACTIONGROUP = 2;
+	
+	/**
+	 * Adds obj to the foreground layer, removing it from the background layer if it was a part of it
+	 * 
+	 * @param obj
+	 */
 	public void add(GameObj obj) {
-		// TODO
-		insertAction(createAddAction(obj, 1, 1), 0);
+		if (!contains(obj))
+			insertAction(createAddAction(obj, DEFAULT_PRIORITY, FOREGROUND_LAYER),
+					DEFAULT_ACTIONGROUP);
 	}
 
-	//TODO
+	/**
+	 * Adds obj to the background layer, removing it from the foreground layer if it was a part of it
+	 * 
+	 * @param obj
+	 */
 	public void addBackground(GameObj obj) {
-		// TODO
+		if (!contains(obj))
+			insertAction(createAddAction(obj, DEFAULT_PRIORITY, FOREGROUND_LAYER),
+					DEFAULT_ACTIONGROUP);
 	}
 
 	//TODO
 	public boolean contains(GameObj obj) {
-		// TODO
-		return false;
+		return containsAdv(obj);
 	}
 
 	//TODO
@@ -163,7 +183,8 @@ public class MainLoop {
 
 	//TODO
 	public void markClear() {
-		// TODO
+		insertAction(createClearAction(),
+				CLEAR_ACTIONGROUP);
 	}
 
 	//TODO

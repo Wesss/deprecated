@@ -87,27 +87,22 @@ public class MainLoopTest{
 	// Basic API Tests
 	//////////////////////////////////////////////////
 	
-	/*@Test
-	public void add() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		mainloop.add(mockObj);
+	@Test
+	public void containsNothing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		assertFalse(mainloop.contains(mockObj));
+		
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
 	}
 	
 	@Test
-	public void addContains() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void addsObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		mainloop.add(mockObj);
 		assertTrue(mainloop.contains(mockObj));
+		
 		mainloopValidate.invoke(mainloop);
 		verifyZeroInteractions(mockObj);
 	}
-	
-	@Test
-	public void contains() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		assertFalse(mainloop.contains(mockObj));
-		mainloopValidate.invoke(mainloop);
-		verifyZeroInteractions(mockObj);
-	}*/
 	
 	//////////////////////////////////////////////////
 	// Advanced API Tests
@@ -165,34 +160,6 @@ public class MainLoopTest{
 	}
 	
 	@Test
-	public void advInsertSameObjTwice() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		MainLoopAction action1 = advInter.createAddAction(mockObj, 0, 0);
-		MainLoopAction action2 = advInter.createAddAction(mockObj, 1, 1);
-		advInter.insertAction(action1, 0);
-		advInter.insertAction(action2, 1);
-
-		mainloopValidate.invoke(mainloop);
-		assertTrue(advInter.containsAction(action1));
-		assertTrue(advInter.containsAction(action1, 0));
-		assertTrue(advInter.containsAction(action2));
-		assertTrue(advInter.containsAction(action2, 1));
-		verifyZeroInteractions(mockObj);
-	}
-	
-	@Test
-	public void advInsertSameObjTwiceDiffFrames() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
-		nextFrame.invoke(mainloop, mockGraphics);
-		advInter.insertAction(advInter.createAddAction(mockObj, 1, 1), 0);
-		nextFrame.invoke(mainloop, mockGraphics);
-		
-		// TODO check second obj's layer or prioirty
-		mainloopValidate.invoke(mainloop);
-		assertTrue(advInter.contains(mockObj));
-		verify(mockObj, times(2)).draw(mockGraphics);
-	}
-	
-	@Test
 	public void advNextFrameNoObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		nextFrame.invoke(mainloop, mockGraphics);
 		mainloopValidate.invoke(mainloop);
@@ -231,6 +198,34 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advInsertSameObjTwice() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction action1 = advInter.createAddAction(mockObj, 0, 0);
+		MainLoopAction action2 = advInter.createAddAction(mockObj, 1, 1);
+		advInter.insertAction(action1, 0);
+		advInter.insertAction(action2, 1);
+
+		mainloopValidate.invoke(mainloop);
+		assertTrue(advInter.containsAction(action1));
+		assertTrue(advInter.containsAction(action1, 0));
+		assertTrue(advInter.containsAction(action2));
+		assertTrue(advInter.containsAction(action2, 1));
+		verifyZeroInteractions(mockObj);
+	}
+	
+	@Test
+	public void advInsertSameObjTwiceDiffFrames() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		advInter.insertAction(advInter.createAddAction(mockObj, 0, 0), 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		advInter.insertAction(advInter.createAddAction(mockObj, 1, 1), 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		
+		// TODO check second obj's layer or prioirty
+		mainloopValidate.invoke(mainloop);
+		assertTrue(advInter.contains(mockObj));
+		verify(mockObj, times(2)).draw(mockGraphics);
+	}
+	
+	@Test
 	public void advRemoveObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
 		advInter.insertAction(insert, 0);
@@ -241,6 +236,32 @@ public class MainLoopTest{
 
 		mainloopValidate.invoke(mainloop);
 		assertFalse(advInter.containsAction(remove));
+		assertFalse(advInter.contains(mockObj));
+		verify(mockObj).update();
+		verify(mockObj).draw(mockGraphics);
+	}
+	
+	@Test
+	public void advClearNoObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction clear = advInter.createClearAction();
+		advInter.insertAction(clear, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		nextFrame.invoke(mainloop, mockGraphics);
+
+		mainloopValidate.invoke(mainloop);
+	}
+	
+	@Test
+	public void advClearObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
+		advInter.insertAction(insert, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		MainLoopAction clear = advInter.createClearAction();
+		advInter.insertAction(clear, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+
+		mainloopValidate.invoke(mainloop);
+		assertFalse(advInter.containsAction(clear));
 		assertFalse(advInter.contains(mockObj));
 		verify(mockObj).update();
 		verify(mockObj).draw(mockGraphics);
@@ -260,11 +281,11 @@ public class MainLoopTest{
 	-insadd insadd
 	-insadd nextfr insadd nextfr
 	-insadd nextfr insrem nextfr
-	insclr nextfr TODO
-	insadd insadd2 <group>
+	-insclr nextfr
+	-insadd insadd2 nextfr insclr nextfr
+	insadd insadd2 <group> TODO
 	insadd insadd2 nextfr <paint>
 	insadd insadd2 nextfr nextfr <priority>
-	insadd insadd2 nextfr insclr nextfr
 	insadd insadd2 nextfr insclr insrem(group 2) nextfr
 	*/
 }
