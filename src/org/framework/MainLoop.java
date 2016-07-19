@@ -145,7 +145,7 @@ public class MainLoop {
 	
 	private static final int DEFAULT_PRIORITY = 0;
 	// simulates "post update"
-	private static final int GAMEOBJ_GROUP_PRIORITY = 1;
+	protected static final int GAMEOBJ_GROUP_PRIORITY = 1;
 	
 	protected static final int DEFAULT_ACTIONGROUP = 0;
 	protected static final int CLEAR_ACTIONGROUP = 1;
