@@ -144,10 +144,12 @@ public class MainLoop {
 	private static final int FOREGROUND_LAYER = 1;
 	
 	private static final int DEFAULT_PRIORITY = 0;
+	// simulates "post update"
+	private static final int GAMEOBJ_GROUP_PRIORITY = 1;
 	
-	private static final int DEFAULT_ACTIONGROUP = 0;
-	private static final int CLEAR_ACTIONGROUP = 1;
-	private static final int POSTCLEAR_ACTIONGROUP = 2;
+	protected static final int DEFAULT_ACTIONGROUP = 0;
+	protected static final int CLEAR_ACTIONGROUP = 1;
+	protected static final int POSTCLEAR_ACTIONGROUP = 2;
 	
 	/**
 	 * Adds obj to the foreground layer, removing it from the background layer if it was a part of it
