@@ -54,8 +54,8 @@ public class MainLoop {
 	 * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
 	 * for each (layer --> objs) pair in layerToObj.keset()
 	 * 		layer >= 0
-	 * 		layerToObj.get(layer) != null
-	 * 		!layerToObj.get(layer).isEmpty
+	 * 		objs != null
+	 * 		objs.isEmpty
 	 * 		for each obj being stored within objs
 	 * 			obj != null
 	 * 			obj also exists in priorityToObj
@@ -66,8 +66,8 @@ public class MainLoop {
 	 * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
 	 * for each (priority --> objs) pair in priorityToObj.keset()
 	 * 		priority >= 0
-	 * 		priorityToObj.get(priority) != null
-	 * 		!priorityToObj.get(priority).isEmpty
+	 * 		objs != null
+	 * 		!objs.isEmpty
 	 * 		for each obj being stored within objs
 	 * 			obj != null
 	 * 			obj also exists in objToLayer, layerToObj, objToPriority
@@ -117,14 +117,14 @@ public class MainLoop {
 		maxGroup = 0;
 		
 		// TODO these should be moved out when abstracting out the basic UI
-		foregroundGroup = new MainLoopGroup(advancedInterface(),
-				FOREGROUND_LAYER,
-				DEFAULT_PRIORITY,
-				GAMEOBJ_GROUP_PRIORITY);
-		backgroundGroup = new MainLoopGroup(advancedInterface(),
-				BACKGROUND_LAYER,
-				DEFAULT_PRIORITY,
-				GAMEOBJ_GROUP_PRIORITY);
+//		foregroundGroup = new MainLoopGroup(advancedInterface(),
+//				FOREGROUND_LAYER,
+//				DEFAULT_PRIORITY,
+//				GAMEOBJ_GROUP_PRIORITY);
+//		backgroundGroup = new MainLoopGroup(advancedInterface(),
+//				BACKGROUND_LAYER,
+//				DEFAULT_PRIORITY,
+//				GAMEOBJ_GROUP_PRIORITY);
 	}
 	
 	/**
@@ -314,24 +314,30 @@ public class MainLoop {
 	private void updateObjs() {
 		for (int i = 0; i <= maxPriority; i++) {
 			HashSet<GameObj> objs = priorityToObj.get(i);
-			for (GameObj obj : objs)
-				obj.update();
+			if (objs != null) {
+				for (GameObj obj : objs)
+					obj.update();
+			}
 		}
 	}
 	
 	private void paintObjs(Graphics g) {
 		for (int i = 0; i <= maxLayer; i++) {
 			HashSet<GameObj> objs = layerToObj.get(i);
-			for (GameObj obj : objs)
-				obj.draw(g);
+			if (objs != null) {
+				for (GameObj obj : objs)
+					obj.draw(g);
+			}
 		}
 	}
 	
 	private void resolveActions() {
 		for (int i = 0; i <= maxGroup; i++) {
 			HashSet<MainLoopAction> actions = groupToAction.get(i);
-			for (MainLoopAction action : actions)
-				action.acceptResolution(this);
+			if (actions != null) {
+				for (MainLoopAction action : actions)
+					action.acceptResolution(this);
+			}
 		}
 		groupToAction.clear();
 		maxGroup = 0;

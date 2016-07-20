@@ -198,6 +198,18 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advInsertObjHighGroupLayerPriority() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction insert = advInter.createAddAction(mockObj, 10, 10);
+		advInter.insertAction(insert, 10);
+		nextFrame.invoke(mainloop, mockGraphics);
+
+		mainloopValidate.invoke(mainloop);
+		assertFalse(advInter.containsAction(insert));
+		assertTrue(advInter.contains(mockObj));
+		verify(mockObj).draw(mockGraphics);
+	}
+	
+	@Test
 	public void advInsertSameObjTwice() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction action1 = advInter.createAddAction(mockObj, 0, 0);
 		MainLoopAction action2 = advInter.createAddAction(mockObj, 1, 1);
@@ -242,10 +254,25 @@ public class MainLoopTest{
 	}
 	
 	@Test
+	public void advRemoveObjHighGroupLayerPriority() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction insert = advInter.createAddAction(mockObj, 10, 10);
+		advInter.insertAction(insert, 10);
+		nextFrame.invoke(mainloop, mockGraphics);
+		MainLoopAction remove = advInter.createRemoveAction(mockObj);
+		advInter.insertAction(remove, 11);
+		nextFrame.invoke(mainloop, mockGraphics);
+
+		mainloopValidate.invoke(mainloop);
+		assertFalse(advInter.containsAction(remove));
+		assertFalse(advInter.contains(mockObj));
+		verify(mockObj).update();
+		verify(mockObj).draw(mockGraphics);
+	}
+	
+	@Test
 	public void advClearNoObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		MainLoopAction clear = advInter.createClearAction();
 		advInter.insertAction(clear, 0);
-		nextFrame.invoke(mainloop, mockGraphics);
 		nextFrame.invoke(mainloop, mockGraphics);
 
 		mainloopValidate.invoke(mainloop);
@@ -266,26 +293,43 @@ public class MainLoopTest{
 		verify(mockObj).update();
 		verify(mockObj).draw(mockGraphics);
 	}
-
+	
+	@Test
+	public void advActionGroupOrder() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {		
+		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 0);
+		MainLoopAction insert2 = advInter.createAddAction(mockObj2, 0, 0);
+		MainLoopAction remove = advInter.createRemoveAction(mockObj);
+		MainLoopAction remove2 = advInter.createRemoveAction(mockObj2);
+		advInter.insertAction(insert, 0);
+		advInter.insertAction(remove, 1);
+		advInter.insertAction(insert2, 1);
+		advInter.insertAction(remove2, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		
+		mainloopValidate.invoke(mainloop);
+		assertFalse(mainloop.contains(mockObj));
+		assertTrue(mainloop.contains(mockObj2));
+	}
+			
 	/*
-	-insadd
-	-conact
-	-deladd
-	-conobj
-	-insadd conadd
-	-insadd deladd
-	-nextfr
-	-delAll
-	-insadd insclr delAll
-	-insadd nextfr conobj
-	-insadd insadd
-	-insadd nextfr insadd nextfr
-	-insadd nextfr insrem nextfr
-	-insclr nextfr
-	-insadd insadd2 nextfr insclr nextfr
-	insadd insadd2 <group> TODO
-	insadd insadd2 nextfr <paint>
-	insadd insadd2 nextfr nextfr <priority>
-	insadd insadd2 nextfr insclr insrem(group 2) nextfr
+	InsertAction
+	ContainsNoAction
+	DeleteNoAction
+	ContainsNoObj
+	ContainsAction
+	DeleteAction
+	NextFrameNoObjs
+	DeleteAllNoActions
+	DeleteAllActions
+	InsertObj
+	InsertObjHighGroupLayerPriority
+	InsertSameObjTwice
+	InsertSameObjTwiceDiffFrames
+	RemoveObj
+	RemoveObjHighGroupLayerPriority
+	ClearNoObjs
+	ClearObjs
+	ActionGroupOrder
 	*/
+
 }
