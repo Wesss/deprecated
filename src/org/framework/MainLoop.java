@@ -115,6 +115,16 @@ public class MainLoop {
 		
 		groupToAction = new HashMap<>();
 		maxGroup = 0;
+		
+		// TODO these should be moved out when abstracting out the basic UI
+		foregroundGroup = new MainLoopGroup(advancedInterface(),
+				FOREGROUND_LAYER,
+				DEFAULT_PRIORITY,
+				GAMEOBJ_GROUP_PRIORITY);
+		backgroundGroup = new MainLoopGroup(advancedInterface(),
+				BACKGROUND_LAYER,
+				DEFAULT_PRIORITY,
+				GAMEOBJ_GROUP_PRIORITY);
 	}
 	
 	/**
@@ -151,62 +161,66 @@ public class MainLoop {
 	protected static final int CLEAR_ACTIONGROUP = 1;
 	protected static final int POSTCLEAR_ACTIONGROUP = 2;
 	
+	private MainLoopGroup foregroundGroup;
+	private MainLoopGroup backgroundGroup;
+	
+	
 	/**
-	 * Adds obj to the foreground layer, removing it from the background layer if it was a part of it
+	 * Adds obj to the foreground layer, removing it from the background layer if part of the
+	 * background
 	 * 
 	 * @param obj
 	 */
 	public void add(GameObj obj) {
-		if (!contains(obj))
-			insertAction(createAddAction(obj, DEFAULT_PRIORITY, FOREGROUND_LAYER),
-					DEFAULT_ACTIONGROUP);
+		backgroundGroup.remove(obj);
+		foregroundGroup.add(obj);
 	}
 
 	/**
-	 * Adds obj to the background layer, removing it from the foreground layer if it was a part of it
+	 * Adds obj to the background layer, removing it from the foreground layer if part of the
+	 * foreground
 	 * 
 	 * @param obj
 	 */
 	public void addBackground(GameObj obj) {
-		if (!contains(obj))
-			insertAction(createAddAction(obj, DEFAULT_PRIORITY, FOREGROUND_LAYER),
-					DEFAULT_ACTIONGROUP);
+		foregroundGroup.remove(obj);
+		backgroundGroup.add(obj);
 	}
 
 	//TODO
 	public boolean contains(GameObj obj) {
-		return containsAdv(obj);
+		return foregroundGroup.contains(obj) || backgroundGroup.contains(obj);
 	}
 
 	//TODO
 	public void remove(GameObj obj) {
-		// TODO
+		if (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
 	}
 
 	//TODO
 	public void markClear() {
-		insertAction(createClearAction(),
-				CLEAR_ACTIONGROUP);
+		foregroundGroup.markClear();
+		backgroundGroup.markClear();
 	}
 
 	//TODO
 	public void markClearForeground() {
-		// TODO
+		foregroundGroup.markClear();
 	}
 
 	//TODO
 	public void markClearBackground() {
-		// TODO
+		backgroundGroup.markClear();
 	}
 
 	//TODO
 	public void addPostClear(GameObj obj) {
-		// TODO
+		foregroundGroup.addPostClear(obj);
 	}
 
 	//TODO
 	public void addBackgroundPostClear(GameObj obj) {
-		// TODO
+		backgroundGroup.addPostClear(obj);
 	}
 	
 	// TODO

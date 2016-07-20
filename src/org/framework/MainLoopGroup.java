@@ -31,6 +31,15 @@ public class MainLoopGroup implements GameObj{
 	 * newPostClearObjs != null
 	 * remObjs != null
 	 * 
+	 * for each GameObj obj in addObjs
+	 * 		obj is contained by the mainLoop
+	 * for each GameObj obj is remObjs
+	 * 		obj is contained by the mainLoop
+	 * for each GameObj obj in newObjs
+	 * 		obj is not contained by the mainLoop
+	 * for each GameObj obj in newPostClearObjs
+	 * 		obj is not contained by the mainLoop
+	 * 
 	 * For any GameObj obj
 	 * 		obj is contained in at most one of objs, newObjs, and newPostClearObjs, and remObjs
 	 * TODO more definition pertaining to objs here vs mainloop
@@ -92,12 +101,14 @@ public class MainLoopGroup implements GameObj{
 	 * Removed given obj from the group if it is part of the group. Nothing otherwise
 	 * @param obj
 	 */
-	public void remove(GameObj obj) {
+	public boolean remove(GameObj obj) {
 		if (objs.remove(obj)) {
 			remObjs.add(obj);
+			return true;
 		} else if (!newObjs.remove(obj)) {
-			newPostClearObjs.remove(obj);
+			return newPostClearObjs.remove(obj);
 		}
+		return false;
 	}
 	
 	/**
