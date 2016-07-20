@@ -314,30 +314,24 @@ public class MainLoop {
 	private void updateObjs() {
 		for (int i = 0; i <= maxPriority; i++) {
 			HashSet<GameObj> objs = priorityToObj.get(i);
-			if (objs != null) { // TODO remove these checks for null
-				for (GameObj obj : objs)
-					obj.update();
-			}
+			for (GameObj obj : objs)
+				obj.update();
 		}
 	}
 	
 	private void paintObjs(Graphics g) {
 		for (int i = 0; i <= maxLayer; i++) {
 			HashSet<GameObj> objs = layerToObj.get(i);
-			if (objs != null) {
-				for (GameObj obj : objs)
-					obj.draw(g);
-			}
+			for (GameObj obj : objs)
+				obj.draw(g);
 		}
 	}
 	
 	private void resolveActions() {
 		for (int i = 0; i <= maxGroup; i++) {
 			HashSet<MainLoopAction> actions = groupToAction.get(i);
-			if (actions != null) {
-				for (MainLoopAction action : actions)
-					action.acceptResolution(this);
-			}
+			for (MainLoopAction action : actions)
+				action.acceptResolution(this);
 		}
 		groupToAction.clear();
 		maxGroup = 0;
