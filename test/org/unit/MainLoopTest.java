@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.awt.Graphics;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.framework.GamePanel;
 import org.framework.MainLoop;
@@ -16,6 +17,7 @@ import org.framework.MainLoopFactoryFactory;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 public class MainLoopTest{
 	
@@ -231,10 +233,20 @@ public class MainLoopTest{
 		advInter.insertAction(advInter.createAddAction(mockObj, 1, 1), 0);
 		nextFrame.invoke(mainloop, mockGraphics);
 		
-		// TODO check second obj's layer or prioirty
+		// TODO check second obj's layer or priority somehow?
 		mainloopValidate.invoke(mainloop);
 		assertTrue(advInter.contains(mockObj));
 		verify(mockObj, times(2)).draw(mockGraphics);
+	}
+	
+	@Test
+	public void advRemoveNoObjs() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		MainLoopAction remove = advInter.createRemoveAction(mockObj);
+		advInter.insertAction(remove, 1);
+		nextFrame.invoke(mainloop, mockGraphics);
+		
+		mainloopValidate.invoke(mainloop);
+		verifyZeroInteractions(mockObj);
 	}
 	
 	@Test
@@ -307,11 +319,27 @@ public class MainLoopTest{
 		nextFrame.invoke(mainloop, mockGraphics);
 		
 		mainloopValidate.invoke(mainloop);
-		assertFalse(mainloop.contains(mockObj));
-		assertTrue(mainloop.contains(mockObj2));
+		assertFalse(advInter.contains(mockObj));
+		assertTrue(advInter.contains(mockObj2));
 	}
-			
+	
+	@Test
+	public void advObjPaintOrder() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {		
+		InOrder inOrder = inOrder(mockObj, mockObj2);
+		
+		MainLoopAction insert = advInter.createAddAction(mockObj, 0, 1);
+		MainLoopAction insert2 = advInter.createAddAction(mockObj2, 0, 0);
+		advInter.insertAction(insert, 0);
+		advInter.insertAction(insert2, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		
+		mainloopValidate.invoke(mainloop);
+		inOrder.verify(mockObj2).draw(mockGraphics);
+		inOrder.verify(mockObj).draw(mockGraphics);
+	}
+	
 	/*
+	TODO fix ordering
 	InsertAction
 	ContainsNoAction
 	DeleteNoAction
@@ -325,11 +353,14 @@ public class MainLoopTest{
 	InsertObjHighGroupLayerPriority
 	InsertSameObjTwice
 	InsertSameObjTwiceDiffFrames
+	RemoveNoObjs
 	RemoveObj
 	RemoveObjHighGroupLayerPriority
 	ClearNoObjs
 	ClearObjs
 	ActionGroupOrder
+	ObjPaintOrder
+	-ObjPriorityOrder
 	*/
 
 }

@@ -361,7 +361,7 @@ public class MainLoop {
 			removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), prevPriority);
 			if (!priorityToObj.containsKey(prevPriority)) {
 				priorityToObj.remove(prevPriority);
-				if (prevPriority == maxPriority && maxLayer > 0) {
+				if (prevPriority == maxPriority && maxPriority > 0) {
 					maxPriority--;
 				}
 			}
@@ -381,19 +381,21 @@ public class MainLoop {
 	}
 	
 	protected void visitResolution(MainLoopRemoveAction action) {
-		int layer = objToLayer.get(action.getObj());
-		int priority = objToPriority.get(action.getObj());
-		removeObjIndexPair(layerToObj, objToLayer, action.getObj(), layer);
-		if (!layerToObj.containsKey(layer)) {
-			layerToObj.remove(layer);
-			if (layer == maxLayer && maxLayer > 0)
-				maxLayer--; // TODO duplicated above in Add resolution
-		}
-		removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
-		if (!priorityToObj.containsKey(priority)) {
-			priorityToObj.remove(priority);
-			if (priority == maxPriority && maxLayer > 0) {
-				maxPriority--;
+		Integer layer = objToLayer.get(action.getObj());
+		Integer priority = objToPriority.get(action.getObj());
+		if (layer != null && priority != null) {
+			removeObjIndexPair(layerToObj, objToLayer, action.getObj(), layer);
+			if (!layerToObj.containsKey(layer)) {
+				layerToObj.remove(layer);
+				if (layer == maxLayer && maxLayer > 0)
+					maxLayer--; // TODO duplicated above in Add resolution
+			}
+			removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
+			if (!priorityToObj.containsKey(priority)) {
+				priorityToObj.remove(priority);
+				if (priority == maxPriority && maxPriority > 0) {
+					maxPriority--;
+				}
 			}
 		}
 	}
@@ -583,7 +585,7 @@ public class MainLoop {
 		Set<GameObj> layerObjStore = new HashSet<>();
 		Set<GameObj> priorityObjStore = new HashSet<>();
 		Set<Integer> layers = layerToObj.keySet();
-		Set<Integer> priorities = layerToObj.keySet();
+		Set<Integer> priorities = priorityToObj.keySet();
 		
 		for (int layer : layers) {
 			assertTrue(layer >= 0);
