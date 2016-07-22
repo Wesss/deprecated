@@ -53,8 +53,7 @@ public class MainLoopGroup implements GameObj{
 	
 	public MainLoopGroup(MainLoopAdvancedInterface inter,
 						int layer,
-						int priority,
-						int maxPriority) {
+						int priority) {
 		this.inter = inter;
 		this.groupLayer = layer;
 		this.groupPriority = priority;
@@ -64,8 +63,6 @@ public class MainLoopGroup implements GameObj{
 		newObjs = new HashSet<>();
 		newPostClearObjs = new HashSet<>();
 		remObjs = new HashSet<>();
-		
-		inter.insertAction(inter.createAddAction(this, maxPriority, 0), DEFAULT_ACTIONGROUP);
 	}
 	
 	//////////////////////////////////////////////////

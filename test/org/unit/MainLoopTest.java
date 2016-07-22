@@ -338,6 +338,22 @@ public class MainLoopTest{
 		inOrder.verify(mockObj).draw(mockGraphics);
 	}
 	
+	@Test
+	public void advObjUpdateOrder() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {		
+		InOrder inOrder = inOrder(mockObj, mockObj2);
+		
+		MainLoopAction insert = advInter.createAddAction(mockObj, 1, 0);
+		MainLoopAction insert2 = advInter.createAddAction(mockObj2, 0, 0);
+		advInter.insertAction(insert, 0);
+		advInter.insertAction(insert2, 0);
+		nextFrame.invoke(mainloop, mockGraphics);
+		nextFrame.invoke(mainloop, mockGraphics);
+		
+		mainloopValidate.invoke(mainloop);
+		inOrder.verify(mockObj2).update();
+		inOrder.verify(mockObj).update();
+	}
+	
 	/*
 	TODO fix ordering
 	InsertAction
