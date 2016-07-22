@@ -51,7 +51,7 @@ public class MainLoopGroup implements GameObj{
 	private HashSet<GameObj> newPostClearObjs;
 	private HashSet<GameObj> remObjs;
 	
-	public MainLoopGroup(MainLoopAdvancedInterface inter,
+	protected MainLoopGroup(MainLoopAdvancedInterface inter,
 						int layer,
 						int priority) {
 		this.inter = inter;

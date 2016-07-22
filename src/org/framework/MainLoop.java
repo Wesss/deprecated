@@ -117,14 +117,10 @@ public class MainLoop {
 		maxGroup = 0;
 		
 		// TODO these should be moved out when abstracting out the basic UI
-//		foregroundGroup = new MainLoopGroup(advancedInterface(),
-//				FOREGROUND_LAYER,
-//				DEFAULT_PRIORITY,
-//				GAMEOBJ_GROUP_PRIORITY);
-//		backgroundGroup = new MainLoopGroup(advancedInterface(),
-//				BACKGROUND_LAYER,
-//				DEFAULT_PRIORITY,
-//				GAMEOBJ_GROUP_PRIORITY);
+		MainLoopGroupFactory factory = new MainLoopGroupFactory(advancedInterface(), 
+				GAMEOBJ_GROUP_PRIORITY);
+		foregroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
+		backgroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
 	}
 	
 	/**
