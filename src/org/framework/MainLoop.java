@@ -183,17 +183,25 @@ public class MainLoop {
 		backgroundGroup.add(obj);
 	}
 
-	//TODO
+	/**
+	 * @param obj
+	 * @return true iff obj is currently being kept track of by the mainLoop's basic API
+	 */
 	public boolean contains(GameObj obj) {
 		return foregroundGroup.contains(obj) || backgroundGroup.contains(obj);
 	}
 
-	//TODO
-	public void remove(GameObj obj) {
-		if (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
+	/**
+	 * @param obj
+	 * @return true iff obj was present and successfully removed from the mainLoop's basic API
+	 */
+	public boolean remove(GameObj obj) {
+		return (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
 	}
 
-	//TODO
+	/**
+	 * Marks the mainLoop to be cleared at the next frame.
+	 */
 	public void markClear() {
 		foregroundGroup.markClear();
 		backgroundGroup.markClear();
@@ -520,11 +528,11 @@ public class MainLoop {
 	}
 	
 	/**
-	 * TODO
 	 * @param obj
 	 * @param priority
 	 * @param layer
-	 * @return
+	 * @return an MainLoopAction that when resolved by the mainLoop will add obj to the
+	 * mainloop with given update priority and paint layer
 	 * @throws IllegalArguementException if obj == null, priority < 0, layer < 0
 	 */
 	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
@@ -534,9 +542,9 @@ public class MainLoop {
 	}
 	
 	/**
-	 * TODO
 	 * @param obj
-	 * @return
+	 * @return a MainLoopAction that when resolved by the mainLoop will remove obj
+	 * from the mainloop
 	 * @throws IllegalArgumentException if obj == null
 	 */
 	public MainLoopAction createRemoveAction(GameObj obj) {
@@ -545,7 +553,10 @@ public class MainLoop {
 		return new MainLoopRemoveAction(obj);
 	}
 
-	// TODO
+	/**
+	 * @return a MainLoopAction that when resolved by the mainLoop will clear all objs
+	 * from the mainLoop
+	 */
 	public MainLoopAction createClearAction() {
 		return new MainLoopClearAction();
 	}
