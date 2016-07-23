@@ -200,34 +200,46 @@ public class MainLoop {
 	}
 
 	/**
-	 * Marks the mainLoop to be cleared at the next frame.
+	 * Marks the mainLoop to be cleared at the next frame
 	 */
 	public void markClear() {
 		foregroundGroup.markClear();
 		backgroundGroup.markClear();
 	}
 
-	//TODO
+	/**
+	 * Marks the mainLoop to clear all foreground objs at the next frame
+	 */
 	public void markClearForeground() {
 		foregroundGroup.markClear();
 	}
 
-	//TODO
+	/**
+	 * Marks the mainLoop to clear all background objs at the next frame
+	 */
 	public void markClearBackground() {
 		backgroundGroup.markClear();
 	}
 
-	//TODO
+	/**
+	 * Holds given obj to be added to the mainLoop after the clearing phase
+	 * @param obj
+	 */
 	public void addPostClear(GameObj obj) {
 		foregroundGroup.addPostClear(obj);
 	}
 
-	//TODO
+	/**
+	 * Holds given obj to be added to the mainLoop's background group after the clearing phase
+	 * @param obj
+	 */
 	public void addBackgroundPostClear(GameObj obj) {
 		backgroundGroup.addPostClear(obj);
 	}
 	
-	// TODO
+	/**
+	 * @return an interface for more detailed control over the mainLoop
+	 */
 	public MainLoopAdvancedInterface advancedInterface() {
 		return new MainLoopAdvancedInterface(this);
 	}
