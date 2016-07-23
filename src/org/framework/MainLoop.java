@@ -223,6 +223,7 @@ public class MainLoop {
 
 	/**
 	 * Holds given obj to be added to the mainLoop after the clearing phase
+	 * 
 	 * @param obj
 	 */
 	public void addPostClear(GameObj obj) {
@@ -231,6 +232,7 @@ public class MainLoop {
 
 	/**
 	 * Holds given obj to be added to the mainLoop's background group after the clearing phase
+	 * 
 	 * @param obj
 	 */
 	public void addBackgroundPostClear(GameObj obj) {
@@ -477,7 +479,10 @@ public class MainLoop {
 	// Domain
 	//////////////////////////////////////////////////
 	
-	// TODO
+	/**
+	 * An action that can be inserted into and resolved by a mainLoop upon
+	 * triggering the next frame
+	 */
 	public static abstract class MainLoopAction {
 		protected void acceptResolution(MainLoop loop) {
 			loop.visitResolution(this);
