@@ -12,6 +12,7 @@ public class MainLoopAdvancedInterface {
 	// TODO getActions, getObjs
 	// TODO check name matching on mainloop callbacks
 	// TODO better msgs on invalid action creation
+	// TODO make singleton
 	
 	// the MainLoop being modified by this interface
 	private MainLoop loop;

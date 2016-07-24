@@ -2,6 +2,7 @@ package org.framework;
 
 import static org.junit.Assert.*;
 import static java.lang.Math.*;
+import static org.framework.util.Exceptions.*;
 
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -35,6 +36,11 @@ public class MainLoop {
 	 */
 	private GamePanel panel;
 	private Thread updateCycle;
+	
+	/*
+	 * Interface state
+	 */
+	private boolean basicOK;
 	
 	/*  
 	 * Representation of all the game objects currently being tracked by the MainLoop
@@ -106,6 +112,8 @@ public class MainLoop {
 	protected MainLoop(int FPS) {
 		updateCycle = new Thread(new Animate(FPS));
 		
+		basicOK = true;
+		
 		objToLayer = new HashMap<>();
 		layerToObj = new HashMap<>();
 		maxLayer = 0;
@@ -116,8 +124,8 @@ public class MainLoop {
 		groupToAction = new HashMap<>();
 		maxGroup = 0;
 		
-		// TODO these should be moved out when abstracting out the basic UI
-		MainLoopGroupFactory factory = new MainLoopGroupFactory(advancedInterface(), 
+		MainLoopGroupFactory factory = new MainLoopGroupFactory(
+				new MainLoopAdvancedInterface(this), 
 				GAMEOBJ_GROUP_PRIORITY);
 		foregroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
 		backgroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
@@ -166,8 +174,11 @@ public class MainLoop {
 	 * background
 	 * 
 	 * @param obj
+	 * @throws Exception 
 	 */
 	public void add(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		backgroundGroup.remove(obj);
 		foregroundGroup.add(obj);
 	}
@@ -179,6 +190,8 @@ public class MainLoop {
 	 * @param obj
 	 */
 	public void addBackground(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		foregroundGroup.remove(obj);
 		backgroundGroup.add(obj);
 	}
@@ -188,6 +201,8 @@ public class MainLoop {
 	 * @return true iff obj is currently being kept track of by the mainLoop's basic API
 	 */
 	public boolean contains(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		return foregroundGroup.contains(obj) || backgroundGroup.contains(obj);
 	}
 
@@ -196,6 +211,8 @@ public class MainLoop {
 	 * @return true iff obj was present and successfully removed from the mainLoop's basic API
 	 */
 	public boolean remove(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		return (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
 	}
 
@@ -203,6 +220,8 @@ public class MainLoop {
 	 * Marks the mainLoop to be cleared at the next frame
 	 */
 	public void markClear() {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		foregroundGroup.markClear();
 		backgroundGroup.markClear();
 	}
@@ -211,6 +230,8 @@ public class MainLoop {
 	 * Marks the mainLoop to clear all foreground objs at the next frame
 	 */
 	public void markClearForeground() {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		foregroundGroup.markClear();
 	}
 
@@ -218,6 +239,8 @@ public class MainLoop {
 	 * Marks the mainLoop to clear all background objs at the next frame
 	 */
 	public void markClearBackground() {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		backgroundGroup.markClear();
 	}
 
@@ -227,6 +250,8 @@ public class MainLoop {
 	 * @param obj
 	 */
 	public void addPostClear(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		foregroundGroup.addPostClear(obj);
 	}
 
@@ -236,6 +261,8 @@ public class MainLoop {
 	 * @param obj
 	 */
 	public void addBackgroundPostClear(GameObj obj) {
+		if (!basicOK)
+			throw DISABLED_BASICAPI_EXCEPTION;
 		backgroundGroup.addPostClear(obj);
 	}
 	
@@ -243,6 +270,7 @@ public class MainLoop {
 	 * @return an interface for more detailed control over the mainLoop
 	 */
 	public MainLoopAdvancedInterface advancedInterface() {
+		basicOK = false;
 		return new MainLoopAdvancedInterface(this);
 	}
 	

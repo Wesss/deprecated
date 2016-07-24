@@ -42,7 +42,6 @@ public class MainLoopGroup implements GameObj{
 	 * 
 	 * For any GameObj obj
 	 * 		obj is contained in at most one of objs, newObjs, and newPostClearObjs, and remObjs
-	 * TODO more definition pertaining to objs here vs mainloop
 	 * TODO invariant check function?
 	 */
 	private boolean markClear;
