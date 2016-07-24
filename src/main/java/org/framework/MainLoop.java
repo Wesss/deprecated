@@ -416,10 +416,10 @@ public class MainLoop {
 		objToLayer.put(action.getObj(), action.getLayer());
 		objToPriority.put(action.getObj(), action.getPriority());
 		if (!layerToObj.containsKey(action.getLayer()))
-			layerToObj.put(action.getLayer(), new HashSet<>());
+			layerToObj.put(action.getLayer(), new HashSet<GameObj>());
 		layerToObj.get(action.getLayer()).add(action.getObj());
 		if (!priorityToObj.containsKey(action.getPriority()))
-			priorityToObj.put(action.getPriority(), new HashSet<>());
+			priorityToObj.put(action.getPriority(), new HashSet<GameObj>());
 		priorityToObj.get(action.getPriority()).add(action.getObj());
 		
 		maxLayer = max(maxLayer, action.getLayer());
