@@ -6,5 +6,5 @@ package org.framework.interfaces;
  * @author Wesley Cox
  */
 public interface Game {
-	// Nothing! the implementation of the game is entirely up to the client
+    // Nothing! the implementation of the game is entirely up to the client
 }
