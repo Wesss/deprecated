@@ -1,5 +1,6 @@
 # Intellij
 out/
+target/
 .idea/
 *.iml
 *.iws
