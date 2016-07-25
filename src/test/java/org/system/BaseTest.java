@@ -17,27 +17,27 @@ import org.framework.interfaces.GameObj;
  */
 public class BaseTest implements Game {
 
-	private static final AspectRatio RATIO = AspectRatio.ONE_TO_ONE;
-	private static final int FPS = 60;
-	
-	public static void main(String args[]) {
-		GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, RATIO, FPS);
-		while(true) {}
-	}
-	
-	public BaseTest(MainLoop mainLoop) {
-		mainLoop.add(new Line());
-	}
-	
-	private class Line implements GameObj {
+    private static final AspectRatio RATIO = AspectRatio.ONE_TO_ONE;
+    private static final int FPS = 60;
 
-		@Override
-		public void draw(Graphics g) {
-			g.setColor(Color.BLACK);
-			g.drawLine(100, 100, 400, 400);
-		}
+    public static void main(String args[]) {
+        GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, RATIO, FPS);
+        while(true) {}
+    }
 
-		@Override
-		public void update() {}
-	}
+    public BaseTest(MainLoop mainLoop) {
+        mainLoop.add(new Line());
+    }
+
+    private class Line implements GameObj {
+
+        @Override
+        public void draw(Graphics g) {
+            g.setColor(Color.BLACK);
+            g.drawLine(100, 100, 400, 400);
+        }
+
+        @Override
+        public void update() {}
+    }
 }

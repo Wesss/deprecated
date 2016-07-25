@@ -25,52 +25,52 @@ import org.framework.interfaces.GameEventListener;
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
-	
-	//////////////////////////////////////////////////
-	// Definition
-	//////////////////////////////////////////////////
-	
-	/**
-	 * After creation, but before setReferences:
-	 * game == EmptyGame
-	 * mainLoop == null
-	 * Even as user events and repaint requests come in, they will be ignored until setReferences is called.
-	 * 
-	 * After setReferences:
-	 * game and mainLoop are set to appropriately initialized overhead objects
-	 */
-	
-	private GameEventListener gameEventListener;
-	private MainLoop mainLoop;
-	
-	//////////////////////////////////////////////////
-	// Initialization
-	//////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////
+    // Definition
+    //////////////////////////////////////////////////
+
+    /**
+     * After creation, but before setReferences:
+     * game == EmptyGame
+     * mainLoop == null
+     * Even as user events and repaint requests come in, they will be ignored until setReferences is called.
+     *
+     * After setReferences:
+     * game and mainLoop are set to appropriately initialized overhead objects
+     */
+
+    private GameEventListener gameEventListener;
+    private MainLoop mainLoop;
+
+    //////////////////////////////////////////////////
+    // Initialization
+    //////////////////////////////////////////////////
     
-	/**
-	 * Creates a new GamePanel of specified size for given game g
-	 * 
-	 * @param width the width of the display's panel (in pixels)
-	 * 		<UL><LI> must be > 0 </UL>
-	 * @param height the height of the display's panel (in pixels)
-	 * 		<UL><LI> must be > 0 </UL>
-	 */
+    /**
+     * Creates a new GamePanel of specified size for given game g
+     *
+     * @param width the width of the display's panel (in pixels)
+     * 		<UL><LI> must be > 0 </UL>
+     * @param height the height of the display's panel (in pixels)
+     * 		<UL><LI> must be > 0 </UL>
+     */
     protected GamePanel(int width, int height) {
-    	this(new Dimension(width, height));
+        this(new Dimension(width, height));
     }
     
     /**
-	 * Creates a new GamePanel of specified size for given game g
-	 * 
-	 * @param gameArea the dimensions of the area that the game takes up (in pixels)
-	 * 		<UL><LI> must not be null </UL>
-	 */
+     * Creates a new GamePanel of specified size for given game g
+     *
+     * @param gameArea the dimensions of the area that the game takes up (in pixels)
+     * 		<UL><LI> must not be null </UL>
+     */
     protected GamePanel(Dimension gameArea) {
-    	super();
-    	gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
-    	
-    	this.setPreferredSize(gameArea);
-    	createFrame();
+        super();
+        gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
+
+        this.setPreferredSize(gameArea);
+        createFrame();
         setFocusable(true);
 
         addKeyListener(new KeyLis());
@@ -84,8 +84,8 @@ public class GamePanel extends JPanel {
      * @param m The MainLoop powering the Game
      */
     protected void setReferences(GameEventListener g, MainLoop m) {
-    	gameEventListener = g;
-    	mainLoop = m;
+        gameEventListener = g;
+        mainLoop = m;
     }
     
     /**
@@ -93,30 +93,30 @@ public class GamePanel extends JPanel {
      * fits this Panel into it.
      */
     private void createFrame() {
-    	JFrame frame = new JFrame();
-    	frame.setResizable(false);
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	frame.setContentPane(this);
-    	frame.pack();
-    	frame.setVisible(true);
+        JFrame frame = new JFrame();
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(this);
+        frame.pack();
+        frame.setVisible(true);
     }
     
-	//////////////////////////////////////////////////
-	// Framework Functionality
-	//////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // Framework Functionality
+    //////////////////////////////////////////////////
 
-	@Override
+    @Override
     public void paintComponent(Graphics g) {
-		if (mainLoop != null)
-	        synchronized (gameEventListener) {
-	            super.paintComponent(g);
-	        	mainLoop.nextFrame(g);
-	        }
+        if (mainLoop != null)
+            synchronized (gameEventListener) {
+                super.paintComponent(g);
+                mainLoop.nextFrame(g);
+            }
     }
 
-	//////////////////////////////////////////////////
-	// Event Listeners
-	//////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // Event Listeners
+    //////////////////////////////////////////////////
     
     /**
      * This class passes key press/release events to the game
@@ -126,34 +126,34 @@ public class GamePanel extends JPanel {
      * a key is held down).
      */
     private class KeyLis implements KeyListener {
-    	
-    	private Set<Integer> pressedKeys;
-    	
-    	public KeyLis() {
-    		pressedKeys = new HashSet<>();
-    	}
-    	
+
+        private Set<Integer> pressedKeys;
+
+        public KeyLis() {
+            pressedKeys = new HashSet<>();
+        }
+
         @Override
         public void keyPressed(KeyEvent e) {
-        	int code = e.getKeyCode();
-        	synchronized (gameEventListener) {
-        		if (!pressedKeys.contains(code)) {
-        			pressedKeys.add(code);
-					gameEventListener.keyPressed(code);
-				}
-        	}
+            int code = e.getKeyCode();
+            synchronized (gameEventListener) {
+                if (!pressedKeys.contains(code)) {
+                    pressedKeys.add(code);
+                    gameEventListener.keyPressed(code);
+                }
+            }
         }
         
         @Override
         public void keyReleased(KeyEvent e) {
-        	int code = e.getKeyCode();
-    		synchronized (gameEventListener) {
-    			if (pressedKeys.contains(code)) {
-            		pressedKeys.remove(code);
-					gameEventListener.keyReleased(code);
-				}
-        	}
-        	
+            int code = e.getKeyCode();
+            synchronized (gameEventListener) {
+                if (pressedKeys.contains(code)) {
+                    pressedKeys.remove(code);
+                    gameEventListener.keyReleased(code);
+                }
+            }
+
         }
         
         @Override
@@ -165,51 +165,51 @@ public class GamePanel extends JPanel {
      */
     private class MousePressLis implements MouseListener {
 
-    	@Override
-    	public void mousePressed(MouseEvent e) {
-    		synchronized (gameEventListener) {
-				gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
-    		}
-    	}
+        @Override
+        public void mousePressed(MouseEvent e) {
+            synchronized (gameEventListener) {
+                gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
+            }
+        }
 
-    	@Override
-    	public void mouseReleased(MouseEvent e) {
-    		synchronized (gameEventListener) {
-				gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
-			}
-    	}
-    	
-    	@Override
-    	public void mouseClicked(MouseEvent e) {}
-    	@Override
-    	public void mouseEntered(MouseEvent e) {}
-    	@Override
-    	public void mouseExited(MouseEvent e) {}
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            synchronized (gameEventListener) {
+                gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {}
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+        @Override
+        public void mouseExited(MouseEvent e) {}
     }
     
     private class MouseMoveLis implements MouseMotionListener {
 
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			mouseMovedTo(e.getX(), e.getY());
-		}
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            mouseMovedTo(e.getX(), e.getY());
+        }
 
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			mouseMovedTo(e.getX(), e.getY());
-		}
-		
-		/**
-		 * Represents an event where the mouse is simply moved, regardless of
-		 * whether or not the mouse is pressed.
-		 * 
-		 * @param x coordinate of the current mouse position
-		 * @param y coordinate of the current mouse position
-		 */
-    	private void mouseMovedTo(int x, int y) {
-    		synchronized (gameEventListener) {
-    			gameEventListener.mouseMoved(x, y);
-    		}
-    	}
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            mouseMovedTo(e.getX(), e.getY());
+        }
+
+        /**
+         * Represents an event where the mouse is simply moved, regardless of
+         * whether or not the mouse is pressed.
+         *
+         * @param x coordinate of the current mouse position
+         * @param y coordinate of the current mouse position
+         */
+        private void mouseMovedTo(int x, int y) {
+            synchronized (gameEventListener) {
+                gameEventListener.mouseMoved(x, y);
+            }
+        }
     }
 }
