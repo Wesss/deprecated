@@ -141,11 +141,11 @@ public class MainLoop {
 	
 	/**
 	 * Starts the update/repaint cycle
-	 * @requires setReferences be called before this
+	 * @required setReferences be called before this
 	 */
 	protected void start() {
 		if (panel == null) {
-			throw new RuntimeException("references not yet set");
+			throw new RuntimeException(PRE_INIT_ERRMSG);
 		}
 		updateCycle.start();
 	}
@@ -178,7 +178,7 @@ public class MainLoop {
 	 */
 	public void add(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+			throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		backgroundGroup.remove(obj);
 		foregroundGroup.add(obj);
 	}
@@ -191,7 +191,7 @@ public class MainLoop {
 	 */
 	public void addBackground(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+		    throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		foregroundGroup.remove(obj);
 		backgroundGroup.add(obj);
 	}
@@ -202,7 +202,7 @@ public class MainLoop {
 	 */
 	public boolean contains(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		return foregroundGroup.contains(obj) || backgroundGroup.contains(obj);
 	}
 
@@ -212,7 +212,7 @@ public class MainLoop {
 	 */
 	public boolean remove(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		return (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
 	}
 
@@ -221,7 +221,7 @@ public class MainLoop {
 	 */
 	public void markClear() {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		foregroundGroup.markClear();
 		backgroundGroup.markClear();
 	}
@@ -231,7 +231,7 @@ public class MainLoop {
 	 */
 	public void markClearForeground() {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		foregroundGroup.markClear();
 	}
 
@@ -240,7 +240,7 @@ public class MainLoop {
 	 */
 	public void markClearBackground() {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		backgroundGroup.markClear();
 	}
 
@@ -251,7 +251,7 @@ public class MainLoop {
 	 */
 	public void addPostClear(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		foregroundGroup.addPostClear(obj);
 	}
 
@@ -262,7 +262,7 @@ public class MainLoop {
 	 */
 	public void addBackgroundPostClear(GameObj obj) {
 		if (!basicOK)
-			throw DISABLED_BASICAPI_EXCEPTION;
+            throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
 		backgroundGroup.addPostClear(obj);
 	}
 	
@@ -279,12 +279,8 @@ public class MainLoop {
 	//////////////////////////////////////////////////
 	
 	protected boolean containsAdv(GameObj obj) {
-		if (obj == null) {
-			return false;
-		}
-		
-		return objToLayer.containsKey(obj);
-	}
+        return obj != null && objToLayer.containsKey(obj);
+    }
 	
 	protected void insertAction(MainLoopAction action, int actionGroup) {
 		if (actionGroup < 0) {
@@ -316,12 +312,9 @@ public class MainLoop {
 	}
 	
 	protected boolean containsAction(MainLoopAction action, int actionGroup) {
-		if (action == null)
-			return false;
-		
-		return (groupToAction.containsKey(actionGroup) &&
-				groupToAction.get(actionGroup).contains(action));
-	}
+        return action != null && (groupToAction.containsKey(actionGroup) && groupToAction.get(actionGroup).contains(action));
+
+    }
 	
 	protected void deleteAction(MainLoopAction action) {
 		if (action == null)
@@ -522,10 +515,10 @@ public class MainLoop {
 		private int priority;
 		private int layer;
 		
-		protected MainLoopAddAction(GameObj obj, int priority, int layer) {
-			this.obj = obj;
-			this.priority = priority;
-			this.layer = layer;
+		protected MainLoopAddAction(GameObj newobj, int newpriority, int newlayer) {
+			obj = newobj;
+			priority = newpriority;
+			layer = newlayer;
 		}
 		
 		protected GameObj getObj() {
@@ -539,7 +532,8 @@ public class MainLoop {
 		protected int getLayer() {
 			return layer;
 		}
-		
+
+        @Override
 		protected void acceptResolution(MainLoop loop) {
 			loop.visitResolution(this);
 		}
@@ -548,14 +542,15 @@ public class MainLoop {
 	protected class MainLoopRemoveAction extends MainLoopAction {
 		private GameObj obj;
 		
-		protected MainLoopRemoveAction(GameObj obj) {
-			this.obj = obj;
+		protected MainLoopRemoveAction(GameObj newobj) {
+			obj = newobj;
 		}
 		
 		protected GameObj getObj() {
 			return obj;
 		}
-		
+
+		@Override
 		protected void acceptResolution(MainLoop loop) {
 			loop.visitResolution(this);
 		}
@@ -566,7 +561,8 @@ public class MainLoop {
 		protected MainLoopClearAction() {
 			// nothing!
 		}
-		
+
+		@Override
 		protected void acceptResolution(MainLoop loop) {
 			loop.visitResolution(this);
 		}
@@ -578,7 +574,7 @@ public class MainLoop {
 	 * @param layer
 	 * @return an MainLoopAction that when resolved by the mainLoop will add obj to the
 	 * mainloop with given update priority and paint layer
-	 * @throws IllegalArguementException if obj == null, priority < 0, layer < 0
+	 * @throws IllegalArgumentException if obj == null, priority < 0, layer < 0
 	 */
 	public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
 		if (obj == null || priority < 0 || layer < 0)
@@ -668,7 +664,6 @@ public class MainLoop {
 		assertEquals(objToPriority.keySet(), objToLayer.keySet());
 		assertEquals(objToPriority.keySet(), priorityObjStore);
 		assertEquals(objToLayer.keySet(), layerObjStore);
-		Set<GameObj> allObjs = layerObjStore;
 		
 		// actions
 		assertTrue(maxGroup >= 0);
@@ -694,7 +689,7 @@ public class MainLoop {
 				} else if (action instanceof MainLoopRemoveAction) {
 					MainLoopRemoveAction rem = (MainLoopRemoveAction) action;
 					assertNotNull(rem.getObj());
-				} else if (action instanceof MainLoopClearAction) {
+				//} else if (action instanceof MainLoopClearAction) {
 					// nothing
 				} else {
 					fail("unknown action type recieved");
