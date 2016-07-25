@@ -9,22 +9,22 @@ import java.awt.event.MouseMotionListener;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import org.framework.interfaces.GameEventListener;
 
 /**
  * Handles the display of the given game.
  * 
- * TODO try/compare instead of letting java's mainframe handle repaint requests,
- * 		keep hold of graphics object and redraw in a self-defined loop
- * TODO: create non-parallel abstraction?
- * 
  * @author Wesley Cox
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
+
+    /*
+     * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
+     * TODO fix locking (synchronize on final Object instead of listener; can run into problems if user synchronizes on listener)
+     */
 
     //////////////////////////////////////////////////
     // Definition
@@ -95,7 +95,7 @@ public class GamePanel extends JPanel {
     private void createFrame() {
         JFrame frame = new JFrame();
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setContentPane(this);
         frame.pack();
         frame.setVisible(true);

@@ -22,7 +22,6 @@ public class BasicAnimationTest implements Game{
 
     public static void main(String args[]) {
         GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, AspectRatio.ONE_TO_ONE, FPS);
-        while(true) {}
     }
 
     public BasicAnimationTest(MainLoop mainLoop) {

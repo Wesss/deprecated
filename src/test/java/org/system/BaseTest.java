@@ -22,7 +22,6 @@ public class BaseTest implements Game {
 
     public static void main(String args[]) {
         GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, RATIO, FPS);
-        while(true) {}
     }
 
     public BaseTest(MainLoop mainLoop) {

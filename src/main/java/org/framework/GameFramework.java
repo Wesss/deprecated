@@ -17,12 +17,7 @@ public class GameFramework {
 
     public static final GameEventListener EMPTY_GAME_LISTENER = new EmptyGameListener();
 
-    /**
-     * Bugs TODO move to issue tracker
-     * TODO BUG1: Some rare race condition still exists (via dodger DodgerGame startup)
-     */
-
-    /**
+    /*
      * <b> Given game class must contain a constructor of type GameEventListener() or GameEventListener(MainLoop).</b>
      * Instantiates and runs a game of the given class;
      * If constructor of type GameEventListener(MainLoop) exists, then that constructor is called passing in the MainLoop
@@ -60,13 +55,13 @@ public class GameFramework {
             Constructor<?> gameConstructor = null;
 
             Constructor<?>[] constructors = game.getConstructors();
-            for (int i = 0; i < constructors.length; i++) { // TODO refactor to while loop
-                Class<?>[] parameters = constructors[i].getParameterTypes();
+            for (Constructor<?> constructor : constructors) {
+                Class<?>[] parameters = constructor.getParameterTypes();
                 if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
-                    gameConstructor = constructors[i];
+                    gameConstructor = constructor;
                 } else if (parameters.length == 0) {
                     if (gameConstructor == null)
-                        gameConstructor = constructors[i];
+                        gameConstructor = constructor;
                 }
             }
 

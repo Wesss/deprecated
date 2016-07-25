@@ -22,7 +22,6 @@ public class EventFireTest implements Game{
 
     public static void main(String args[]) {
         GameFramework.startGame(EventFireTest.class, new EventFireTestListener(), AspectRatio.ONE_TO_ONE, FPS);
-        while(true) {}
     }
 
     private GameString[] log;
@@ -89,17 +88,17 @@ public class EventFireTest implements Game{
     public class GameString implements GameObj {
 
         private String string;
-        private int x;
-        private int y;
+        private int mx;
+        private int my;
 
         /**
-         * @param x the x coordinate of the top left of the string
+         * @param x the myx coordinate of the top left of the string
          * @param y the y coordinate of the top left of the string
          */
         public GameString(int x, int y) {
             string = "";
-            this.x = x;
-            this.y = y;
+            mx = x;
+            my = y;
         }
 
         public String getString() {
@@ -112,7 +111,7 @@ public class EventFireTest implements Game{
 
         @Override
         public void draw(Graphics g) {
-            g.drawString(string, x, y);
+            g.drawString(string, mx, my);
         }
 
         @Override

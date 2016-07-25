@@ -70,7 +70,7 @@ public class MainLoopAdvancedInterface {
      * @param priority
      * @param layer
      * @return
-     * @throws IllegalArguementException if obj == null, priority < 0, layer < 0
+     * @throws IllegalArgumentException if obj == null, priority < 0, layer < 0
      */
     public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
         return loop.createAddAction(obj, priority, layer);

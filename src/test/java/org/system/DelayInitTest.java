@@ -22,7 +22,6 @@ public class DelayInitTest implements Game{
 
     public static void main(String args[]) {
         GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, AspectRatio.ONE_TO_ONE, FPS);
-        while(true) {}
     }
 
     public DelayInitTest(MainLoop mainLoop) {

@@ -382,6 +382,7 @@ public class MainLoop {
         maxGroup = 0;
     }
 
+    @SuppressWarnings("unused")
     protected void visitResolution(MainLoopAction action) {
         throw new RuntimeException("visited unknown action type");
     }
@@ -439,6 +440,7 @@ public class MainLoop {
         }
     }
 
+    @SuppressWarnings("unused")
     protected void visitResolution(MainLoopClearAction action) {
         objToLayer.clear();
         layerToObj.clear();
@@ -515,10 +517,10 @@ public class MainLoop {
         private int priority;
         private int layer;
 
-        protected MainLoopAddAction(GameObj newobj, int newpriority, int newlayer) {
-            obj = newobj;
-            priority = newpriority;
-            layer = newlayer;
+        protected MainLoopAddAction(GameObj obj, int priority, int layer) {
+            this.obj = obj;
+            this.priority = priority;
+            this.layer = layer;
         }
 
         protected GameObj getObj() {
@@ -542,8 +544,8 @@ public class MainLoop {
     protected class MainLoopRemoveAction extends MainLoopAction {
         private GameObj obj;
 
-        protected MainLoopRemoveAction(GameObj newobj) {
-            obj = newobj;
+        protected MainLoopRemoveAction(GameObj obj) {
+            this.obj = obj;
         }
 
         protected GameObj getObj() {

@@ -10,7 +10,6 @@ import java.awt.Graphics;
  */
 public interface GameObj {
 
-
     public static final GameObj EMTPY_GAME_OBJ = new emptyGameObj();
 
     /**

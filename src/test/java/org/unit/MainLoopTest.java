@@ -49,7 +49,7 @@ public abstract class MainLoopTest {
             Method init = MainLoopFactory.class.getDeclaredMethod("constructMainLoop", int.class);
             init.setAccessible(true);
             init.invoke(factory, STANDARD_UPS);
-            mainloop = (MainLoop) factory.getMainLoop();
+            mainloop = factory.getMainLoop();
 
             Method ref = MainLoop.class.getDeclaredMethod("setReferences", GamePanel.class);
             ref.setAccessible(true);
