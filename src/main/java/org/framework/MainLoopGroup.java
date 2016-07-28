@@ -16,10 +16,7 @@ import org.framework.interfaces.GameObj;
  */
 public class MainLoopGroup implements GameObj{
 
-    // TODO create group factory
     // TODO prevent adding of obj to different groups/mainloop
-    // TODO write on not using with advInter
-    // TODO prevent using with advInter
 
     private final int groupLayer;
     private final int groupPriority;
@@ -65,8 +62,9 @@ public class MainLoopGroup implements GameObj{
     }
 
     //////////////////////////////////////////////////
-    // User API
+    // public API
     //////////////////////////////////////////////////
+    // TODO do theses need to be public?
 
     /**
      * Adds given object to the group. Nothing if obj is already a part of this group

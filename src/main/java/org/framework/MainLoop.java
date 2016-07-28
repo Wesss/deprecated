@@ -124,11 +124,11 @@ public class MainLoop {
         groupToAction = new HashMap<>();
         maxGroup = 0;
 
-        MainLoopGroupFactory factory = new MainLoopGroupFactory(
-                new MainLoopAdvancedInterface(this),
-                GAMEOBJ_GROUP_PRIORITY);
-        foregroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
-        backgroundGroup = factory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
+        // basic API setup
+        MainLoopGroupFactory groupFactory =
+                MainLoopGroupFactoryFactory.getMainLoopGroupFactory(this, GAMEOBJ_GROUP_PRIORITY);
+        foregroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
+        backgroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
     }
 
     /**
@@ -151,6 +151,30 @@ public class MainLoop {
     }
 
     //////////////////////////////////////////////////
+    // Interface Swapping
+    //////////////////////////////////////////////////
+
+    /**
+     * Switches
+     *
+     * @param upperBoundPriority
+     * @return an interface for more detailed control over the mainLoop
+     */
+    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
+        return MainLoopCustomGroupsInterfaceFactory.getMainLoopCustomGroupsInterface(this, upperBoundPriority);
+    }
+
+    /**
+     * After this call, all BasicAPI calls (calls through this mainloop) and CustomGroupInterface calls will
+     * disallowed
+     * @return an interface for more detailed control over the mainLoop
+     */
+    public MainLoopAdvancedInterface advancedInterface() {
+        basicOK = false;
+        return MainLoopAdvancedInterfaceFactory.getAdvancedInterface(this);
+    }
+
+    //////////////////////////////////////////////////
     // Basic User Interface (API)
     //////////////////////////////////////////////////
 
@@ -167,7 +191,6 @@ public class MainLoop {
 
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup backgroundGroup;
-
 
     /**
      * Adds obj to the foreground layer, removing it from the background layer if part of the
@@ -264,14 +287,6 @@ public class MainLoop {
         if (!basicOK)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         backgroundGroup.addPostClear(obj);
-    }
-
-    /**
-     * @return an interface for more detailed control over the mainLoop
-     */
-    public MainLoopAdvancedInterface advancedInterface() {
-        basicOK = false;
-        return new MainLoopAdvancedInterface(this);
     }
 
     //////////////////////////////////////////////////

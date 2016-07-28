@@ -15,8 +15,6 @@ import org.framework.interfaces.GameEventListener;
 
 /**
  * Handles the display of the given game.
- * 
- * @author Wesley Cox
  */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
@@ -24,6 +22,7 @@ public class GamePanel extends JPanel {
     /*
      * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
      * TODO fix locking (synchronize on final Object instead of listener; can run into problems if user synchronizes on listener)
+     * TODO support various panel sizes and resizing (keep track of scale)
      */
 
     //////////////////////////////////////////////////
