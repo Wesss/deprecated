@@ -30,6 +30,8 @@ public class GamePanel extends JPanel {
     //////////////////////////////////////////////////
 
     /**
+     * gameStateLock != null
+     *
      * After creation, but before setReferences:
      * game == EmptyGame
      * mainLoop == null
@@ -40,6 +42,7 @@ public class GamePanel extends JPanel {
      */
 
     private GameEventListener gameEventListener;
+    private final Object gameStateLock;
     private MainLoop mainLoop;
 
     //////////////////////////////////////////////////
@@ -67,6 +70,7 @@ public class GamePanel extends JPanel {
     protected GamePanel(Dimension gameArea) {
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
+        gameStateLock = new Object();
 
         this.setPreferredSize(gameArea);
         createFrame();
@@ -107,7 +111,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         if (mainLoop != null)
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 super.paintComponent(g);
                 mainLoop.nextFrame(g);
             }
@@ -135,7 +139,7 @@ public class GamePanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 if (!pressedKeys.contains(code)) {
                     pressedKeys.add(code);
                     gameEventListener.keyPressed(code);
@@ -146,7 +150,7 @@ public class GamePanel extends JPanel {
         @Override
         public void keyReleased(KeyEvent e) {
             int code = e.getKeyCode();
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 if (pressedKeys.contains(code)) {
                     pressedKeys.remove(code);
                     gameEventListener.keyReleased(code);
@@ -166,14 +170,14 @@ public class GamePanel extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
             }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
             }
         }
@@ -206,7 +210,7 @@ public class GamePanel extends JPanel {
          * @param y coordinate of the current mouse position
          */
         private void mouseMovedTo(int x, int y) {
-            synchronized (gameEventListener) {
+            synchronized (gameStateLock) {
                 gameEventListener.mouseMoved(x, y);
             }
         }
