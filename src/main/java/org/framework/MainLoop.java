@@ -359,7 +359,7 @@ public class MainLoop {
      * Moves the game state up one frame/update cycle
      * @param g The graphics object to paint with
      */
-    protected void nextFrame(Graphics g) {
+    protected void nextFrame(GamePanelGraphics g) {
         updateObjs();
         resolveActions();
         paintObjs(g);
@@ -375,7 +375,7 @@ public class MainLoop {
         }
     }
 
-    private void paintObjs(Graphics g) {
+    private void paintObjs(GamePanelGraphics g) {
         for (int i = 0; i <= maxLayer; i++) {
             HashSet<GameObj> objs = layerToObj.get(i);
             if (objs != null) {

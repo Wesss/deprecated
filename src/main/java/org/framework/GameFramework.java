@@ -3,7 +3,6 @@ package org.framework;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.framework.interfaces.AspectRatio;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 
@@ -36,18 +35,16 @@ public class GameFramework {
      * TODO
      * @param game
      * @param listener
-     * @param ratio
      * @param updatesPerSecond
      * @return
      */
     public static <T extends Game> MainLoop startGame(Class<T> game,
                                                         GameEventListener listener,
-                                                        AspectRatio ratio,
                                                         int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();
-        GamePanel panel = new GamePanel(500, 500); // TODO
+        GamePanel panel = new GamePanel(1000, 1000); // TODO
 
         Game newGame = null;
 

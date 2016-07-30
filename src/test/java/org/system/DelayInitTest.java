@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import org.framework.GameFramework;
+import org.framework.GamePanelGraphics;
 import org.framework.MainLoop;
-import org.framework.interfaces.AspectRatio;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
 
@@ -21,7 +21,7 @@ public class DelayInitTest implements Game{
     private static final int FPS = 60;
 
     public static void main(String args[]) {
-        GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, AspectRatio.ONE_TO_ONE, FPS);
+        GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
     public DelayInitTest(MainLoop mainLoop) {
@@ -43,7 +43,7 @@ public class DelayInitTest implements Game{
         }
 
         @Override
-        public void draw(Graphics g) {
+        public void draw(GamePanelGraphics g) {
             g.setColor(Color.BLACK);
             g.drawString("" + num, 100, 100);
         }

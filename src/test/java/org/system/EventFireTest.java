@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import org.framework.GameFramework;
+import org.framework.GamePanelGraphics;
 import org.framework.MainLoop;
-import org.framework.interfaces.AspectRatio;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;
@@ -21,7 +21,7 @@ public class EventFireTest implements Game{
     private static final int FPS = 60;
 
     public static void main(String args[]) {
-        GameFramework.startGame(EventFireTest.class, new EventFireTestListener(), AspectRatio.ONE_TO_ONE, FPS);
+        GameFramework.startGame(EventFireTest.class, new EventFireTestListener(), FPS);
     }
 
     private GameString[] log;
@@ -110,7 +110,7 @@ public class EventFireTest implements Game{
         }
 
         @Override
-        public void draw(Graphics g) {
+        public void draw(GamePanelGraphics g) {
             g.drawString(string, mx, my);
         }
 

@@ -1,5 +1,7 @@
 package org.framework.interfaces;
 
+import org.framework.GamePanelGraphics;
+
 import java.awt.Graphics;
 
 /**
@@ -22,7 +24,7 @@ public interface GameObj {
      * draws this object onto the given graphics object
      * @param g The graphics object to draw to
      */
-    public void draw(Graphics g);
+    public void draw(GamePanelGraphics g);
 
     // TODO better place to put this so it isn't visible?
     public static class emptyGameObj implements GameObj {
@@ -31,6 +33,6 @@ public interface GameObj {
         public void update() {}
 
         @Override
-        public void draw(Graphics g) {}
+        public void draw(GamePanelGraphics g) {}
     }
 }

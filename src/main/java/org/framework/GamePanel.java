@@ -21,7 +21,6 @@ public class GamePanel extends JPanel {
 
     /*
      * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
-     * TODO fix locking (synchronize on final Object instead of listener; can run into problems if user synchronizes on listener)
      * TODO support various panel sizes and resizing (keep track of scale)
      */
 
@@ -30,8 +29,6 @@ public class GamePanel extends JPanel {
     //////////////////////////////////////////////////
 
     /**
-     * gameStateLock != null
-     *
      * After creation, but before setReferences:
      * game == EmptyGame
      * mainLoop == null
@@ -41,8 +38,8 @@ public class GamePanel extends JPanel {
      * game and mainLoop are set to appropriately initialized overhead objects
      */
 
+    private final Object GAME_LOCK = new Object();
     private GameEventListener gameEventListener;
-    private final Object gameStateLock;
     private MainLoop mainLoop;
 
     //////////////////////////////////////////////////
@@ -70,7 +67,6 @@ public class GamePanel extends JPanel {
     protected GamePanel(Dimension gameArea) {
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
-        gameStateLock = new Object();
 
         this.setPreferredSize(gameArea);
         createFrame();
@@ -111,9 +107,9 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         if (mainLoop != null)
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 super.paintComponent(g);
-                mainLoop.nextFrame(g);
+                mainLoop.nextFrame(new GamePanelGraphics(g));
             }
     }
 
@@ -139,7 +135,7 @@ public class GamePanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 if (!pressedKeys.contains(code)) {
                     pressedKeys.add(code);
                     gameEventListener.keyPressed(code);
@@ -150,7 +146,7 @@ public class GamePanel extends JPanel {
         @Override
         public void keyReleased(KeyEvent e) {
             int code = e.getKeyCode();
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 if (pressedKeys.contains(code)) {
                     pressedKeys.remove(code);
                     gameEventListener.keyReleased(code);
@@ -170,14 +166,14 @@ public class GamePanel extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
             }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
             }
         }
@@ -210,7 +206,7 @@ public class GamePanel extends JPanel {
          * @param y coordinate of the current mouse position
          */
         private void mouseMovedTo(int x, int y) {
-            synchronized (gameStateLock) {
+            synchronized (GAME_LOCK) {
                 gameEventListener.mouseMoved(x, y);
             }
         }

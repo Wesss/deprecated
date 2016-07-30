@@ -7,10 +7,7 @@ import java.awt.Graphics;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.framework.GamePanel;
-import org.framework.MainLoop;
-import org.framework.MainLoopFactory;
-import org.framework.MainLoopFactoryFactory;
+import org.framework.*;
 import org.framework.interfaces.GameObj;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +24,7 @@ public abstract class MainLoopTest {
     protected Method mainloopValidate = null;
     protected Method nextFrame = null;
 
-    protected Graphics mockGraphics = mock(Graphics.class);
+    protected GamePanelGraphics mockGraphics = mock(GamePanelGraphics.class);
     protected GamePanel mockPanel = mock(GamePanel.class);
     protected GameObj mockObj = mock(GameObj.class);
     protected GameObj mockObj2 = mock(GameObj.class);
@@ -58,7 +55,7 @@ public abstract class MainLoopTest {
             mainloopValidate = MainLoop.class.getDeclaredMethod("assertValid");
             mainloopValidate.setAccessible(true);
 
-            nextFrame = MainLoop.class.getDeclaredMethod("nextFrame", Graphics.class);
+            nextFrame = MainLoop.class.getDeclaredMethod("nextFrame", GamePanelGraphics.class);
             nextFrame.setAccessible(true);
         } catch (SecurityException | IllegalArgumentException | NoSuchMethodException
                 | IllegalAccessException | InvocationTargetException e) {
