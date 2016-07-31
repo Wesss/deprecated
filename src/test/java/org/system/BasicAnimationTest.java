@@ -89,7 +89,7 @@ public class BasicAnimationTest implements Game{
             if (centerX + radius >= PANEL_X) {
                 g.drawOval(centerX - radius - PANEL_X, centerY - radius, radius * 2, radius * 2);
             }
-            if (centerX - radius <= PANEL_X) {
+            if (centerX - radius <= 0) {
                 g.drawOval(centerX - radius + PANEL_X, centerY - radius, radius * 2, radius * 2);
             }
         }

@@ -28,7 +28,7 @@ public class GamePanel extends JPanel {
     // Definition
     //////////////////////////////////////////////////
 
-    /**
+    /*
      * After creation, but before setReferences:
      * game == EmptyGame
      * mainLoop == null
@@ -41,6 +41,17 @@ public class GamePanel extends JPanel {
     private final Object GAME_LOCK = new Object();
     private GameEventListener gameEventListener;
     private MainLoop mainLoop;
+
+    /*
+     * actualX > 0
+     * actualY > 0
+     * virtualX > 0
+     * virtualY > 0
+     */
+    private int actualX;
+    private int actualY;
+    private int virtualX;
+    private int virtualY;
 
     //////////////////////////////////////////////////
     // Initialization
@@ -55,20 +66,17 @@ public class GamePanel extends JPanel {
      * 		<UL><LI> must be > 0 </UL>
      */
     protected GamePanel(int width, int height) {
-        this(new Dimension(width, height));
-    }
-    
-    /**
-     * Creates a new GamePanel of specified size for given game g
-     *
-     * @param gameArea the dimensions of the area that the game takes up (in pixels)
-     * 		<UL><LI> must not be null </UL>
-     */
-    protected GamePanel(Dimension gameArea) {
+
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 
-        this.setPreferredSize(gameArea);
+        // TODO change to wire in actual transformations
+        actualX = width;
+        actualY = height;
+        virtualX = 500;
+        virtualY = 500;
+
+        this.setPreferredSize(new Dimension(width, height));
         createFrame();
         setFocusable(true);
 
@@ -104,12 +112,36 @@ public class GamePanel extends JPanel {
     // Framework Functionality
     //////////////////////////////////////////////////
 
+    protected int getActualX() {
+        return actualX;
+    }
+
+    protected int getActualY() {
+        return actualY;
+    }
+
+    protected int getVirtualX() {
+        return virtualX;
+    }
+
+    protected void setVirtualX(int virtualX) {
+        this.virtualX = virtualX;
+    }
+
+    protected int getVirtualY() {
+        return virtualY;
+    }
+
+    protected void setVirtualY(int virtualY) {
+        this.virtualY = virtualY;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         if (mainLoop != null)
             synchronized (GAME_LOCK) {
                 super.paintComponent(g);
-                mainLoop.nextFrame(new GamePanelGraphics(g));
+                mainLoop.nextFrame(new GamePanelGraphics(g, this));
             }
     }
 

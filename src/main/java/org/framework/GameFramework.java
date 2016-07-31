@@ -44,7 +44,7 @@ public class GameFramework {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();
-        GamePanel panel = new GamePanel(1000, 1000); // TODO
+        GamePanel panel = new GamePanel(500, 500); // TODO
 
         Game newGame = null;
 

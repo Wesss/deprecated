@@ -11,10 +11,18 @@ import java.text.AttributedCharacterIterator;
  */
 public class GamePanelGraphics {
 
-    Graphics componentGraphics;
+    // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
 
-    public GamePanelGraphics(Graphics g) {
+    /*
+     * componentGraphics != null
+     * gamePanel != null
+     */
+    private Graphics componentGraphics;
+    private GamePanel panel;
+
+    public GamePanelGraphics(Graphics g, GamePanel panel) {
         componentGraphics = g;
+        this.panel = panel;
     }
 
     /**
