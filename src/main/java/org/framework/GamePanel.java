@@ -66,7 +66,6 @@ public class GamePanel extends JPanel {
      * 		<UL><LI> must be > 0 </UL>
      */
     protected GamePanel(int width, int height) {
-
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 

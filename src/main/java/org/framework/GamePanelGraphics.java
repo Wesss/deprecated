@@ -13,6 +13,10 @@ public class GamePanelGraphics {
 
     // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
 
+    //////////////////////////////////////////////////
+    // Definition
+    //////////////////////////////////////////////////
+
     /*
      * componentGraphics != null
      * gamePanel != null
@@ -24,6 +28,38 @@ public class GamePanelGraphics {
         componentGraphics = g;
         this.panel = panel;
     }
+
+    //////////////////////////////////////////////////
+    // Framework Functionality
+    //////////////////////////////////////////////////
+
+    public int getActualX() {
+        return panel.getActualX();
+    }
+
+    public int getActualY() {
+        return panel.getActualY();
+    }
+
+    public int getVirtualX() {
+        return panel.getVirtualX();
+    }
+
+    public void setVirtualX(int virtualX) {
+        panel.setVirtualX(virtualX);
+    }
+
+    public int getVirtualY() {
+        return panel.getVirtualY();
+    }
+
+    public void setVirtualY(int virtualY) {
+        panel.setVirtualY(virtualY);
+    }
+
+    //////////////////////////////////////////////////
+    // Graphics Proxy
+    //////////////////////////////////////////////////
 
     /**
      *
