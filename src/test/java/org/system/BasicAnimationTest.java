@@ -14,7 +14,7 @@ import org.framework.interfaces.GameObj;
  * 
  * @author Wesley Cox
  */
-public class BasicAnimationTest implements Game{
+public class BasicAnimationTest implements Game {
 
     private static final int PANEL_X = 500;
     // private static final int PANEL_Y = 600;
