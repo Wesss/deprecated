@@ -14,7 +14,10 @@ import org.framework.interfaces.GameEventListener;
  */
 public class GameFramework {
 
-    public static final GameEventListener EMPTY_GAME_LISTENER = new EmptyGameListener();
+    // TODO also pass panel into constructor to allow client to change panel properties (remove graphics interface)
+    // TODO make panel initially fill up most of the screen dynamically based on screen currently being run on
+
+    public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
 
     /*
      * <b> Given game class must contain a constructor of type GameEventListener() or GameEventListener(MainLoop).</b>
@@ -39,14 +42,14 @@ public class GameFramework {
      * @return
      */
     public static <T extends Game> MainLoop startGame(Class<T> game,
-                                                        GameEventListener listener,
+                                                        GameEventListener<? super T> listener,
                                                         int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();
         GamePanel panel = new GamePanel(500, 500); // TODO
 
-        Game newGame = null;
+        T newGame = null;
 
         try {
             Constructor<?> gameConstructor = null;
@@ -64,12 +67,12 @@ public class GameFramework {
 
             if (gameConstructor != null) {
                 if (gameConstructor.getParameterTypes().length == 1) {
-                    newGame = (Game)gameConstructor.newInstance(mainLoop);
+                    newGame = (T)gameConstructor.newInstance(mainLoop);
                 } else {
-                    newGame = (Game)gameConstructor.newInstance();
+                    newGame = (T)gameConstructor.newInstance();
                 }
             } else {
-                throw new RuntimeException("given game class does not contain an empty constructor");
+                throw new RuntimeException("given game class does not contain an empty or mainloop accepting constructor");
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException e) {
@@ -89,7 +92,7 @@ public class GameFramework {
      */
     private GameFramework() {}
 
-    private static class EmptyGameListener implements GameEventListener {
+    private static class EmptyGameListener implements GameEventListener<Game> {
         public void keyPressed(int keyCode) {}
         public void keyReleased(int keyCode) {}
         public void mousePressed(int x, int y, int button) {}

@@ -50,13 +50,13 @@ public class EventFireTest implements Game{
         mouseLoc.setString("Mouse Position: (" + x + ", " + y + ")");
     }
 
-    public static class EventFireTestListener implements GameEventListener {
+    public static class EventFireTestListener implements GameEventListener<EventFireTest> {
 
         private EventFireTest eventTest;
 
         @Override
-        public void acceptGame(Game game) {
-            this.eventTest = (EventFireTest) game;
+        public void acceptGame(EventFireTest game) {
+            this.eventTest = game;
         }
 
         @Override

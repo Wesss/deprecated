@@ -6,16 +6,15 @@ package org.framework.interfaces;
  * 
  * @author Wesley Cox
  */
-public interface GameEventListener {
+public interface GameEventListener<T extends Game> {
     
     /**
      * Passes in an instantiated game (to enable callbacks).<br>
      * This is called before any events are fired.
      *
      * @param game a newly instantiated game whose class was passed into GameFramework.gamestart()
-     * TODO for now client is forced to cast to their specific game type
      */
-    public void acceptGame(Game game);
+    public void acceptGame(T game);
 
     /**
      * Fires appropriate commands when the provided key (on the keyboard)

@@ -145,7 +145,6 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         advInter.insertAction(advInter.createAddAction(mockObj, 1, 1), 0);
         nextFrame.invoke(mainloop, mockGraphics);
 
-        // TODO check second obj's layer or priority somehow?
         mainloopValidate.invoke(mainloop);
         assertTrue(advInter.contains(mockObj));
         verify(mockObj, times(2)).draw(mockGraphics);
@@ -265,29 +264,4 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         inOrder.verify(mockObj2).update();
         inOrder.verify(mockObj).update();
     }
-
-    /*
-    TODO fix ordering
-    InsertAction
-    ContainsNoAction
-    DeleteNoAction
-    ContainsNoObj
-    ContainsAction
-    DeleteAction
-    NextFrameNoObjs
-    DeleteAllNoActions
-    DeleteAllActions
-    InsertObj
-    InsertObjHighGroupLayerPriority
-    InsertSameObjTwice
-    InsertSameObjTwiceDiffFrames
-    RemoveNoObjs
-    RemoveObj
-    RemoveObjHighGroupLayerPriority
-    ClearNoObjs
-    ClearObjs
-    ActionGroupOrder
-    ObjPaintOrder
-    -ObjPriorityOrder
-    */
 }

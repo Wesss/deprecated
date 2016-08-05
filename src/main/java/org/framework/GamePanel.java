@@ -28,6 +28,9 @@ public class GamePanel extends JPanel {
     // Definition
     //////////////////////////////////////////////////
 
+    public static final int DEFAULT_VIRTUAL_X = 1000;
+    public static final int DEFAULT_VIRTUAL_Y = 1000;
+
     /*
      * After creation, but before setReferences:
      * game == EmptyGame
@@ -72,8 +75,8 @@ public class GamePanel extends JPanel {
         // TODO change to wire in actual transformations
         actualX = width;
         actualY = height;
-        virtualX = 500;
-        virtualY = 500;
+        virtualX = DEFAULT_VIRTUAL_X;
+        virtualY = DEFAULT_VIRTUAL_Y;
 
         this.setPreferredSize(new Dimension(width, height));
         createFrame();
