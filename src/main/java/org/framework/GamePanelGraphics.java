@@ -35,31 +35,6 @@ public class GamePanelGraphics {
     // Framework Functionality
     //////////////////////////////////////////////////
 
-    public int getActualX() {
-        return panel.getActualX();
-    }
-
-    public int getActualY() {
-        return panel.getActualY();
-    }
-
-    public int getVirtualX() {
-        return panel.getVirtualX();
-    }
-
-    public void setVirtualX(int virtualX) {
-        panel.setVirtualX(virtualX);
-    }
-
-    public int getVirtualY() {
-        return panel.getVirtualY();
-    }
-
-    public void setVirtualY(int virtualY) {
-        panel.setVirtualY(virtualY);
-    }
-
-    // TODO test these functions
     private int transformX(int x) {
         return transform(x, panel.getActualX(), panel.getVirtualX());
     }

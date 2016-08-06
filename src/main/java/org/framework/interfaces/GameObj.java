@@ -26,8 +26,7 @@ public interface GameObj {
      */
     public void draw(GamePanelGraphics g);
 
-    // TODO better place to put this so it isn't visible?
-    public static class emptyGameObj implements GameObj {
+    static class emptyGameObj implements GameObj {
 
         @Override
         public void update() {}

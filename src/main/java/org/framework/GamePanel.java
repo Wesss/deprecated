@@ -114,27 +114,51 @@ public class GamePanel extends JPanel {
     // Framework Functionality
     //////////////////////////////////////////////////
 
-    protected int getActualX() {
+    /**
+     * TODO
+     * @return
+     */
+    public int getActualX() {
         return actualX;
     }
 
-    protected int getActualY() {
+    /**
+     * TODO
+     * @return
+     */
+    public int getActualY() {
         return actualY;
     }
 
-    protected int getVirtualX() {
+    /**
+     * TODO
+     * @return
+     */
+    public int getVirtualX() {
         return virtualX;
     }
 
-    protected void setVirtualX(int virtualX) {
+    /**
+     * TODO
+     * @param virtualX
+     */
+    public void setVirtualX(int virtualX) {
         this.virtualX = virtualX;
     }
 
-    protected int getVirtualY() {
+    /**
+     * TODO
+     * @return
+     */
+    public int getVirtualY() {
         return virtualY;
     }
 
-    protected void setVirtualY(int virtualY) {
+    /**
+     * TODO
+     * @param virtualY
+     */
+    public void setVirtualY(int virtualY) {
         this.virtualY = virtualY;
     }
 
