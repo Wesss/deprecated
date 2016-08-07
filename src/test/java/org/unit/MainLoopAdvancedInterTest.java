@@ -108,7 +108,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         mainloopValidate.invoke(mainloop);
         assertFalse(advInter.containsAction(insert));
         assertTrue(advInter.contains(mockObj));
-        verify(mockObj).draw(mockGraphics);
+        verify(mockObj).paint(mockGraphics);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         mainloopValidate.invoke(mainloop);
         assertFalse(advInter.containsAction(insert));
         assertTrue(advInter.contains(mockObj));
-        verify(mockObj).draw(mockGraphics);
+        verify(mockObj).paint(mockGraphics);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
 
         mainloopValidate.invoke(mainloop);
         assertTrue(advInter.contains(mockObj));
-        verify(mockObj, times(2)).draw(mockGraphics);
+        verify(mockObj, times(2)).paint(mockGraphics);
     }
 
     @Test
@@ -173,7 +173,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         assertFalse(advInter.containsAction(remove));
         assertFalse(advInter.contains(mockObj));
         verify(mockObj).update();
-        verify(mockObj).draw(mockGraphics);
+        verify(mockObj).paint(mockGraphics);
     }
 
     @Test
@@ -189,7 +189,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         assertFalse(advInter.containsAction(remove));
         assertFalse(advInter.contains(mockObj));
         verify(mockObj).update();
-        verify(mockObj).draw(mockGraphics);
+        verify(mockObj).paint(mockGraphics);
     }
 
     @Test
@@ -214,7 +214,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         assertFalse(advInter.containsAction(clear));
         assertFalse(advInter.contains(mockObj));
         verify(mockObj).update();
-        verify(mockObj).draw(mockGraphics);
+        verify(mockObj).paint(mockGraphics);
     }
 
     @Test
@@ -245,8 +245,8 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         nextFrame.invoke(mainloop, mockGraphics);
 
         mainloopValidate.invoke(mainloop);
-        inOrder.verify(mockObj2).draw(mockGraphics);
-        inOrder.verify(mockObj).draw(mockGraphics);
+        inOrder.verify(mockObj2).paint(mockGraphics);
+        inOrder.verify(mockObj).paint(mockGraphics);
     }
 
     @Test

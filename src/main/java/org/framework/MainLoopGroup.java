@@ -166,7 +166,7 @@ public class MainLoopGroup implements GameObj{
      * DO NOT CALL THIS METHOD
      */
     @Override
-    public void draw(GamePanelGraphics g) {
+    public void paint(GamePanelGraphics g) {
         // nothing
     }
 }

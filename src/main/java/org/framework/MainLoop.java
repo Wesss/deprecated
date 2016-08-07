@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static java.lang.Math.*;
 import static org.framework.util.Exceptions.*;
 
-import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -380,7 +379,7 @@ public class MainLoop {
             HashSet<GameObj> objs = layerToObj.get(i);
             if (objs != null) {
                 for (GameObj obj : objs)
-                    obj.draw(g);
+                    obj.paint(g);
             }
         }
     }

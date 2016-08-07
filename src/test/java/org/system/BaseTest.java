@@ -30,7 +30,7 @@ public class BaseTest implements Game {
     private class Line implements GameObj {
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             g.setColor(Color.BLACK);
             g.drawLine(100, 100, 400, 400);
         }

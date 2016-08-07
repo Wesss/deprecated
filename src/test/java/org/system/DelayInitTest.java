@@ -43,7 +43,7 @@ public class DelayInitTest implements Game{
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             g.setColor(Color.BLACK);
             g.drawString("" + num, 100, 100);
         }

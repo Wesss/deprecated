@@ -1,7 +1,5 @@
 package org.system;
 
-import java.awt.Graphics;
-
 import org.framework.GameFramework;
 import org.framework.GamePanelGraphics;
 import org.framework.MainLoop;
@@ -52,7 +50,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             g.drawLine(x1, y1, x2, y2);
         }
 
@@ -82,7 +80,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             g.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
 
             //wrap around the screen
@@ -136,7 +134,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             int centerX = (int) (axelX + orbRadius * Math.cos(Math.toRadians(rotation)));
             int centerY = (int) (axelY + orbRadius * Math.sin(Math.toRadians(rotation)));
             g.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
@@ -182,13 +180,13 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
-            baseCircle.draw(g);
-            oCir.draw(g);
-            lx.draw(g);
-            ly.draw(g);
-            lxbase.draw(g);
-            lybase.draw(g);
+        public void paint(GamePanelGraphics g) {
+            baseCircle.paint(g);
+            oCir.paint(g);
+            lx.paint(g);
+            ly.paint(g);
+            lxbase.paint(g);
+            lybase.paint(g);
         }
     }
 
@@ -242,11 +240,11 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
-            baseCircle.draw(g);
-            l1.draw(g);
-            l2.draw(g);
-            l3.draw(g);
+        public void paint(GamePanelGraphics g) {
+            baseCircle.paint(g);
+            l1.paint(g);
+            l2.paint(g);
+            l3.paint(g);
         }
     }
 
@@ -278,10 +276,10 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
-            baseCircle.draw(g);
-            o1.draw(g);
-            o1_1.draw(g);
+        public void paint(GamePanelGraphics g) {
+            baseCircle.paint(g);
+            o1.paint(g);
+            o1_1.paint(g);
         }
     }
 }

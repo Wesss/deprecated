@@ -22,9 +22,9 @@ public interface GameObj {
 
     /**
      * draws this object onto the given graphics object
-     * @param g The graphics object to draw to
+     * @param g The graphics object to paint to
      */
-    public void draw(GamePanelGraphics g);
+    public void paint(GamePanelGraphics g);
 
     static class emptyGameObj implements GameObj {
 
@@ -32,6 +32,6 @@ public interface GameObj {
         public void update() {}
 
         @Override
-        public void draw(GamePanelGraphics g) {}
+        public void paint(GamePanelGraphics g) {}
     }
 }

@@ -1,14 +1,13 @@
 package org.system;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-
 import org.framework.GameFramework;
 import org.framework.GamePanelGraphics;
 import org.framework.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Test for EventListeners
@@ -110,7 +109,7 @@ public class EventFireTest implements Game{
         }
 
         @Override
-        public void draw(GamePanelGraphics g) {
+        public void paint(GamePanelGraphics g) {
             g.drawString(string, mx, my);
         }
 
