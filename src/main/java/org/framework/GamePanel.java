@@ -1,6 +1,5 @@
 package org.framework;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -57,15 +56,32 @@ public class GamePanel extends JPanel {
     private int virtualY;
 
     //////////////////////////////////////////////////
+    // Static Utils
+    //////////////////////////////////////////////////
+
+    public static Dimension getScreenDimension() {
+        return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    //////////////////////////////////////////////////
     // Initialization
     //////////////////////////////////////////////////
+
+    /**
+     * Creates a new GamePanel of specified dimension for given game g
+     *
+     * @param dimension the drawable area to be available for painting
+     */
+    protected GamePanel(Dimension dimension) {
+        this(dimension.width, dimension.height);
+    }
     
     /**
      * Creates a new GamePanel of specified size for given game g
      *
-     * @param width the width of the display's panel (in pixels)
+     * @param width the width of the drawable area to be available for painting (in pixels)
      * 		<UL><LI> must be > 0 </UL>
-     * @param height the height of the display's panel (in pixels)
+     * @param height the height of the drawable area to be available for painting (in pixels)
      * 		<UL><LI> must be > 0 </UL>
      */
     protected GamePanel(int width, int height) {

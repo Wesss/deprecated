@@ -1,10 +1,13 @@
 package org.framework;
 
+import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
+
+import static java.lang.Math.min;
 
 /**
  * This is a non-instantiable function holding class that is responsible for running
@@ -34,6 +37,8 @@ public class GameFramework {
      * @return the MainLoop created for this game
      */
 
+    // TODO split startGame into different functions
+
     /**
      * TODO
      * @param game
@@ -47,7 +52,10 @@ public class GameFramework {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();
-        GamePanel panel = new GamePanel(500, 500); // TODO
+
+        Dimension screen = GamePanel.getScreenDimension();
+        int gameLength = (int)(0.9 * min(screen.width, screen.height));
+        GamePanel panel = new GamePanel(new Dimension(gameLength, gameLength));
 
         T newGame = null;
 
