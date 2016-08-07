@@ -26,7 +26,7 @@ public class GamePanelGraphics {
     private Graphics componentGraphics;
     private GamePanel panel;
 
-    public GamePanelGraphics(Graphics g, GamePanel panel) {
+    protected GamePanelGraphics(Graphics g, GamePanel panel) {
         componentGraphics = g;
         this.panel = panel;
     }

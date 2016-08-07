@@ -22,6 +22,8 @@ public class GameFramework {
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
 
+    private GameFramework() {}
+
     /*
      * <b> Given game class must contain a constructor of type GameEventListener() or GameEventListener(MainLoop).</b>
      * Instantiates and runs a game of the given class;
@@ -94,11 +96,6 @@ public class GameFramework {
         mainLoop.start();
         return mainLoop;
     }
-
-    /**
-     * Disables creation
-     */
-    private GameFramework() {}
 
     private static class EmptyGameListener implements GameEventListener<Game> {
         public void keyPressed(int keyCode) {}

@@ -2,10 +2,9 @@ package org.framework;
 
 public class MainLoopFactory {
 
-    // TODO create FactoryFactory to be able to test initialization
-    // TODO test this
-
     private MainLoop singleton = null;
+
+    protected MainLoopFactory() {}
 
     public MainLoop getMainLoop() {
         if (singleton == null) {

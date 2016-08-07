@@ -5,6 +5,8 @@ package org.framework;
  */
 public class MainLoopCustomGroupsInterfaceFactory {
 
+    private MainLoopCustomGroupsInterfaceFactory() {}
+
     protected static MainLoopCustomGroupsInterface getMainLoopCustomGroupsInterface(MainLoop loop, int upperPriority) {
         return new MainLoopCustomGroupsInterface(
                 MainLoopGroupFactoryFactory.getMainLoopGroupFactory(loop, upperPriority),

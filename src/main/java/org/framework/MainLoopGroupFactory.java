@@ -3,15 +3,12 @@ package org.framework;
 import static org.framework.MainLoop.DEFAULT_ACTIONGROUP;
 
 /**
- * TODO
- *
- * @author Wesley
+ * Allocator for MainLoopGroup
  */
 public class MainLoopGroupFactory {
 
     // TODO abstract MainLoopFactoryFactory
     // TODO rename maxPriority to upperPriority in other classes
-    // TODO disable other creation (everywhere else too)
 
     private MainLoopAdvancedInterface inter;
     private int upperPriority;
@@ -23,7 +20,7 @@ public class MainLoopGroupFactory {
      * @param inter
      * @param upperPriority
      */
-    public MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
+    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
         this.inter = inter;
         this.upperPriority = upperPriority;
     }
