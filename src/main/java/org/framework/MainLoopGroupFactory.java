@@ -7,7 +7,6 @@ import static org.framework.MainLoop.DEFAULT_ACTIONGROUP;
  */
 public class MainLoopGroupFactory {
 
-    // TODO abstract MainLoopFactoryFactory
     // TODO rename maxPriority to upperPriority in other classes
 
     private MainLoopAdvancedInterface inter;
