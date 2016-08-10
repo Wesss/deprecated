@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
      * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
      * TODO support various panel sizes and resizing (keep track of scale)
      * TODO apply virtual transformation to listeners
+     * TODO document virtual transformation
      */
 
     //////////////////////////////////////////////////
@@ -125,30 +126,27 @@ public class GamePanel extends JPanel {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     //////////////////////////////////////////////////
-    // Framework Functionality
+    // Public API
     //////////////////////////////////////////////////
 
     /**
-     * TODO
-     * @return
+     * @return the width of the drawable panel in pixels
      */
     public int getActualX() {
         return actualX;
     }
 
     /**
-     * TODO
-     * @return
+     * @return the height of the drawable panel in pixels
      */
     public int getActualY() {
         return actualY;
     }
 
     /**
-     * TODO
-     * @return
+     * @return the x coordinate that the GamePanelGraphics object will interpret as the rightmost edge of the panel
      */
     public int getVirtualX() {
         return virtualX;
@@ -164,7 +162,7 @@ public class GamePanel extends JPanel {
 
     /**
      * TODO
-     * @return
+     * @return the y ooordinate that the GamePanelGraphics object will interpret as the rightmost edge of the panel
      */
     public int getVirtualY() {
         return virtualY;
@@ -177,6 +175,10 @@ public class GamePanel extends JPanel {
     public void setVirtualY(int virtualY) {
         this.virtualY = virtualY;
     }
+
+    //////////////////////////////////////////////////
+    // Framework Functionality
+    //////////////////////////////////////////////////
 
     @Override
     public void paintComponent(Graphics g) {
