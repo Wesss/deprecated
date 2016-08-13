@@ -1,6 +1,6 @@
 package org.framework;
 
-import org.framework.MainLoop.MainLoopAction;
+import org.framework.domain.MainLoopAction;
 import org.framework.interfaces.GameObj;
 /**
  * TODO

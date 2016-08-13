@@ -1,12 +1,5 @@
 package org.framework;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.swing.*;
 
@@ -21,7 +14,6 @@ public class GamePanel extends JPanel {
     /*
      * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
      * TODO support various panel sizes and resizing (keep track of scale)
-     * TODO apply virtual transformation to listeners
      * TODO document virtual transformation
      */
 
@@ -179,6 +171,35 @@ public class GamePanel extends JPanel {
     //////////////////////////////////////////////////
     // Framework Functionality
     //////////////////////////////////////////////////
+
+    protected int virtualToActualX(int x) {
+        return virtualToActualDimension(x, getActualX(), getVirtualX());
+    }
+
+    protected int virtualToActualY(int y) {
+        return virtualToActualDimension(y, getActualY(), getVirtualY());
+    }
+
+    private static int virtualToActualDimension(int metric, int actual, int virtual) {
+        long product = ((long)metric) * ((long)actual);
+        return (int)(product / virtual);
+    }
+
+    protected int[] virtualToActualX(int[] metrics) {
+        int[] result = new int[metrics.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = virtualToActualX(metrics[i]);
+        }
+        return result;
+    }
+
+    protected int[] virtualToActualY(int[] metrics) {
+        int[] result = new int[metrics.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = virtualToActualY(metrics[i]);
+        }
+        return result;
+    }
 
     @Override
     public void paintComponent(Graphics g) {

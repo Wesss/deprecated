@@ -5,8 +5,8 @@ import static org.mockito.Mockito.*;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.framework.MainLoop.MainLoopAction;
 import org.framework.MainLoopAdvancedInterface;
+import org.framework.domain.MainLoopAction;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;

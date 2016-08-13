@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.framework.domain.MainLoopAction;
+import org.framework.domain.MainLoopAddAction;
+import org.framework.domain.MainLoopRemoveAction;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -397,11 +400,11 @@ public class MainLoop {
     }
 
     @SuppressWarnings("unused")
-    protected void visitResolution(MainLoopAction action) {
+    public void visitResolution(MainLoopAction action) {
         throw new RuntimeException("visited unknown action type");
     }
 
-    protected void visitResolution(MainLoopAddAction action) {
+    public void visitResolution(MainLoopAddAction action) {
         Integer prevLayer = objToLayer.get(action.getObj());
         Integer prevPriority = objToPriority.get(action.getObj());
 
@@ -434,7 +437,7 @@ public class MainLoop {
         maxPriority = max(maxPriority, action.getPriority());
     }
 
-    protected void visitResolution(MainLoopRemoveAction action) {
+    public void visitResolution(MainLoopRemoveAction action) {
         Integer layer = objToLayer.get(action.getObj());
         Integer priority = objToPriority.get(action.getObj());
         if (layer != null && priority != null) {
@@ -455,7 +458,7 @@ public class MainLoop {
     }
 
     @SuppressWarnings("unused")
-    protected void visitResolution(MainLoopClearAction action) {
+    public void visitResolution(MainLoopClearAction action) {
         objToLayer.clear();
         layerToObj.clear();
         maxLayer = 0;
@@ -516,72 +519,7 @@ public class MainLoop {
     // Domain
     //////////////////////////////////////////////////
 
-    /**
-     * An action that can be inserted into and resolved by a mainLoop upon
-     * triggering the next frame
-     */
-    public static abstract class MainLoopAction {
-        protected void acceptResolution(MainLoop loop) {
-            loop.visitResolution(this);
-        }
-    }
-
-    protected class MainLoopAddAction extends MainLoopAction {
-        private GameObj obj;
-        private int priority;
-        private int layer;
-
-        protected MainLoopAddAction(GameObj obj, int priority, int layer) {
-            this.obj = obj;
-            this.priority = priority;
-            this.layer = layer;
-        }
-
-        protected GameObj getObj() {
-            return obj;
-        }
-
-        protected int getPriority() {
-            return priority;
-        }
-
-        protected int getLayer() {
-            return layer;
-        }
-
-        @Override
-        protected void acceptResolution(MainLoop loop) {
-            loop.visitResolution(this);
-        }
-    }
-
-    protected class MainLoopRemoveAction extends MainLoopAction {
-        private GameObj obj;
-
-        protected MainLoopRemoveAction(GameObj obj) {
-            this.obj = obj;
-        }
-
-        protected GameObj getObj() {
-            return obj;
-        }
-
-        @Override
-        protected void acceptResolution(MainLoop loop) {
-            loop.visitResolution(this);
-        }
-    }
-
     protected class MainLoopClearAction extends MainLoopAction {
-
-        protected MainLoopClearAction() {
-            // nothing!
-        }
-
-        @Override
-        protected void acceptResolution(MainLoop loop) {
-            loop.visitResolution(this);
-        }
     }
 
     /**
