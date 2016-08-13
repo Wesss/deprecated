@@ -1,6 +1,4 @@
-package org.framework;
-
-import static org.framework.MainLoop.DEFAULT_ACTIONGROUP;
+package org.framework.mainLoop;
 
 /**
  * Allocator for MainLoopGroup
@@ -35,7 +33,7 @@ public class MainLoopGroupFactory {
         if (priority >= upperPriority)
             throw new IllegalArgumentException("group  priority must be less than the upper bound priority");
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
-        inter.insertAction(inter.createAddAction(mainLoopGroup, upperPriority, 0), DEFAULT_ACTIONGROUP);
+        inter.insertAction(inter.createAddAction(mainLoopGroup, upperPriority, 0), MainLoop.DEFAULT_ACTIONGROUP);
         return mainLoopGroup;
     }
 

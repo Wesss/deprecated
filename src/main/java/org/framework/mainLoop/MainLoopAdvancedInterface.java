@@ -1,4 +1,4 @@
-package org.framework;
+package org.framework.mainLoop;
 
 import org.framework.domain.MainLoopAction;
 import org.framework.interfaces.GameObj;

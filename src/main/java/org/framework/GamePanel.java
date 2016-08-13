@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import org.framework.interfaces.GameEventListener;
+import org.framework.mainLoop.MainLoop;
 
 /**
  * Handles the display of the given game.

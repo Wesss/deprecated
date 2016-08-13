@@ -1,6 +1,6 @@
 package org.framework.domain;
 
-import org.framework.MainLoop;
+import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.GameObj;
 
 public class MainLoopAddAction extends MainLoopAction {

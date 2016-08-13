@@ -6,6 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
+import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopFactory;
+import org.framework.mainLoop.MainLoopFactoryFactory;
 
 import static java.lang.Math.min;
 
@@ -49,8 +52,8 @@ public class GameFramework {
      * @return
      */
     public static <T extends Game> MainLoop startGame(Class<T> game,
-                                                        GameEventListener<? super T> listener,
-                                                        int updatesPerSecond) {
+                                                      GameEventListener<? super T> listener,
+                                                      int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();

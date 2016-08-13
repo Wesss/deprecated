@@ -2,7 +2,7 @@ package org.system;
 
 import org.framework.GameFramework;
 import org.framework.GamePanelGraphics;
-import org.framework.MainLoop;
+import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;

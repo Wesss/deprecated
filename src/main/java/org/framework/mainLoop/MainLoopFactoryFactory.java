@@ -1,10 +1,10 @@
-package org.framework;
+package org.framework.mainLoop;
 
 public class MainLoopFactoryFactory {
 
     private MainLoopFactoryFactory() {}
 
-    protected static MainLoopFactory getMainLoopFactory() {
+    public static MainLoopFactory getMainLoopFactory() {
         return new MainLoopFactory();
     }
 }

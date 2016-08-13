@@ -1,4 +1,4 @@
-package org.framework;
+package org.framework.mainLoop;
 
 public class MainLoopFactory {
 
@@ -13,7 +13,7 @@ public class MainLoopFactory {
         return singleton;
     }
 
-    protected void constructMainLoop(int updatesPerSecond) {
+    public void constructMainLoop(int updatesPerSecond) {
         if (updatesPerSecond <= 0)
             throw new IllegalArgumentException("updatesPerSecond must be positive");
         if (singleton != null)

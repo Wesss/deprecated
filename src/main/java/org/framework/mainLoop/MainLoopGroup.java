@@ -1,12 +1,8 @@
-package org.framework;
+package org.framework.mainLoop;
 
-import static org.framework.MainLoop.CLEAR_ACTIONGROUP;
-import static org.framework.MainLoop.DEFAULT_ACTIONGROUP;
-import static org.framework.MainLoop.POSTCLEAR_ACTIONGROUP;
-
-import java.awt.Graphics;
 import java.util.HashSet;
 
+import org.framework.GamePanelGraphics;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -135,7 +131,7 @@ public class MainLoopGroup implements GameObj{
             markClear = false;
             for (GameObj obj : objs) {
                 inter.insertAction(inter.createRemoveAction(obj),
-                        CLEAR_ACTIONGROUP);
+                        MainLoop.CLEAR_ACTIONGROUP);
             }
             objs.clear();
             newObjs.clear();
@@ -143,20 +139,20 @@ public class MainLoopGroup implements GameObj{
         } else {
             for (GameObj remObj : remObjs) {
                 inter.insertAction(inter.createRemoveAction(remObj),
-                        DEFAULT_ACTIONGROUP);
+                        MainLoop.DEFAULT_ACTIONGROUP);
             }
             remObjs.clear();
             for (GameObj newObj : newObjs) {
                 objs.add(newObj);
                 inter.insertAction(inter.createAddAction(newObj, groupPriority, groupLayer),
-                        DEFAULT_ACTIONGROUP);
+                        MainLoop.DEFAULT_ACTIONGROUP);
             }
             newObjs.clear();
         }
         for (GameObj newPostClearObj : newPostClearObjs) {
             objs.add(newPostClearObj);
             inter.insertAction(inter.createAddAction(newPostClearObj, groupPriority, groupLayer),
-                    POSTCLEAR_ACTIONGROUP);
+                    MainLoop.POSTCLEAR_ACTIONGROUP);
         }
         newPostClearObjs.clear();
     }

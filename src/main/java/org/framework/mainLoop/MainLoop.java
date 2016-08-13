@@ -1,4 +1,4 @@
-package org.framework;
+package org.framework.mainLoop;
 
 import static org.junit.Assert.*;
 import static java.lang.Math.*;
@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.framework.GamePanel;
+import org.framework.GamePanelGraphics;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopRemoveAction;
@@ -137,7 +139,7 @@ public class MainLoop {
      * Sets up proper references needed to run the MainLoop
      * @param p the GamePanel displaying the game
      */
-    protected void setReferences(GamePanel p) {
+    public void setReferences(GamePanel p) {
         panel = p;
     }
 
@@ -145,7 +147,7 @@ public class MainLoop {
      * Starts the update/repaint cycle
      * @required setReferences be called before this
      */
-    protected void start() {
+    public void start() {
         if (panel == null) {
             throw new RuntimeException(PRE_INIT_ERRMSG);
         }
@@ -361,7 +363,7 @@ public class MainLoop {
      * Moves the game state up one frame/update cycle
      * @param g The graphics object to paint with
      */
-    protected void nextFrame(GamePanelGraphics g) {
+    public void nextFrame(GamePanelGraphics g) {
         updateObjs();
         resolveActions();
         paintObjs(g);

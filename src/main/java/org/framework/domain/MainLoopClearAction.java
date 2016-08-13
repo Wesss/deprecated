@@ -1,6 +1,6 @@
 package org.framework.domain;
 
-import org.framework.MainLoop;
+import org.framework.mainLoop.MainLoop;
 
 public class MainLoopClearAction extends MainLoopAction {
     public MainLoopClearAction() {

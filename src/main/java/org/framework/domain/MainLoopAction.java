@@ -1,6 +1,6 @@
 package org.framework.domain;
 
-import org.framework.MainLoop;
+import org.framework.mainLoop.MainLoop;
 
 /**
  * An action that can be inserted into and resolved by a mainLoop upon
