@@ -1,8 +1,9 @@
-package org.framework;
+package org.framework.panel;
 import java.awt.*;
 
 import javax.swing.*;
 
+import org.framework.GameFramework;
 import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 
@@ -67,7 +68,7 @@ public class GamePanel extends JPanel {
      *
      * @param dimension the drawable area to be available for painting
      */
-    protected GamePanel(Dimension dimension) {
+    public GamePanel(Dimension dimension) {
         this(dimension.width, dimension.height);
     }
     
@@ -98,7 +99,7 @@ public class GamePanel extends JPanel {
      * @param g The Game this Panel displays
      * @param m The MainLoop powering the Game
      */
-    protected void setReferences(GameEventListener g, MainLoop m) {
+    public void setReferences(GameEventListener g, MainLoop m) {
         gameEventListener = g;
         mainLoop = m;
 

@@ -9,6 +9,7 @@ import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
+import org.framework.panel.GamePanel;
 
 import static java.lang.Math.min;
 

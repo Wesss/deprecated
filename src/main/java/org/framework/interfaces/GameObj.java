@@ -1,8 +1,6 @@
 package org.framework.interfaces;
 
-import org.framework.GamePanelGraphics;
-
-import java.awt.Graphics;
+import org.framework.panel.GamePanelGraphics;
 
 /**
  * This class represents an object of the game that can be displayed

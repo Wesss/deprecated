@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.framework.GamePanel;
-import org.framework.GamePanelGraphics;
+import org.framework.panel.GamePanel;
+import org.framework.panel.GamePanelGraphics;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopRemoveAction;

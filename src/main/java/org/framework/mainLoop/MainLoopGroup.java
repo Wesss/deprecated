@@ -2,7 +2,7 @@ package org.framework.mainLoop;
 
 import java.util.HashSet;
 
-import org.framework.GamePanelGraphics;
+import org.framework.panel.GamePanelGraphics;
 import org.framework.interfaces.GameObj;
 
 /**

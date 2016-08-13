@@ -1,4 +1,4 @@
-package org.framework;
+package org.framework.panel;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
