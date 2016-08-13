@@ -9,20 +9,24 @@ public class GamePanelMouseMotionListener implements MouseMotionListener{
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
+    private GamePanel panel;
 
-    public GamePanelMouseMotionListener(GameEventListener<?> gameEventListener, Object lock) {
+    public GamePanelMouseMotionListener(GamePanel panel, GameEventListener<?> gameEventListener, Object lock) {
+        this.panel = panel;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mouseMovedTo(e.getX(), e.getY());
+        mouseMovedTo(panel.actualToVirtualX(e.getX()),
+                panel.actualToVirtualY(e.getY()));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseMovedTo(e.getX(), e.getY());
+        mouseMovedTo(panel.actualToVirtualX(e.getX()),
+                panel.actualToVirtualY(e.getY()));
     }
 
     /**

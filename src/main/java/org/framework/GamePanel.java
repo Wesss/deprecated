@@ -102,8 +102,8 @@ public class GamePanel extends JPanel {
         mainLoop = m;
 
         addKeyListener(new GamePanelKeyListener(g ,GAME_LOCK));
-        addMouseListener(new GamePanelMousePressListener(g, GAME_LOCK));
-        addMouseMotionListener(new GamePanelMouseMotionListener(g, GAME_LOCK));
+        addMouseListener(new GamePanelMousePressListener(this, g, GAME_LOCK));
+        addMouseMotionListener(new GamePanelMouseMotionListener(this, g, GAME_LOCK));
     }
     
     /**

@@ -12,8 +12,10 @@ public class GamePanelMousePressListener implements MouseListener {
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
+    private GamePanel panel;
 
-    public GamePanelMousePressListener(GameEventListener<?> gameEventListener, Object lock) {
+    public GamePanelMousePressListener(GamePanel panel, GameEventListener<?> gameEventListener, Object lock) {
+        this.panel = panel;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
     }
@@ -21,14 +23,18 @@ public class GamePanelMousePressListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mousePressed(e.getX(), e.getY(), e.getButton());
+            gameEventListener.mousePressed(panel.actualToVirtualX(e.getX()),
+                    panel.actualToVirtualY(e.getY()),
+                    e.getButton());
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mouseReleased(e.getX(), e.getY(), e.getButton());
+            gameEventListener.mouseReleased(panel.actualToVirtualX(e.getX()),
+                    panel.actualToVirtualY(e.getY()),
+                    e.getButton());
         }
     }
 
