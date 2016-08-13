@@ -169,8 +169,18 @@ public class GamePanel extends JPanel {
     }
 
     //////////////////////////////////////////////////
-    // Framework Functionality
+    // Transformations
     //////////////////////////////////////////////////
+
+    private static int virtualToActualDimension(int metric, int actual, int virtual) {
+        long product = ((long)metric) * ((long)actual);
+        return (int)(product / virtual);
+    }
+
+    private static int actualToVirtualDimension(int metric, int actual, int virtual) {
+        long product = ((long)metric) * ((long)virtual);
+        return (int)(product / actual);
+    }
 
     protected int virtualToActualX(int x) {
         return virtualToActualDimension(x, getActualX(), getVirtualX());
@@ -180,9 +190,12 @@ public class GamePanel extends JPanel {
         return virtualToActualDimension(y, getActualY(), getVirtualY());
     }
 
-    private static int virtualToActualDimension(int metric, int actual, int virtual) {
-        long product = ((long)metric) * ((long)actual);
-        return (int)(product / virtual);
+    protected int actualToVirtualX(int x) {
+        return actualToVirtualDimension(x, getActualX(), getVirtualX());
+    }
+
+    protected int actualToVirtualY(int y) {
+        return actualToVirtualDimension(y, getActualY(), getVirtualY());
     }
 
     protected int[] virtualToActualX(int[] metrics) {
@@ -200,6 +213,26 @@ public class GamePanel extends JPanel {
         }
         return result;
     }
+
+    protected int[] actualToVirtualX(int[] metrics) {
+        int[] result = new int[metrics.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = actualToVirtualX(metrics[i]);
+        }
+        return result;
+    }
+
+    protected int[] actualToVirtualY(int[] metrics) {
+        int[] result = new int[metrics.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = actualToVirtualY(metrics[i]);
+        }
+        return result;
+    }
+
+    //////////////////////////////////////////////////
+    // Framework Functionality
+    //////////////////////////////////////////////////
 
     @Override
     public void paintComponent(Graphics g) {
