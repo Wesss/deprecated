@@ -22,9 +22,10 @@ import static java.lang.Math.min;
 public class GameFramework {
 
     // TODO also pass panel into constructor to allow client to change panel properties (remove graphics interface)
-    // TODO make panel initially fill up most of the screen dynamically based on screen currently being run on
+    // TODO prevent misuse of public framework functions (ie set references, start?)
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
+    public static final double SCREEN_RATIO = 0.9;
 
     private GameFramework() {}
 
@@ -43,8 +44,6 @@ public class GameFramework {
      * @return the MainLoop created for this game
      */
 
-    // TODO split startGame into different functions
-
     /**
      * TODO
      * @param game
@@ -60,11 +59,19 @@ public class GameFramework {
         MainLoop mainLoop = factory.getMainLoop();
 
         Dimension screen = GamePanel.getScreenDimension();
-        int gameLength = (int)(0.9 * min(screen.width, screen.height));
+        int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
         GamePanel panel = new GamePanel(new Dimension(gameLength, gameLength));
 
-        T newGame = null;
+        T newGame = createGame(game, mainLoop);
 
+        mainLoop.setReferences(panel);
+        panel.setReferences(listener, mainLoop);
+        listener.acceptGame(newGame);
+        mainLoop.start();
+        return mainLoop;
+    }
+
+    private static <T extends Game> T createGame(Class<T> game, MainLoop mainLoop) {
         try {
             Constructor<?> gameConstructor = null;
 
@@ -81,24 +88,18 @@ public class GameFramework {
 
             if (gameConstructor != null) {
                 if (gameConstructor.getParameterTypes().length == 1) {
-                    newGame = (T)gameConstructor.newInstance(mainLoop);
+                    return (T)gameConstructor.newInstance(mainLoop);
                 } else {
-                    newGame = (T)gameConstructor.newInstance();
+                    return (T)gameConstructor.newInstance();
                 }
             } else {
                 throw new RuntimeException("given game class does not contain an empty or mainloop accepting constructor");
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException e) {
-            e.printStackTrace();
-            System.exit(1);
+            //TODO error more gracefully? (ie. with custom exception)
+            throw new RuntimeException(e);
         }
-
-        mainLoop.setReferences(panel);
-        panel.setReferences(listener, mainLoop);
-        listener.acceptGame(newGame);
-        mainLoop.start();
-        return mainLoop;
     }
 
     private static class EmptyGameListener implements GameEventListener<Game> {

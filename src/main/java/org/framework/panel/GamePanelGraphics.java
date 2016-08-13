@@ -13,7 +13,7 @@ public class GamePanelGraphics {
 
     // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
     // TODO figure out resizing of images/Strings
-    // TODO figure out documentation linking to overloaded methods
+    // TODO make this extend Graphics
 
     //////////////////////////////////////////////////
     // Definition
