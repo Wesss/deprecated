@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.framework.domain.MainLoopClearAction;
 import org.framework.panel.GamePanel;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.domain.MainLoopAction;
@@ -520,9 +521,6 @@ public class MainLoop {
     //////////////////////////////////////////////////
     // Domain
     //////////////////////////////////////////////////
-
-    protected class MainLoopClearAction extends MainLoopAction {
-    }
 
     /**
      * @param obj
