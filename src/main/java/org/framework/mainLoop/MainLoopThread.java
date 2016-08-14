@@ -6,7 +6,7 @@ import org.framework.panel.GamePanel;
  * This Thread fires an update and a screen refresh to the game based on
  * its desired frames per seconds
  */
-public class LoopThread implements Runnable {
+public class MainLoopThread implements Runnable {
 
     private GamePanel panel;
     private int waitTime;
@@ -14,7 +14,7 @@ public class LoopThread implements Runnable {
     /**
      * @param fps the desired refresh rate of the screen measured in frames per second
      */
-    public LoopThread(int fps) {
+    public MainLoopThread(int fps) {
         waitTime = 1000 / fps;
     }
 

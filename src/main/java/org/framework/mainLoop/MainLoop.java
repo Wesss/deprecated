@@ -40,7 +40,7 @@ public class MainLoop {
      */
     private GamePanel panel;
     private Thread updateCycle;
-    private LoopThread updateCycleMethod; //TODO find way to refactor and delete this
+    private MainLoopThread updateCycleMethod; //TODO find way to refactor and delete this
 
     /*
      * Interface state
@@ -115,7 +115,7 @@ public class MainLoop {
     //////////////////////////////////////////////////
 
     protected MainLoop(int fps) {
-        updateCycleMethod = new LoopThread(fps);
+        updateCycleMethod = new MainLoopThread(fps);
         updateCycle = new Thread(updateCycleMethod);
 
         basicOK = true;
