@@ -25,7 +25,6 @@ import org.framework.interfaces.GameObj;
 public class MainLoop {
 
     // TODO abstract out index/obj pairings
-    // TODO refactor Animate Thread into its own class
     // TODO split class, too large?
 
     //////////////////////////////////////////////////
@@ -41,6 +40,7 @@ public class MainLoop {
      */
     private GamePanel panel;
     private Thread updateCycle;
+    private LoopThread updateCycleMethod; //TODO find way to refactor and delete this
 
     /*
      * Interface state
@@ -114,8 +114,9 @@ public class MainLoop {
     // Initialization
     //////////////////////////////////////////////////
 
-    protected MainLoop(int FPS) {
-        updateCycle = new Thread(new Animate(FPS));
+    protected MainLoop(int fps) {
+        updateCycleMethod = new LoopThread(fps);
+        updateCycle = new Thread(updateCycleMethod);
 
         basicOK = true;
 
@@ -141,6 +142,7 @@ public class MainLoop {
      * @param p the GamePanel displaying the game
      */
     public void setReferences(GamePanel p) {
+        updateCycleMethod.setReferences(p);
         panel = p;
     }
 
@@ -448,7 +450,7 @@ public class MainLoop {
             if (!layerToObj.containsKey(layer)) {
                 layerToObj.remove(layer);
                 if (layer == maxLayer && maxLayer > 0)
-                    maxLayer--; // TODO duplicated above in Add resolution
+                    maxLayer--; // TODO duplicated above in Add resolution, to be resolved with refactoring out hashmap pairings
             }
             removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
             if (!priorityToObj.containsKey(priority)) {
@@ -478,43 +480,6 @@ public class MainLoop {
         indexToObjs.get(index).remove(obj);
         if (indexToObjs.get(index).isEmpty()) {
             indexToObjs.remove(index);
-        }
-    }
-
-    /**
-     * This Thread fires an update and a screen refresh to the game based on
-     * its desired frames per seconds
-     */
-    private class Animate implements Runnable {
-
-        private int waitTime;
-
-        /**
-         * @param fps the desired refresh rate of the screen measured in frames per second
-         */
-        public Animate(int fps) {
-            waitTime = 1000 / fps;
-        }
-
-        @Override
-        public void run() {
-            while (!Thread.interrupted()) {
-                try {
-                    //TODO apparently repaint only quickly signals java to later
-                    //call paintComponent();
-                    //	Timing code should envelope the paintComponent code
-                    long startTime = System.currentTimeMillis();
-                    panel.repaint();
-                    long endTime = System.currentTimeMillis();
-
-                    if (startTime - endTime < waitTime) {
-                        Thread.sleep(waitTime - (startTime - endTime));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.exit(1);
-                }
-            }
         }
     }
 
