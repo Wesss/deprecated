@@ -115,7 +115,7 @@ public class MainLoop {
     //////////////////////////////////////////////////
 
     protected MainLoop(int fps) {
-        updateCycleMethod = new MainLoopThread(fps);
+        updateCycleMethod = new MainLoopThread(this, fps);
         updateCycle = new Thread(updateCycleMethod);
 
         basicOK = true;

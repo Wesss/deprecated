@@ -11,7 +11,7 @@ import org.framework.mainLoop.MainLoop;
  * Handles the display of the given game.
  */
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel {
+public class GamePanel extends Canvas {
 
     /*
      * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
@@ -116,7 +116,7 @@ public class GamePanel extends JPanel {
         JFrame frame = new JFrame();
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setContentPane(this);
+        frame.add(this);
         frame.pack();
         frame.setVisible(true);
     }
@@ -230,18 +230,5 @@ public class GamePanel extends JPanel {
             result[i] = actualToVirtualY(metrics[i]);
         }
         return result;
-    }
-
-    //////////////////////////////////////////////////
-    // Framework Functionality
-    //////////////////////////////////////////////////
-
-    @Override
-    public void paintComponent(Graphics g) {
-        if (mainLoop != null)
-            synchronized (GAME_LOCK) {
-                super.paintComponent(g);
-                mainLoop.nextFrame(new GamePanelGraphics(g, this));
-            }
     }
 }

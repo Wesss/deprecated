@@ -12,7 +12,7 @@ import java.text.AttributedCharacterIterator;
 public class GamePanelGraphics {
 
     // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
-    // TODO figure out resizing of images/Strings
+    // TODO figure out resizing of Strings (visit GraphicsEnvironment.getLocalGraphicsEnvironment().preferProportionalFonts();
     // TODO make this extend Graphics
 
     //////////////////////////////////////////////////
@@ -26,7 +26,7 @@ public class GamePanelGraphics {
     private Graphics componentGraphics;
     private GamePanel panel;
 
-    protected GamePanelGraphics(Graphics g, GamePanel panel) {
+    public GamePanelGraphics(Graphics g, GamePanel panel) {
         componentGraphics = g;
         this.panel = panel;
     }
