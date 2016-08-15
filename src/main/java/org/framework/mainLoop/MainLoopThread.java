@@ -12,7 +12,11 @@ import java.awt.image.BufferStrategy;
  */
 public class MainLoopThread implements Runnable {
 
+    //TODO fix timing code
+    //TODO rename each component more appropriately
+
     private GamePanel panel;
+    private BufferStrategy strategy;
     private MainLoop mainLoop;
     private int waitTime;
 
@@ -26,14 +30,14 @@ public class MainLoopThread implements Runnable {
 
     protected void setReferences(GamePanel panel) {
         this.panel = panel;
+        panel.createBufferStrategy(2);
+        this.strategy = panel.getBufferStrategy();
     }
 
     @Override
     public void run() {
-        panel.createBufferStrategy(2);
-        BufferStrategy strategy = panel.getBufferStrategy();
-        Graphics graphics = null;
         while (!Thread.interrupted()) {
+            Graphics graphics = null;
             try {
                 graphics = strategy.getDrawGraphics();
                 graphics.clearRect(0, 0, panel.getWidth(), panel.getHeight());
