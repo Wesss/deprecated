@@ -21,6 +21,7 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
+    // TODO make game require a factory method to allow giving of mainloop and panel
     // TODO prevent misuse of public framework functions (ie set references, start?)
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
@@ -71,9 +72,8 @@ public class GameFramework {
     }
 
     private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GamePanel canvas) {
+        T game = null;
         try {
-            T game = null;
-
             Constructor<?>[] constructors = gameClass.getConstructors();
             for (Constructor<?> constructor : constructors) {
                 Class<?>[] parameters = constructor.getParameterTypes();
@@ -90,7 +90,6 @@ public class GameFramework {
                     }
                 }
             }
-
             if (game == null) {
                 throw new RuntimeException("given game class does not contain an empty or mainloop accepting constructor");
             }
@@ -99,6 +98,7 @@ public class GameFramework {
             //TODO error more gracefully? (ie. with custom exception)
             throw new RuntimeException(e);
         }
+        return game;
     }
 
     private static class EmptyGameListener implements GameEventListener<Game> {
