@@ -40,7 +40,7 @@ public class MainLoopThread implements Runnable {
             Graphics graphics = null;
             try {
                 graphics = strategy.getDrawGraphics();
-                graphics.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+                clearCanvas(graphics, panel);
                 mainLoop.nextFrame(new GamePanelGraphics(graphics, panel));
                 if( !strategy.contentsLost() )
                     strategy.show();
@@ -53,5 +53,9 @@ public class MainLoopThread implements Runnable {
                     graphics.dispose();
             }
         }
+    }
+
+    private static void clearCanvas(Graphics graphics, GamePanel canvas) {
+        graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 }

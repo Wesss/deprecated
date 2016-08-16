@@ -21,7 +21,6 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
-    // TODO also pass panel into constructor to allow client to change panel properties (remove graphics interface)
     // TODO prevent misuse of public framework functions (ie set references, start?)
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
@@ -62,7 +61,7 @@ public class GameFramework {
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
         GamePanel panel = new GamePanel(new Dimension(gameLength, gameLength));
 
-        T newGame = createGame(game, mainLoop);
+        T newGame = createGame(game, mainLoop, panel);
 
         mainLoop.setReferences(panel);
         panel.setReferences(listener, mainLoop);
@@ -71,28 +70,28 @@ public class GameFramework {
         return mainLoop;
     }
 
-    private static <T extends Game> T createGame(Class<T> game, MainLoop mainLoop) {
+    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GamePanel canvas) {
         try {
-            Constructor<?> gameConstructor = null;
+            T game = null;
 
-            Constructor<?>[] constructors = game.getConstructors();
+            Constructor<?>[] constructors = gameClass.getConstructors();
             for (Constructor<?> constructor : constructors) {
                 Class<?>[] parameters = constructor.getParameterTypes();
-                if (parameters.length == 1 && parameters[0].equals(MainLoop.class)) {
-                    gameConstructor = constructor;
-                } else if (parameters.length == 0) {
-                    if (gameConstructor == null)
-                        gameConstructor = constructor;
+                if (parameters.length == 0) {
+                    game = (T)constructor.newInstance();
+                    break;
+                } else if (parameters.length == 2) {
+                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GamePanel.class)) {
+                        game = (T)constructor.newInstance(mainLoop, canvas);
+                        break;
+                    } else if (parameters[0].equals(GamePanel.class) || parameters[1].equals(MainLoop.class)) {
+                        game = (T)constructor.newInstance(canvas, mainLoop);
+                        break;
+                    }
                 }
             }
 
-            if (gameConstructor != null) {
-                if (gameConstructor.getParameterTypes().length == 1) {
-                    return (T)gameConstructor.newInstance(mainLoop);
-                } else {
-                    return (T)gameConstructor.newInstance();
-                }
-            } else {
+            if (game == null) {
                 throw new RuntimeException("given game class does not contain an empty or mainloop accepting constructor");
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
