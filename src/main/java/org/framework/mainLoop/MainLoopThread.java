@@ -14,10 +14,8 @@ public class MainLoopThread implements Runnable {
     private static final int DOUBLE_BUFFERED = 2;
 
     //TODO fix timing code
-    //TODO rename each component more appropriately
 
     private GameCanvas canvas;
-    private BufferStrategy strategy;
     private MainLoop mainLoop;
     private int waitTime;
 
@@ -31,12 +29,12 @@ public class MainLoopThread implements Runnable {
 
     protected void setReferences(GameCanvas canvas) {
         this.canvas = canvas;
-        canvas.createBufferStrategy(DOUBLE_BUFFERED);
-        this.strategy = canvas.getBufferStrategy();
     }
 
     @Override
     public void run() {
+        canvas.createBufferStrategy(DOUBLE_BUFFERED);
+        BufferStrategy strategy = canvas.getBufferStrategy();
         while (!Thread.interrupted()) {
             Graphics graphics = null;
             try {
