@@ -1,6 +1,6 @@
 package org.framework.interfaces;
 
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvasGraphics;
 
 /**
  * This class represents an object of the game that can be displayed
@@ -22,7 +22,7 @@ public interface GameObj {
      * draws this object onto the given graphics object
      * @param g The graphics object to paint to
      */
-    public void paint(GamePanelGraphics g);
+    public void paint(GameCanvasGraphics g);
 
     static class emptyGameObj implements GameObj {
 
@@ -30,6 +30,6 @@ public interface GameObj {
         public void update() {}
 
         @Override
-        public void paint(GamePanelGraphics g) {}
+        public void paint(GameCanvasGraphics g) {}
     }
 }

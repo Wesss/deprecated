@@ -9,7 +9,7 @@ import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.panel.GameCanvas;
+import org.framework.canvas.GameCanvas;
 
 import static java.lang.Math.min;
 
@@ -21,7 +21,7 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
-    // TODO make game require a factory method to allow giving of mainloop and panel
+    // TODO make game require a factory method to allow giving of mainloop and canvas
     // TODO prevent misuse of public framework functions (ie set references, start?)
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
@@ -34,7 +34,7 @@ public class GameFramework {
      * Instantiates and runs a game of the given class;
      * If constructor of type GameEventListener(MainLoop) exists, then that constructor is called passing in the MainLoop
      * created for this game. Otherwise Game() is called.
-     * The game runs at a speed of given fps (frames per second) on a panel of given dimension.
+     * The game runs at a speed of given fps (frames per second) on a canvas of given dimension.
      *
      * @param <T> The type GameEventListener to use
      *
@@ -60,12 +60,12 @@ public class GameFramework {
 
         Dimension screen = GameCanvas.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        GameCanvas panel = new GameCanvas(new Dimension(gameLength, gameLength));
+        GameCanvas canvas = new GameCanvas(new Dimension(gameLength, gameLength));
 
-        T newGame = createGame(game, mainLoop, panel);
+        T newGame = createGame(game, mainLoop, canvas);
 
-        mainLoop.setReferences(panel);
-        panel.setReferences(listener);
+        mainLoop.setReferences(canvas);
+        canvas.setReferences(listener);
         listener.acceptGame(newGame);
         mainLoop.start();
         return mainLoop;

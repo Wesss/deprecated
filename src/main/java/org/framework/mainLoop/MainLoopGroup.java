@@ -2,7 +2,7 @@ package org.framework.mainLoop;
 
 import java.util.HashSet;
 
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
 
 /**
@@ -162,7 +162,7 @@ public class MainLoopGroup implements GameObj{
      * DO NOT CALL THIS METHOD
      */
     @Override
-    public void paint(GamePanelGraphics g) {
+    public void paint(GameCanvasGraphics g) {
         // nothing
     }
 }

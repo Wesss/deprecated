@@ -1,8 +1,8 @@
 package org.system;
 
 import org.framework.GameFramework;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
@@ -110,7 +110,7 @@ public class EventFireTest implements Game{
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             g.drawString(string, mx, my);
         }
 

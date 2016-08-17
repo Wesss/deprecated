@@ -1,15 +1,15 @@
-package org.framework.panel;
+package org.framework.canvas;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 
 /**
- * An Interface for drawing to the game's panel (aka. actually drawing images onto the screen).
+ * An Interface for drawing to the game's canvas (aka. actually drawing images onto the screen).
  * Serves as a transformer for java.awt.Graphics
  * TODO describe usage
  */
-public class GamePanelGraphics {
+public class GameCanvasGraphics {
 
     // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
     // TODO figure out resizing of Strings (visit GraphicsEnvironment.getLocalGraphicsEnvironment().preferProportionalFonts();
@@ -24,11 +24,11 @@ public class GamePanelGraphics {
      * gamePanel != null
      */
     private Graphics componentGraphics;
-    private GameCanvas panel;
+    private GameCanvas canvas;
 
-    public GamePanelGraphics(Graphics g, GameCanvas panel) {
+    public GameCanvasGraphics(Graphics g, GameCanvas canvas) {
         componentGraphics = g;
-        this.panel = panel;
+        this.canvas = canvas;
     }
 
     //////////////////////////////////////////////////
@@ -39,7 +39,7 @@ public class GamePanelGraphics {
      * @see Graphics#translate
      */
     public void translate(int x, int y) {
-        componentGraphics.translate(panel.virtualToActualX(x), panel.virtualToActualY(y));
+        componentGraphics.translate(canvas.virtualToActualX(x), canvas.virtualToActualY(y));
     }
 
     /**
@@ -105,14 +105,14 @@ public class GamePanelGraphics {
      * @see Graphics#clipRect
      */
     public void clipRect(int x, int y, int width, int height) {
-        componentGraphics.clipRect(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.clipRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
      * @see Graphics#setClip
      */
     public void setClip(int x, int y, int width, int height) {
-        componentGraphics.setClip(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.setClip(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
@@ -133,91 +133,91 @@ public class GamePanelGraphics {
      * @see Graphics#copyArea
      */
     public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-        componentGraphics.copyArea(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), panel.virtualToActualX(dx), panel.virtualToActualY(dy));
+        componentGraphics.copyArea(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), canvas.virtualToActualX(dx), canvas.virtualToActualY(dy));
     }
 
     /**
      * @see Graphics#drawLine
      */
     public void drawLine(int x1, int y1, int x2, int y2) {
-        componentGraphics.drawLine(panel.virtualToActualX(x1), panel.virtualToActualY(y1), panel.virtualToActualX(x2), panel.virtualToActualY(y2));
+        componentGraphics.drawLine(canvas.virtualToActualX(x1), canvas.virtualToActualY(y1), canvas.virtualToActualX(x2), canvas.virtualToActualY(y2));
     }
 
     /**
      * @see Graphics#fillRect
      */
     public void fillRect(int x, int y, int width, int height) {
-        componentGraphics.fillRect(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.fillRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
      * @see Graphics#clearRect
      */
     public void clearRect(int x, int y, int width, int height) {
-        componentGraphics.clearRect(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.clearRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
      * @see Graphics#drawRoundRect
      */
     public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-        componentGraphics.drawRoundRect(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), arcWidth, arcHeight);
+        componentGraphics.drawRoundRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), arcWidth, arcHeight);
     }
 
     /**
      * @see Graphics#fillRoundRect
      */
     public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-        componentGraphics.fillRoundRect(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), arcWidth, arcHeight);
+        componentGraphics.fillRoundRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), arcWidth, arcHeight);
     }
 
     /**
      * @see Graphics#drawOval
      */
     public void drawOval(int x, int y, int width, int height) {
-        componentGraphics.drawOval(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.drawOval(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
      * @see Graphics#fillOval
      */
     public void fillOval(int x, int y, int width, int height) {
-        componentGraphics.fillOval(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height));
+        componentGraphics.fillOval(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
     }
 
     /**
      * @see Graphics#drawArc
      */
     public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-        componentGraphics.drawArc(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), startAngle, arcAngle);
+        componentGraphics.drawArc(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), startAngle, arcAngle);
     }
 
     /**
      * @see Graphics#fillArc
      */
     public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-        componentGraphics.fillArc(panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), startAngle, arcAngle);
+        componentGraphics.fillArc(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), startAngle, arcAngle);
     }
 
     /**
      * @see Graphics#drawPolyline
      */
     public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-        componentGraphics.drawPolyline(panel.virtualToActualX(xPoints), panel.virtualToActualY(yPoints), nPoints);
+        componentGraphics.drawPolyline(canvas.virtualToActualX(xPoints), canvas.virtualToActualY(yPoints), nPoints);
     }
 
     /**
      * @see Graphics#drawPolygon
      */
     public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        componentGraphics.drawPolygon(panel.virtualToActualX(xPoints), panel.virtualToActualY(yPoints), nPoints);
+        componentGraphics.drawPolygon(canvas.virtualToActualX(xPoints), canvas.virtualToActualY(yPoints), nPoints);
     }
 
     /**
      * @see Graphics#fillPolygon
      */
     public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        componentGraphics.fillPolygon(panel.virtualToActualX(xPoints), panel.virtualToActualY(yPoints), nPoints);
+        componentGraphics.fillPolygon(canvas.virtualToActualX(xPoints), canvas.virtualToActualY(yPoints), nPoints);
     }
 
     /**
@@ -225,7 +225,7 @@ public class GamePanelGraphics {
      * @see Graphics#drawString
      */
     public void drawString(String str, int x, int y) {
-        componentGraphics.drawString(str, panel.virtualToActualX(x), panel.virtualToActualY(y));
+        componentGraphics.drawString(str, canvas.virtualToActualX(x), canvas.virtualToActualY(y));
     }
 
     /**
@@ -233,35 +233,35 @@ public class GamePanelGraphics {
      * @see Graphics#drawString
      */
     public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-        componentGraphics.drawString(iterator, panel.virtualToActualX(x), panel.virtualToActualY(y));
+        componentGraphics.drawString(iterator, canvas.virtualToActualX(x), canvas.virtualToActualY(y));
     }
 
     /**
      * @see Graphics#drawImage
      */
     public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(x), panel.virtualToActualY(y), observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(x), canvas.virtualToActualY(y), observer);
     }
 
     /**
      * @see Graphics#drawImage
      */
     public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), observer);
     }
 
     /**
      * @see Graphics#drawImage
      */
     public boolean drawImage(Image img, int x, int y, Color bgcolor, ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(x), panel.virtualToActualY(y), bgcolor, observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(x), canvas.virtualToActualY(y), bgcolor, observer);
     }
 
     /**
      * @see Graphics#drawImage
      */
     public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(x), panel.virtualToActualY(y), panel.virtualToActualX(width), panel.virtualToActualY(height), bgcolor, observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), bgcolor, observer);
     }
 
     /**
@@ -269,7 +269,7 @@ public class GamePanelGraphics {
      */
     public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
                              ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(dx1), panel.virtualToActualY(dy1), panel.virtualToActualX(dx2), panel.virtualToActualY(dy2), sx1, sy1, sx2, sy2, observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(dx1), canvas.virtualToActualY(dy1), canvas.virtualToActualX(dx2), canvas.virtualToActualY(dy2), sx1, sy1, sx2, sy2, observer);
     }
 
     /**
@@ -277,7 +277,7 @@ public class GamePanelGraphics {
      */
     public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
                              Color bgcolor, ImageObserver observer) {
-        return componentGraphics.drawImage(img, panel.virtualToActualX(dx1), panel.virtualToActualY(dy1), panel.virtualToActualX(dx2), panel.virtualToActualY(dy2), sx1, sy1, sx2, sy2, bgcolor, observer);
+        return componentGraphics.drawImage(img, canvas.virtualToActualX(dx1), canvas.virtualToActualY(dy1), canvas.virtualToActualX(dx2), canvas.virtualToActualY(dy2), sx1, sy1, sx2, sy2, bgcolor, observer);
     }
 
     /**

@@ -1,4 +1,4 @@
-package org.framework.panel;
+package org.framework.canvas;
 
 import org.framework.interfaces.GameEventListener;
 
@@ -8,14 +8,14 @@ import java.awt.event.MouseListener;
 /**
  * This class passes mouse press, release, and movement events to the game
  */
-public class GamePanelMousePressListener implements MouseListener {
+public class GameCanvasMousePressListener implements MouseListener {
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
-    private GameCanvas panel;
+    private GameCanvas canvas;
 
-    public GamePanelMousePressListener(GameCanvas panel, GameEventListener<?> gameEventListener, Object lock) {
-        this.panel = panel;
+    public GameCanvasMousePressListener(GameCanvas canvas, GameEventListener<?> gameEventListener, Object lock) {
+        this.canvas = canvas;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
     }
@@ -23,8 +23,8 @@ public class GamePanelMousePressListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mousePressed(panel.actualToVirtualX(e.getX()),
-                    panel.actualToVirtualY(e.getY()),
+            gameEventListener.mousePressed(canvas.actualToVirtualX(e.getX()),
+                    canvas.actualToVirtualY(e.getY()),
                     e.getButton());
         }
     }
@@ -32,8 +32,8 @@ public class GamePanelMousePressListener implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mouseReleased(panel.actualToVirtualX(e.getX()),
-                    panel.actualToVirtualY(e.getY()),
+            gameEventListener.mouseReleased(canvas.actualToVirtualX(e.getX()),
+                    canvas.actualToVirtualY(e.getY()),
                     e.getButton());
         }
     }

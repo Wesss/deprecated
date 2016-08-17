@@ -1,4 +1,4 @@
-package org.framework.panel;
+package org.framework.canvas;
 
 import org.framework.GameFramework;
 import org.framework.interfaces.GameEventListener;
@@ -13,7 +13,7 @@ import java.awt.*;
 public class GameCanvas extends Canvas {
 
     /*
-     * TODO support various panel sizes and resizing (keep track of scale)
+     * TODO support various canvas sizes and resizing (keep track of scale)
      */
 
     //////////////////////////////////////////////////
@@ -97,9 +97,9 @@ public class GameCanvas extends Canvas {
     public void setReferences(GameEventListener g) {
         gameEventListener = g;
 
-        addKeyListener(new GamePanelKeyListener(g ,GAME_LOCK));
-        addMouseListener(new GamePanelMousePressListener(this, g, GAME_LOCK));
-        addMouseMotionListener(new GamePanelMouseMotionListener(this, g, GAME_LOCK));
+        addKeyListener(new GameCanvasKeyListener(g ,GAME_LOCK));
+        addMouseListener(new GameCanvasMousePressListener(this, g, GAME_LOCK));
+        addMouseMotionListener(new GameCanvasMouseMotionListener(this, g, GAME_LOCK));
     }
     
     /**
@@ -120,14 +120,14 @@ public class GameCanvas extends Canvas {
     //////////////////////////////////////////////////
 
     /**
-     * @return the width of the drawable panel in pixels
+     * @return the width of the drawable canvas in pixels
      */
     public int getActualX() {
         return actualX;
     }
 
     /**
-     * @return the height of the drawable panel in pixels
+     * @return the height of the drawable canvas in pixels
      */
     public int getActualY() {
         return actualY;

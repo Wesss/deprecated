@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.framework.domain.MainLoopClearAction;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopRemoveAction;
@@ -35,7 +35,7 @@ public class MainLoop {
      * Framework objects
      *
      * Post start:
-     * panel != null
+     * canvas != null
      * updateCycle != null
      */
     private GameCanvas canvas;
@@ -366,7 +366,7 @@ public class MainLoop {
      * Moves the game state up one frame/update cycle
      * @param g The graphics object to paint with
      */
-    public void nextFrame(GamePanelGraphics g) {
+    public void nextFrame(GameCanvasGraphics g) {
         updateObjs();
         resolveActions();
         paintObjs(g);
@@ -382,7 +382,7 @@ public class MainLoop {
         }
     }
 
-    private void paintObjs(GamePanelGraphics g) {
+    private void paintObjs(GameCanvasGraphics g) {
         for (int i = 0; i <= maxLayer; i++) {
             HashSet<GameObj> objs = layerToObj.get(i);
             if (objs != null) {

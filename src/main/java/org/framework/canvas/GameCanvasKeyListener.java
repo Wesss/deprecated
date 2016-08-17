@@ -1,4 +1,4 @@
-package org.framework.panel;
+package org.framework.canvas;
 
 import org.framework.interfaces.GameEventListener;
 
@@ -14,13 +14,13 @@ import java.util.Set;
  * will keyPressed() be fired (instead of multiple firings when
  * a key is held down).
  */
-public class GamePanelKeyListener implements KeyListener {
+public class GameCanvasKeyListener implements KeyListener {
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
     private Set<Integer> pressedKeys;
 
-    public GamePanelKeyListener(GameEventListener<?> gameEventListener, Object lock) {
+    public GameCanvasKeyListener(GameEventListener<?> gameEventListener, Object lock) {
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
         pressedKeys = new HashSet<>();

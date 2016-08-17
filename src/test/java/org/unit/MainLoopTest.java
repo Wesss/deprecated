@@ -10,8 +10,8 @@ import org.framework.interfaces.GameObj;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public abstract class MainLoopTest {
     protected Method mainloopValidate = null;
     protected Method nextFrame = null;
 
-    protected GamePanelGraphics mockGraphics = mock(GamePanelGraphics.class);
+    protected GameCanvasGraphics mockGraphics = mock(GameCanvasGraphics.class);
     protected GameCanvas mockPanel = mock(GameCanvas.class);
     protected GameObj mockObj = mock(GameObj.class);
     protected GameObj mockObj2 = mock(GameObj.class);
@@ -58,7 +58,7 @@ public abstract class MainLoopTest {
             mainloopValidate = MainLoop.class.getDeclaredMethod("assertValid");
             mainloopValidate.setAccessible(true);
 
-            nextFrame = MainLoop.class.getDeclaredMethod("nextFrame", GamePanelGraphics.class);
+            nextFrame = MainLoop.class.getDeclaredMethod("nextFrame", GameCanvasGraphics.class);
             nextFrame.setAccessible(true);
         } catch (SecurityException | IllegalArgumentException | NoSuchMethodException
                 | IllegalAccessException | InvocationTargetException e) {

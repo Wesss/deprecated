@@ -1,7 +1,7 @@
 package org.framework.mainLoop;
 
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -11,11 +11,12 @@ import java.awt.image.BufferStrategy;
  * its desired frames per seconds
  */
 public class MainLoopThread implements Runnable {
+    private static final int DOUBLE_BUFFERED = 2;
 
     //TODO fix timing code
     //TODO rename each component more appropriately
 
-    private GameCanvas panel;
+    private GameCanvas canvas;
     private BufferStrategy strategy;
     private MainLoop mainLoop;
     private int waitTime;
@@ -28,10 +29,10 @@ public class MainLoopThread implements Runnable {
         waitTime = 1000 / fps;
     }
 
-    protected void setReferences(GameCanvas panel) {
-        this.panel = panel;
-        panel.createBufferStrategy(2);
-        this.strategy = panel.getBufferStrategy();
+    protected void setReferences(GameCanvas canvas) {
+        this.canvas = canvas;
+        canvas.createBufferStrategy(DOUBLE_BUFFERED);
+        this.strategy = canvas.getBufferStrategy();
     }
 
     @Override
@@ -40,8 +41,8 @@ public class MainLoopThread implements Runnable {
             Graphics graphics = null;
             try {
                 graphics = strategy.getDrawGraphics();
-                clearCanvas(graphics, panel);
-                mainLoop.nextFrame(new GamePanelGraphics(graphics, panel));
+                clearCanvas(graphics, canvas);
+                mainLoop.nextFrame(new GameCanvasGraphics(graphics, canvas));
                 if( !strategy.contentsLost() )
                     strategy.show();
 

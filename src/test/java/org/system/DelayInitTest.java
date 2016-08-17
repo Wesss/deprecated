@@ -3,8 +3,8 @@ package org.system;
 import java.awt.Color;
 
 import org.framework.GameFramework;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
@@ -12,7 +12,7 @@ import org.framework.interfaces.GameObj;
 /**
  * Test for Long initialization times
  * This test computers a large sum while initializing the game.
- * The Player should not be able to work the panel/game into an incorrect state
+ * The Player should not be able to work the canvas/game into an incorrect state
  * 
  * @author Wesley Cox
  */
@@ -43,7 +43,7 @@ public class DelayInitTest implements Game{
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             g.setColor(Color.BLACK);
             g.drawString("" + num, 100, 100);
         }

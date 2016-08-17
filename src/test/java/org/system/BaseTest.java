@@ -3,8 +3,8 @@ package org.system;
 import java.awt.Color;
 
 import org.framework.GameFramework;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
@@ -30,7 +30,7 @@ public class BaseTest implements Game {
     private class Line implements GameObj {
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             g.setColor(Color.BLACK);
             g.drawLine(100, 100, 400, 400);
         }

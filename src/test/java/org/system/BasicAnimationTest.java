@@ -1,8 +1,8 @@
 package org.system;
 
 import org.framework.GameFramework;
-import org.framework.panel.GameCanvas;
-import org.framework.panel.GamePanelGraphics;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
@@ -53,7 +53,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             g.drawLine(x1, y1, x2, y2);
         }
 
@@ -83,7 +83,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             g.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
 
             //wrap around the screen
@@ -137,7 +137,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             int centerX = (int) (axelX + orbRadius * Math.cos(Math.toRadians(rotation)));
             int centerY = (int) (axelY + orbRadius * Math.sin(Math.toRadians(rotation)));
             g.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
@@ -183,7 +183,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             baseCircle.paint(g);
             oCir.paint(g);
             lx.paint(g);
@@ -243,7 +243,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             baseCircle.paint(g);
             l1.paint(g);
             l2.paint(g);
@@ -279,7 +279,7 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void paint(GamePanelGraphics g) {
+        public void paint(GameCanvasGraphics g) {
             baseCircle.paint(g);
             o1.paint(g);
             o1_1.paint(g);
