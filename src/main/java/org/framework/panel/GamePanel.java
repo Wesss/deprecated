@@ -1,11 +1,10 @@
 package org.framework.panel;
-import java.awt.*;
-
-import javax.swing.*;
 
 import org.framework.GameFramework;
 import org.framework.interfaces.GameEventListener;
-import org.framework.mainLoop.MainLoop;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Handles the display of the given game.
@@ -14,9 +13,7 @@ import org.framework.mainLoop.MainLoop;
 public class GamePanel extends Canvas {
 
     /*
-     * TODO try/compare instead of letting java's mainframe handle repaint requests, keep hold of graphics object and redraw in a self-defined loop
      * TODO support various panel sizes and resizing (keep track of scale)
-     * TODO document virtual transformation
      */
 
     //////////////////////////////////////////////////
@@ -38,7 +35,6 @@ public class GamePanel extends Canvas {
 
     private final Object GAME_LOCK = new Object();
     private GameEventListener gameEventListener;
-    private MainLoop mainLoop;
 
     /*
      * actualX > 0
@@ -97,11 +93,9 @@ public class GamePanel extends Canvas {
     /**
      * Sets the references needed for this class to function
      * @param g The Game this Panel displays
-     * @param m The MainLoop powering the Game
      */
-    public void setReferences(GameEventListener g, MainLoop m) {
+    public void setReferences(GameEventListener g) {
         gameEventListener = g;
-        mainLoop = m;
 
         addKeyListener(new GamePanelKeyListener(g ,GAME_LOCK));
         addMouseListener(new GamePanelMousePressListener(this, g, GAME_LOCK));
@@ -140,14 +134,14 @@ public class GamePanel extends Canvas {
     }
 
     /**
-     * @return the x coordinate that the GamePanelGraphics object will interpret as the rightmost edge of the panel
+     * @return the x coordinate that the Graphics object will interpret as the rightmost edge of the canvas.
      */
     public int getVirtualX() {
         return virtualX;
     }
 
     /**
-     * TODO
+     * Set the x coordinate that the Graphics object will interpret the the rightmost edge of the canvas.
      * @param virtualX
      */
     public void setVirtualX(int virtualX) {
@@ -155,15 +149,14 @@ public class GamePanel extends Canvas {
     }
 
     /**
-     * TODO
-     * @return the y ooordinate that the GamePanelGraphics object will interpret as the rightmost edge of the panel
+     * @return the y coordinate that the Graphics object will interpret as the bottommost edge of the canvas.
      */
     public int getVirtualY() {
         return virtualY;
     }
 
     /**
-     * TODO
+     * Set the x coordinate that the Graphics object will interpret the the bottommost edge of the canvas.
      * @param virtualY
      */
     public void setVirtualY(int virtualY) {

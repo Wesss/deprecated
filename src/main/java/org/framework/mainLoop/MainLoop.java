@@ -167,9 +167,9 @@ public class MainLoop {
      * @param upperBoundPriority
      * @return an interface for more detailed control over the mainLoop
      */
-    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
-        return MainLoopCustomGroupsInterfaceFactory.getMainLoopCustomGroupsInterface(this, upperBoundPriority);
-    }
+//    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
+//        return MainLoopCustomGroupsInterfaceFactory.getMainLoopCustomGroupsInterface(this, upperBoundPriority);
+//    }
 
     /**
      * After this call, all BasicAPI calls (calls through this mainloop) and CustomGroupInterface calls will
