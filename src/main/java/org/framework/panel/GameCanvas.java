@@ -10,7 +10,7 @@ import java.awt.*;
  * Handles the display of the given game.
  */
 @SuppressWarnings("serial")
-public class GamePanel extends Canvas {
+public class GameCanvas extends Canvas {
 
     /*
      * TODO support various panel sizes and resizing (keep track of scale)
@@ -60,23 +60,23 @@ public class GamePanel extends Canvas {
     //////////////////////////////////////////////////
 
     /**
-     * Creates a new GamePanel of specified dimension for given game g
+     * Creates a new GameCanvas of specified dimension for given game g
      *
      * @param dimension the drawable area to be available for painting
      */
-    public GamePanel(Dimension dimension) {
+    public GameCanvas(Dimension dimension) {
         this(dimension.width, dimension.height);
     }
     
     /**
-     * Creates a new GamePanel of specified size for given game g
+     * Creates a new GameCanvas of specified size for given game g
      *
      * @param width the width of the drawable area to be available for painting (in pixels)
      * 		<UL><LI> must be > 0 </UL>
      * @param height the height of the drawable area to be available for painting (in pixels)
      * 		<UL><LI> must be > 0 </UL>
      */
-    protected GamePanel(int width, int height) {
+    protected GameCanvas(int width, int height) {
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 

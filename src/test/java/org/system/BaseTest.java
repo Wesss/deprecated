@@ -3,6 +3,7 @@ package org.system;
 import java.awt.Color;
 
 import org.framework.GameFramework;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
@@ -22,7 +23,7 @@ public class BaseTest implements Game {
         GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public BaseTest(MainLoop mainLoop) {
+    public BaseTest(MainLoop mainLoop, GameCanvas canvas) {
         mainLoop.add(new Line());
     }
 

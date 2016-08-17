@@ -1,6 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.panel.GamePanel;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 
 import java.awt.*;
@@ -15,7 +15,7 @@ public class MainLoopThread implements Runnable {
     //TODO fix timing code
     //TODO rename each component more appropriately
 
-    private GamePanel panel;
+    private GameCanvas panel;
     private BufferStrategy strategy;
     private MainLoop mainLoop;
     private int waitTime;
@@ -28,7 +28,7 @@ public class MainLoopThread implements Runnable {
         waitTime = 1000 / fps;
     }
 
-    protected void setReferences(GamePanel panel) {
+    protected void setReferences(GameCanvas panel) {
         this.panel = panel;
         panel.createBufferStrategy(2);
         this.strategy = panel.getBufferStrategy();
@@ -55,7 +55,7 @@ public class MainLoopThread implements Runnable {
         }
     }
 
-    private static void clearCanvas(Graphics graphics, GamePanel canvas) {
+    private static void clearCanvas(Graphics graphics, GameCanvas canvas) {
         graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 }

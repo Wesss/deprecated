@@ -24,9 +24,9 @@ public class GamePanelGraphics {
      * gamePanel != null
      */
     private Graphics componentGraphics;
-    private GamePanel panel;
+    private GameCanvas panel;
 
-    public GamePanelGraphics(Graphics g, GamePanel panel) {
+    public GamePanelGraphics(Graphics g, GameCanvas panel) {
         componentGraphics = g;
         this.panel = panel;
     }

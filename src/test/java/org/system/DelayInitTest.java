@@ -3,6 +3,7 @@ package org.system;
 import java.awt.Color;
 
 import org.framework.GameFramework;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
@@ -23,7 +24,7 @@ public class DelayInitTest implements Game{
         GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public DelayInitTest(MainLoop mainLoop) {
+    public DelayInitTest(MainLoop mainLoop, GameCanvas canvas) {
         int sum = 0;
         for (int i = 0; i < 100000; i ++) {
             for (int j = 0; j < 100000; j++) {

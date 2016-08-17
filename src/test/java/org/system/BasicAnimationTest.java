@@ -1,6 +1,7 @@
 package org.system;
 
 import org.framework.GameFramework;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
@@ -22,7 +23,9 @@ public class BasicAnimationTest implements Game {
         GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public BasicAnimationTest(MainLoop mainLoop) {
+    public BasicAnimationTest(MainLoop mainLoop, GameCanvas canvas) {
+        canvas.setVirtualX(500);
+        canvas.setVirtualY(500);
         mainLoop.add(new WrapCircle(500, 70, 40));
         mainLoop.add(new Display1());
         mainLoop.add(new Display2());

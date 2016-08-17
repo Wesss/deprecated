@@ -1,6 +1,7 @@
 package org.system;
 
 import org.framework.GameFramework;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
@@ -26,7 +27,7 @@ public class EventFireTest implements Game{
     private GameString[] log;
     private GameString mouseLoc;
 
-    public EventFireTest(MainLoop mainLoop) {
+    public EventFireTest(MainLoop mainLoop, GameCanvas canvas) {
         log = new GameString[20];
 
         for (int i = 0; i < log.length; i++) {

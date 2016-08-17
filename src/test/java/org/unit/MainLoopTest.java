@@ -10,7 +10,7 @@ import org.framework.interfaces.GameObj;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.panel.GamePanel;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public abstract class MainLoopTest {
     protected Method nextFrame = null;
 
     protected GamePanelGraphics mockGraphics = mock(GamePanelGraphics.class);
-    protected GamePanel mockPanel = mock(GamePanel.class);
+    protected GameCanvas mockPanel = mock(GameCanvas.class);
     protected GameObj mockObj = mock(GameObj.class);
     protected GameObj mockObj2 = mock(GameObj.class);
 
@@ -51,7 +51,7 @@ public abstract class MainLoopTest {
             init.invoke(factory, STANDARD_UPS);
             mainloop = factory.getMainLoop();
 
-            Method ref = MainLoop.class.getDeclaredMethod("setReferences", GamePanel.class);
+            Method ref = MainLoop.class.getDeclaredMethod("setReferences", GameCanvas.class);
             ref.setAccessible(true);
             ref.invoke(mainloop, mockPanel);
 

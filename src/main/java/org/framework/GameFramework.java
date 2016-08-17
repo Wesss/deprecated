@@ -9,7 +9,7 @@ import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.panel.GamePanel;
+import org.framework.panel.GameCanvas;
 
 import static java.lang.Math.min;
 
@@ -58,20 +58,20 @@ public class GameFramework {
         factory.constructMainLoop(updatesPerSecond);
         MainLoop mainLoop = factory.getMainLoop();
 
-        Dimension screen = GamePanel.getScreenDimension();
+        Dimension screen = GameCanvas.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        GamePanel panel = new GamePanel(new Dimension(gameLength, gameLength));
+        GameCanvas panel = new GameCanvas(new Dimension(gameLength, gameLength));
 
         T newGame = createGame(game, mainLoop, panel);
 
         mainLoop.setReferences(panel);
-        panel.setReferences(listener, mainLoop);
+        panel.setReferences(listener);
         listener.acceptGame(newGame);
         mainLoop.start();
         return mainLoop;
     }
 
-    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GamePanel canvas) {
+    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvas canvas) {
         T game = null;
         try {
             Constructor<?>[] constructors = gameClass.getConstructors();
@@ -81,10 +81,10 @@ public class GameFramework {
                     game = (T)constructor.newInstance();
                     break;
                 } else if (parameters.length == 2) {
-                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GamePanel.class)) {
+                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GameCanvas.class)) {
                         game = (T)constructor.newInstance(mainLoop, canvas);
                         break;
-                    } else if (parameters[0].equals(GamePanel.class) || parameters[1].equals(MainLoop.class)) {
+                    } else if (parameters[0].equals(GameCanvas.class) || parameters[1].equals(MainLoop.class)) {
                         game = (T)constructor.newInstance(canvas, mainLoop);
                         break;
                     }

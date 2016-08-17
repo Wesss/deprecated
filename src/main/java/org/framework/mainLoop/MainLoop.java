@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.framework.domain.MainLoopClearAction;
-import org.framework.panel.GamePanel;
+import org.framework.panel.GameCanvas;
 import org.framework.panel.GamePanelGraphics;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
@@ -38,7 +38,7 @@ public class MainLoop {
      * panel != null
      * updateCycle != null
      */
-    private GamePanel panel;
+    private GameCanvas canvas;
     private Thread updateCycle;
     private MainLoopThread updateCycleMethod; //TODO find way to refactor and delete this
 
@@ -139,11 +139,11 @@ public class MainLoop {
 
     /**
      * Sets up proper references needed to run the MainLoop
-     * @param p the GamePanel displaying the game
+     * @param canvas the GameCanvas displaying the game
      */
-    public void setReferences(GamePanel p) {
-        updateCycleMethod.setReferences(p);
-        panel = p;
+    public void setReferences(GameCanvas canvas) {
+        updateCycleMethod.setReferences(canvas);
+        this.canvas = canvas;
     }
 
     /**
@@ -151,7 +151,7 @@ public class MainLoop {
      * @required setReferences be called before this
      */
     public void start() {
-        if (panel == null) {
+        if (canvas == null) {
             throw new RuntimeException(PRE_INIT_ERRMSG);
         }
         updateCycle.start();
@@ -529,7 +529,7 @@ public class MainLoop {
     private void assertValid() {
         // framework
         assertNotNull(updateCycle);
-        assertFalse(updateCycle.isAlive() && panel == null);
+        assertFalse(updateCycle.isAlive() && canvas == null);
 
         // game objs
         assertTrue(maxLayer >= 0);

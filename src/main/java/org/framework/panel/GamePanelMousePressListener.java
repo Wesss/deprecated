@@ -12,9 +12,9 @@ public class GamePanelMousePressListener implements MouseListener {
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
-    private GamePanel panel;
+    private GameCanvas panel;
 
-    public GamePanelMousePressListener(GamePanel panel, GameEventListener<?> gameEventListener, Object lock) {
+    public GamePanelMousePressListener(GameCanvas panel, GameEventListener<?> gameEventListener, Object lock) {
         this.panel = panel;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
