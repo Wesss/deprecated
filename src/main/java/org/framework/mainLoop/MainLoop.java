@@ -1,20 +1,21 @@
 package org.framework.mainLoop;
 
-import static org.junit.Assert.*;
-import static java.lang.Math.*;
-import static org.framework.util.Exceptions.*;
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
+import org.framework.domain.MainLoopAction;
+import org.framework.domain.MainLoopAddAction;
+import org.framework.domain.MainLoopClearAction;
+import org.framework.domain.MainLoopRemoveAction;
+import org.framework.interfaces.GameObj;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.framework.domain.MainLoopClearAction;
-import org.framework.canvas.GameCanvas;
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.MainLoopAction;
-import org.framework.domain.MainLoopAddAction;
-import org.framework.domain.MainLoopRemoveAction;
-import org.framework.interfaces.GameObj;
+import static java.lang.Math.max;
+import static org.framework.util.Exceptions.DISABLED_BASICAPI_ERRMSG;
+import static org.framework.util.Exceptions.PRE_INIT_ERRMSG;
+import static org.junit.Assert.*;
 
 /**
  * This singleton class keeps track of all GameObjs in a game

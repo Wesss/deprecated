@@ -1,19 +1,19 @@
 package org.unit;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
+import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.canvas.GameCanvas;
-import org.framework.canvas.GameCanvasGraphics;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public abstract class MainLoopTest {
 

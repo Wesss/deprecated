@@ -1,15 +1,15 @@
 package org.framework;
 
-import java.awt.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
+import org.framework.canvas.GameCanvas;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.canvas.GameCanvas;
+
+import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import static java.lang.Math.min;
 

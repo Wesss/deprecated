@@ -1,9 +1,10 @@
 package org.framework.mainLoop;
 
-import java.util.HashSet;
-
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class represents a grouping of GameObjs currently stored within the MainLoop
@@ -38,10 +39,10 @@ public class MainLoopGroup implements GameObj{
      * TODO invariant check function?
      */
     private boolean markClear;
-    private HashSet<GameObj> objs;
-    private HashSet<GameObj> newObjs;
-    private HashSet<GameObj> newPostClearObjs;
-    private HashSet<GameObj> remObjs;
+    private Set<GameObj> objs;
+    private Set<GameObj> newObjs;
+    private Set<GameObj> newPostClearObjs;
+    private Set<GameObj> remObjs;
 
     protected MainLoopGroup(MainLoopAdvancedInterface inter,
                         int layer,

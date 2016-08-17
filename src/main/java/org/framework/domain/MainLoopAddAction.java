@@ -1,7 +1,7 @@
 package org.framework.domain;
 
-import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.GameObj;
+import org.framework.mainLoop.MainLoop;
 
 public class MainLoopAddAction extends MainLoopAction {
     private GameObj obj;
