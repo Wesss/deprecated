@@ -3,9 +3,7 @@ package org.framework.mainLoop;
 import org.framework.domain.MainLoopAction;
 import org.framework.interfaces.GameObj;
 /**
- * TODO
- *
- * @author Wesley
+ * This Interface is a much more powerful tool for manipulating the main loop.
  */
 public class MainLoopAdvancedInterface {
 
