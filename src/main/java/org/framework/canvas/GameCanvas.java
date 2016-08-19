@@ -76,7 +76,7 @@ public class GameCanvas extends Canvas {
      * @param height the height of the drawable area to be available for painting (in pixels)
      * 		<UL><LI> must be > 0 </UL>
      */
-    protected GameCanvas(int width, int height) {
+    public GameCanvas(int width, int height) {
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 
@@ -167,6 +167,8 @@ public class GameCanvas extends Canvas {
     // Transformations
     //////////////////////////////////////////////////
 
+    // TODO seperate into controller and model so that users dont have access to these
+
     private static int virtualToActualDimension(int metric, int actual, int virtual) {
         long product = ((long)metric) * ((long)actual);
         return (int)(product / virtual);
@@ -177,23 +179,23 @@ public class GameCanvas extends Canvas {
         return (int)(product / actual);
     }
 
-    protected int virtualToActualX(int x) {
+    public int virtualToActualX(int x) {
         return virtualToActualDimension(x, getActualX(), getVirtualX());
     }
 
-    protected int virtualToActualY(int y) {
+    public int virtualToActualY(int y) {
         return virtualToActualDimension(y, getActualY(), getVirtualY());
     }
 
-    protected int actualToVirtualX(int x) {
+    public int actualToVirtualX(int x) {
         return actualToVirtualDimension(x, getActualX(), getVirtualX());
     }
 
-    protected int actualToVirtualY(int y) {
+    public int actualToVirtualY(int y) {
         return actualToVirtualDimension(y, getActualY(), getVirtualY());
     }
 
-    protected int[] virtualToActualX(int[] metrics) {
+    public int[] virtualToActualX(int[] metrics) {
         int[] result = new int[metrics.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = virtualToActualX(metrics[i]);
@@ -201,7 +203,7 @@ public class GameCanvas extends Canvas {
         return result;
     }
 
-    protected int[] virtualToActualY(int[] metrics) {
+    public int[] virtualToActualY(int[] metrics) {
         int[] result = new int[metrics.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = virtualToActualY(metrics[i]);
@@ -209,7 +211,7 @@ public class GameCanvas extends Canvas {
         return result;
     }
 
-    protected int[] actualToVirtualX(int[] metrics) {
+    public int[] actualToVirtualX(int[] metrics) {
         int[] result = new int[metrics.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = actualToVirtualX(metrics[i]);
@@ -217,7 +219,7 @@ public class GameCanvas extends Canvas {
         return result;
     }
 
-    protected int[] actualToVirtualY(int[] metrics) {
+    public int[] actualToVirtualY(int[] metrics) {
         int[] result = new int[metrics.length];
         for (int i = 0; i < result.length; i++) {
             result[i] = actualToVirtualY(metrics[i]);

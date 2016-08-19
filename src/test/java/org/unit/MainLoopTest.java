@@ -23,7 +23,6 @@ public abstract class MainLoopTest {
     public static final int STRESSTEST_UPS = 300;
 
     protected MainLoop mainloop = null;
-
     protected Method mainloopValidate = null;
     protected Method nextFrame = null;
 

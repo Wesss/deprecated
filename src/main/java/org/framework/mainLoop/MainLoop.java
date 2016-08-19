@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 public class MainLoop {
 
     // TODO abstract out index/obj pairings
-    // TODO split class, too large?
+    // TODO split into model and BasicInterface/Controller to
 
     //////////////////////////////////////////////////
     // Definition
