@@ -12,18 +12,18 @@ public class MainLoopBasicInterTest extends MainLoopTest {
 
     @Test
     public void containsNothing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        assertFalse(mainloop.contains(mockObj));
+        assertFalse(mainLoop.contains(mockObj));
 
-        mainloopValidate.invoke(mainloop);
+        mainLoopModel.assertValid();
         verifyZeroInteractions(mockObj);
     }
 
     @Test
     public void addsObj() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        mainloop.add(mockObj);
-        assertTrue(mainloop.contains(mockObj));
+        mainLoop.add(mockObj);
+        assertTrue(mainLoop.contains(mockObj));
 
-        mainloopValidate.invoke(mainloop);
+        mainLoopModel.assertValid();
         verifyZeroInteractions(mockObj);
     }
 }

@@ -193,8 +193,6 @@ public class MainLoopModel {
         maxGroup = 0;
     }
 
-
-
     //////////////////////////////////////////////////
     // Framework Functionality
     //////////////////////////////////////////////////
@@ -326,8 +324,7 @@ public class MainLoopModel {
     // Testing
     //////////////////////////////////////////////////
 
-    @SuppressWarnings("unused")
-    private void assertValid() {
+    public void assertValid() {
         // framework
         assertNotNull(updateCycle);
         assertFalse(updateCycle.isAlive() && canvas == null);
