@@ -1,9 +1,10 @@
 package org.framework.mainLoop;
 
 import org.framework.domain.MainLoopAction;
+import org.framework.domain.MainLoopActionFactory;
 import org.framework.interfaces.GameObj;
 /**
- * This Interface is a much more powerful tool for manipulating the main loop.
+ * This Interface is a much more powerful tool for manipulating the main loopModel.
  */
 public class MainLoopAdvancedInterface {
 
@@ -13,10 +14,10 @@ public class MainLoopAdvancedInterface {
     // TODO make singleton
 
     // the MainLoop being modified by this interface
-    private MainLoop loop;
+    private MainLoopModel loopModel;
 
-    protected MainLoopAdvancedInterface(MainLoop loop) {
-        this.loop = loop;
+    protected MainLoopAdvancedInterface(MainLoopModel loopModel) {
+        this.loopModel = loopModel;
     }
 
     //////////////////////////////////////////////////
@@ -30,32 +31,32 @@ public class MainLoopAdvancedInterface {
      * @throws IllegalArgumentException if actionGroup < 0, action == null
      */
     public void insertAction(MainLoopAction action, int actionGroup) {
-        loop.insertAction(action, actionGroup);
+        loopModel.insertAction(action, actionGroup);
     }
 
     // TODO
     public boolean containsAction(MainLoopAction action) {
-        return loop.containsAction(action);
+        return loopModel.containsAction(action);
     }
 
     // TODO
     public boolean containsAction(MainLoopAction action, int actionGroup) {
-        return loop.containsAction(action, actionGroup);
+        return loopModel.containsAction(action, actionGroup);
     }
 
     // TODO
     public void deleteAction(MainLoopAction action) {
-        loop.deleteAction(action);
+        loopModel.deleteAction(action);
     }
 
     // TODO
     public void deleteAllActions() {
-        loop.deleteAllActions();
+        loopModel.deleteAllActions();
     }
 
     // TODO
     public boolean contains(GameObj obj) {
-        return loop.containsAdv(obj);
+        return loopModel.containsAdv(obj);
     }
 
     //////////////////////////////////////////////////
@@ -71,7 +72,7 @@ public class MainLoopAdvancedInterface {
      * @throws IllegalArgumentException if obj == null, priority < 0, layer < 0
      */
     public MainLoopAction createAddAction(GameObj obj, int priority, int layer) {
-        return loop.createAddAction(obj, priority, layer);
+        return MainLoopActionFactory.createAddAction(obj, priority, layer);
     }
 
     /**
@@ -81,11 +82,11 @@ public class MainLoopAdvancedInterface {
      * @throws IllegalArgumentException if obj == null
      */
     public MainLoopAction createRemoveAction(GameObj obj) {
-        return loop.createRemoveAction(obj);
+        return MainLoopActionFactory.createRemoveAction(obj);
     }
 
     // TODO
     public MainLoopAction createClearAction() {
-        return loop.createClearAction();
+        return MainLoopActionFactory.createClearAction();
     }
 }

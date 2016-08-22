@@ -17,7 +17,7 @@ public class MainLoopGroupFactory {
      * @param inter
      * @param upperPriority
      */
-    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
+    public MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
         this.inter = inter;
         this.upperPriority = upperPriority;
     }

@@ -16,14 +16,14 @@ public class MainLoopThread implements Runnable {
     //TODO fix timing code
 
     private GameCanvas canvas;
-    private MainLoop mainLoop;
+    private MainLoopModel mainLoopModel;
     private int waitTime;
 
     /**
      * @param fps the desired refresh rate of the screen measured in frames per second
      */
-    public MainLoopThread(MainLoop mainloop, int fps) {
-        this.mainLoop = mainloop;
+    public MainLoopThread(MainLoopModel mainLoopModel, int fps) {
+        this.mainLoopModel = mainLoopModel;
         waitTime = 1000 / fps;
     }
 
@@ -40,7 +40,7 @@ public class MainLoopThread implements Runnable {
             try {
                 graphics = strategy.getDrawGraphics();
                 clearCanvas(graphics, canvas);
-                mainLoop.nextFrame(new GameCanvasGraphics(graphics, canvas));
+                mainLoopModel.nextFrame(new GameCanvasGraphics(graphics, canvas));
                 if( !strategy.contentsLost() )
                     strategy.show();
 

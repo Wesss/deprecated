@@ -6,6 +6,7 @@ import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
+import org.framework.mainLoop.MainLoopModel;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
@@ -56,6 +57,7 @@ public class GameFramework {
                                                       int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
+        MainLoopModel mainLoopModel = factory.getMainLoopModel();
         MainLoop mainLoop = factory.getMainLoop();
 
         Dimension screen = GameCanvas.getScreenDimension();
@@ -64,10 +66,10 @@ public class GameFramework {
 
         T newGame = createGame(game, mainLoop, canvas);
 
-        mainLoop.setReferences(canvas);
+        mainLoopModel.setReferences(canvas);
         canvas.setReferences(listener);
         listener.acceptGame(newGame);
-        mainLoop.start();
+        mainLoopModel.start();
         return mainLoop;
     }
 
