@@ -1,5 +1,6 @@
 package org.framework;
 
+import javafx.util.Pair;
 import org.framework.canvas.GameCanvas;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
@@ -30,31 +31,21 @@ public class GameFramework {
 
     private GameFramework() {}
 
-    /*
-     * <b> Given game class must contain a constructor of type GameEventListener() or GameEventListener(MainLoop).</b>
-     * Instantiates and runs a game of the given class;
-     * If constructor of type GameEventListener(MainLoop) exists, then that constructor is called passing in the MainLoop
-     * created for this game. Otherwise Game() is called.
-     * The game runs at a speed of given fps (frames per second) on a canvas of given dimension.
-     *
-     * @param <T> The type GameEventListener to use
-     *
-     * @param listener the class of the type of game to instantiate (reached with MyGame.class)
-     * @param dimension the size of the window the game is to be played on
-     *
-     * @return the MainLoop created for this game
-     */
-
     /**
-     * TODO
-     * @param game
-     * @param listener
+     * @param game the class of the game to be run
+     *             If a constructor that takes a MainLoop and GameCanvas is present, that constructor will be called; passing in
+     *             the appropriate game controllers.
+     *             Otherwise, the empty constructor is called.
+     *             Throws a RuntimeException if neither constructor is present
+     * @param listener The listener that will receive user events
      * @param updatesPerSecond
-     * @return
+     * @return a pair where pair.left is the MainLoop and pair.right is the GameCanvas to control the game
+     * @throws RuntimeException if a valid constructor for the given game class is not present
+     * @param <T> the type of the game to run
      */
-    public static <T extends Game> MainLoop startGame(Class<T> game,
-                                                      GameEventListener<? super T> listener,
-                                                      int updatesPerSecond) {
+    public static <T extends Game> Pair<MainLoop, GameCanvas> startGame(Class<T> game,
+                                                                        GameEventListener<? super T> listener,
+                                                                        int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoopModel mainLoopModel = factory.getMainLoopModel();

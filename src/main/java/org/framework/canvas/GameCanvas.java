@@ -13,7 +13,8 @@ import java.awt.*;
 public class GameCanvas extends Canvas {
 
     /*
-     * TODO support various canvas sizes and resizing (keep track of scale)
+     * TODO support various canvas resizing
+     * TODO seperate into model and visible controller
      */
 
     //////////////////////////////////////////////////
