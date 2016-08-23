@@ -92,14 +92,14 @@ public class GameCanvas extends Canvas {
     
     /**
      * Sets the references needed for this class to function
-     * @param g The Game this Panel displays
+     * @param gameListener The Game this Panel displays
      */
-    public void setReferences(GameEventListener g) {
-        gameEventListener = g;
+    public void setReferences(GameEventListener gameListener) {
+        gameEventListener = gameListener;
 
-        addKeyListener(new GameCanvasKeyListener(g ,GAME_LOCK));
-        addMouseListener(new GameCanvasMousePressListener(this, g, GAME_LOCK));
-        addMouseMotionListener(new GameCanvasMouseMotionListener(this, g, GAME_LOCK));
+        addKeyListener(new GameCanvasKeyListener(gameListener ,GAME_LOCK));
+        addMouseListener(new GameCanvasMousePressListener(this, gameListener, GAME_LOCK));
+        addMouseMotionListener(new GameCanvasMouseMotionListener(this, gameListener, GAME_LOCK));
     }
     
     /**
