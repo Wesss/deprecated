@@ -61,7 +61,7 @@ public class GameFramework {
         canvas.setReferences(listener);
         listener.acceptGame(newGame);
         mainLoopModel.start();
-        return mainLoop;
+        return new Pair<>(mainLoop, canvas);
     }
 
     private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvas canvas) {
