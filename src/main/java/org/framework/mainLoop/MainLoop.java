@@ -31,7 +31,7 @@ public class MainLoop {
     protected static final int CLEAR_ACTIONGROUP = 1;
     protected static final int POSTCLEAR_ACTIONGROUP = 2;
 
-    private MainLoopFactory mainLoopFactory;
+    private MainLoopAdvancedInterface advancedInterface;
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup backgroundGroup;
     private boolean basicOK;
@@ -40,12 +40,11 @@ public class MainLoop {
     // Initialization
     //////////////////////////////////////////////////
 
-    protected MainLoop(MainLoopFactory factory) {
-        mainLoopFactory = factory;
+    protected MainLoop(MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
+        this.advancedInterface = advInterface;
 
         // basic API setup
         basicOK = true;
-        MainLoopGroupFactory groupFactory = new MainLoopGroupFactory(factory.getAdvancedInterface(), GAMEOBJ_GROUP_PRIORITY);
         foregroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
         backgroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
     }
@@ -71,7 +70,7 @@ public class MainLoop {
      */
     public MainLoopAdvancedInterface advancedInterface() {
         basicOK = false;
-        return mainLoopFactory.getAdvancedInterface();
+        return advancedInterface;
     }
 
     /**
