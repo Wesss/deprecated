@@ -2,6 +2,7 @@ package org.framework;
 
 import javafx.util.Pair;
 import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasFactory;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.mainLoop.MainLoop;
@@ -53,7 +54,7 @@ public class GameFramework {
 
         Dimension screen = GameCanvas.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        GameCanvas canvas = new GameCanvas(new Dimension(gameLength, gameLength));
+        GameCanvas canvas = GameCanvasFactory.createCanvas(gameLength, gameLength);
 
         T newGame = createGame(game, mainLoop, canvas);
 

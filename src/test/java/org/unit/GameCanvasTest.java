@@ -1,6 +1,7 @@
 package org.unit;
 
 import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasFactory;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class GameCanvasTest {
     public void setup() {
         reset(mockListener);
 
-        canvas = new GameCanvas(CANVAS_LENGTH, CANVAS_HEIGHT);
+        canvas = GameCanvasFactory.createCanvas(CANVAS_LENGTH, CANVAS_HEIGHT);
         canvas.setReferences(mockListener);
     }
 

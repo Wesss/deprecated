@@ -65,30 +65,19 @@ public class GameCanvas extends Canvas {
      *
      * @param dimension the drawable area to be available for painting
      */
-    public GameCanvas(Dimension dimension) {
-        this(dimension.width, dimension.height);
-    }
-    
-    /**
-     * Creates a new GameCanvas of specified size for given game g
-     *
-     * @param width the width of the drawable area to be available for painting (in pixels)
-     * 		<UL><LI> must be > 0 </UL>
-     * @param height the height of the drawable area to be available for painting (in pixels)
-     * 		<UL><LI> must be > 0 </UL>
-     */
-    public GameCanvas(int width, int height) {
+    protected GameCanvas(Dimension dimension) {
+
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 
-        actualX = width;
-        actualY = height;
+        actualX = (int)dimension.getWidth();
+        actualY = (int)dimension.getHeight();
         virtualX = DEFAULT_VIRTUAL_X;
         virtualY = DEFAULT_VIRTUAL_Y;
 
-        this.setPreferredSize(new Dimension(width, height));
+        this.setPreferredSize(dimension);
         createFrame();
-        setFocusable(true);
+        setFocusable(true);;
     }
     
     /**
