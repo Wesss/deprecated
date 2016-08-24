@@ -7,6 +7,8 @@ import org.framework.interfaces.GameEventListener;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
@@ -21,13 +23,14 @@ public class GameCanvasTest {
 
     @SuppressWarnings("unchecked")
     private GameEventListener<Game> mockListener = mock(GameEventListener.class);
+    private Frame mockFrame = mock(Frame.class);
     private GameCanvas canvas;
 
     @Before
     public void setup() {
         reset(mockListener);
 
-        canvas = GameCanvasFactory.createCanvas(CANVAS_LENGTH, CANVAS_HEIGHT);
+        canvas = GameCanvasFactory.createCanvas(mockFrame, CANVAS_LENGTH, CANVAS_HEIGHT);
         canvas.setReferences(mockListener);
     }
 

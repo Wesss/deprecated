@@ -54,7 +54,7 @@ public class GameFramework {
 
         Dimension screen = GameCanvas.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        GameCanvas canvas = GameCanvasFactory.createCanvas(gameLength, gameLength);
+        GameCanvas canvas = GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
 
         T newGame = createGame(game, mainLoop, canvas);
 
