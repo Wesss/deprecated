@@ -61,23 +61,21 @@ public class GameCanvas extends Canvas {
     //////////////////////////////////////////////////
 
     /**
-     * Creates a new GameCanvas of specified dimension for given game g
+     * Creates a new GameCanvas
      *
-     * @param dimension the drawable area to be available for painting
+     * @param width the width of the canvas
+     * @param height the height of the canvas
+     * @param frame the frame in which this canvas is to reside.
+     *              <UL><LI> must not already contain a Component </UL>
      */
-    protected GameCanvas(Dimension dimension) {
-
+    protected GameCanvas(int width, int height, Frame frame) {
         super();
         gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 
-        actualX = (int)dimension.getWidth();
-        actualY = (int)dimension.getHeight();
+        actualX = width;
+        actualY = height;
         virtualX = DEFAULT_VIRTUAL_X;
         virtualY = DEFAULT_VIRTUAL_Y;
-
-        this.setPreferredSize(dimension);
-        createFrame();
-        setFocusable(true);;
     }
     
     /**
@@ -90,19 +88,6 @@ public class GameCanvas extends Canvas {
         addKeyListener(new GameCanvasKeyListener(gameListener ,GAME_LOCK));
         addMouseListener(new GameCanvasMousePressListener(this, gameListener, GAME_LOCK));
         addMouseMotionListener(new GameCanvasMouseMotionListener(this, gameListener, GAME_LOCK));
-    }
-    
-    /**
-     * Creates the JFrame (aka window border) for this Panel and
-     * fits this Panel into it.
-     */
-    private void createFrame() {
-        JFrame frame = new JFrame();
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(this);
-        frame.pack();
-        frame.setVisible(true);
     }
 
     //////////////////////////////////////////////////

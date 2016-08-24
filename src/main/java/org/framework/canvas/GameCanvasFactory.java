@@ -1,5 +1,6 @@
 package org.framework.canvas;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -20,6 +21,18 @@ public class GameCanvasFactory {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("GameCanvas dimensions must be greater than 0");
         }
-        return new GameCanvas(new Dimension(width, height));
+        JFrame frame = new JFrame();
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        GameCanvas canvas = new GameCanvas(width, height, frame);
+        canvas.setPreferredSize(new Dimension(width, height));
+
+        frame.add(canvas);
+        frame.pack();
+        frame.setVisible(true);
+        canvas.setFocusable(true);
+
+        return canvas;
     }
 }
