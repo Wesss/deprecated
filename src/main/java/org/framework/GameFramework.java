@@ -2,6 +2,7 @@ package org.framework;
 
 import javafx.util.Pair;
 import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasFactory;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
@@ -34,37 +35,41 @@ public class GameFramework {
 
     /**
      * @param game the class of the game to be run
-     *             If a constructor that takes a MainLoop and GameCanvas is present, that constructor will be called; passing in
+     *             If a constructor that takes a MainLoop and GameCanvasModel is present, that constructor will be called; passing in
      *             the appropriate game controllers.
      *             Otherwise, the empty constructor is called.
      *             Throws a RuntimeException if neither constructor is present
      * @param listener The listener that will receive user events
      * @param updatesPerSecond
-     * @return a pair where pair.left is the MainLoop and pair.right is the GameCanvas to control the game
+     * @return a pair where pair.left is the MainLoop and pair.right is the GameCanvasModel to control the game
      * @throws RuntimeException if a valid constructor for the given game class is not present
      * @param <T> the type of the game to run
      */
     public static <T extends Game> Pair<MainLoop, GameCanvas> startGame(Class<T> game,
-                                                                        GameEventListener<? super T> listener,
-                                                                        int updatesPerSecond) {
+                                                                             GameEventListener<? super T> listener,
+                                                                             int updatesPerSecond) {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoopModel mainLoopModel = factory.getMainLoopModel();
         MainLoop mainLoop = factory.getMainLoop();
 
-        Dimension screen = GameCanvas.getScreenDimension();
+        Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        GameCanvas canvas = GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
+        Pair<GameCanvas, GameCanvasModel> canvasPair =
+                GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
+        GameCanvas canvas = canvasPair.getKey();
+        GameCanvasModel canvasModel = canvasPair.getValue();
 
         T newGame = createGame(game, mainLoop, canvas);
 
-        mainLoopModel.setReferences(canvas);
-        canvas.setReferences(listener);
+        mainLoopModel.setReferences(canvasModel);
+        canvasModel.setReferences(listener);
         listener.acceptGame(newGame);
         mainLoopModel.start();
         return new Pair<>(mainLoop, canvas);
     }
 
+    // TODO instantiate prefered constructor only once
     private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvas canvas) {
         T game = null;
         try {
@@ -73,7 +78,6 @@ public class GameFramework {
                 Class<?>[] parameters = constructor.getParameterTypes();
                 if (parameters.length == 0) {
                     game = (T)constructor.newInstance();
-                    break;
                 } else if (parameters.length == 2) {
                     if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GameCanvas.class)) {
                         game = (T)constructor.newInstance(mainLoop, canvas);

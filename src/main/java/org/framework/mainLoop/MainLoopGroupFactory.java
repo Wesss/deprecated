@@ -5,8 +5,6 @@ package org.framework.mainLoop;
  */
 public class MainLoopGroupFactory {
 
-    // TODO rename maxPriority to upperPriority in other classes
-
     private MainLoopAdvancedInterface inter;
     private int upperPriority;
 

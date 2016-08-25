@@ -1,6 +1,6 @@
 package org.unit;
 
-import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
 import org.framework.mainLoop.MainLoop;
@@ -10,10 +10,6 @@ import org.framework.mainLoop.MainLoopModel;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public abstract class MainLoopTest {
@@ -27,7 +23,7 @@ public abstract class MainLoopTest {
     protected MainLoop mainLoop;
 
     protected GameCanvasGraphics mockGraphics = mock(GameCanvasGraphics.class);
-    protected GameCanvas mockCanvas = mock(GameCanvas.class);
+    protected GameCanvasModel mockCanvas = mock(GameCanvasModel.class);
     protected GameObj mockObj = mock(GameObj.class);
     protected GameObj mockObj2 = mock(GameObj.class);
 

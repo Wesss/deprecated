@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;

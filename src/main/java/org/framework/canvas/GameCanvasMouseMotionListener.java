@@ -9,9 +9,9 @@ public class GameCanvasMouseMotionListener implements MouseMotionListener{
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
-    private GameCanvas canvas;
+    private GameCanvasModel canvas;
 
-    public GameCanvasMouseMotionListener(GameCanvas canvas, GameEventListener<?> gameEventListener, Object lock) {
+    public GameCanvasMouseMotionListener(GameCanvasModel canvas, GameEventListener<?> gameEventListener, Object lock) {
         this.canvas = canvas;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;

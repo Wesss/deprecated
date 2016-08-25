@@ -1,6 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
@@ -28,7 +28,7 @@ public class MainLoopModel {
      * canvas != null
      * updateCycle != null
      */
-    private GameCanvas canvas;
+    private GameCanvasModel canvasModel;
     private Thread updateCycle;
     private MainLoopThread updateCycleMethod; //TODO find way to refactor and delete this
 
@@ -111,11 +111,11 @@ public class MainLoopModel {
 
     /**
      * Sets up proper references needed to run the MainLoop
-     * @param canvas the GameCanvas displaying the game
+     * @param canvasModel the GameCanvasModel displaying the game
      */
-    public void setReferences(GameCanvas canvas) {
-        updateCycleMethod.setReferences(canvas);
-        this.canvas = canvas;
+    public void setReferences(GameCanvasModel canvasModel) {
+        updateCycleMethod.setReferences(canvasModel);
+        this.canvasModel = canvasModel;
     }
 
     /**
@@ -123,7 +123,7 @@ public class MainLoopModel {
      * @required setReferences be called before this
      */
     public void start() {
-        if (canvas == null) {
+        if (canvasModel == null) {
             throw new RuntimeException(PRE_INIT_ERRMSG);
         }
         updateCycle.start();
@@ -327,7 +327,7 @@ public class MainLoopModel {
     public void assertValid() {
         // framework
         assertNotNull(updateCycle);
-        assertFalse(updateCycle.isAlive() && canvas == null);
+        assertFalse(updateCycle.isAlive() && canvasModel == null);
 
         // game objs
         assertTrue(maxLayer >= 0);

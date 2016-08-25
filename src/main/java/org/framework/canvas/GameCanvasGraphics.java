@@ -24,9 +24,9 @@ public class GameCanvasGraphics {
      * gamePanel != null
      */
     private Graphics componentGraphics;
-    private GameCanvas canvas;
+    private GameCanvasModel canvas;
 
-    public GameCanvasGraphics(Graphics g, GameCanvas canvas) {
+    public GameCanvasGraphics(Graphics g, GameCanvasModel canvas) {
         componentGraphics = g;
         this.canvas = canvas;
     }

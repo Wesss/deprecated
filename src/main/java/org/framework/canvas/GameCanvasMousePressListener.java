@@ -12,9 +12,9 @@ public class GameCanvasMousePressListener implements MouseListener {
 
     private final Object GAME_LOCK;
     private GameEventListener<?> gameEventListener;
-    private GameCanvas canvas;
+    private GameCanvasModel canvas;
 
-    public GameCanvasMousePressListener(GameCanvas canvas, GameEventListener<?> gameEventListener, Object lock) {
+    public GameCanvasMousePressListener(GameCanvasModel canvas, GameEventListener<?> gameEventListener, Object lock) {
         this.canvas = canvas;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;

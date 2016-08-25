@@ -3,9 +3,9 @@ package org.system;
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvas;
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
+import org.framework.mainLoop.MainLoop;
 
 /**
  * Test for Animation

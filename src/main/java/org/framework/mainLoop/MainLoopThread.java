@@ -1,6 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
 
 import java.awt.*;
@@ -15,7 +15,7 @@ public class MainLoopThread implements Runnable {
 
     //TODO fix timing code
 
-    private GameCanvas canvas;
+    private GameCanvasModel canvas;
     private MainLoopModel mainLoopModel;
     private int waitTime;
 
@@ -27,7 +27,7 @@ public class MainLoopThread implements Runnable {
         waitTime = 1000 / fps;
     }
 
-    protected void setReferences(GameCanvas canvas) {
+    protected void setReferences(GameCanvasModel canvas) {
         this.canvas = canvas;
     }
 
@@ -54,7 +54,7 @@ public class MainLoopThread implements Runnable {
         }
     }
 
-    private static void clearCanvas(Graphics graphics, GameCanvas canvas) {
+    private static void clearCanvas(Graphics graphics, GameCanvasModel canvas) {
         graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 }
