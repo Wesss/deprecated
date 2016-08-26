@@ -1,7 +1,7 @@
 package org.framework.mainLoop;
 
-import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopClearAction;
@@ -13,13 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static java.lang.Math.max;
-import static org.framework.util.Exceptions.PRE_INIT_ERRMSG;
 import static org.junit.Assert.*;
 
 /**
  * This class holds the state of the MainLoop
  */
 public class MainLoopModel {
+
+    public static final String PRE_INIT_ERRMSG = "This Object has not been fully initiallized yet";
 
     /*
      * Framework objects

@@ -1,12 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.domain.MainLoopAction;
-import org.framework.domain.MainLoopAddAction;
-import org.framework.domain.MainLoopClearAction;
-import org.framework.domain.MainLoopRemoveAction;
 import org.framework.interfaces.GameObj;
-
-import static org.framework.util.Exceptions.DISABLED_BASICAPI_ERRMSG;
 
 /**
  * This controller class is the endpoint for adding/removing objects from the MainLoop
@@ -15,10 +9,13 @@ import static org.framework.util.Exceptions.DISABLED_BASICAPI_ERRMSG;
 public class MainLoop {
 
     // TODO abstract out index/obj pairings
+    // TODO properly remove basic interface upon calling a different interface
 
     //////////////////////////////////////////////////
     // Definition
     //////////////////////////////////////////////////
+
+    public static final String DISABLED_BASICAPI_ERRMSG = "Basic API has been disabled";
 
     private static final int BACKGROUND_LAYER = 0;
     private static final int FOREGROUND_LAYER = 1;

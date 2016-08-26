@@ -15,7 +15,7 @@ public class MainLoopGroupFactory {
      * @param inter
      * @param upperPriority
      */
-    public MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
+    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
         this.inter = inter;
         this.upperPriority = upperPriority;
     }
@@ -27,7 +27,7 @@ public class MainLoopGroupFactory {
      * @return
      * @throws IllegalArgumentException if priority >= upperPriority
      */
-    public MainLoopGroup createMainLoopGroup(int priority, int layer) {
+    protected MainLoopGroup createMainLoopGroup(int priority, int layer) {
         if (priority >= upperPriority)
             throw new IllegalArgumentException("group  priority must be less than the upper bound priority");
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
@@ -35,7 +35,7 @@ public class MainLoopGroupFactory {
         return mainLoopGroup;
     }
 
-    public void destoryMainLoopGroup(MainLoopGroup group) {
+    protected void destoryMainLoopGroup(MainLoopGroup group) {
         // TODO
     }
 }

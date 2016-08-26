@@ -43,7 +43,7 @@ public class MainLoopFactory {
         return singletonModel;
     }
 
-    public MainLoopAdvancedInterface getAdvancedInterface() {
+    protected MainLoopAdvancedInterface getAdvancedInterface() {
         if (singletonAdvancedInterface == null) {
             throw new RuntimeException("MainLoopModel has not been constructed yet");
         }

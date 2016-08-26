@@ -1,7 +1,7 @@
 package org.framework.mainLoop;
 
-import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
+import org.framework.canvas.GameCanvasModel;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -22,7 +22,7 @@ public class MainLoopThread implements Runnable {
     /**
      * @param fps the desired refresh rate of the screen measured in frames per second
      */
-    public MainLoopThread(MainLoopModel mainLoopModel, int fps) {
+    protected MainLoopThread(MainLoopModel mainLoopModel, int fps) {
         this.mainLoopModel = mainLoopModel;
         waitTime = 1000 / fps;
     }

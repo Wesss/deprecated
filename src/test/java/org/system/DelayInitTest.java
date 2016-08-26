@@ -1,14 +1,13 @@
 package org.system;
 
-import java.awt.Color;
-
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvas;
-import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.mainLoop.MainLoop;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
+import org.framework.mainLoop.MainLoop;
+
+import java.awt.*;
 
 /**
  * Test for Long initialization times
@@ -21,7 +20,7 @@ public class DelayInitTest implements Game{
 
     private static final int FPS = 60;
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InstantiationException {
         GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 

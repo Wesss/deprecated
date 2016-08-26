@@ -68,7 +68,7 @@ public class MainLoopGroup implements GameObj{
      *
      * @param obj
      */
-    public void add(GameObj obj) {
+    protected void add(GameObj obj) {
         if (remObjs.contains(obj)) {
             remObjs.remove(obj);
             objs.add(obj);
@@ -83,7 +83,7 @@ public class MainLoopGroup implements GameObj{
      *
      * @param obj
      */
-    public void addPostClear(GameObj obj) {
+    protected void addPostClear(GameObj obj) {
         remove(obj);
         newPostClearObjs.add(obj);
     }
@@ -92,7 +92,7 @@ public class MainLoopGroup implements GameObj{
      * Removed given obj from the group if it is part of the group. Nothing otherwise
      * @param obj
      */
-    public boolean remove(GameObj obj) {
+    protected boolean remove(GameObj obj) {
         if (objs.remove(obj)) {
             remObjs.add(obj);
             return true;
@@ -107,14 +107,14 @@ public class MainLoopGroup implements GameObj{
      * @return true iff obj is either contained by this group or will be after
      * 		potentially clearing the group
      */
-    public boolean contains(GameObj obj) {
+    protected boolean contains(GameObj obj) {
         return objs.contains(obj) || newObjs.contains(obj) || newPostClearObjs.contains(obj);
     }
 
     /**
      * Clears all objs in this group from the mainLoop and from this group on the next frame
      */
-    public void markClear() {
+    protected void markClear() {
         markClear = true;
     }
 

@@ -1,23 +1,20 @@
-package org.unit;
+package org.framework.mainLoop;
 
-import org.framework.canvas.GameCanvasModel;
 import org.framework.canvas.GameCanvasGraphics;
+import org.framework.canvas.GameCanvasModel;
 import org.framework.interfaces.GameObj;
-import org.framework.mainLoop.MainLoop;
-import org.framework.mainLoop.MainLoopFactory;
-import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.mainLoop.MainLoopModel;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 
 public abstract class MainLoopTest {
 
     public static final int NO_UPS = 0;
     public static final int SLOW_UPS = 2;
     public static final int STANDARD_UPS = 60;
-    public static final int STRESSTEST_UPS = 300;
+    public static final int STRESS_TEST_UPS = 300;
 
     protected MainLoopModel mainLoopModel;
     protected MainLoop mainLoop;

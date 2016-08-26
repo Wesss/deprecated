@@ -3,7 +3,6 @@ package org.framework.canvas;
 import org.framework.GameFramework;
 import org.framework.interfaces.GameEventListener;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**

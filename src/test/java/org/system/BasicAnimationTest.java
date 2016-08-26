@@ -19,7 +19,7 @@ public class BasicAnimationTest implements Game {
     // private static final int PANEL_Y = 600;
     private static final int FPS = 60;
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InstantiationException {
         GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 

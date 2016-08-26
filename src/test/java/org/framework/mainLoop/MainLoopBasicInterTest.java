@@ -1,12 +1,12 @@
-package org.unit;
+package org.framework.mainLoop;
+
+import org.junit.Test;
+
+import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verifyZeroInteractions;
-
-import java.lang.reflect.InvocationTargetException;
-
-import org.junit.Test;
 
 public class MainLoopBasicInterTest extends MainLoopTest {
 

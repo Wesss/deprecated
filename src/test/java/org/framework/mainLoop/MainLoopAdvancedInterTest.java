@@ -1,15 +1,15 @@
-package org.unit;
+package org.framework.mainLoop;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.lang.reflect.InvocationTargetException;
-
-import org.framework.mainLoop.MainLoopAdvancedInterface;
 import org.framework.domain.MainLoopAction;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
+
+import java.lang.reflect.InvocationTargetException;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class MainLoopAdvancedInterTest extends MainLoopTest {
 
