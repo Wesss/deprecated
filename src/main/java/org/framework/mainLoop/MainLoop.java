@@ -8,7 +8,6 @@ import org.framework.interfaces.GameObj;
  */
 public class MainLoop {
 
-    // TODO abstract out index/obj pairings
     // TODO properly remove basic interface upon calling a different interface
 
     //////////////////////////////////////////////////
@@ -29,6 +28,7 @@ public class MainLoop {
     protected static final int POSTCLEAR_ACTIONGROUP = 2;
 
     private MainLoopAdvancedInterface advancedInterface;
+    private MainLoopGroupFactory groupFactory;
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup backgroundGroup;
     private boolean basicOK;
@@ -39,6 +39,7 @@ public class MainLoop {
 
     protected MainLoop(MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
         this.advancedInterface = advInterface;
+        this.groupFactory = groupFactory;
 
         // basic API setup
         basicOK = true;
@@ -66,8 +67,14 @@ public class MainLoop {
      * @return an interface for more detailed control over the mainLoop
      */
     public MainLoopAdvancedInterface advancedInterface() {
-        basicOK = false;
+        disableBasicInterface();
         return advancedInterface;
+    }
+
+    private void disableBasicInterface() {
+        basicOK = false;
+        groupFactory.destoryMainLoopGroup(foregroundGroup);
+        groupFactory.destoryMainLoopGroup(backgroundGroup);
     }
 
     /**

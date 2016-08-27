@@ -25,8 +25,6 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
-    // TODO make game require a factory method to allow giving of mainloop and canvas
-
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
     public static final double SCREEN_RATIO = 0.9;
 

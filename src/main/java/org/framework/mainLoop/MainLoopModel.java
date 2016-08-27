@@ -20,6 +20,8 @@ import static org.junit.Assert.*;
  */
 public class MainLoopModel {
 
+    // TODO abstract out index/obj pairings
+
     public static final String PRE_INIT_ERRMSG = "This Object has not been fully initiallized yet";
 
     /*

@@ -1,11 +1,18 @@
 package org.framework.mainLoop;
 
+import org.framework.domain.MainLoopAction;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
 /**
  * Allocator for MainLoopGroup
  */
 public class MainLoopGroupFactory {
 
     private MainLoopAdvancedInterface inter;
+    private Map<MainLoopGroup, MainLoopAction> addedGroupsActions;
     private int upperPriority;
 
     /**
@@ -17,6 +24,7 @@ public class MainLoopGroupFactory {
      */
     protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
         this.inter = inter;
+        this.addedGroupsActions = new HashMap<>();
         this.upperPriority = upperPriority;
     }
 
@@ -31,11 +39,18 @@ public class MainLoopGroupFactory {
         if (priority >= upperPriority)
             throw new IllegalArgumentException("group  priority must be less than the upper bound priority");
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
-        inter.insertAction(inter.createAddAction(mainLoopGroup, upperPriority, 0), MainLoop.DEFAULT_ACTIONGROUP);
+        MainLoopAction action = inter.createAddAction(mainLoopGroup, upperPriority, 0);
+        addedGroupsActions.put(mainLoopGroup, action);
+        inter.insertAction(action, MainLoop.DEFAULT_ACTIONGROUP);
         return mainLoopGroup;
     }
 
     protected void destoryMainLoopGroup(MainLoopGroup group) {
-        // TODO
+        MainLoopAction action = addedGroupsActions.remove(group);
+        if (inter.containsAction(action)) {
+            inter.deleteAction(action);
+        } else {
+            inter.insertAction(inter.createRemoveAction(group), MainLoop.DEFAULT_ACTIONGROUP);
+        }
     }
 }

@@ -4,8 +4,6 @@ import org.framework.interfaces.GameObj;
 
 public class MainLoopActionFactory {
 
-    // TODO refactor these into designated factory
-
     /**
      * @param obj
      * @param priority
