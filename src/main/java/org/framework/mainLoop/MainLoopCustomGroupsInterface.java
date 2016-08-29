@@ -18,8 +18,22 @@ public class MainLoopCustomGroupsInterface {
 
     // TODO
     //create group
+    public MainLoopGroup createGroup(int priority, int layer) {
+        return null;
+    }
+
     //remove group
+    public void removeGroup(MainLoopGroup group) {
         //should clear group prior
+    }
+
     //clear groups
-    //get group
+    public void clearGroups() {
+
+    }
+
+    //get groups
+    public Iterable<MainLoopGroup> getGroups() {
+        return null;
+    }
 }
