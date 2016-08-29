@@ -3,7 +3,6 @@ package org.framework.mainLoop;
 import org.framework.domain.MainLoopAction;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -45,10 +44,14 @@ public class MainLoopGroupFactory {
         return mainLoopGroup;
     }
 
+    /**
+     * does not remove any objs in the group
+     * @param group
+     */
     protected void destoryMainLoopGroup(MainLoopGroup group) {
         MainLoopAction action = addedGroupsActions.remove(group);
         if (inter.containsAction(action)) {
-            inter.deleteAction(action);
+            inter.removeAction(action);
         } else {
             inter.insertAction(inter.createRemoveAction(group), MainLoop.DEFAULT_ACTIONGROUP);
         }

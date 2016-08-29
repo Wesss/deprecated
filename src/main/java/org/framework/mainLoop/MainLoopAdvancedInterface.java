@@ -44,12 +44,12 @@ public class MainLoopAdvancedInterface {
     }
 
     // TODO
-    public void deleteAction(MainLoopAction action) {
+    public void removeAction(MainLoopAction action) {
         loopModel.deleteAction(action);
     }
 
     // TODO
-    public void deleteAllActions() {
+    public void removeAllActions() {
         loopModel.deleteAllActions();
     }
 

@@ -2,6 +2,8 @@ package org.framework.mainLoop;
 
 public class MainLoopFactory {
 
+    // TODO seperate into interface factory
+
     private MainLoop singleton;
     private MainLoopAdvancedInterface singletonAdvancedInterface;
     private MainLoopModel singletonModel;
@@ -24,6 +26,7 @@ public class MainLoopFactory {
         singletonModel = new MainLoopModel(updatesPerSecond);
         singletonAdvancedInterface = new MainLoopAdvancedInterface(singletonModel);
         singleton = new MainLoop(
+                this,
                 singletonAdvancedInterface,
                 new MainLoopGroupFactory(getAdvancedInterface(), MainLoop.GAMEOBJ_GROUP_PRIORITY)
         );
@@ -48,5 +51,13 @@ public class MainLoopFactory {
             throw new RuntimeException("MainLoopModel has not been constructed yet");
         }
         return singletonAdvancedInterface;
+    }
+
+    protected MainLoopCustomGroupsInterface getCustomGroupsInterface(int upperGroupPriority) {
+        if (singletonAdvancedInterface == null) {
+            throw new RuntimeException("MainLoopModel has not been constructed yet");
+        }
+        return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, upperGroupPriority),
+                singletonAdvancedInterface);
     }
 }

@@ -39,7 +39,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
 
     @Test
     public void advDeleteNoAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        advInter.deleteAction(advInter.createAddAction(mockObj, 0, 0));
+        advInter.removeAction(advInter.createAddAction(mockObj, 0, 0));
         mainLoopModel.assertValid();
         verifyZeroInteractions(mockObj);
     }
@@ -65,7 +65,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
     public void advDeleteAction() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         MainLoopAction action = advInter.createAddAction(mockObj, 0, 0);
         advInter.insertAction(action, 0);
-        advInter.deleteAction(action);
+        advInter.removeAction(action);
 
         mainLoopModel.assertValid();
         assertFalse(advInter.containsAction(action));
@@ -81,7 +81,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
 
     @Test
     public void advDeleteAllNoActions() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        advInter.deleteAllActions();
+        advInter.removeAllActions();
         mainLoopModel.assertValid();
     }
 
@@ -91,7 +91,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
         MainLoopAction action2 = advInter.createClearAction();
         advInter.insertAction(action1, 1);
         advInter.insertAction(action2, 0);
-        advInter.deleteAllActions();
+        advInter.removeAllActions();
 
         mainLoopModel.assertValid();
         assertFalse(advInter.containsAction(action1));

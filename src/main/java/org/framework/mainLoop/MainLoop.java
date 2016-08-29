@@ -27,6 +27,7 @@ public class MainLoop {
     protected static final int CLEAR_ACTIONGROUP = 1;
     protected static final int POSTCLEAR_ACTIONGROUP = 2;
 
+    private MainLoopFactory mainLoopFactory;
     private MainLoopAdvancedInterface advancedInterface;
     private MainLoopGroupFactory groupFactory;
     private MainLoopGroup foregroundGroup;
@@ -37,7 +38,8 @@ public class MainLoop {
     // Initialization
     //////////////////////////////////////////////////
 
-    protected MainLoop(MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
+    protected MainLoop(MainLoopFactory mainLoopFactory, MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
+        this.mainLoopFactory = mainLoopFactory;
         this.advancedInterface = advInterface;
         this.groupFactory = groupFactory;
 
@@ -57,9 +59,9 @@ public class MainLoop {
      * @param upperBoundPriority
      * @return an interface for more detailed control over the mainLoop
      */
-//    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
-//        return MainLoopCustomGroupsInterfaceFactory.getMainLoopCustomGroupsInterface(this, upperBoundPriority);
-//    }
+    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
+        return mainLoopFactory.getCustomGroupsInterface(upperBoundPriority);
+    }
 
     /**
      * After this call, all BasicAPI calls (calls through this mainloop) and CustomGroupInterface calls will
