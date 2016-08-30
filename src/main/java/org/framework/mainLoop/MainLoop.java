@@ -54,13 +54,14 @@ public class MainLoop {
     //////////////////////////////////////////////////
 
     /**
-     * Switches
+     * TODO
      *
-     * @param upperBoundPriority
-     * @return an interface for more detailed control over the mainLoop
+     * @param maximumPriority the maximum priority that will be allocated to the custom made groups
+     * @return an interface for creating and manage custom MainLoopGroups for managing GameObjs
      */
-    public MainLoopCustomGroupsInterface CustomGroups(int upperBoundPriority) {
-        return mainLoopFactory.getCustomGroupsInterface(upperBoundPriority);
+    public MainLoopCustomGroupsInterface customGroupsInterface(int maximumPriority) {
+        disableBasicInterface();
+        return mainLoopFactory.getCustomGroupsInterface(maximumPriority);
     }
 
     /**
@@ -75,8 +76,8 @@ public class MainLoop {
 
     private void disableBasicInterface() {
         basicOK = false;
-        groupFactory.destoryMainLoopGroup(foregroundGroup);
-        groupFactory.destoryMainLoopGroup(backgroundGroup);
+        groupFactory.destroyMainLoopGroup(foregroundGroup);
+        groupFactory.destroyMainLoopGroup(backgroundGroup);
     }
 
     /**

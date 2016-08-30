@@ -1,5 +1,8 @@
 package org.framework.mainLoop;
 
+import java.util.Collection;
+import java.util.Set;
+
 /**
  * TODO
  */
@@ -16,24 +19,26 @@ public class MainLoopCustomGroupsInterface {
         this.advInter = advInter;
     }
 
-    // TODO
-    //create group
     public MainLoopGroup createGroup(int priority, int layer) {
         return null;
     }
 
-    //remove group
-    public void removeGroup(MainLoopGroup group) {
+    public boolean containsGroup(MainLoopGroup group) {
+        return false;
+    }
+
+    public boolean removeGroup(MainLoopGroup group) {
+        return false;
         //should clear group prior
     }
 
     //clear groups
-    public void clearGroups() {
+    public void clearAllGroups() {
 
     }
 
     //get groups
-    public Iterable<MainLoopGroup> getGroups() {
+    public Collection<MainLoopGroup> getGroups() {
         return null;
     }
 }

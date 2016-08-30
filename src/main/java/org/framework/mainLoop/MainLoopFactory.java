@@ -53,11 +53,11 @@ public class MainLoopFactory {
         return singletonAdvancedInterface;
     }
 
-    protected MainLoopCustomGroupsInterface getCustomGroupsInterface(int upperGroupPriority) {
+    protected MainLoopCustomGroupsInterface getCustomGroupsInterface(int maximumPriority) {
         if (singletonAdvancedInterface == null) {
             throw new RuntimeException("MainLoopModel has not been constructed yet");
         }
-        return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, upperGroupPriority),
+        return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, maximumPriority),
                 singletonAdvancedInterface);
     }
 }

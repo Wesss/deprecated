@@ -12,7 +12,7 @@ public class MainLoopGroupFactory {
 
     private MainLoopAdvancedInterface inter;
     private Map<MainLoopGroup, MainLoopAction> addedGroupsActions;
-    private int upperPriority;
+    private int maxPriority;
 
     /**
      * The mainLoopGroup will be added to the mainLoop on the next frame, meaning any objs
@@ -24,7 +24,7 @@ public class MainLoopGroupFactory {
     protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
         this.inter = inter;
         this.addedGroupsActions = new HashMap<>();
-        this.upperPriority = upperPriority;
+        this.maxPriority = upperPriority;
     }
 
     /**
@@ -32,13 +32,13 @@ public class MainLoopGroupFactory {
      * @param priority
      * @param layer
      * @return
-     * @throws IllegalArgumentException if priority >= upperPriority
+     * @throws IllegalArgumentException if priority > maxPriority
      */
     protected MainLoopGroup createMainLoopGroup(int priority, int layer) {
-        if (priority >= upperPriority)
-            throw new IllegalArgumentException("group  priority must be less than the upper bound priority");
+        if (priority > maxPriority)
+            throw new IllegalArgumentException("group  priority must be less than or equal to the maximum priority");
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
-        MainLoopAction action = inter.createAddAction(mainLoopGroup, upperPriority, 0);
+        MainLoopAction action = inter.createAddAction(mainLoopGroup, maxPriority + 1, 0);
         addedGroupsActions.put(mainLoopGroup, action);
         inter.insertAction(action, MainLoop.DEFAULT_ACTIONGROUP);
         return mainLoopGroup;
@@ -48,7 +48,7 @@ public class MainLoopGroupFactory {
      * does not remove any objs in the group
      * @param group
      */
-    protected void destoryMainLoopGroup(MainLoopGroup group) {
+    protected void destroyMainLoopGroup(MainLoopGroup group) {
         MainLoopAction action = addedGroupsActions.remove(group);
         if (inter.containsAction(action)) {
             inter.removeAction(action);
