@@ -1,6 +1,7 @@
 package org.framework.mainLoop;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,34 +12,68 @@ public class MainLoopCustomGroupsInterface {
     // TODO figure out how to disable auto generated class javadoc from intiilJ(ie. 'created by' stuff)
 
     private MainLoopGroupFactory factory;
-    private MainLoopAdvancedInterface advInter;
 
-    protected MainLoopCustomGroupsInterface(MainLoopGroupFactory factory,
-                                            MainLoopAdvancedInterface advInter) {
+    private Set<MainLoopGroup> groups;
+
+    protected MainLoopCustomGroupsInterface(MainLoopGroupFactory factory) {
         this.factory = factory;
-        this.advInter = advInter;
+        groups = new HashSet<>();
     }
 
+    /**
+     * TODO
+     * @param priority
+     * @param layer
+     * @return
+     */
     public MainLoopGroup createGroup(int priority, int layer) {
-        return null;
+        if (priority < 0 || layer < 0) {
+            throw new IllegalArgumentException("priority and layer must be non-negative");
+        }
+        MainLoopGroup group = factory.createMainLoopGroup(priority, layer);
+        groups.add(group);
+        return group;
     }
 
+    /**
+     * TODO
+     * @param group
+     * @return
+     */
     public boolean containsGroup(MainLoopGroup group) {
-        return false;
+        return groups.contains(group);
     }
 
+    /**
+     * TODO
+     * @param group
+     * @return true iff the mainLoop contained this group
+     */
     public boolean removeGroup(MainLoopGroup group) {
-        return false;
-        //should clear group prior
+        if (group == null) {
+            return false;
+        }
+        group.markClear();
+        factory.destroyMainLoopGroup(group);
+        return groups.remove(group);
     }
 
-    //clear groups
+    /**
+     * TODO
+     */
     public void clearAllGroups() {
-
+        for (MainLoopGroup group : groups) {
+            group.markClear();
+            factory.destroyMainLoopGroup(group);
+        }
+        groups.clear();
     }
 
-    //get groups
+    /**
+     * TODO
+     * @return
+     */
     public Collection<MainLoopGroup> getGroups() {
-        return null;
+        return new HashSet<>(groups);
     }
 }

@@ -41,9 +41,20 @@ public class MainLoopCustomGroupsInterTest extends MainLoopTest {
     }
 
     @Test
-    public void createBadGroup() {
+    public void createBadGroupWithOverMaxPriorityShouldThrow() {
         try {
             groupsInter.createGroup(6, 0);
+            fail("should throw");
+        } catch (Exception ignored) {
+
+        }
+        mainLoopModel.assertValid();
+    }
+
+    @Test
+    public void createBadGroupWithNegativeParamsShouldThrow() {
+        try {
+            groupsInter.createGroup(-1, -1);
             fail("should throw");
         } catch (Exception ignored) {
 

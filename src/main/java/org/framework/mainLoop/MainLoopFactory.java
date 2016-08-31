@@ -57,7 +57,6 @@ public class MainLoopFactory {
         if (singletonAdvancedInterface == null) {
             throw new RuntimeException("MainLoopModel has not been constructed yet");
         }
-        return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, maximumPriority),
-                singletonAdvancedInterface);
+        return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, maximumPriority));
     }
 }
