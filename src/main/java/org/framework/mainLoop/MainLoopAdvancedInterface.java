@@ -33,27 +33,45 @@ public class MainLoopAdvancedInterface {
         loopModel.insertAction(action, actionGroup);
     }
 
-    // TODO
+    /**
+     *
+     * @param action
+     * @return true iff the mainLoop currently has the action waiting to be executed in the next update period
+     */
     public boolean containsAction(MainLoopAction action) {
         return loopModel.containsAction(action);
     }
 
-    // TODO
+    /**
+     *
+     * @param action
+     * @param actionGroup
+     * @return true iff  the mainLoop currently has the action waiting to be executed in the next update period in the
+     *      given group.
+     */
     public boolean containsAction(MainLoopAction action, int actionGroup) {
         return loopModel.containsAction(action, actionGroup);
     }
 
-    // TODO
+    /**
+     * Removes given action from the pool of actions to be executed in the next update period
+     * @param action
+     */
     public void removeAction(MainLoopAction action) {
         loopModel.deleteAction(action);
     }
-
-    // TODO
+    /**
+     * Removes all actions from the pool of actions to be executed in the next update period
+     */
     public void removeAllActions() {
         loopModel.deleteAllActions();
     }
 
-    // TODO
+    /**
+     *
+     * @param obj
+     * @return true iff the mainLoop contains given object
+     */
     public boolean contains(GameObj obj) {
         return loopModel.containsAdv(obj);
     }

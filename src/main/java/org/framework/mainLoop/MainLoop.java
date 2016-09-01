@@ -8,7 +8,7 @@ import org.framework.interfaces.GameObj;
  */
 public class MainLoop {
 
-    // TODO properly remove basic interface upon calling a different interface
+    // TODO test interface swap prevention
 
     //////////////////////////////////////////////////
     // Definition
@@ -32,7 +32,8 @@ public class MainLoop {
     private MainLoopGroupFactory groupFactory;
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup backgroundGroup;
-    private boolean basicOK;
+    private boolean apiSwapped;
+    private boolean customGroupsExists;
 
     //////////////////////////////////////////////////
     // Initialization
@@ -44,7 +45,8 @@ public class MainLoop {
         this.groupFactory = groupFactory;
 
         // basic API setup
-        basicOK = true;
+        apiSwapped = false;
+        customGroupsExists = false;
         foregroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
         backgroundGroup = groupFactory.createMainLoopGroup(DEFAULT_PRIORITY, BACKGROUND_LAYER);
     }
@@ -54,19 +56,26 @@ public class MainLoop {
     //////////////////////////////////////////////////
 
     /**
-     * TODO
+     * Returns an interface for defining groups of objects that all share an update priority, painting layer.
+     * After this call, basic API calls (calls through this mainLoop) and the allocating of another custom groups
+     * interface will not be permitted.
      *
      * @param maximumPriority the maximum priority that will be allocated to the custom made groups
      * @return an interface for creating and manage custom MainLoopGroups for managing GameObjs
      */
     public MainLoopCustomGroupsInterface customGroupsInterface(int maximumPriority) {
+        if (customGroupsExists) {
+            throw new RuntimeException("Another custom groups interface has already been given out");
+        }
+        customGroupsExists = true;
         disableBasicInterface();
         return mainLoopFactory.getCustomGroupsInterface(maximumPriority);
     }
 
     /**
-     * After this call, all BasicAPI calls (calls through this mainloop) and CustomGroupInterface calls will
-     * disallowed
+     * Returns an interface for manipulating the objects and actions under the hood of the mainLoop.
+     * After this call, all BasicAPI calls (calls through this mainLoop) will not be permitted.
+     *
      * @return an interface for more detailed control over the mainLoop
      */
     public MainLoopAdvancedInterface advancedInterface() {
@@ -75,7 +84,7 @@ public class MainLoop {
     }
 
     private void disableBasicInterface() {
-        basicOK = false;
+        apiSwapped = true;
         groupFactory.destroyMainLoopGroup(foregroundGroup);
         groupFactory.destroyMainLoopGroup(backgroundGroup);
     }
@@ -88,7 +97,7 @@ public class MainLoop {
      * @throws Exception
      */
     public void add(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         backgroundGroup.remove(obj);
         foregroundGroup.add(obj);
@@ -101,7 +110,7 @@ public class MainLoop {
      * @param obj
      */
     public void addBackground(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         foregroundGroup.remove(obj);
         backgroundGroup.add(obj);
@@ -112,7 +121,7 @@ public class MainLoop {
      * @return true iff obj is currently being kept track of by the mainLoop's basic API
      */
     public boolean contains(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         return foregroundGroup.contains(obj) || backgroundGroup.contains(obj);
     }
@@ -122,7 +131,7 @@ public class MainLoop {
      * @return true iff obj was present and successfully removed from the mainLoop's basic API
      */
     public boolean remove(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         return (foregroundGroup.remove(obj) || backgroundGroup.remove(obj));
     }
@@ -131,7 +140,7 @@ public class MainLoop {
      * Marks the mainLoop to be cleared at the next frame
      */
     public void markClear() {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         foregroundGroup.markClear();
         backgroundGroup.markClear();
@@ -141,7 +150,7 @@ public class MainLoop {
      * Marks the mainLoop to clear all foreground objs at the next frame
      */
     public void markClearForeground() {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         foregroundGroup.markClear();
     }
@@ -150,7 +159,7 @@ public class MainLoop {
      * Marks the mainLoop to clear all background objs at the next frame
      */
     public void markClearBackground() {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         backgroundGroup.markClear();
     }
@@ -161,7 +170,7 @@ public class MainLoop {
      * @param obj
      */
     public void addPostClear(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         foregroundGroup.addPostClear(obj);
     }
@@ -172,7 +181,7 @@ public class MainLoop {
      * @param obj
      */
     public void addBackgroundPostClear(GameObj obj) {
-        if (!basicOK)
+        if (apiSwapped)
             throw new RuntimeException(DISABLED_BASICAPI_ERRMSG);
         backgroundGroup.addPostClear(obj);
     }
