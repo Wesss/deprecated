@@ -3,10 +3,10 @@ package org.framework.mainLoop;
 import org.framework.interfaces.GameObj;
 
 /**
- * This controller class is the endpoint for adding/removing objects from the MainLoop
+ * This controller class is the endpoint for adding/removing objects from the MainLoopController
  *
  */
-public class MainLoop {
+public class MainLoopController {
 
     // TODO test interface swap prevention
 
@@ -39,7 +39,7 @@ public class MainLoop {
     // Initialization
     //////////////////////////////////////////////////
 
-    protected MainLoop(MainLoopFactory mainLoopFactory, MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
+    protected MainLoopController(MainLoopFactory mainLoopFactory, MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
         this.mainLoopFactory = mainLoopFactory;
         this.advancedInterface = advInterface;
         this.groupFactory = groupFactory;

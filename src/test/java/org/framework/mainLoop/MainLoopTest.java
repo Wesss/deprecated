@@ -17,7 +17,7 @@ public abstract class MainLoopTest {
     public static final int STRESS_TEST_UPS = 300;
 
     protected MainLoopModel mainLoopModel;
-    protected MainLoop mainLoop;
+    protected MainLoopController mainLoop;
 
     protected GameCanvasGraphics mockGraphics = mock(GameCanvasGraphics.class);
     protected GameCanvasModel mockCanvas = mock(GameCanvasModel.class);

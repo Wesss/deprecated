@@ -4,7 +4,7 @@ import javafx.util.Pair;
 import org.framework.canvas.GameCanvasController;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
-import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopController;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class GameFrameworkTest {
 
     @Test
     public void createGame() {
-        Pair<MainLoop, GameCanvasController> gameControllers = null;
+        Pair<MainLoopController, GameCanvasController> gameControllers = null;
         try {
             gameControllers = GameFramework.startGame(EmptyGame.class, mockGameEventListener, 60);
         } catch (InstantiationException e) {
@@ -43,7 +43,7 @@ public class GameFrameworkTest {
 
     @Test
     public void createGameWithPreferredConstructor() {
-        Pair<MainLoop, GameCanvasController> gameControllers = null;
+        Pair<MainLoopController, GameCanvasController> gameControllers = null;
         try {
             gameControllers = GameFramework.startGame(EmptyGame2.class, mockGameEventListener, 60);
         } catch (InstantiationException e) {
@@ -60,7 +60,7 @@ public class GameFrameworkTest {
             fail("Default constructor called when preferred constructor is present");
         }
 
-        public EmptyGame2(MainLoop loop, GameCanvasController canvas) {
+        public EmptyGame2(MainLoopController loop, GameCanvasController canvas) {
         }
     }
 
@@ -78,7 +78,7 @@ public class GameFrameworkTest {
 
     public static class EmptyGame3 implements Game {
 
-        public EmptyGame3(MainLoop loop) {
+        public EmptyGame3(MainLoopController loop) {
             fail("Bad constructor called");
         }
     }

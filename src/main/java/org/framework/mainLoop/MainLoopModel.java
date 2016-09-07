@@ -16,7 +16,7 @@ import static java.lang.Math.max;
 import static org.junit.Assert.*;
 
 /**
- * This class holds the state of the MainLoop
+ * This class holds the state of the MainLoopController
  */
 public class MainLoopModel {
 
@@ -36,7 +36,7 @@ public class MainLoopModel {
     private MainLoopThread updateCycleMethod; //TODO find way to refactor and delete this
 
     /*
-     * Representation of all the game objects currently being tracked by the MainLoop
+     * Representation of all the game objects currently being tracked by the MainLoopController
      *
      * objToLayer != null
      * for each (obj --> layer) pair in objToLayer
@@ -79,7 +79,7 @@ public class MainLoopModel {
     private int maxPriority;
 
     /*
-     * MainLoop actions to be performed during the cycle-changing process
+     * MainLoopController actions to be performed during the cycle-changing process
      *
      * groupToAction != null
      * maxGroup == groupToAction.keyset()'s maximum when non-empty, 0 when empty
@@ -113,7 +113,7 @@ public class MainLoopModel {
     }
 
     /**
-     * Sets up proper references needed to run the MainLoop
+     * Sets up proper references needed to run the MainLoopController
      * @param canvasModel the GameCanvasModel displaying the game
      */
     public void setReferences(GameCanvasModel canvasModel) {

@@ -5,7 +5,7 @@ import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
-import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopController;
 
 /**
  * Test for Animation
@@ -23,7 +23,7 @@ public class BasicAnimationTest implements Game {
         GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public BasicAnimationTest(MainLoop mainLoop, GameCanvasController canvas) {
+    public BasicAnimationTest(MainLoopController mainLoop, GameCanvasController canvas) {
         canvas.setVirtualX(500);
         canvas.setVirtualY(500);
         mainLoop.add(new WrapCircle(500, 70, 40));

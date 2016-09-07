@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class represents a grouping of GameObjs currently stored within the MainLoop
+ * This class represents a grouping of GameObjs currently stored within the MainLoopController
  *
  * @author Wesley
  */
@@ -131,7 +131,7 @@ public class MainLoopGroup implements GameObj{
             markClear = false;
             for (GameObj obj : objs) {
                 inter.insertAction(inter.createRemoveAction(obj),
-                        MainLoop.CLEAR_ACTIONGROUP);
+                        MainLoopController.CLEAR_ACTIONGROUP);
             }
             objs.clear();
             newObjs.clear();
@@ -139,20 +139,20 @@ public class MainLoopGroup implements GameObj{
         } else {
             for (GameObj remObj : remObjs) {
                 inter.insertAction(inter.createRemoveAction(remObj),
-                        MainLoop.DEFAULT_ACTIONGROUP);
+                        MainLoopController.DEFAULT_ACTIONGROUP);
             }
             remObjs.clear();
             for (GameObj newObj : newObjs) {
                 objs.add(newObj);
                 inter.insertAction(inter.createAddAction(newObj, groupPriority, groupLayer),
-                        MainLoop.DEFAULT_ACTIONGROUP);
+                        MainLoopController.DEFAULT_ACTIONGROUP);
             }
             newObjs.clear();
         }
         for (GameObj newPostClearObj : newPostClearObjs) {
             objs.add(newPostClearObj);
             inter.insertAction(inter.createAddAction(newPostClearObj, groupPriority, groupLayer),
-                    MainLoop.POSTCLEAR_ACTIONGROUP);
+                    MainLoopController.POSTCLEAR_ACTIONGROUP);
         }
         newPostClearObjs.clear();
     }

@@ -6,7 +6,7 @@ import org.framework.canvas.GameCanvasFactory;
 import org.framework.canvas.GameCanvasModel;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
-import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopController;
 import org.framework.mainLoop.MainLoopFactory;
 import org.framework.mainLoop.MainLoopFactoryFactory;
 import org.framework.mainLoop.MainLoopModel;
@@ -32,27 +32,27 @@ public class GameFramework {
 
     /**
      * Instantiates an instance of the given game class. The class must contain an accessible empty constructor or a
-     * constructor that takes a MainLoop and a GameCanvasController.
+     * constructor that takes a MainLoopController and a GameCanvasController.
      *
      * @param game the class of the game to be run
-     *             If a constructor that takes a MainLoop and GameCanvasModel is present, that constructor will be called; passing in
+     *             If a constructor that takes a MainLoopController and GameCanvasModel is present, that constructor will be called; passing in
      *             the appropriate game controllers.
      *             Otherwise, the empty constructor is called.
      *             Throws a RuntimeException if neither constructor is present
      * @param listener The listener that will receive user events
      * @param updatesPerSecond
-     * @return a pair where pair.key is the MainLoop and pair.value is the GameCanvasModel to control the game
+     * @return a pair where pair.key is the MainLoopController and pair.value is the GameCanvasModel to control the game
      * @throws InstantiationException if a valid constructor for the given game class is not present
      * @param <T> the type of the game to run
      */
-    public static <T extends Game> Pair<MainLoop, GameCanvasController> startGame(Class<T> game,
-                                                                                  GameEventListener<? super T> listener,
-                                                                                  int updatesPerSecond)
+    public static <T extends Game> Pair<MainLoopController, GameCanvasController> startGame(Class<T> game,
+                                                                                            GameEventListener<? super T> listener,
+                                                                                            int updatesPerSecond)
             throws InstantiationException {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoopModel mainLoopModel = factory.getMainLoopModel();
-        MainLoop mainLoop = factory.getMainLoop();
+        MainLoopController mainLoop = factory.getMainLoop();
 
         Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
@@ -70,7 +70,7 @@ public class GameFramework {
         return new Pair<>(mainLoop, canvas);
     }
 
-    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvasController canvas)
+    private static <T extends Game> T createGame(Class<T> gameClass, MainLoopController mainLoop, GameCanvasController canvas)
             throws InstantiationException{
         T game = null;
         try {
@@ -81,10 +81,10 @@ public class GameFramework {
                 if (parameters.length == 0) {
                     emptyConstructor = constructor;
                 } else if (parameters.length == 2) {
-                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GameCanvasController.class)) {
+                    if (parameters[0].equals(MainLoopController.class) && parameters[1].equals(GameCanvasController.class)) {
                         game = (T)constructor.newInstance(mainLoop, canvas);
                         break;
-                    } else if (parameters[0].equals(GameCanvasController.class) || parameters[1].equals(MainLoop.class)) {
+                    } else if (parameters[0].equals(GameCanvasController.class) || parameters[1].equals(MainLoopController.class)) {
                         game = (T)constructor.newInstance(canvas, mainLoop);
                         break;
                     }
@@ -99,7 +99,7 @@ public class GameFramework {
         }
         if (game == null) {
             throw new InstantiationException(
-                    "given game class does not contain an empty or MainLoop and GameCanvasController accepting constructor");
+                    "given game class does not contain an empty or MainLoopController and GameCanvasController accepting constructor");
         }
         return game;
     }

@@ -40,7 +40,7 @@ public class MainLoopGroupFactory {
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
         MainLoopAction action = inter.createAddAction(mainLoopGroup, maxPriority + 1, 0);
         addedGroupsActions.put(mainLoopGroup, action);
-        inter.insertAction(action, MainLoop.DEFAULT_ACTIONGROUP);
+        inter.insertAction(action, MainLoopController.DEFAULT_ACTIONGROUP);
         return mainLoopGroup;
     }
 
@@ -53,7 +53,7 @@ public class MainLoopGroupFactory {
         if (inter.containsAction(action)) {
             inter.removeAction(action);
         } else {
-            inter.insertAction(inter.createRemoveAction(group), MainLoop.DEFAULT_ACTIONGROUP);
+            inter.insertAction(inter.createRemoveAction(group), MainLoopController.DEFAULT_ACTIONGROUP);
         }
     }
 }

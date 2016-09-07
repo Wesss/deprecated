@@ -6,7 +6,7 @@ import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
 import org.framework.interfaces.GameObj;
-import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopController;
 
 import java.awt.event.KeyEvent;
 
@@ -27,7 +27,7 @@ public class EventFireTest implements Game{
     private GameString[] log;
     private GameString mouseLoc;
 
-    public EventFireTest(MainLoop mainLoop, GameCanvasController canvas) {
+    public EventFireTest(MainLoopController mainLoop, GameCanvasController canvas) {
         log = new GameString[20];
 
         for (int i = 0; i < log.length; i++) {

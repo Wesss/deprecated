@@ -12,7 +12,7 @@ public class MainLoopAdvancedInterface {
     // TODO check name matching on mainloop callbacks
     // TODO better msgs on invalid action creation
 
-    // the MainLoop being modified by this interface
+    // the MainLoopController being modified by this interface
     private MainLoopModel loopModel;
 
     protected MainLoopAdvancedInterface(MainLoopModel loopModel) {

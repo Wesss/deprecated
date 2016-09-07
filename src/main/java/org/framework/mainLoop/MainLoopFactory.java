@@ -4,7 +4,7 @@ public class MainLoopFactory {
 
     // TODO seperate into interface factory
 
-    private MainLoop singleton;
+    private MainLoopController singleton;
     private MainLoopAdvancedInterface singletonAdvancedInterface;
     private MainLoopModel singletonModel;
 
@@ -22,19 +22,19 @@ public class MainLoopFactory {
         if (updatesPerSecond <= 0)
             throw new IllegalArgumentException("updatesPerSecond must be positive");
         if (singleton != null)
-            throw new RuntimeException("Attempted to initialize a second MainLoop");
+            throw new RuntimeException("Attempted to initialize a second MainLoopController");
         singletonModel = new MainLoopModel(updatesPerSecond);
         singletonAdvancedInterface = new MainLoopAdvancedInterface(singletonModel);
-        singleton = new MainLoop(
+        singleton = new MainLoopController(
                 this,
                 singletonAdvancedInterface,
-                new MainLoopGroupFactory(getAdvancedInterface(), MainLoop.GAMEOBJ_GROUP_PRIORITY)
+                new MainLoopGroupFactory(getAdvancedInterface(), MainLoopController.GAMEOBJ_GROUP_PRIORITY)
         );
     }
 
-    public MainLoop getMainLoop() {
+    public MainLoopController getMainLoop() {
         if (singleton == null) {
-            throw new RuntimeException("MainLoop has not been constructed yet");
+            throw new RuntimeException("MainLoopController has not been constructed yet");
         }
         return singleton;
     }

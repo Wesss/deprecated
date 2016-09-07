@@ -5,7 +5,7 @@ import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
-import org.framework.mainLoop.MainLoop;
+import org.framework.mainLoop.MainLoopController;
 
 import java.awt.*;
 
@@ -24,7 +24,7 @@ public class DelayInitTest implements Game{
         GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public DelayInitTest(MainLoop mainLoop, GameCanvasController canvas) {
+    public DelayInitTest(MainLoopController mainLoop, GameCanvasController canvas) {
         int sum = 0;
         for (int i = 0; i < 100000; i ++) {
             for (int j = 0; j < 100000; j++) {
