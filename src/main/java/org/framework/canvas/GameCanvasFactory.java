@@ -1,7 +1,5 @@
 package org.framework.canvas;
 
-import javafx.util.Pair;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,8 +7,6 @@ import java.awt.*;
  * The GameCanvasFactory is responsible for allocating the GameCanvasModel
  */
 public class GameCanvasFactory {
-
-    // TODO get rid of pair return type
 
     /**
      * Creates a new GameCanvasController of specified size and adds it to the given frame.
@@ -22,7 +18,7 @@ public class GameCanvasFactory {
      * 		<UL><LI> must be > 0 </UL>
      * @throws IllegalArgumentException if width or height <= 0 or frame is null
      */
-    public static Pair<GameCanvasController, GameCanvasModel> createCanvas(Frame frame, int width, int height) {
+    public static GameCanvas createCanvas(Frame frame, int width, int height) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("GameCanvasModel dimensions must be greater than 0");
         }
@@ -30,16 +26,16 @@ public class GameCanvasFactory {
             throw new IllegalArgumentException("Frame must not be null");
         }
 
-        GameCanvasModel canvasModel = new GameCanvasModel(width, height, frame);
-        GameCanvasController canvas = new GameCanvasController(canvasModel);
-        canvasModel.setPreferredSize(new Dimension(width, height));
+        GameCanvasModel model = new GameCanvasModel(width, height, frame);
+        GameCanvasController controller = new GameCanvasController(model);
+        model.setPreferredSize(new Dimension(width, height));
 
-        frame.add(canvasModel);
+        frame.add(model);
         frame.pack();
         frame.setVisible(true);
-        canvasModel.setFocusable(true);
+        model.setFocusable(true);
 
-        return new Pair<>(canvas, canvasModel);
+        return new GameCanvas(controller, model);
     }
 
     /**

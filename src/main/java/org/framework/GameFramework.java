@@ -1,6 +1,7 @@
 package org.framework;
 
 import javafx.util.Pair;
+import org.framework.canvas.GameCanvas;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasFactory;
 import org.framework.canvas.GameCanvasModel;
@@ -52,22 +53,22 @@ public class GameFramework {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoopModel mainLoopModel = factory.getMainLoopModel();
-        MainLoopController mainLoop = factory.getMainLoop();
+        MainLoopController mainLoopController = factory.getMainLoop();
 
         Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        Pair<GameCanvasController, GameCanvasModel> canvasPair =
+        GameCanvas canvas =
                 GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
-        GameCanvasController canvas = canvasPair.getKey();
-        GameCanvasModel canvasModel = canvasPair.getValue();
+        GameCanvasController canvasController = canvas.getController();
+        GameCanvasModel canvasModel = canvas.getModel();
 
-        T newGame = createGame(game, mainLoop, canvas);
+        T newGame = createGame(game, mainLoopController, canvasController);
 
         mainLoopModel.setReferences(canvasModel);
         canvasModel.setReferences(listener);
         listener.acceptGame(newGame);
         mainLoopModel.start();
-        return new Pair<>(mainLoop, canvas);
+        return new Pair<>(mainLoopController, canvasController);
     }
 
     private static <T extends Game> T createGame(Class<T> gameClass, MainLoopController mainLoop, GameCanvasController canvas)

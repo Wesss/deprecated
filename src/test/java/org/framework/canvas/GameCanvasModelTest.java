@@ -28,7 +28,7 @@ public class GameCanvasModelTest {
     public void setup() {
         reset(mockListener);
 
-        canvasModel = GameCanvasFactory.createCanvas(mockFrame, CANVAS_LENGTH, CANVAS_HEIGHT).getValue();
+        canvasModel = GameCanvasFactory.createCanvas(mockFrame, CANVAS_LENGTH, CANVAS_HEIGHT).getModel();
         canvasModel.setReferences(mockListener);
     }
 
