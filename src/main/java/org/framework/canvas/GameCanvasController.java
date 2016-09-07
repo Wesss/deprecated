@@ -3,11 +3,11 @@ package org.framework.canvas;
 /**
  * TODO
  */
-public class GameCanvas {
+public class GameCanvasController {
 
     private GameCanvasModel canvasModel;
 
-    protected GameCanvas(GameCanvasModel canvasModel) {
+    protected GameCanvasController(GameCanvasModel canvasModel) {
         this.canvasModel = canvasModel;
     }
 

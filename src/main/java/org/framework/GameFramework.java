@@ -1,7 +1,7 @@
 package org.framework;
 
 import javafx.util.Pair;
-import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasFactory;
 import org.framework.canvas.GameCanvasModel;
 import org.framework.interfaces.Game;
@@ -32,7 +32,7 @@ public class GameFramework {
 
     /**
      * Instantiates an instance of the given game class. The class must contain an accessible empty constructor or a
-     * constructor that takes a MainLoop and a GameCanvas.
+     * constructor that takes a MainLoop and a GameCanvasController.
      *
      * @param game the class of the game to be run
      *             If a constructor that takes a MainLoop and GameCanvasModel is present, that constructor will be called; passing in
@@ -45,9 +45,9 @@ public class GameFramework {
      * @throws InstantiationException if a valid constructor for the given game class is not present
      * @param <T> the type of the game to run
      */
-    public static <T extends Game> Pair<MainLoop, GameCanvas> startGame(Class<T> game,
-                                                                        GameEventListener<? super T> listener,
-                                                                        int updatesPerSecond)
+    public static <T extends Game> Pair<MainLoop, GameCanvasController> startGame(Class<T> game,
+                                                                                  GameEventListener<? super T> listener,
+                                                                                  int updatesPerSecond)
             throws InstantiationException {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
@@ -56,9 +56,9 @@ public class GameFramework {
 
         Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
-        Pair<GameCanvas, GameCanvasModel> canvasPair =
+        Pair<GameCanvasController, GameCanvasModel> canvasPair =
                 GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
-        GameCanvas canvas = canvasPair.getKey();
+        GameCanvasController canvas = canvasPair.getKey();
         GameCanvasModel canvasModel = canvasPair.getValue();
 
         T newGame = createGame(game, mainLoop, canvas);
@@ -70,7 +70,7 @@ public class GameFramework {
         return new Pair<>(mainLoop, canvas);
     }
 
-    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvas canvas)
+    private static <T extends Game> T createGame(Class<T> gameClass, MainLoop mainLoop, GameCanvasController canvas)
             throws InstantiationException{
         T game = null;
         try {
@@ -81,10 +81,10 @@ public class GameFramework {
                 if (parameters.length == 0) {
                     emptyConstructor = constructor;
                 } else if (parameters.length == 2) {
-                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GameCanvas.class)) {
+                    if (parameters[0].equals(MainLoop.class) && parameters[1].equals(GameCanvasController.class)) {
                         game = (T)constructor.newInstance(mainLoop, canvas);
                         break;
-                    } else if (parameters[0].equals(GameCanvas.class) || parameters[1].equals(MainLoop.class)) {
+                    } else if (parameters[0].equals(GameCanvasController.class) || parameters[1].equals(MainLoop.class)) {
                         game = (T)constructor.newInstance(canvas, mainLoop);
                         break;
                     }
@@ -99,7 +99,7 @@ public class GameFramework {
         }
         if (game == null) {
             throw new InstantiationException(
-                    "given game class does not contain an empty or MainLoop and GameCanvas accepting constructor");
+                    "given game class does not contain an empty or MainLoop and GameCanvasController accepting constructor");
         }
         return game;
     }

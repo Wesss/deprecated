@@ -1,7 +1,7 @@
 package org.system;
 
 import org.framework.GameFramework;
-import org.framework.canvas.GameCanvas;
+import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameObj;
@@ -23,7 +23,7 @@ public class BaseTest implements Game {
         GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
     }
 
-    public BaseTest(MainLoop mainLoop, GameCanvas canvas) {
+    public BaseTest(MainLoop mainLoop, GameCanvasController canvas) {
         mainLoop.add(new Line());
     }
 

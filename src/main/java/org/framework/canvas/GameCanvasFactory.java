@@ -13,7 +13,7 @@ public class GameCanvasFactory {
     // TODO get rid of pair return type
 
     /**
-     * Creates a new GameCanvas of specified size and adds it to the given frame.
+     * Creates a new GameCanvasController of specified size and adds it to the given frame.
      *
      * @param frame the frame that will hold the created canvas
      * @param width the width of the drawable area to be available for painting (in pixels)
@@ -22,7 +22,7 @@ public class GameCanvasFactory {
      * 		<UL><LI> must be > 0 </UL>
      * @throws IllegalArgumentException if width or height <= 0 or frame is null
      */
-    public static Pair<GameCanvas, GameCanvasModel> createCanvas(Frame frame, int width, int height) {
+    public static Pair<GameCanvasController, GameCanvasModel> createCanvas(Frame frame, int width, int height) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("GameCanvasModel dimensions must be greater than 0");
         }
@@ -31,7 +31,7 @@ public class GameCanvasFactory {
         }
 
         GameCanvasModel canvasModel = new GameCanvasModel(width, height, frame);
-        GameCanvas canvas = new GameCanvas(canvasModel);
+        GameCanvasController canvas = new GameCanvasController(canvasModel);
         canvasModel.setPreferredSize(new Dimension(width, height));
 
         frame.add(canvasModel);
