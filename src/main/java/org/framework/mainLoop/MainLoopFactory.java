@@ -3,6 +3,7 @@ package org.framework.mainLoop;
 public class MainLoopFactory {
 
     // TODO seperate into interface factory
+    // TODO create mainLoop object to encompass model and controller
 
     private MainLoopController singleton;
     private MainLoopAdvancedInterface singletonAdvancedInterface;
