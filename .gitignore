@@ -1,3 +1,6 @@
+# Java
+*.jar
+
 # Intellij
 out/
 target/
