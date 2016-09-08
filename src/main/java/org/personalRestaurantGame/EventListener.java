@@ -1,14 +1,13 @@
+package org.personalRestaurantGame;
+
 import org.framework.interfaces.GameEventListener;
 
 public class EventListener implements GameEventListener<RestaurantGame> {
-    /**
-     * Passes in an instantiated game (to enable callbacks).<br>
-     * This is called before any events are fired.
-     *
-     * @param game a newly instantiated game whose class was passed into GameFramework.gamestart()
-     */
-    public void acceptGame(RestaurantGame game) {
 
+    private RestaurantGame game;
+
+    public void acceptGame(RestaurantGame game) {
+        this.game = game;
     }
 
     /**
