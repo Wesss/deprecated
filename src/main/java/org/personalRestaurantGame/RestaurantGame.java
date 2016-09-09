@@ -3,7 +3,10 @@ package org.personalRestaurantGame;
 import org.framework.canvas.GameCanvasController;
 import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
+import org.personalRestaurantGame.game.Level1;
+import org.personalRestaurantGame.game.LevelFactory;
 import org.personalRestaurantGame.mainMenu.MainMenu;
+import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
 
@@ -11,7 +14,7 @@ public class RestaurantGame implements Game {
 
     public static final String UNKNOWN_STATE = "unknown state reached";
     public static enum State {
-        UNINITIALIZED, MAIN_MENU, MAIN_GAME
+        UNINITIALIZED, MAIN_MENU, NEW_GAME
     }
 
     private MainLoopController mainLoop;
@@ -31,8 +34,7 @@ public class RestaurantGame implements Game {
         }
         switch (state) {
             case MAIN_MENU:
-                break;
-            case MAIN_GAME:
+            case NEW_GAME:
                 mainLoop.markClear();
                 break;
             case UNINITIALIZED:
@@ -44,9 +46,10 @@ public class RestaurantGame implements Game {
         state = newState;
         switch (state) {
             case MAIN_MENU:
-                mainLoop.addPostClear(new MainMenu());
+                mainLoop.addPostClear(MainMenuFactory.getMainMenu(this));
                 break;
-            case MAIN_GAME:
+            case NEW_GAME:
+                mainLoop.addPostClear(LevelFactory.getLevel1());
                 break;
             default:
                 throw new RuntimeException(UNKNOWN_STATE);
