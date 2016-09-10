@@ -1,6 +1,9 @@
 package util;
 
 public interface EventAcceptor {
+
+    public static final EventAcceptor EMPTY_EVENT_ACCEPTOR = new EmptyEventAcceptor();
+
     /**
      * Fires appropriate commands when the provided key (on the keyboard)
      * is initially pressed.
@@ -48,4 +51,22 @@ public interface EventAcceptor {
      * @param y coordinate of the mouse's current position on the overall Panel
      */
     public void mouseMoved(int x, int y);
+
+    static class EmptyEventAcceptor implements EventAcceptor {
+
+        @Override
+        public void keyPressed(int keyCode) {}
+
+        @Override
+        public void keyReleased(int keyCode) {}
+
+        @Override
+        public void mousePressed(int x, int y, int button) {}
+
+        @Override
+        public void mouseReleased(int x, int y, int button) {}
+
+        @Override
+        public void mouseMoved(int x, int y) {}
+    }
 }

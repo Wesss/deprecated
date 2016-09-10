@@ -5,6 +5,7 @@ import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
 import org.personalRestaurantGame.game.LevelFactory;
 import org.personalRestaurantGame.mainMenu.MainMenuFactory;
+import util.EventAcceptor;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
 
@@ -15,8 +16,10 @@ public class RestaurantGame implements Game {
         UNINITIALIZED, MAIN_MENU, NEW_GAME
     }
 
-    private MainLoopController mainLoop;
-    private GameCanvasController canvas;
+    private final MainLoopController mainLoop;
+    private final GameCanvasController canvas;
+
+    private EventAcceptor currentEventAcceptor;
     private State state;
 
     public RestaurantGame(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -44,10 +47,10 @@ public class RestaurantGame implements Game {
         state = newState;
         switch (state) {
             case MAIN_MENU:
-                mainLoop.addPostClear(MainMenuFactory.getMainMenu(this));
+                currentEventAcceptor = MainMenuFactory.initMainMenu(this, mainLoop);
                 break;
             case NEW_GAME:
-                mainLoop.addPostClear(LevelFactory.getLevel1());
+                currentEventAcceptor = LevelFactory.initLevel1();
                 break;
             default:
                 throw new RuntimeException(UNKNOWN_STATE);

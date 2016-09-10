@@ -1,9 +1,11 @@
 package org.personalRestaurantGame.game;
 
+import util.EventAcceptor;
+
 public class LevelFactory {
 
-    // TODO abstract level out
-    public static Level1 getLevel1() {
-        return new Level1();
+    public static EventAcceptor initLevel1() {
+        // TODO
+        return EventAcceptor.EMPTY_EVENT_ACCEPTOR;
     }
 }
