@@ -2,6 +2,8 @@ package org.util.math;
 
 import java.util.Objects;
 
+import static java.lang.Math.*;
+
 /**
  * Rational objects represent rational numbers. These are numbers
  * that can be represented as fractions using only whole numbers.
@@ -49,7 +51,7 @@ public class Rational implements Comparable<Rational> {
 			d *= -1;
 		}
 		
-		int gcd = MyMath.gcd(n, d);
+		int gcd = Math.gcd(n, d);
 		num = n / gcd;
 		den = d / gcd;
 	}
@@ -213,7 +215,7 @@ public class Rational implements Comparable<Rational> {
 		int counter = 0;
 		
 		do {
-			int a = (int)Math.floor(b);
+			int a = (int) floor(b);
 			int aux = h1;
 			h1 = a * h1 + h2;
 			h2 = aux;
@@ -228,7 +230,7 @@ public class Rational implements Comparable<Rational> {
 				throw new RuntimeException("Fraction approximator forcestop reached for"
 						+ " value " + val + " with error " + error);
 			}
-		} while (Math.abs(val - ((1.0 * h1) / (1.0 * k1))) > error);
+		} while (abs(val - ((1.0 * h1) / (1.0 * k1))) > error);
 		
 		return new Rational(h1, k1);
 	}
