@@ -1,6 +1,7 @@
 package org.personalRestaurantGame.mainMenu;
 
 import org.personalRestaurantGame.RestaurantGame;
+import util.Button;
 
 import java.util.ArrayList;
 import java.util.List;

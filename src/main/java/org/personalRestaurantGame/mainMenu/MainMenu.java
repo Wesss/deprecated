@@ -2,6 +2,7 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
+import util.Button;
 
 import java.util.List;
 

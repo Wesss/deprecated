@@ -3,9 +3,7 @@ package org.personalRestaurantGame;
 import org.framework.canvas.GameCanvasController;
 import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
-import org.personalRestaurantGame.game.Level1;
 import org.personalRestaurantGame.game.LevelFactory;
-import org.personalRestaurantGame.mainMenu.MainMenu;
 import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
@@ -13,7 +11,7 @@ import static org.personalRestaurantGame.RestaurantGame.State.*;
 public class RestaurantGame implements Game {
 
     public static final String UNKNOWN_STATE = "unknown state reached";
-    public static enum State {
+    public enum State {
         UNINITIALIZED, MAIN_MENU, NEW_GAME
     }
 
