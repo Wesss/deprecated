@@ -2,48 +2,39 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
-import util.Button;
-
-import java.util.List;
-
-import static org.util.math.Math.modPos;
+import util.ButtonList;
 
 public class MainMenu implements GameObj {
 
     // TODO music
+    private ButtonList buttonList;
 
-    private final List<Button> buttons;
-    private int menuSelectorPosition;
-
-    protected MainMenu(List<Button> buttons) {
-        this.buttons = buttons;
-        menuSelectorPosition = 0;
+    protected MainMenu(ButtonList buttonList) {
+        this.buttonList = buttonList;
     }
 
     ////////////////////
     // Player Events
     ////////////////////
 
-    // TODO wire in mouse selection
-
     public void selectWithKeyboard() {
-        buttons.get(menuSelectorPosition).fireEvent(); // TODO abstract into menu list
+        buttonList.selectWithKeyboard();
     }
 
     public void moveSelectorUp() {
-        menuSelectorPosition = modPos(menuSelectorPosition + 1, buttons.size());
+        buttonList.moveSelectorUp();
     }
 
     public void moveSelectorDown() {
-        menuSelectorPosition = modPos(menuSelectorPosition - 1, buttons.size());
+        buttonList.moveSelectorDown();
     }
 
     public void updateMousePosition(int x, int y) {
-        // TODO
+        buttonList.updateMousePosition(x, y);
     }
 
     public void selectWithMouse() {
-
+        buttonList.selectWithMouse();
     }
 
     ////////////////////

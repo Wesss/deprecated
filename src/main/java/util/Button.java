@@ -14,10 +14,6 @@ public abstract class Button {
         isCurrentSelection = false;
     }
 
-    public boolean isCurrentSelection() {
-        return isCurrentSelection;
-    }
-
     public void setAsCurrentSelection(boolean isSelection) {
         isCurrentSelection = isSelection;
     }
@@ -27,12 +23,12 @@ public abstract class Button {
     ////////////////////
 
     /**
-     * If the given mouse position is over this button, it will be set as the current selection
      * @param mouseX
      * @param mouseY
+     * @return true iff given mouse position is over this button
      */
-    public void checkMousePositionOverButton(int mouseX, int mouseY) {
-        isCurrentSelection = (x <= mouseX && mouseX <= x + width)
+    public boolean isMousePositionOverButton(int mouseX, int mouseY) {
+        return (x <= mouseX && mouseX <= x + width)
                 && (y <= mouseY && mouseY <= y + height);
     }
 

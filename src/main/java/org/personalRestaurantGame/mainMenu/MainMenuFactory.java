@@ -2,18 +2,13 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.framework.mainLoop.MainLoopController;
 import org.personalRestaurantGame.RestaurantGame;
-import util.Button;
-
-import java.util.ArrayList;
-import java.util.List;
+import util.ButtonList;
 
 public class MainMenuFactory {
 
     public static MainMenuEventAcceptor initMainMenu(RestaurantGame game, MainLoopController loop) {
-        List<Button> buttons = new ArrayList<>();
-
-        // TODO init buttons
-        buttons.add(new NewGameButton(game));
+        ButtonList buttons = new ButtonList(new NewGameButton(game));
+        // TODO other buttons
 
         MainMenu menu = new MainMenu(buttons);
         loop.addPostClear(menu);
