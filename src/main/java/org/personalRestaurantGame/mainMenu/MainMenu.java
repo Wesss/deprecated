@@ -46,6 +46,6 @@ public class MainMenu implements GameObj {
     }
 
     public void paint(GameCanvasGraphics g) {
-        g.drawString("TODO MAIN_MENU", 100, 100);
+        buttonList.paint(g);
     }
 }

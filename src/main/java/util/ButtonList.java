@@ -1,13 +1,15 @@
 package util;
 
 import com.sun.istack.internal.Nullable;
+import org.framework.canvas.GameCanvasGraphics;
+import org.framework.interfaces.GameObj;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.util.math.Math.modPos;
 
-public class ButtonList {
+public class ButtonList implements GameObj {
 
     /**
      * buttonThatHasSelector.isCurrentSelection == true
@@ -38,6 +40,7 @@ public class ButtonList {
         if (!isKeyboardActiveSelector) {
             isKeyboardActiveSelector = true;
             isMouseActiveSelector = false;
+            setButtonThatHasSelector(buttons.get(0));
             return;
         }
 
@@ -50,26 +53,24 @@ public class ButtonList {
         if (!isKeyboardActiveSelector) {
             isKeyboardActiveSelector = true;
             isMouseActiveSelector = false;
+            setButtonThatHasSelector(buttons.get(0));
             return;
         }
 
-        buttonThatHasSelector.setAsCurrentSelection(false);
-        buttonThatHasSelector = buttons.get(
-                modPos(buttons.indexOf(buttonThatHasSelector) + 1, buttons.size()));
-        buttonThatHasSelector.setAsCurrentSelection(true);
+        setButtonThatHasSelector(buttons.get(
+                modPos(buttons.indexOf(buttonThatHasSelector) + 1, buttons.size())));
     }
 
     public void moveSelectorDown() {
         if (!isKeyboardActiveSelector) {
             isKeyboardActiveSelector = true;
             isMouseActiveSelector = false;
+            setButtonThatHasSelector(buttons.get(0));
             return;
         }
 
-        buttonThatHasSelector.setAsCurrentSelection(false);
-        buttonThatHasSelector = buttons.get(
-                modPos(buttons.indexOf(buttonThatHasSelector) - 1, buttons.size()));
-        buttonThatHasSelector.setAsCurrentSelection(true);
+        setButtonThatHasSelector(buttons.get(
+                modPos(buttons.indexOf(buttonThatHasSelector) - 1, buttons.size())));
     }
 
     ////////////////////
@@ -80,28 +81,62 @@ public class ButtonList {
         if (!isMouseActiveSelector) {
             isMouseActiveSelector = true;
             isKeyboardActiveSelector = false;
-            return;
         }
 
+        Button mousedOverButton = null;
         for (Button button : buttons) {
             if (button.isMousePositionOverButton(x, y)) {
-                button.setAsCurrentSelection(true);
-                buttonThatHasSelector = button;
-            } else {
-                button.setAsCurrentSelection(false);
+                mousedOverButton = button;
+                break;
             }
         }
+        setButtonThatHasSelector(mousedOverButton);
     }
 
     public void selectWithMouse() {
         if (!isMouseActiveSelector) {
             isMouseActiveSelector = true;
             isKeyboardActiveSelector = false;
-            return;
         }
 
         if (buttonThatHasSelector != null) {
             buttonThatHasSelector.fireEvent();
+        }
+    }
+
+    ////////////////////
+    // Game Events
+    ////////////////////
+
+    @Override
+    public void update() {
+        for (Button button : buttons) {
+            button.update();
+        }
+    }
+
+    @Override
+    public void paint(GameCanvasGraphics g) {
+        for (Button button : buttons) {
+            button.paint(g);
+        }
+    }
+
+    ////////////////////
+    // Private
+    ////////////////////
+
+    /**
+     * @param button
+     * @requires button is contained by Buttons
+     */
+    private void setButtonThatHasSelector(@Nullable Button button) {
+        if (buttonThatHasSelector != null) {
+            buttonThatHasSelector.setAsCurrentSelection(false);
+        }
+        buttonThatHasSelector = button;
+        if (buttonThatHasSelector != null) {
+            buttonThatHasSelector.setAsCurrentSelection(true);
         }
     }
 }
