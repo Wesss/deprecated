@@ -29,6 +29,10 @@ public class RestaurantGame implements Game {
         swapState(MAIN_MENU);
     }
 
+    ////////////////////
+    // Game State
+    ////////////////////
+
     public void swapState(State newState) {
         if (newState == UNINITIALIZED) {
             throw new IllegalArgumentException("cannot switch to uninitialized state");
@@ -55,5 +59,29 @@ public class RestaurantGame implements Game {
             default:
                 throw new RuntimeException(UNKNOWN_STATE);
         }
+    }
+
+    ////////////////////
+    // Event Distribution
+    ////////////////////
+
+    public void keyPressed(int keyCode) {
+        currentEventAcceptor.keyPressed(keyCode);
+    }
+
+    public void keyReleased(int keyCode) {
+        currentEventAcceptor.keyReleased(keyCode);
+    }
+
+    public void mousePressed(int x, int y, int button) {
+        currentEventAcceptor.mousePressed(x, y, button);
+    }
+
+    public void mouseReleased(int x, int y, int button) {
+        currentEventAcceptor.mouseReleased(x, y, button);
+    }
+
+    public void mouseMoved(int x, int y) {
+        currentEventAcceptor.mouseMoved(x, y);
     }
 }

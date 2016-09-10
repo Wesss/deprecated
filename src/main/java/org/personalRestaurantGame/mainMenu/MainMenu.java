@@ -24,7 +24,7 @@ public class MainMenu implements GameObj {
 
     // TODO wire in mouse selection
 
-    public void select() {
+    public void selectWithKeyboard() {
         buttons.get(menuSelectorPosition).fireEvent(); // TODO abstract into menu list
     }
 

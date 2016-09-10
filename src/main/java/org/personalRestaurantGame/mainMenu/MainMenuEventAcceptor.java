@@ -25,6 +25,9 @@ public class MainMenuEventAcceptor implements EventAcceptor{
             case KeyEvent.VK_LEFT:
                 menu.moveSelectorDown();
                 break;
+            case KeyEvent.VK_ENTER:
+                menu.selectWithKeyboard();
+                break;
         }
     }
 
