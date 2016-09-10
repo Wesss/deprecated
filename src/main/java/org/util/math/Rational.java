@@ -1,5 +1,7 @@
 package org.util.math;
 
+import java.util.Objects;
+
 /**
  * Rational objects represent rational numbers. These are numbers
  * that can be represented as fractions using only whole numbers.
@@ -64,53 +66,6 @@ public class Rational implements Comparable<Rational> {
 	 */
 	public int denom() {
 		return den;
-	}
-	
-	/**
-	 * Checks if an object is equal to this
-	 * 
-	 * @param obj the other object
-	 * @return <UL>
-	 * 		<LI> true if this and obj are both Rational and represent the same numeric value
-	 * 		<LI> false otherwise
-	 * 	</UL>
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		Rational other = null;
-		if (obj instanceof Rational) {
-			other = (Rational) obj;
-		} else {
-			return false;
-		}
-		return (this.num == other.num) && (this.den == other.den);
-	}
-	
-	@Override
-	public int hashCode() {
-		//65536 = 2^13
-		return num  + (65536 * den);
-	}
-	
-	@Override
-	public String toString() {
-		return "(" + num + " / " + den + ")";
-	}
-	
-	/**
-	 * Compares two RatNums.
-	 *  
-	 * @param other The RatNum to be compared
-	 * @requires other != null
-	 * @return <UL>
-	 * 		<LI>a negative number if this < rn,
-	 *   	<LI>0 if this = rn,
-	 *   	<LI>a positive number if this > rn.
-	 * 	</UL>
-	 */
-	public int compareTo(Rational other) {
-		Rational diff = this.sub(other);
-		return diff.num;
 	}
 	
 	//////////////////////////////////////////////////
@@ -248,7 +203,7 @@ public class Rational implements Comparable<Rational> {
 	 */
 	public static Rational convertDouble(double val, double error) {
 		if (error <= 0)
-			throw new IllegalArgumentException("Error value of " + error + " given");
+			throw new IllegalArgumentException("Error value must be positive");
 		
 		int h1 = 1;
 		int h2 = 0;
@@ -277,4 +232,47 @@ public class Rational implements Comparable<Rational> {
 		
 		return new Rational(h1, k1);
 	}
+
+    ////////////////////
+    // Object functionality
+    ////////////////////
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rational rational = (Rational) o;
+
+        if (num != rational.num) return false;
+        return den == rational.den;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + num + " / " + den + ")";
+    }
+
+    /**
+     * Compares two RatNums.
+     *
+     * @param other The RatNum to be compared
+     * @requires other != null
+     * @return <UL>
+     * 		<LI>a negative number if this < rn,
+     *   	<LI>0 if this = rn,
+     *   	<LI>a positive number if this > rn.
+     * 	</UL>
+     */
+    @Override
+    public int compareTo(Rational other) {
+        Rational diff = this.sub(other);
+        return diff.num;
+    }
 }
