@@ -35,7 +35,7 @@ public class Math {
      * @param modulus
      * @return the value, y, in the range [0, modulus) such that (y mod modulus == x mod modulus)
      */
-	public static int posMod(int x, int modulus) {
+	public static int modPos(int x, int modulus) {
         int result = x;
 
         while (result < 0) {
