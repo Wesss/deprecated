@@ -22,25 +22,32 @@ public class MainMenu implements GameObj {
     // Player Events
     ////////////////////
 
-    // TODO wire into event listener
     // TODO wire in mouse selection
 
     public void select() {
-        buttons.get(menuSelectorPosition).fireEvent();
+        buttons.get(menuSelectorPosition).fireEvent(); // TODO abstract into menu list
     }
 
-    public void moveUp() {
+    public void moveSelectorUp() {
         menuSelectorPosition++;
         if (menuSelectorPosition == buttons.size()) {
             menuSelectorPosition = 0;
         }
     }
 
-    public void moveDown() {
+    public void moveSelectorDown() {
         menuSelectorPosition--;
         if (menuSelectorPosition == -1) {
             menuSelectorPosition = buttons.size() - 1;
         }
+    }
+
+    public void updateMousePosition(int x, int y) {
+        // TODO
+    }
+
+    public void selectWithMouse() {
+
     }
 
     ////////////////////
