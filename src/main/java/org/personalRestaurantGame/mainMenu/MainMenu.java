@@ -6,6 +6,8 @@ import util.Button;
 
 import java.util.List;
 
+import static org.util.math.Math.modPos;
+
 public class MainMenu implements GameObj {
 
     // TODO music
@@ -29,17 +31,11 @@ public class MainMenu implements GameObj {
     }
 
     public void moveSelectorUp() {
-        menuSelectorPosition++;
-        if (menuSelectorPosition == buttons.size()) {
-            menuSelectorPosition = 0;
-        }
+        menuSelectorPosition = modPos(menuSelectorPosition + 1, buttons.size());
     }
 
     public void moveSelectorDown() {
-        menuSelectorPosition--;
-        if (menuSelectorPosition == -1) {
-            menuSelectorPosition = buttons.size() - 1;
-        }
+        menuSelectorPosition = modPos(menuSelectorPosition - 1, buttons.size());
     }
 
     public void updateMousePosition(int x, int y) {
