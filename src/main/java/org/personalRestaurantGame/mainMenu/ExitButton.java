@@ -6,23 +6,23 @@ import util.Button;
 
 import static org.personalRestaurantGame.RestaurantGame.State.NEW_GAME;
 
-public class NewGameButton extends Button {
+public class ExitButton extends Button {
 
     private static final int X = 500;
-    private static final int Y = 100;
+    private static final int Y = 250;
     private static final int WIDTH = 200;
     private static final int HEIGHT = 100;
 
     private RestaurantGame game;
 
-    protected NewGameButton(RestaurantGame game) {
+    protected ExitButton(RestaurantGame game) {
         super(X, Y, WIDTH, HEIGHT);
         this.game = game;
     }
 
     @Override
     public void fireEvent() {
-        game.swapState(NEW_GAME);
+        game.exit();
     }
 
     @Override
@@ -33,6 +33,6 @@ public class NewGameButton extends Button {
     @Override
     public void paint(GameCanvasGraphics g) {
         super.paint(g);
-        g.drawString("New Game", X, Y);
+        g.drawString("Exit", X, Y);
     }
 }

@@ -93,10 +93,12 @@ public class ButtonList implements GameObj {
         setButtonThatHasSelector(mousedOverButton);
     }
 
-    public void selectWithMouse() {
+    public void selectWithMouse(int x, int y) {
         if (!isMouseActiveSelector) {
             isMouseActiveSelector = true;
             isKeyboardActiveSelector = false;
+            updateMousePosition(x, y);
+            return;
         }
 
         if (buttonThatHasSelector != null) {

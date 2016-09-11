@@ -61,6 +61,11 @@ public class RestaurantGame implements Game {
         }
     }
 
+    public void exit() {
+        // TODO make game framework end-game endpoint
+        System.exit(0);
+    }
+
     ////////////////////
     // Event Distribution
     ////////////////////

@@ -18,6 +18,5 @@ public class Level1 implements GameObj {
 
     @Override
     public void paint(GameCanvasGraphics g) {
-
     }
 }

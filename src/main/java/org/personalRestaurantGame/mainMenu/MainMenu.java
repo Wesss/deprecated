@@ -33,8 +33,8 @@ public class MainMenu implements GameObj {
         buttonList.updateMousePosition(x, y);
     }
 
-    public void selectWithMouse() {
-        buttonList.selectWithMouse();
+    public void selectWithMouse(int x, int y) {
+        buttonList.selectWithMouse(x, y);
     }
 
     ////////////////////

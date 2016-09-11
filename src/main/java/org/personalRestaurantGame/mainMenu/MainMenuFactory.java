@@ -7,7 +7,7 @@ import util.ButtonList;
 public class MainMenuFactory {
 
     public static MainMenuEventAcceptor initMainMenu(RestaurantGame game, MainLoopController loop) {
-        ButtonList buttons = new ButtonList(new NewGameButton(game));
+        ButtonList buttons = new ButtonList(new NewGameButton(game), new ExitButton(game));
         // TODO other buttons
 
         MainMenu menu = new MainMenu(buttons);

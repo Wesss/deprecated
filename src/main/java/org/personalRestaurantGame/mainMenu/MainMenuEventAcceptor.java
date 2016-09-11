@@ -39,7 +39,7 @@ public class MainMenuEventAcceptor implements EventAcceptor{
     @Override
     public void mousePressed(int x, int y, int button) {
         if (button == MOUSE_LEFT) {
-            menu.selectWithMouse();
+            menu.selectWithMouse(x, y);
         }
     }
 
