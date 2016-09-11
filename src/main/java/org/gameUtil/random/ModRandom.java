@@ -1,4 +1,4 @@
-package org.util.random;/* stats for later modification
+package org.gameUtil.random;/* stats for later modification
 
   plus refers to ModulationPlus,
   dif refers to aprx. max difference between picking of 2 values over 1000 picks
@@ -7,6 +7,7 @@ package org.util.random;/* stats for later modification
   plus = 10^(dif/11)  10 <= p <= 1000
 
 */
+
 
 import org.util.math.Rational;
 
