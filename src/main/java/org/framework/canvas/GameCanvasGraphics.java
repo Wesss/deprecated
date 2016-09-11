@@ -160,6 +160,13 @@ public class GameCanvasGraphics {
     /**
      * @see Graphics#drawRoundRect
      */
+    public void drawRect(int x, int y, int width, int height) {
+        componentGraphics.drawRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height));
+    }
+
+    /**
+     * @see Graphics#drawRoundRect
+     */
     public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
         componentGraphics.drawRoundRect(canvas.virtualToActualX(x), canvas.virtualToActualY(y), canvas.virtualToActualX(width), canvas.virtualToActualY(height), arcWidth, arcHeight);
     }

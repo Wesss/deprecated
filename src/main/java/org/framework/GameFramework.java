@@ -26,6 +26,8 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
+    // TODO close window if game creation fails
+
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
     public static final double SCREEN_RATIO = 0.9;
 

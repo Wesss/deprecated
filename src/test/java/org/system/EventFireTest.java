@@ -61,7 +61,7 @@ public class EventFireTest implements Game{
 
         @Override
         public void mousePressed(int x, int y, int button) {
-            eventTest.newEvent("pressed  button "+ button);
+            eventTest.newEvent("pressed button "+ button);
         }
 
         @Override
