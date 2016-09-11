@@ -21,6 +21,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>general-utils</groupId>
+            <artifactId>general-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
