@@ -14,7 +14,9 @@ public abstract class Button implements GameObj {
     private boolean isCurrentSelection;
 
     protected Button(int x, int y, int width, int height) {
-        // TODO arg check
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Button width/height must be positive");
+        }
         this.x = x;
         this.y = y;
         this.width = width;

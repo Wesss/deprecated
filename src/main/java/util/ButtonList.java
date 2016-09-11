@@ -3,10 +3,12 @@ package util;
 import com.sun.istack.internal.Nullable;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
+import org.util.CollectionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.util.CollectionFactory.ArrayListOf;
 import static org.util.math.Math.modPos;
 
 public class ButtonList implements GameObj {
@@ -23,10 +25,7 @@ public class ButtonList implements GameObj {
     private boolean isKeyboardActiveSelector;
 
     public ButtonList(Button... buttons) {
-        this.buttons = new ArrayList<>();
-        for (Button button : buttons) {
-            this.buttons.add(button); // TODO create list builder util
-        }
+        this.buttons = ArrayListOf(buttons);
         buttonThatHasSelector = null;
         isMouseActiveSelector = false;
         isKeyboardActiveSelector = false;
