@@ -148,8 +148,6 @@ public class ModRandom {
 	}
 	  
    /**
-    * TODO turn into a toString?
-    * 
     * Prints out the current state of the generator
     * 
     * last 50 picked numbers
