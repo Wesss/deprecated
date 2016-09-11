@@ -3,9 +3,7 @@ package util;
 import com.sun.istack.internal.Nullable;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
-import org.util.CollectionFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.util.CollectionFactory.ArrayListOf;
