@@ -1,16 +1,34 @@
 package org.personalRestaurantGame.mainMenu;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.GameObj;
+import org.personalRestaurantGame.model.GamePipeline;
+import org.personalRestaurantGame.model.GameStateStore;
 import util.ButtonList;
+import util.EventAcceptor;
 
-public class MainMenu implements GameObj {
+public class MainMenu implements GamePipeline {
 
     // TODO music
+    private GameStateStore store; // TODO wire in getting of players name
     private ButtonList buttonList;
 
     protected MainMenu(ButtonList buttonList) {
         this.buttonList = buttonList;
+    }
+
+    @Override
+    public void acceptGameStateStore(GameStateStore store) {
+        this.store = store;
+    }
+
+    @Override
+    public GameStateStore returnGameStateStore() {
+        return store;
+    }
+
+    @Override
+    public EventAcceptor dispatchEventAcceptor() {
+        return new MainMenuEventAcceptor(this);
     }
 
     ////////////////////

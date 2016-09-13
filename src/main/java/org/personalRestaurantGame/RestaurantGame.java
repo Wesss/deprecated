@@ -5,6 +5,8 @@ import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
 import org.personalRestaurantGame.game.LevelFactory;
 import org.personalRestaurantGame.mainMenu.MainMenuFactory;
+import org.personalRestaurantGame.model.GamePipeline;
+import org.personalRestaurantGame.model.GameStateStore;
 import util.EventAcceptor;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
@@ -19,6 +21,7 @@ public class RestaurantGame implements Game {
     private final MainLoopController mainLoop;
     private final GameCanvasController canvas;
 
+    private GamePipeline currentGamePipeline;
     private EventAcceptor currentEventAcceptor;
     private State state;
 
@@ -26,6 +29,9 @@ public class RestaurantGame implements Game {
         this.mainLoop = mainLoop;
         this.canvas = canvas;
         this.state = UNINITIALIZED;
+        currentGamePipeline = GamePipeline.EMPTY_GAME_PIPELINE;
+        currentEventAcceptor = EventAcceptor.EMPTY_EVENT_ACCEPTOR;
+        currentGamePipeline.acceptGameStateStore(new GameStateStore());
         swapState(MAIN_MENU);
     }
 
@@ -33,14 +39,19 @@ public class RestaurantGame implements Game {
     // Game State
     ////////////////////
 
+    // TODO split into different methods
     public void swapState(State newState) {
         if (newState == UNINITIALIZED) {
             throw new IllegalArgumentException("cannot switch to uninitialized state");
         }
+
+        mainLoop.markClear();
+        GameStateStore currentStore = currentGamePipeline.returnGameStateStore();
         switch (state) {
             case MAIN_MENU:
+                MainMenuFactory.destroy(currentGamePipeline); // TODO rewire this properly
+                break;
             case NEW_GAME:
-                mainLoop.markClear();
                 break;
             case UNINITIALIZED:
                 break;
@@ -51,14 +62,19 @@ public class RestaurantGame implements Game {
         state = newState;
         switch (state) {
             case MAIN_MENU:
-                currentEventAcceptor = MainMenuFactory.initMainMenu(this, mainLoop);
+                currentGamePipeline = MainMenuFactory.getMainMenu(this);
                 break;
             case NEW_GAME:
-                currentEventAcceptor = LevelFactory.initLevel1();
+                currentGamePipeline = LevelFactory.getLevel1();
                 break;
             default:
                 throw new RuntimeException(UNKNOWN_STATE);
         }
+
+        currentGamePipeline.acceptGameStateStore(currentStore);
+        currentEventAcceptor = currentGamePipeline.dispatchEventAcceptor();
+        mainLoop.addPostClear(currentGamePipeline);
+        // TODO rewire how game framework becomes aware of the pipeline
     }
 
     public void exit() {

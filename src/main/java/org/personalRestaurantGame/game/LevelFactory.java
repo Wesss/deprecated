@@ -1,11 +1,11 @@
 package org.personalRestaurantGame.game;
 
-import util.EventAcceptor;
+import org.personalRestaurantGame.model.GamePipeline;
 
 public class LevelFactory {
 
-    public static EventAcceptor initLevel1() {
+    public static GamePipeline getLevel1() {
         // TODO
-        return EventAcceptor.EMPTY_EVENT_ACCEPTOR;
+        return GamePipeline.EMPTY_GAME_PIPELINE;
     }
 }
