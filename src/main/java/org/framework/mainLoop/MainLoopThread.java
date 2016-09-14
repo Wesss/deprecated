@@ -45,8 +45,8 @@ public class MainLoopThread implements Runnable {
                     strategy.show();
 
                 Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace(); //TODO error more gracefully
+            } catch (InterruptedException ignored) {
+
             } finally {
                 if( graphics != null )
                     graphics.dispose();

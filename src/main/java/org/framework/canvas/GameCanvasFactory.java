@@ -8,6 +8,10 @@ import java.awt.*;
  */
 public class GameCanvasFactory {
 
+    public static GameCanvas createCanvas(int width, int height) {
+        return createCanvas(createFrame(), width, height);
+    }
+
     /**
      * Creates a new GameCanvasController of specified size and adds it to the given frame.
      *
@@ -38,10 +42,14 @@ public class GameCanvasFactory {
         return new GameCanvas(controller, model);
     }
 
+    public static void destroyCanvas(GameCanvas canvas) {
+        // TODO implement destroyCanvas
+    }
+
     /**
      * @return An emtpy Frame which to hold the GameCanvasModel
      */
-    public static Frame createFrame() {
+    private static Frame createFrame() {
         JFrame frame = new JFrame();
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

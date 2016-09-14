@@ -15,6 +15,8 @@ public class MainLoopFactory {
         singletonModel = null;
     }
 
+    // TODO rewire to return MainLoop object
+
     /**
      *
      * @param updatesPerSecond
@@ -33,31 +35,35 @@ public class MainLoopFactory {
         );
     }
 
-    public MainLoopController getMainLoop() {
+    public MainLoopController getMainLoopController() {
         if (singleton == null) {
-            throw new RuntimeException("MainLoopController has not been constructed yet");
+            throw new RuntimeException("MainLoop has not been constructed yet");
         }
         return singleton;
     }
 
     public MainLoopModel getMainLoopModel() {
         if (singletonModel == null) {
-            throw new RuntimeException("MainLoopModel has not been constructed yet");
+            throw new RuntimeException("MainLoop has not been constructed yet");
         }
         return singletonModel;
     }
 
     protected MainLoopAdvancedInterface getAdvancedInterface() {
         if (singletonAdvancedInterface == null) {
-            throw new RuntimeException("MainLoopModel has not been constructed yet");
+            throw new RuntimeException("MainLoop has not been constructed yet");
         }
         return singletonAdvancedInterface;
     }
 
     protected MainLoopCustomGroupsInterface getCustomGroupsInterface(int maximumPriority) {
         if (singletonAdvancedInterface == null) {
-            throw new RuntimeException("MainLoopModel has not been constructed yet");
+            throw new RuntimeException("MainLoop has not been constructed yet");
         }
         return new MainLoopCustomGroupsInterface(new MainLoopGroupFactory(singletonAdvancedInterface, maximumPriority));
+    }
+
+    protected static void exit() {
+        // TODO implement exit
     }
 }

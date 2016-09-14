@@ -35,7 +35,7 @@ public abstract class MainLoopTest {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(STANDARD_UPS);
         mainLoopModel = factory.getMainLoopModel();
-        mainLoop = factory.getMainLoop();
+        mainLoop = factory.getMainLoopController();
 
         mainLoopModel.setReferences(mockCanvas);
     }

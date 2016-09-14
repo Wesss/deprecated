@@ -7,14 +7,13 @@ import org.framework.canvas.GameCanvasFactory;
 import org.framework.canvas.GameCanvasModel;
 import org.framework.interfaces.Game;
 import org.framework.interfaces.GameEventListener;
-import org.framework.mainLoop.MainLoopController;
-import org.framework.mainLoop.MainLoopFactory;
-import org.framework.mainLoop.MainLoopFactoryFactory;
-import org.framework.mainLoop.MainLoopModel;
+import org.framework.mainLoop.*;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.Math.min;
 
@@ -27,40 +26,42 @@ import static java.lang.Math.min;
 public class GameFramework {
 
     // TODO close window if game creation fails
+    // TODO get rid of reflection; it prevents propagation of initialization errors
 
     public static final GameEventListener<Game> EMPTY_GAME_LISTENER = new EmptyGameListener();
     public static final double SCREEN_RATIO = 0.9;
 
-    private GameFramework() {}
+    private static final GameFramework frameworkSingleton = new GameFramework();
 
     /**
-     * Instantiates an instance of the given game class. The class must contain an accessible empty constructor or a
-     * constructor that takes a MainLoopController and a GameCanvasController.
-     *
-     * @param game the class of the game to be run
-     *             If a constructor that takes a MainLoopController and GameCanvasModel is present, that constructor will be called; passing in
-     *             the appropriate game controllers.
-     *             Otherwise, the empty constructor is called.
-     *             Throws a RuntimeException if neither constructor is present
-     * @param listener The listener that will receive user events
-     * @param updatesPerSecond
-     * @return a pair where pair.key is the MainLoopController and pair.value is the GameCanvasModel to control the game
-     * @throws InstantiationException if a valid constructor for the given game class is not present
-     * @param <T> the type of the game to run
+     * TODO
+     * currently running game -> components to exit
      */
+    private Map<Game, Pair<MainLoopFactory, GameCanvas>> gameToFrameworkComponents = new HashMap<>();
+
+    private GameFramework() {}
+
     public static <T extends Game> Pair<MainLoopController, GameCanvasController> startGame(Class<T> game,
                                                                                             GameEventListener<? super T> listener,
                                                                                             int updatesPerSecond)
             throws InstantiationException {
+        return frameworkSingleton.startGame(game, listener, updatesPerSecond, true);
+    }
+
+    private <T extends Game> Pair<MainLoopController, GameCanvasController> startGame(Class<T> game,
+                                                                                      GameEventListener<? super T> listener,
+                                                                                      int updatesPerSecond,
+                                                                                      boolean dummy)
+            throws InstantiationException {
         MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
         factory.constructMainLoop(updatesPerSecond);
         MainLoopModel mainLoopModel = factory.getMainLoopModel();
-        MainLoopController mainLoopController = factory.getMainLoop();
+        MainLoopController mainLoopController = factory.getMainLoopController();
 
         Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
         GameCanvas canvas =
-                GameCanvasFactory.createCanvas(GameCanvasFactory.createFrame(), gameLength, gameLength);
+                GameCanvasFactory.createCanvas(gameLength, gameLength);
         GameCanvasController canvasController = canvas.getController();
         GameCanvasModel canvasModel = canvas.getModel();
 
@@ -71,9 +72,10 @@ public class GameFramework {
         listener.acceptGame(newGame);
         mainLoopModel.start();
         return new Pair<>(mainLoopController, canvasController);
+        // TODO add created MainLoop and GameCanvas to gameToFrameworkComponents
     }
 
-    private static <T extends Game> T createGame(Class<T> gameClass, MainLoopController mainLoop, GameCanvasController canvas)
+    private <T extends Game> T createGame(Class<T> gameClass, MainLoopController mainLoop, GameCanvasController canvas)
             throws InstantiationException{
         T game = null;
         try {
@@ -98,13 +100,31 @@ public class GameFramework {
             }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException e) {
-            throw new InstantiationException(e.getMessage());
+            throw new InstantiationException("Error initiallizing game. An exception may have bubbled out");
         }
         if (game == null) {
             throw new InstantiationException(
                     "given game class does not contain an empty or MainLoopController and GameCanvasController accepting constructor");
         }
         return game;
+    }
+
+    /**
+     * Exits given game, destroying its canvas and stopping the main loop
+     * @param game
+     */
+    public static void exitGame(Game game) {
+        frameworkSingleton.exitGame(game, true);
+    }
+
+    public void exitGame(Game game, boolean dummy) {
+        Pair<MainLoopFactory, GameCanvas> components = gameToFrameworkComponents.get(game);
+        if (components == null) {
+            return;
+        }
+
+        MainLoopFactoryFactory.destroyMainLoopFactory(components.getKey());
+        GameCanvasFactory.destroyCanvas(components.getValue());
     }
 
     private static class EmptyGameListener implements GameEventListener<Game> {
