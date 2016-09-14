@@ -2,10 +2,10 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.personalRestaurantGame.RestaurantGame;
 import org.personalRestaurantGame.model.GamePipeline;
-import util.ButtonList;
+import org.gameUtil.ButtonList;
 
 public class MainMenuFactory {
-    
+
     private static final int X = 500;
     private static final int Y_TOP = 100;
     private static final int Y_MARGIN = 50;

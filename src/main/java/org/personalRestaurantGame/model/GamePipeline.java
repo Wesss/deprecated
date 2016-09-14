@@ -2,7 +2,7 @@ package org.personalRestaurantGame.model;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.interfaces.GameObj;
-import util.EventAcceptor;
+import org.gameUtil.EventAcceptor;
 
 public interface GamePipeline extends GameObj {
 

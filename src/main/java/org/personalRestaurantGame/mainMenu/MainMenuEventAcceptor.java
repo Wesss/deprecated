@@ -1,10 +1,10 @@
 package org.personalRestaurantGame.mainMenu;
 
-import util.EventAcceptor;
+import org.gameUtil.EventAcceptor;
 
 import java.awt.event.KeyEvent;
 
-import static util.Mouse.MOUSE_LEFT;
+import static org.gameUtil.Mouse.MOUSE_LEFT;
 
 public class MainMenuEventAcceptor implements EventAcceptor{
 

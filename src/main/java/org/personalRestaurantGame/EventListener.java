@@ -2,7 +2,7 @@ package org.personalRestaurantGame;
 
 import org.framework.interfaces.GameEventListener;
 
-public class MainEventListener implements GameEventListener<RestaurantGame> {
+public class EventListener implements GameEventListener<RestaurantGame> {
 
     private RestaurantGame game;
 

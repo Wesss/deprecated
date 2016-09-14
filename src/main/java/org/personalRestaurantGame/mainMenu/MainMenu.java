@@ -3,8 +3,8 @@ package org.personalRestaurantGame.mainMenu;
 import org.framework.canvas.GameCanvasGraphics;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
-import util.ButtonList;
-import util.EventAcceptor;
+import org.gameUtil.ButtonList;
+import org.gameUtil.EventAcceptor;
 
 public class MainMenu implements GamePipeline {
 

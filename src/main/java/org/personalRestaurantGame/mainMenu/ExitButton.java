@@ -2,9 +2,7 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.personalRestaurantGame.RestaurantGame;
-import util.Button;
-
-import static org.personalRestaurantGame.RestaurantGame.State.NEW_GAME;
+import org.gameUtil.Button;
 
 public class ExitButton extends Button {
 

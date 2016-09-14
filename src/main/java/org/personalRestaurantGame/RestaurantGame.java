@@ -8,7 +8,7 @@ import org.personalRestaurantGame.game.LevelFactory;
 import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
-import util.EventAcceptor;
+import org.gameUtil.EventAcceptor;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
 
