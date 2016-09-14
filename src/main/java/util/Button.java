@@ -24,7 +24,31 @@ public abstract class Button implements GameObj {
         isCurrentSelection = false;
     }
 
-    public void setAsCurrentSelection(boolean isSelection) {
+    ////////////////////
+    // Setters and Getters
+    ////////////////////
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public boolean isCurrentSelection() {
+        return isCurrentSelection;
+    }
+
+    public void setCurrentSelection(boolean isSelection) {
         isCurrentSelection = isSelection;
     }
 
@@ -47,17 +71,16 @@ public abstract class Button implements GameObj {
      */
     public abstract void fireEvent();
 
-    ////////////////////
-    // Game Event
-    ////////////////////
-
-    @Override
-    public void paint(GameCanvasGraphics g) {
+    public static void paintButtonWithoutImage(GameCanvasGraphics g,
+                                               int x, int y, int width, int height,
+                                               boolean isCurrentSelection,
+                                               String label) {
         if (isCurrentSelection) {
             g.setColor(Color.GRAY);
         } else {
             g.setColor(Color.BLACK);
         }
         g.drawRect(x - (width/2), y - (height/2), width, height);
+        g.drawString(label, x, y);
     }
 }

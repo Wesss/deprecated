@@ -1,5 +1,6 @@
 package org.personalRestaurantGame;
 
+import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
@@ -12,6 +13,8 @@ import util.EventAcceptor;
 import static org.personalRestaurantGame.RestaurantGame.State.*;
 
 public class RestaurantGame implements Game {
+
+    // TODO overhaul all of the painting
 
     public static final String UNKNOWN_STATE = "unknown state reached";
     public enum State {
@@ -78,8 +81,7 @@ public class RestaurantGame implements Game {
     }
 
     public void exit() {
-        // TODO make game framework end-game endpoint
-        System.exit(0);
+        GameFramework.exitGame(this);
     }
 
     ////////////////////

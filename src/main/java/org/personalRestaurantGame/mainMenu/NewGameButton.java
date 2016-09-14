@@ -4,19 +4,16 @@ import org.framework.canvas.GameCanvasGraphics;
 import org.personalRestaurantGame.RestaurantGame;
 import util.Button;
 
+import java.awt.*;
+
 import static org.personalRestaurantGame.RestaurantGame.State.NEW_GAME;
 
 public class NewGameButton extends Button {
 
-    private static final int X = 500;
-    private static final int Y = 100;
-    private static final int WIDTH = 200;
-    private static final int HEIGHT = 100;
-
     private RestaurantGame game;
 
-    protected NewGameButton(RestaurantGame game) {
-        super(X, Y, WIDTH, HEIGHT);
+    protected NewGameButton(RestaurantGame game, int x, int y, int width, int height) {
+        super(x, y, width, height);
         this.game = game;
     }
 
@@ -32,7 +29,6 @@ public class NewGameButton extends Button {
 
     @Override
     public void paint(GameCanvasGraphics g) {
-        super.paint(g);
-        g.drawString("New Game", X, Y);
+        Button.paintButtonWithoutImage(g, getX(), getY(), getWidth(), getHeight(), isCurrentSelection(), "New Game");
     }
 }

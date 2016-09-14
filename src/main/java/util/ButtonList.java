@@ -131,11 +131,11 @@ public class ButtonList implements GameObj {
      */
     private void setButtonThatHasSelector(@Nullable Button button) {
         if (buttonThatHasSelector != null) {
-            buttonThatHasSelector.setAsCurrentSelection(false);
+            buttonThatHasSelector.setCurrentSelection(false);
         }
         buttonThatHasSelector = button;
         if (buttonThatHasSelector != null) {
-            buttonThatHasSelector.setAsCurrentSelection(true);
+            buttonThatHasSelector.setCurrentSelection(true);
         }
     }
 }
