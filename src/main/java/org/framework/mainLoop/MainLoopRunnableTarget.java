@@ -35,7 +35,9 @@ public class MainLoopRunnableTarget implements Runnable {
     public void run() {
         canvas.createBufferStrategy(DOUBLE_BUFFERED);
         BufferStrategy strategy = canvas.getBufferStrategy();
-        while (!Thread.interrupted()) {
+
+        boolean running = true;
+        while (running) {
             Graphics graphics = null;
             try {
                 graphics = strategy.getDrawGraphics();
@@ -46,7 +48,7 @@ public class MainLoopRunnableTarget implements Runnable {
 
                 Thread.sleep(waitTime);
             } catch (InterruptedException ignored) {
-
+                running = false;
             } finally {
                 if( graphics != null )
                     graphics.dispose();
