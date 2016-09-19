@@ -1,11 +1,9 @@
 package org.framework.mainLoop;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
-import java.util.concurrent.ExecutionException;
 
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,7 +19,7 @@ public class MainLoopCustomGroupsInterTest extends MainLoopTest {
     @Before
     public void setup() {
         super.setup();
-        groupsInter = mainLoop.customGroupsInterface(MAX_PRIORITY);
+        groupsInter = mainLoopController.customGroupsInterface(MAX_PRIORITY);
     }
 
     @Test

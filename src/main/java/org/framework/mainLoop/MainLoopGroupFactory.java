@@ -19,12 +19,12 @@ public class MainLoopGroupFactory {
      * immediately put into the group will be added two frames later
      *
      * @param inter
-     * @param upperPriority
+     * @param maximumPriority
      */
-    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int upperPriority) {
+    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int maximumPriority) {
         this.inter = inter;
         this.addedGroupsActions = new HashMap<>();
-        this.maxPriority = upperPriority;
+        this.maxPriority = maximumPriority;
     }
 
     /**
@@ -36,7 +36,7 @@ public class MainLoopGroupFactory {
      */
     protected MainLoopGroup createMainLoopGroup(int priority, int layer) {
         if (priority > maxPriority)
-            throw new IllegalArgumentException("group  priority must be less than or equal to the maximum priority");
+            throw new IllegalArgumentException("group priority must be less than or equal to the maximum priority");
         MainLoopGroup mainLoopGroup = new MainLoopGroup(inter, priority, layer);
         MainLoopAction action = inter.createAddAction(mainLoopGroup, maxPriority + 1, 0);
         addedGroupsActions.put(mainLoopGroup, action);

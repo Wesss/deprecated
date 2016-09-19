@@ -27,7 +27,7 @@ public class MainLoopController {
     protected static final int CLEAR_ACTIONGROUP = 1;
     protected static final int POSTCLEAR_ACTIONGROUP = 2;
 
-    private MainLoopFactory mainLoopFactory;
+    private MainLoopInterfaceFactory interfaceFactory;
     private MainLoopAdvancedInterface advancedInterface;
     private MainLoopGroupFactory groupFactory;
     private MainLoopGroup foregroundGroup;
@@ -39,9 +39,11 @@ public class MainLoopController {
     // Initialization
     //////////////////////////////////////////////////
 
-    protected MainLoopController(MainLoopFactory mainLoopFactory, MainLoopAdvancedInterface advInterface, MainLoopGroupFactory groupFactory) {
-        this.mainLoopFactory = mainLoopFactory;
-        this.advancedInterface = advInterface;
+    protected MainLoopController(MainLoopInterfaceFactory interfaceFactory,
+                                 MainLoopAdvancedInterface advInterface,
+                                 MainLoopGroupFactory groupFactory) {
+        this.interfaceFactory = interfaceFactory;
+        this.advancedInterface = advInterface; // TODO rewire adv interaface into interface factory
         this.groupFactory = groupFactory;
 
         // basic API setup
@@ -69,7 +71,7 @@ public class MainLoopController {
         }
         customGroupsExists = true;
         disableBasicInterface();
-        return mainLoopFactory.getCustomGroupsInterface(maximumPriority);
+        return interfaceFactory.getCustomGroupsInterface(maximumPriority);
     }
 
     /**

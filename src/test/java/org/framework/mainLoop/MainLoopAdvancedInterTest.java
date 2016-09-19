@@ -19,7 +19,7 @@ public class MainLoopAdvancedInterTest extends MainLoopTest {
     @Before
     public void setup() {
         super.setup();
-        advInter = mainLoop.advancedInterface();
+        advInter = mainLoopController.advancedInterface();
     }
 
     @Test

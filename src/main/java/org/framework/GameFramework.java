@@ -37,7 +37,7 @@ public class GameFramework {
      * TODO
      * currently running game -> components to exit
      */
-    private Map<Game, Pair<MainLoopFactory, GameCanvas>> gameToFrameworkComponents = new HashMap<>();
+    private Map<Game, Pair<MainLoop, GameCanvas>> gameToFrameworkComponents = new HashMap<>();
 
     private GameFramework() {}
 
@@ -53,10 +53,8 @@ public class GameFramework {
                                                                                       int updatesPerSecond,
                                                                                       boolean dummy)
             throws InstantiationException {
-        MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
-        factory.constructMainLoop(updatesPerSecond);
-        MainLoopModel mainLoopModel = factory.getMainLoopModel();
-        MainLoopController mainLoopController = factory.getMainLoopController();
+        MainLoop mainLoop = MainLoopFactory.getMainLoop(updatesPerSecond);
+        MainLoopController mainLoopController = mainLoop.getController();
 
         Dimension screen = GameCanvasModel.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
@@ -67,10 +65,10 @@ public class GameFramework {
 
         T newGame = createGame(game, mainLoopController, canvasController);
 
-        mainLoopModel.setReferences(canvasModel);
+        mainLoop.setReferences(canvasModel);
         canvasModel.setReferences(listener);
         listener.acceptGame(newGame);
-        mainLoopModel.start();
+        mainLoop.start();
         return new Pair<>(mainLoopController, canvasController);
         // TODO add created MainLoop and GameCanvas to gameToFrameworkComponents
     }
@@ -118,12 +116,12 @@ public class GameFramework {
     }
 
     public void exitGame(Game game, boolean dummy) {
-        Pair<MainLoopFactory, GameCanvas> components = gameToFrameworkComponents.get(game);
+        Pair<MainLoop, GameCanvas> components = gameToFrameworkComponents.get(game);
         if (components == null) {
             return;
         }
 
-        MainLoopFactoryFactory.destroyMainLoopFactory(components.getKey());
+        MainLoopFactory.destroyMainLoop(components.getKey());
         GameCanvasFactory.destroyCanvas(components.getValue());
     }
 

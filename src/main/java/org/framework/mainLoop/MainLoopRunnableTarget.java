@@ -10,7 +10,7 @@ import java.awt.image.BufferStrategy;
  * This Thread fires an update and a screen refresh to the game based on
  * its desired frames per seconds
  */
-public class MainLoopThread implements Runnable {
+public class MainLoopRunnableTarget implements Runnable {
     private static final int DOUBLE_BUFFERED = 2;
 
     //TODO fix timing code
@@ -22,7 +22,7 @@ public class MainLoopThread implements Runnable {
     /**
      * @param fps the desired refresh rate of the screen measured in frames per second
      */
-    protected MainLoopThread(MainLoopModel mainLoopModel, int fps) {
+    protected MainLoopRunnableTarget(MainLoopModel mainLoopModel, int fps) {
         this.mainLoopModel = mainLoopModel;
         waitTime = 1000 / fps;
     }

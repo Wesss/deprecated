@@ -22,19 +22,6 @@ public class MainLoopModel {
 
     // TODO abstract out index/obj pairings
 
-    public static final String PRE_INIT_ERRMSG = "This Object has not been fully initiallized yet";
-
-    /*
-     * Framework objects
-     *
-     * Post start:
-     * canvas != null
-     * updateCycle != null
-     */
-    private GameCanvasModel canvasModel;
-    private Thread updateCycle;
-    private MainLoopThread updateCycleMethod; //TODO find way to refactor and delete this
-
     /*
      * Representation of all the game objects currently being tracked by the MainLoopController
      *
@@ -97,10 +84,7 @@ public class MainLoopModel {
     private HashMap<Integer, HashSet<MainLoopAction>> groupToAction;
     private int maxGroup;
 
-    protected MainLoopModel(int fps) {
-        updateCycleMethod = new MainLoopThread(this, fps);
-        updateCycle = new Thread(updateCycleMethod);
-
+    protected MainLoopModel() {
         objToLayer = new HashMap<>();
         layerToObj = new HashMap<>();
         maxLayer = 0;
@@ -111,27 +95,6 @@ public class MainLoopModel {
         groupToAction = new HashMap<>();
         maxGroup = 0;
     }
-
-    /**
-     * Sets up proper references needed to run the MainLoopController
-     * @param canvasModel the GameCanvasModel displaying the game
-     */
-    public void setReferences(GameCanvasModel canvasModel) {
-        updateCycleMethod.setReferences(canvasModel);
-        this.canvasModel = canvasModel;
-    }
-
-    /**
-     * Starts the update/repaint cycle
-     * @required setReferences be called before this
-     */
-    public void start() {
-        if (canvasModel == null) {
-            throw new RuntimeException(PRE_INIT_ERRMSG);
-        }
-        updateCycle.start();
-    }
-
 
 
     //////////////////////////////////////////////////
@@ -328,10 +291,6 @@ public class MainLoopModel {
     //////////////////////////////////////////////////
 
     public void assertValid() {
-        // framework
-        assertNotNull(updateCycle);
-        assertFalse(updateCycle.isAlive() && canvasModel == null);
-
         // game objs
         assertTrue(maxLayer >= 0);
         assertTrue(maxPriority >= 0);

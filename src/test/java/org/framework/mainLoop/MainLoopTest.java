@@ -17,7 +17,7 @@ public abstract class MainLoopTest {
     public static final int STRESS_TEST_UPS = 300;
 
     protected MainLoopModel mainLoopModel;
-    protected MainLoopController mainLoop;
+    protected MainLoopController mainLoopController;
 
     protected GameCanvasGraphics mockGraphics = mock(GameCanvasGraphics.class);
     protected GameCanvasModel mockCanvas = mock(GameCanvasModel.class);
@@ -32,12 +32,11 @@ public abstract class MainLoopTest {
     public void setup() {
         reset(mockCanvas, mockGraphics, mockObj);
 
-        MainLoopFactory factory = MainLoopFactoryFactory.getMainLoopFactory();
-        factory.constructMainLoop(STANDARD_UPS);
-        mainLoopModel = factory.getMainLoopModel();
-        mainLoop = factory.getMainLoopController();
+        MainLoop mainLoop = MainLoopFactory.getMainLoop(STANDARD_UPS);
+        mainLoopModel = mainLoop.getModel();
+        mainLoopController = mainLoop.getController();
 
-        mainLoopModel.setReferences(mockCanvas);
+        mainLoop.setReferences(mockCanvas);
     }
 
     @Test
