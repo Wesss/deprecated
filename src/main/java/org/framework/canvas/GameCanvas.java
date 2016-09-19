@@ -16,4 +16,8 @@ public class GameCanvas {
     public GameCanvasModel getModel() {
         return model;
     }
+
+    public void exit() {
+        // TODO
+    }
 }

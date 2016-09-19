@@ -43,7 +43,7 @@ public class GameCanvasFactory {
     }
 
     public static void destroyCanvas(GameCanvas canvas) {
-        // TODO implement destroyCanvas
+        canvas.exit();
     }
 
     /**

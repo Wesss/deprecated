@@ -20,8 +20,6 @@ import static java.lang.Math.min;
 /**
  * This is a non-instantiable function holding class that is responsible for running
  * the entire Overhead of a Game.
- * 
- * @author Wesley Cox
  */
 public class GameFramework {
 
@@ -34,7 +32,6 @@ public class GameFramework {
     private static final GameFramework frameworkSingleton = new GameFramework();
 
     /**
-     * TODO
      * currently running game -> components to exit
      */
     private Map<Game, Pair<MainLoop, GameCanvas>> gameToFrameworkComponents = new HashMap<>();
@@ -67,10 +64,11 @@ public class GameFramework {
 
         mainLoop.setReferences(canvasModel);
         canvasModel.setReferences(listener);
+        gameToFrameworkComponents.put(newGame, new Pair<>(mainLoop, canvas));
+
         listener.acceptGame(newGame);
         mainLoop.start();
         return new Pair<>(mainLoopController, canvasController);
-        // TODO add created MainLoop and GameCanvas to gameToFrameworkComponents
     }
 
     private <T extends Game> T createGame(Class<T> gameClass, MainLoopController mainLoop, GameCanvasController canvas)
