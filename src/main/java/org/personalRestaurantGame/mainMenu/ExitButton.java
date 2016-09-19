@@ -8,7 +8,7 @@ public class ExitButton extends Button {
 
     private RestaurantGame game;
 
-    protected ExitButton(RestaurantGame game, int x, int y, int width, int height) {
+    public ExitButton(RestaurantGame game, int x, int y, int width, int height) {
         super(x, y, width, height);
         this.game = game;
     }

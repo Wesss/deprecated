@@ -4,8 +4,7 @@ import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.interfaces.Game;
 import org.framework.mainLoop.MainLoopController;
-import org.personalRestaurantGame.game.LevelFactory;
-import org.personalRestaurantGame.mainMenu.MainMenuFactory;
+import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
 import org.gameUtil.EventAcceptor;
@@ -14,14 +13,13 @@ import static org.personalRestaurantGame.RestaurantGame.State.*;
 
 public class RestaurantGame implements Game {
 
-    // TODO overhaul all of the painting
-
-    public static final String UNKNOWN_STATE = "unknown state reached";
+    public static final int MAXIMUM_UPDATE_PRIORITY = 10;
+    public static final String UNKNOWN_STATE_ERROR_MSG = "unknown state reached";
     public enum State {
         UNINITIALIZED, MAIN_MENU, NEW_GAME
     }
 
-    private final MainLoopController mainLoop;
+    private final MainLoopCustomGroupsInterface mainLoop;
     private final GameCanvasController canvas;
 
     private GamePipeline currentGamePipeline;
@@ -29,7 +27,7 @@ public class RestaurantGame implements Game {
     private State state;
 
     public RestaurantGame(MainLoopController mainLoop, GameCanvasController canvas) {
-        this.mainLoop = mainLoop;
+        this.mainLoop = mainLoop.customGroupsInterface(MAXIMUM_UPDATE_PRIORITY);
         this.canvas = canvas;
         this.state = UNINITIALIZED;
         currentGamePipeline = GamePipeline.EMPTY_GAME_PIPELINE;
@@ -48,35 +46,33 @@ public class RestaurantGame implements Game {
             throw new IllegalArgumentException("cannot switch to uninitialized state");
         }
 
-        mainLoop.markClear();
         GameStateStore currentStore = currentGamePipeline.returnGameStateStore();
+        mainLoop.clearAllGroups();
         switch (state) {
             case MAIN_MENU:
-                MainMenuFactory.destroy(currentGamePipeline); // TODO rewire this properly
                 break;
             case NEW_GAME:
                 break;
             case UNINITIALIZED:
                 break;
             default:
-                throw new RuntimeException(UNKNOWN_STATE);
+                throw new RuntimeException(UNKNOWN_STATE_ERROR_MSG);
         }
 
         state = newState;
         switch (state) {
             case MAIN_MENU:
-                currentGamePipeline = MainMenuFactory.getMainMenu(this);
+                currentGamePipeline = GamePipelineFactory.getMainMenu(this, mainLoop);
                 break;
             case NEW_GAME:
-                currentGamePipeline = LevelFactory.getLevel1();
+                currentGamePipeline = GamePipelineFactory.getLevel1();
                 break;
             default:
-                throw new RuntimeException(UNKNOWN_STATE);
+                throw new RuntimeException(UNKNOWN_STATE_ERROR_MSG);
         }
 
         currentGamePipeline.acceptGameStateStore(currentStore);
         currentEventAcceptor = currentGamePipeline.dispatchEventAcceptor();
-        mainLoop.addPostClear(currentGamePipeline);
         // TODO rewire how game framework becomes aware of the pipeline
     }
 

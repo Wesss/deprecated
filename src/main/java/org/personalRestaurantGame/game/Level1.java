@@ -7,7 +7,7 @@ public class Level1 implements GameObj {
 
     // TODO
 
-    protected Level1() {
+    public Level1() {
 
     }
 

@@ -10,7 +10,7 @@ public class NewGameButton extends Button {
 
     private RestaurantGame game;
 
-    protected NewGameButton(RestaurantGame game, int x, int y, int width, int height) {
+    public NewGameButton(RestaurantGame game, int x, int y, int width, int height) {
         super(x, y, width, height);
         this.game = game;
     }
