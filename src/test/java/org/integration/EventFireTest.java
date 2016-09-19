@@ -1,4 +1,4 @@
-package org.system;
+package org.integration;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
