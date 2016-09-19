@@ -1,10 +1,15 @@
 package org.framework.canvas;
 
+import java.awt.*;
+import java.awt.event.WindowEvent;
+
 public class GameCanvas {
+    private Frame frame;
     private GameCanvasController controller;
     private GameCanvasModel model;
 
-    protected GameCanvas(GameCanvasController controller, GameCanvasModel model) {
+    protected GameCanvas(Frame frame, GameCanvasController controller, GameCanvasModel model) {
+        this.frame = frame;
         this.controller = controller;
         this.model = model;
     }
@@ -18,6 +23,6 @@ public class GameCanvas {
     }
 
     public void exit() {
-        // TODO
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 }

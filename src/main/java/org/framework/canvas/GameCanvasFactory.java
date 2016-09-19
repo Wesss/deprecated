@@ -39,7 +39,7 @@ public class GameCanvasFactory {
         frame.setVisible(true);
         model.setFocusable(true);
 
-        return new GameCanvas(controller, model);
+        return new GameCanvas(frame, controller, model);
     }
 
     public static void destroyCanvas(GameCanvas canvas) {
