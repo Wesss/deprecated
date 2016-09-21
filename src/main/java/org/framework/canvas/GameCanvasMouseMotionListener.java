@@ -1,6 +1,6 @@
 package org.framework.canvas;
 
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.GameEventListener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;

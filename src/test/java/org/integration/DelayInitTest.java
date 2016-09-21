@@ -3,8 +3,8 @@ package org.integration;
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.Game;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.Game;
+import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
 import java.awt.*;

@@ -1,6 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 /**
  * This class represents the endpoint for adding/removing objects from the MainLoop

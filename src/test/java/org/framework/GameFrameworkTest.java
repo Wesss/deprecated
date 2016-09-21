@@ -2,8 +2,8 @@ package org.framework;
 
 import javafx.util.Pair;
 import org.framework.canvas.GameCanvasController;
-import org.framework.interfaces.Game;
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.MainLoopController;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,12 +1,11 @@
 package org.framework.mainLoop;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.canvas.GameCanvasModel;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopClearAction;
 import org.framework.domain.MainLoopRemoveAction;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 import java.util.HashMap;
 import java.util.HashSet;

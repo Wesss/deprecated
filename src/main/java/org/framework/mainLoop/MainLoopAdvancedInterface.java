@@ -2,7 +2,7 @@ package org.framework.mainLoop;
 
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopActionFactory;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 /**
  * This Interface is a much more powerful tool for manipulating the main loopModel.
  */

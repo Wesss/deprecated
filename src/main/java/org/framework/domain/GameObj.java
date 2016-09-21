@@ -1,4 +1,4 @@
-package org.framework.interfaces;
+package org.framework.domain;
 
 import org.framework.canvas.GameCanvasGraphics;
 

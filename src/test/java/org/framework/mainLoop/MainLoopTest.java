@@ -2,7 +2,7 @@ package org.framework.mainLoop;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.canvas.GameCanvasModel;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 import org.junit.Before;
 import org.junit.Test;
 

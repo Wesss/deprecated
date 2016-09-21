@@ -1,7 +1,6 @@
 package org.framework.canvas;
 
-import org.framework.GameFramework;
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.GameEventListener;
 
 import java.awt.*;
 

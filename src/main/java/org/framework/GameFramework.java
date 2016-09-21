@@ -5,8 +5,8 @@ import org.framework.canvas.GameCanvas;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasFactory;
 import org.framework.canvas.GameCanvasModel;
-import org.framework.interfaces.Game;
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.*;
 
 import java.awt.*;

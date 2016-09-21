@@ -1,4 +1,4 @@
-package org.framework.interfaces;
+package org.framework.domain;
 
 /**
  * This class represents the game itself to be run

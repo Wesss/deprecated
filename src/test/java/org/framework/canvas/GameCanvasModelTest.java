@@ -1,7 +1,7 @@
 package org.framework.canvas;
 
-import org.framework.interfaces.Game;
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package org.framework.mainLoop;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 import java.util.HashSet;
 import java.util.Set;

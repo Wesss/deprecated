@@ -1,7 +1,5 @@
 package org.framework.domain;
 
-import org.framework.interfaces.GameObj;
-
 public class MainLoopActionFactory {
 
     /**

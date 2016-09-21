@@ -1,4 +1,4 @@
-package org.framework.interfaces;
+package org.framework.domain;
 
 
 /**
