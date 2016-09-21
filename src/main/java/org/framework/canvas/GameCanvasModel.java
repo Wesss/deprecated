@@ -33,7 +33,6 @@ public class GameCanvasModel extends Canvas {
      */
 
     private final Object GAME_LOCK = new Object();
-    private GameEventListener gameEventListener;
 
     /*
      * actualX > 0
@@ -60,7 +59,6 @@ public class GameCanvasModel extends Canvas {
      */
     protected GameCanvasModel(int width, int height, Frame frame) {
         super();
-        gameEventListener = GameFramework.EMPTY_GAME_LISTENER;
 
         actualX = width;
         actualY = height;
@@ -73,8 +71,6 @@ public class GameCanvasModel extends Canvas {
      * @param gameListener The Game this Panel displays
      */
     public void setReferences(GameEventListener gameListener) {
-        gameEventListener = gameListener;
-
         addKeyListener(new GameCanvasKeyListener(gameListener ,GAME_LOCK));
         addMouseListener(new GameCanvasMousePressListener(this, gameListener, GAME_LOCK));
         addMouseMotionListener(new GameCanvasMouseMotionListener(this, gameListener, GAME_LOCK));

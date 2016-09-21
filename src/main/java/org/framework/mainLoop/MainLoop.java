@@ -37,7 +37,6 @@ public class MainLoop {
     }
 
     protected void exit() {
-        // TODO figure out why thread isn't quitting
         mainLoopThread.interrupt();
     }
 

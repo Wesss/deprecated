@@ -7,8 +7,6 @@ import org.framework.interfaces.GameObj;
  */
 public class MainLoopController {
 
-    // TODO test interface swap prevention
-
     //////////////////////////////////////////////////
     // Definition
     //////////////////////////////////////////////////

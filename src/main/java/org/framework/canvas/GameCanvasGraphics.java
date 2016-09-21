@@ -11,7 +11,7 @@ import java.text.AttributedCharacterIterator;
 public class GameCanvasGraphics {
 
     // TODO make this object mutable, pass in new graphics object on each re-run instead of creating new PanelGraphics object
-    // TODO figure out resizing of Strings (visit GraphicsEnvironment.getLocalGraphicsEnvironment().preferProportionalFonts();
+    // TODO figure out resizing of Strings
     // TODO make this extend Graphics
 
     //////////////////////////////////////////////////
