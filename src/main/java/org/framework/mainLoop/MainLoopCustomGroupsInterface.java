@@ -45,7 +45,7 @@ public class MainLoopCustomGroupsInterface {
     }
 
     /**
-     * TODO
+     * Removes the group and all game objs it contains from the main loop
      * @param group
      * @return true iff the mainLoop contained this group
      */
@@ -59,9 +59,9 @@ public class MainLoopCustomGroupsInterface {
     }
 
     /**
-     * TODO
+     * Removes the all groups and all game objs under them from the main loop
      */
-    public void clearAllGroups() {
+    public void removeAllGroups() {
         for (MainLoopGroup group : groups) {
             group.markClear();
             factory.destroyMainLoopGroup(group);
@@ -73,7 +73,7 @@ public class MainLoopCustomGroupsInterface {
      * TODO
      * @return
      */
-    public Collection<MainLoopGroup> getGroups() {
+    public Set<MainLoopGroup> getGroups() {
         return new HashSet<>(groups);
     }
 }

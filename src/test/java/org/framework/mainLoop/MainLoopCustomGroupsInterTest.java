@@ -121,7 +121,7 @@ public class MainLoopCustomGroupsInterTest extends MainLoopTest {
 
     @Test
     public void clearNoGroups() {
-        groupsInter.clearAllGroups();
+        groupsInter.removeAllGroups();
         mainLoopModel.assertValid();
     }
 
@@ -131,7 +131,7 @@ public class MainLoopCustomGroupsInterTest extends MainLoopTest {
         groupsInter.createGroup(1, 1);
         mainLoopModel.nextFrame(mockGraphics);
         groupsInter.createGroup(2, 2);
-        groupsInter.clearAllGroups();
+        groupsInter.removeAllGroups();
 
         mainLoopModel.assertValid();
         assertThat(groupsInter.getGroups(), empty());
