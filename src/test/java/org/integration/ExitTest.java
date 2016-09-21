@@ -4,6 +4,8 @@ import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
+import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
@@ -15,11 +17,23 @@ public class ExitTest implements Game {
     private static final int FPS = 60;
 
     public static void main(String args[]) throws InstantiationException {
-        GameFramework.startGame(ExitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
+        GameFramework.startGame(new ExitTestFactory(), FPS);
+    }
+
+    private static class ExitTestFactory implements GameFactory {
+        @Override
+        public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
+            return new ExitTest(mainLoop, canvas);
+        }
     }
 
     public ExitTest(MainLoopController mainLoop, GameCanvasController canvas) {
         mainLoop.add(new CountdownExit(this));
+    }
+
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     private class CountdownExit implements GameObj {

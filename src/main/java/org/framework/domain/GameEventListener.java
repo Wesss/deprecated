@@ -6,15 +6,9 @@ package org.framework.domain;
  * 
  * @author Wesley Cox
  */
-public interface GameEventListener<T extends Game> {
-    
-    /**
-     * Passes in an instantiated game (to enable callbacks).<br>
-     * This is called before any events are fired.
-     *
-     * @param game a newly instantiated game whose class was passed into GameFramework.gamestart()
-     */
-    public void acceptGame(T game);
+public interface GameEventListener {
+
+    GameEventListener EMPTY_GAME_LISTENER = new EmptyGameListener();
 
     /**
      * Fires appropriate commands when the provided key (on the keyboard)
@@ -66,4 +60,12 @@ public interface GameEventListener<T extends Game> {
      */
     public void mouseMoved(int x, int y);
 
+    class EmptyGameListener implements GameEventListener {
+        public void keyPressed(int keyCode) {}
+        public void keyReleased(int keyCode) {}
+        public void mousePressed(int x, int y, int button) {}
+        public void mouseReleased(int x, int y, int button) {}
+        public void mouseMoved(int x, int y) {}
+        public void acceptGame(Game game) {}
+    }
 }

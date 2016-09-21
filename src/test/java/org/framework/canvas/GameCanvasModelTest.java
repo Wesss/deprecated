@@ -19,7 +19,7 @@ public class GameCanvasModelTest {
 
     private Frame mockFrame = mock(Frame.class);
     @SuppressWarnings("unchecked")
-    private GameEventListener<Game> mockListener = mock(GameEventListener.class);
+    private GameEventListener mockListener = mock(GameEventListener.class);
     private GameCanvasModel canvasModel;
 
     @Before

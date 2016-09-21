@@ -4,6 +4,8 @@ import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
+import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
@@ -21,7 +23,14 @@ public class DelayInitTest implements Game{
     private static final int FPS = 60;
 
     public static void main(String args[]) throws InstantiationException {
-        GameFramework.startGame(DelayInitTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
+        GameFramework.startGame(new DelayInitTestFactory(), FPS);
+    }
+
+    private static class DelayInitTestFactory implements GameFactory {
+        @Override
+        public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
+            return new DelayInitTest(mainLoop, canvas);
+        }
     }
 
     public DelayInitTest(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -32,6 +41,11 @@ public class DelayInitTest implements Game{
             }
         }
         mainLoop.add(new Num(sum));
+    }
+
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     private class Num implements GameObj {

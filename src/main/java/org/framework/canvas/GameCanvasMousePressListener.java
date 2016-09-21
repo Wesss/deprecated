@@ -11,10 +11,10 @@ import java.awt.event.MouseListener;
 public class GameCanvasMousePressListener implements MouseListener {
 
     private final Object GAME_LOCK;
-    private GameEventListener<?> gameEventListener;
+    private GameEventListener gameEventListener;
     private GameCanvasModel canvas;
 
-    public GameCanvasMousePressListener(GameCanvasModel canvas, GameEventListener<?> gameEventListener, Object lock) {
+    public GameCanvasMousePressListener(GameCanvasModel canvas, GameEventListener gameEventListener, Object lock) {
         this.canvas = canvas;
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;

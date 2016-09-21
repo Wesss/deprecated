@@ -4,6 +4,8 @@ import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
+import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
@@ -20,22 +22,23 @@ public class BaseTest implements Game {
     private static final int FPS = 60;
 
     public static void main(String args[]) throws InstantiationException {
-        GameFramework.startGame(BaseTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
+        GameFramework.startGame(new BaseTestFactory(), FPS);
     }
 
-    public BaseTest(MainLoopController mainLoop, GameCanvasController canvas) {
-        mainLoop.add(new Line());
-    }
-
-    private class Line implements GameObj {
+    private static class BaseTestFactory implements GameFactory {
 
         @Override
-        public void paint(GameCanvasGraphics g) {
-            g.setColor(Color.BLACK);
-            g.drawLine(100, 100, 400, 400);
+        public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
+            return new BaseTest();
         }
+    }
 
-        @Override
-        public void update() {}
+    public BaseTest() {
+
+    }
+
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 }

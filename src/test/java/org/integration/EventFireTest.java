@@ -5,6 +5,7 @@ import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
+import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
@@ -13,15 +14,20 @@ import java.awt.event.KeyEvent;
 /**
  * Test for EventListeners
  * (Key press/release, Mouse press/release, mouse position)
- * 
- * @author Wesley Cox
  */
 public class EventFireTest implements Game{
 
     private static final int FPS = 60;
 
     public static void main(String args[]) throws InstantiationException {
-        GameFramework.startGame(EventFireTest.class, new EventFireTestListener(), FPS);
+        GameFramework.startGame(new EventFireTestFactory(), FPS);
+    }
+
+    private static class EventFireTestFactory implements GameFactory {
+        @Override
+        public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
+            return new EventFireTest(mainLoop, canvas);
+        }
     }
 
     private GameString[] log;
@@ -39,53 +45,23 @@ public class EventFireTest implements Game{
         mainLoop.add(mouseLoc);
     }
 
-    public void newEvent(String s) {
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return new EventFireTestListener(this);
+    }
+
+    private void newEvent(String s) {
         for (int i = log.length - 1; i > 0; i--) {
             log[i].setString(log[i - 1].getString());
         }
         log[0].setString(s);
     }
 
-    public void setMouseLoc(int x, int y) {
+    private void setMouseLoc(int x, int y) {
         mouseLoc.setString("Mouse Position: (" + x + ", " + y + ")");
     }
 
-    public static class EventFireTestListener implements GameEventListener<EventFireTest> {
-
-        private EventFireTest eventTest;
-
-        @Override
-        public void acceptGame(EventFireTest game) {
-            this.eventTest = game;
-        }
-
-        @Override
-        public void mousePressed(int x, int y, int button) {
-            eventTest.newEvent("pressed button "+ button);
-        }
-
-        @Override
-        public void mouseReleased(int x, int y, int button) {
-            eventTest.newEvent("released button "+ button);
-        }
-
-        @Override
-        public void mouseMoved(int x, int y) {
-            eventTest.setMouseLoc(x, y);
-        }
-
-        @Override
-        public void keyPressed(int key) {
-            eventTest.newEvent("pressed  key "+ KeyEvent.getKeyText(key));
-        }
-
-        @Override
-        public void keyReleased(int key) {
-            eventTest.newEvent("released key "+ KeyEvent.getKeyText(key));
-        }
-    }
-
-    public class GameString implements GameObj {
+    private class GameString implements GameObj {
 
         private String string;
         private int mx;
@@ -117,4 +93,39 @@ public class EventFireTest implements Game{
         @Override
         public void update() {}
     }
+
+    private static class EventFireTestListener implements GameEventListener {
+
+        private EventFireTest eventTest;
+
+        public EventFireTestListener(EventFireTest eventTest) {
+            this.eventTest = eventTest;
+        }
+
+        @Override
+        public void mousePressed(int x, int y, int button) {
+            eventTest.newEvent("pressed button "+ button);
+        }
+
+        @Override
+        public void mouseReleased(int x, int y, int button) {
+            eventTest.newEvent("released button "+ button);
+        }
+
+        @Override
+        public void mouseMoved(int x, int y) {
+            eventTest.setMouseLoc(x, y);
+        }
+
+        @Override
+        public void keyPressed(int key) {
+            eventTest.newEvent("pressed  key "+ KeyEvent.getKeyText(key));
+        }
+
+        @Override
+        public void keyReleased(int key) {
+            eventTest.newEvent("released key "+ KeyEvent.getKeyText(key));
+        }
+    }
+
 }

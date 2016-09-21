@@ -17,10 +17,10 @@ import java.util.Set;
 public class GameCanvasKeyListener implements KeyListener {
 
     private final Object GAME_LOCK;
-    private GameEventListener<?> gameEventListener;
+    private GameEventListener gameEventListener;
     private Set<Integer> pressedKeys;
 
-    public GameCanvasKeyListener(GameEventListener<?> gameEventListener, Object lock) {
+    public GameCanvasKeyListener(GameEventListener gameEventListener, Object lock) {
         this.gameEventListener = gameEventListener;
         GAME_LOCK = lock;
         pressedKeys = new HashSet<>();

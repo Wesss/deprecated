@@ -4,6 +4,8 @@ import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
+import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopController;
 
@@ -20,7 +22,14 @@ public class BasicAnimationTest implements Game {
     private static final int FPS = 60;
 
     public static void main(String args[]) throws InstantiationException {
-        GameFramework.startGame(BasicAnimationTest.class, GameFramework.EMPTY_GAME_LISTENER, FPS);
+        GameFramework.startGame(new BasicAnimationTestFactory(), FPS);
+    }
+
+    private static class BasicAnimationTestFactory implements GameFactory {
+        @Override
+        public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
+            return new BasicAnimationTest(mainLoop, canvas);
+        }
     }
 
     public BasicAnimationTest(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -30,6 +39,11 @@ public class BasicAnimationTest implements Game {
         mainLoop.add(new Display1());
         mainLoop.add(new Display2());
         mainLoop.add(new Display3());
+    }
+
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     /**************************************** Basic Shapes *************************************************/

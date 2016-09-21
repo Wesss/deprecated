@@ -4,9 +4,6 @@ import org.framework.canvas.GameCanvasGraphics;
 
 /**
  * This class represents an object of the game that can be displayed
- * 
- * @author Wesley Cox
- *
  */
 public interface GameObj {
 
