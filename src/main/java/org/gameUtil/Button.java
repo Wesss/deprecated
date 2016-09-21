@@ -1,7 +1,7 @@
 package org.gameUtil;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 import java.awt.*;
 

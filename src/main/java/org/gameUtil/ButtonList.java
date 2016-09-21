@@ -2,7 +2,7 @@ package org.gameUtil;
 
 import com.sun.istack.internal.Nullable;
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 import java.util.List;
 
