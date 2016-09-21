@@ -2,11 +2,11 @@ package org.personalRestaurantGame;
 
 import org.framework.domain.GameEventListener;
 
-public class EventListener implements GameEventListener<RestaurantGame> {
+public class EventListener implements GameEventListener {
 
     private RestaurantGame game;
 
-    public void acceptGame(RestaurantGame game) {
+    public EventListener(RestaurantGame game) {
         this.game = game;
     }
 

@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws InstantiationException {
         try {
-            GameFramework.startGame(RestaurantGame.class, new EventListener(), FPS);
+            GameFramework.startGame(new RestaurantGameFactory(), FPS);
         } catch (Exception e) {
             e.printStackTrace();
         }

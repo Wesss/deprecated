@@ -3,6 +3,7 @@ package org.personalRestaurantGame;
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
 import org.framework.domain.Game;
+import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.MainLoopController;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.personalRestaurantGame.model.GamePipeline;
@@ -17,6 +18,7 @@ public class RestaurantGame implements Game {
 
     public static final int MAXIMUM_UPDATE_PRIORITY = 10;
     public static final String UNKNOWN_STATE_ERROR_MSG = "unknown state reached";
+
     public enum State {
         UNINITIALIZED, MAIN_MENU, NEW_GAME
     }
@@ -35,7 +37,12 @@ public class RestaurantGame implements Game {
         currentGamePipeline = GamePipeline.EMPTY_GAME_PIPELINE;
         currentEventAcceptor = EventAcceptor.EMPTY_EVENT_ACCEPTOR;
         currentGamePipeline.acceptGameStateStore(new GameStateStore());
-        swapState(MAIN_MENU);
+        swapState(MAIN_MENU); // TODO create a game.start method such that the game can be initiallized without worrying about transitioinal stuff
+    }
+
+    @Override
+    public GameEventListener dispatchGameEventListener() {
+        return new EventListener(this);
     }
 
     ////////////////////
