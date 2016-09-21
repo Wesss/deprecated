@@ -1,6 +1,6 @@
 package org.personalRestaurantGame;
 
-import org.framework.interfaces.GameEventListener;
+import org.framework.domain.GameEventListener;
 
 public class EventListener implements GameEventListener<RestaurantGame> {
 

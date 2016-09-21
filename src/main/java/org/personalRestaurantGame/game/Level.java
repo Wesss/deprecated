@@ -1,7 +1,7 @@
 package org.personalRestaurantGame.game;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.interfaces.GameObj;
+import org.framework.domain.GameObj;
 
 public class Level implements GameObj {
 

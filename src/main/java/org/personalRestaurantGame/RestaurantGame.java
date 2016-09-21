@@ -2,7 +2,7 @@ package org.personalRestaurantGame;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
-import org.framework.interfaces.Game;
+import org.framework.domain.Game;
 import org.framework.mainLoop.MainLoopController;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.personalRestaurantGame.model.GamePipeline;
