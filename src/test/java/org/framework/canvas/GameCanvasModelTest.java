@@ -14,8 +14,6 @@ import static org.mockito.Mockito.reset;
 
 public class GameCanvasModelTest {
 
-    // TODO test key/mouse multi press without release
-
     private static final int CANVAS_LENGTH = GameCanvasModel.DEFAULT_VIRTUAL_X;
     private static final int CANVAS_HEIGHT = GameCanvasModel.DEFAULT_VIRTUAL_Y;
 

@@ -53,7 +53,7 @@ public class GameFramework {
         MainLoop mainLoop = MainLoopFactory.getMainLoop(updatesPerSecond);
         MainLoopController mainLoopController = mainLoop.getController();
 
-        Dimension screen = GameCanvasModel.getScreenDimension();
+        Dimension screen = GameCanvas.getScreenDimension();
         int gameLength = (int)(SCREEN_RATIO * min(screen.width, screen.height));
         GameCanvas canvas =
                 GameCanvasFactory.createCanvas(gameLength, gameLength);
@@ -67,6 +67,7 @@ public class GameFramework {
         gameToFrameworkComponents.put(newGame, new Pair<>(mainLoop, canvas));
 
         listener.acceptGame(newGame);
+        canvas.start();
         mainLoop.start();
         return new Pair<>(mainLoopController, canvasController);
     }

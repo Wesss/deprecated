@@ -7,7 +7,6 @@ import java.text.AttributedCharacterIterator;
 /**
  * An Interface for drawing to the game's canvas (aka. actually drawing images onto the screen).
  * Serves as a transformer for java.awt.Graphics
- * TODO describe usage
  */
 public class GameCanvasGraphics {
 

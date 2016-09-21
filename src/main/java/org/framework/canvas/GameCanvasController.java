@@ -1,7 +1,7 @@
 package org.framework.canvas;
 
 /**
- * TODO
+ * This class represents the endpoint for changing the canvas
  */
 public class GameCanvasController {
 
@@ -15,7 +15,7 @@ public class GameCanvasController {
      * @return the width of the drawable canvas in pixels
      */
     public int getActualX() {
-        return  canvasModel.getActualX();
+        return canvasModel.getActualX();
     }
 
     /**

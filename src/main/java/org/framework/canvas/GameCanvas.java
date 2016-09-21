@@ -22,7 +22,21 @@ public class GameCanvas {
         return model;
     }
 
+    public void start() {
+        // TODO figure out if this actually does anything
+        GraphicsEnvironment.getLocalGraphicsEnvironment().preferProportionalFonts();
+        frame.setVisible(true);
+    }
+
     public void exit() {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    }
+
+    ////////////////////
+    // Static Utils
+    ////////////////////
+
+    public static Dimension getScreenDimension() {
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 }

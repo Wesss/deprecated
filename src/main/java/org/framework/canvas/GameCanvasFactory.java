@@ -36,7 +36,6 @@ public class GameCanvasFactory {
 
         frame.add(model);
         frame.pack();
-        frame.setVisible(true);
         model.setFocusable(true);
 
         return new GameCanvas(frame, controller, model);

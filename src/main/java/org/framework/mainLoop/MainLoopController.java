@@ -3,8 +3,7 @@ package org.framework.mainLoop;
 import org.framework.interfaces.GameObj;
 
 /**
- * This controller class is the endpoint for adding/removing objects from the MainLoopController
- *
+ * This class represents the endpoint for adding/removing objects from the MainLoop
  */
 public class MainLoopController {
 
