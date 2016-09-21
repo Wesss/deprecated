@@ -13,6 +13,8 @@ import static org.personalRestaurantGame.RestaurantGame.State.*;
 
 public class RestaurantGame implements Game {
 
+    // TODO game transition
+
     public static final int MAXIMUM_UPDATE_PRIORITY = 10;
     public static final String UNKNOWN_STATE_ERROR_MSG = "unknown state reached";
     public enum State {
@@ -47,7 +49,7 @@ public class RestaurantGame implements Game {
         }
 
         GameStateStore currentStore = currentGamePipeline.returnGameStateStore();
-        mainLoop.clearAllGroups();
+        mainLoop.removeAllGroups();
         switch (state) {
             case MAIN_MENU:
                 break;
