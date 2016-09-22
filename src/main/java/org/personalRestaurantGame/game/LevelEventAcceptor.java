@@ -2,7 +2,7 @@ package org.personalRestaurantGame.game;
 
 import org.gameUtil.EventAcceptor;
 
-public class LevelEventAcceptor implements EventAcceptor{
+public class LevelEventAcceptor implements EventAcceptor {
 
     private Level level;
 

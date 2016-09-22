@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import static org.gameUtil.Mouse.MOUSE_LEFT;
 
-public class MainMenuEventAcceptor implements EventAcceptor{
+public class MainMenuEventAcceptor implements EventAcceptor {
 
     private MainMenu menu;
 

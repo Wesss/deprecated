@@ -11,6 +11,7 @@ public interface GamePipeline extends GameObj {
     /**
      * Transfers ownership of the current game state store onto this.
      * This is called only once right after creation.
+     *
      * @param store
      */
     public void acceptGameStateStore(GameStateStore store);
@@ -18,6 +19,7 @@ public interface GamePipeline extends GameObj {
     /**
      * Releases ownership of the current game state store.
      * This is called only once just before the destruction of this.
+     *
      * @return the GameStateStore that was previously accepted
      */
     public GameStateStore returnGameStateStore();
