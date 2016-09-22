@@ -62,8 +62,8 @@ public abstract class Button implements GameObj {
      * @return true iff given mouse position is over this button
      */
     public boolean isMousePositionOverButton(int mouseX, int mouseY) {
-        return (x - (width/2) <= mouseX && mouseX <= x + (width/2))
-                && (y - (height/2) <= mouseY && mouseY <= y + (height/2));
+        return (x - (width / 2) <= mouseX && mouseX <= x + (width / 2))
+                && (y - (height / 2) <= mouseY && mouseY <= y + (height / 2));
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class Button implements GameObj {
         } else {
             g.setColor(Color.BLACK);
         }
-        g.drawRect(x - (width/2), y - (height/2), width, height);
+        g.drawRect(x - (width / 2), y - (height / 2), width, height);
         g.drawString(label, x, y);
     }
 }

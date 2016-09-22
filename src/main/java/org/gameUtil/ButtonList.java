@@ -18,7 +18,9 @@ public class ButtonList implements GameObj {
      * buttons' mouse over selection areas are not overlapping
      */
     private List<Button> buttons;
-    private @Nullable Button buttonThatHasSelector;
+    private
+    @Nullable
+    Button buttonThatHasSelector;
     private boolean isMouseActiveSelector;
     private boolean isKeyboardActiveSelector;
 

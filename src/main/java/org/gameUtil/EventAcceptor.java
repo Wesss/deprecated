@@ -55,18 +55,23 @@ public interface EventAcceptor {
     static class EmptyEventAcceptor implements EventAcceptor {
 
         @Override
-        public void keyPressed(int keyCode) {}
+        public void keyPressed(int keyCode) {
+        }
 
         @Override
-        public void keyReleased(int keyCode) {}
+        public void keyReleased(int keyCode) {
+        }
 
         @Override
-        public void mousePressed(int x, int y, int button) {}
+        public void mousePressed(int x, int y, int button) {
+        }
 
         @Override
-        public void mouseReleased(int x, int y, int button) {}
+        public void mouseReleased(int x, int y, int button) {
+        }
 
         @Override
-        public void mouseMoved(int x, int y) {}
+        public void mouseMoved(int x, int y) {
+        }
     }
 }
