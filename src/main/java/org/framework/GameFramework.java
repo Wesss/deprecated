@@ -35,7 +35,8 @@ public class GameFramework {
      */
     private Map<Game, Pair<MainLoop, GameCanvas>> gameToFrameworkComponents = new HashMap<>();
 
-    private GameFramework() {}
+    private GameFramework() {
+    }
 
     public static Pair<MainLoopController, GameCanvasController> startGame(GameFactory factory,
                                                                            int updatesPerSecond)
@@ -51,7 +52,7 @@ public class GameFramework {
         MainLoopController mainLoopController = mainLoop.getController();
 
         Dimension screen = GameCanvas.getScreenDimension();
-        int gameDimension = (int)(SCREEN_RATIO * min(screen.width, screen.height));
+        int gameDimension = (int) (SCREEN_RATIO * min(screen.width, screen.height));
         GameCanvas canvas =
                 GameCanvasFactory.createCanvas(gameDimension, gameDimension);
         GameCanvasController canvasController = canvas.getController();
@@ -75,6 +76,7 @@ public class GameFramework {
 
     /**
      * Exits given game, destroying its canvas and stopping the main loop
+     *
      * @param game
      */
     public static void exitGame(Game game) {

@@ -10,6 +10,7 @@ public interface GameFactory {
 
     /**
      * TODO document GameFactory
+     *
      * @param mainLoop
      * @param canvas
      * @return
@@ -17,7 +18,6 @@ public interface GameFactory {
     public Game createGame(MainLoopController mainLoop, GameCanvasController canvas);
 
     /**
-     *
      * @return
      */
     public GameEventListener dispatchGameEventListener();

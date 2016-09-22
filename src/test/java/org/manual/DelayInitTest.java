@@ -15,10 +15,10 @@ import java.awt.*;
  * Test for Long initialization times
  * This test computers a large sum while initializing the game.
  * The Player should not be able to work the canvas/game into an incorrect state
- * 
+ *
  * @author Wesley Cox
  */
-public class DelayInitTest implements Game{
+public class DelayInitTest implements Game {
 
     private static final int FPS = 60;
 
@@ -40,7 +40,7 @@ public class DelayInitTest implements Game{
 
     public DelayInitTest(MainLoopController mainLoop, GameCanvasController canvas) {
         int sum = 0;
-        for (int i = 0; i < 100000; i ++) {
+        for (int i = 0; i < 100000; i++) {
             for (int j = 0; j < 100000; j++) {
                 sum += j;
             }
@@ -63,6 +63,7 @@ public class DelayInitTest implements Game{
         }
 
         @Override
-        public void update() {}
+        public void update() {
+        }
     }
 }

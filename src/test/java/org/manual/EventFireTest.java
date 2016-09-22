@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
  * Test for EventListeners
  * (Key press/release, Mouse press/release, mouse position)
  */
-public class EventFireTest implements Game{
+public class EventFireTest implements Game {
 
     private static final int FPS = 60;
 
@@ -94,7 +94,8 @@ public class EventFireTest implements Game{
         }
 
         @Override
-        public void update() {}
+        public void update() {
+        }
     }
 
     private static class EventFireTestListener implements GameEventListener {
@@ -107,12 +108,12 @@ public class EventFireTest implements Game{
 
         @Override
         public void mousePressed(int x, int y, int button) {
-            eventTest.newEvent("pressed button "+ button);
+            eventTest.newEvent("pressed button " + button);
         }
 
         @Override
         public void mouseReleased(int x, int y, int button) {
-            eventTest.newEvent("released button "+ button);
+            eventTest.newEvent("released button " + button);
         }
 
         @Override
@@ -122,12 +123,12 @@ public class EventFireTest implements Game{
 
         @Override
         public void keyPressed(int key) {
-            eventTest.newEvent("pressed  key "+ KeyEvent.getKeyText(key));
+            eventTest.newEvent("pressed  key " + KeyEvent.getKeyText(key));
         }
 
         @Override
         public void keyReleased(int key) {
-            eventTest.newEvent("released key "+ KeyEvent.getKeyText(key));
+            eventTest.newEvent("released key " + KeyEvent.getKeyText(key));
         }
     }
 

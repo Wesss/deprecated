@@ -10,7 +10,7 @@ import org.framework.mainLoop.MainLoopController;
 /**
  * Test for Panel/Window operations
  * (Move, Minimize, Close, Display)
- * 
+ *
  * @author Wesley Cox
  */
 public class BaseTest implements Game {

@@ -22,6 +22,7 @@ public class MainLoopCustomGroupsInterface {
 
     /**
      * TODO
+     *
      * @param priority
      * @param layer
      * @return
@@ -37,6 +38,7 @@ public class MainLoopCustomGroupsInterface {
 
     /**
      * TODO
+     *
      * @param group
      * @return
      */
@@ -46,6 +48,7 @@ public class MainLoopCustomGroupsInterface {
 
     /**
      * Removes the group and all game objs it contains from the main loop
+     *
      * @param group
      * @return true iff the mainLoop contained this group
      */
@@ -71,6 +74,7 @@ public class MainLoopCustomGroupsInterface {
 
     /**
      * TODO
+     *
      * @return
      */
     public Set<MainLoopGroup> getGroups() {

@@ -22,6 +22,7 @@ public class MainLoop {
 
     /**
      * Sets up proper references needed to run the MainLoopController
+     *
      * @param canvasModel the GameCanvasModel displaying the game
      */
     public void setReferences(GameCanvasModel canvasModel) {
@@ -30,6 +31,7 @@ public class MainLoop {
 
     /**
      * Starts the update/repaint cycle
+     *
      * @required setReferences be called before this
      */
     public void start() {

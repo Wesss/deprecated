@@ -12,7 +12,7 @@ import org.framework.mainLoop.MainLoopController;
 /**
  * Test for Animation
  * (Update and Paint cycles)
- * 
+ *
  * @author Wesley Cox
  */
 public class BasicAnimationTest implements Game {
@@ -72,7 +72,8 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void update() {}
+        public void update() {
+        }
     }
 
     private class WrapCircle implements GameObj {
@@ -158,7 +159,8 @@ public class BasicAnimationTest implements Game {
         }
 
         @Override
-        public void update() {}
+        public void update() {
+        }
     }
 
     /************************************ Fancier configurations ************************************/
@@ -265,7 +267,7 @@ public class BasicAnimationTest implements Game {
         }
     }
 
-    private class Display3 implements GameObj{
+    private class Display3 implements GameObj {
 
         OrbitCircle baseCircle, o1, o1_1;
         private static final int x = 425;

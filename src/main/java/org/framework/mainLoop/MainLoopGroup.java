@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author Wesley
  */
-public class MainLoopGroup implements GameObj{
+public class MainLoopGroup implements GameObj {
 
     // TODO prevent adding of obj to different groups/mainloop
 
@@ -45,8 +45,8 @@ public class MainLoopGroup implements GameObj{
     private Set<GameObj> remObjs;
 
     protected MainLoopGroup(MainLoopAdvancedInterface inter,
-                        int layer,
-                        int priority) {
+                            int layer,
+                            int priority) {
         this.inter = inter;
         this.groupLayer = layer;
         this.groupPriority = priority;
@@ -89,6 +89,7 @@ public class MainLoopGroup implements GameObj{
 
     /**
      * Removed given obj from the group if it is part of the group. Nothing otherwise
+     *
      * @param obj
      */
     public boolean remove(GameObj obj) {
@@ -104,7 +105,7 @@ public class MainLoopGroup implements GameObj{
     /**
      * @param obj
      * @return true iff obj is either contained by this group or will be after
-     * 		potentially clearing the group
+     * potentially clearing the group
      */
     public boolean contains(GameObj obj) {
         return objs.contains(obj) || newObjs.contains(obj) || newPostClearObjs.contains(obj);

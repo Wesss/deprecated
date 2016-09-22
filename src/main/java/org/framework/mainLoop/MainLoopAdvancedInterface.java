@@ -3,6 +3,7 @@ package org.framework.mainLoop;
 import org.framework.domain.MainLoopAction;
 import org.framework.domain.MainLoopActionFactory;
 import org.framework.domain.GameObj;
+
 /**
  * This Interface is a much more powerful tool for manipulating the main loopModel.
  */
@@ -25,6 +26,7 @@ public class MainLoopAdvancedInterface {
 
     /**
      * TODO
+     *
      * @param action
      * @param actionGroup
      * @throws IllegalArgumentException if actionGroup < 0, action == null
@@ -34,7 +36,6 @@ public class MainLoopAdvancedInterface {
     }
 
     /**
-     *
      * @param action
      * @return true iff the mainLoop currently has the action waiting to be executed in the next update period
      */
@@ -43,11 +44,10 @@ public class MainLoopAdvancedInterface {
     }
 
     /**
-     *
      * @param action
      * @param actionGroup
      * @return true iff  the mainLoop currently has the action waiting to be executed in the next update period in the
-     *      given group.
+     * given group.
      */
     public boolean containsAction(MainLoopAction action, int actionGroup) {
         return loopModel.containsAction(action, actionGroup);
@@ -55,11 +55,13 @@ public class MainLoopAdvancedInterface {
 
     /**
      * Removes given action from the pool of actions to be executed in the next update period
+     *
      * @param action
      */
     public void removeAction(MainLoopAction action) {
         loopModel.deleteAction(action);
     }
+
     /**
      * Removes all actions from the pool of actions to be executed in the next update period
      */
@@ -68,7 +70,6 @@ public class MainLoopAdvancedInterface {
     }
 
     /**
-     *
      * @param obj
      * @return true iff the mainLoop contains given object
      */
@@ -82,6 +83,7 @@ public class MainLoopAdvancedInterface {
 
     /**
      * TODO
+     *
      * @param obj
      * @param priority
      * @param layer
@@ -94,6 +96,7 @@ public class MainLoopAdvancedInterface {
 
     /**
      * TODO
+     *
      * @param obj
      * @return
      * @throws IllegalArgumentException if obj == null

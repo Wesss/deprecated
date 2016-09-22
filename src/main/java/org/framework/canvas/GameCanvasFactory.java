@@ -15,11 +15,11 @@ public class GameCanvasFactory {
     /**
      * Creates a new GameCanvasController of specified size and adds it to the given frame.
      *
-     * @param frame the frame that will hold the created canvas
-     * @param width the width of the drawable area to be available for painting (in pixels)
-     * 		<UL><LI> must be > 0 </UL>
+     * @param frame  the frame that will hold the created canvas
+     * @param width  the width of the drawable area to be available for painting (in pixels)
+     *               <UL><LI> must be > 0 </UL>
      * @param height the height of the drawable area to be available for painting (in pixels)
-     * 		<UL><LI> must be > 0 </UL>
+     *               <UL><LI> must be > 0 </UL>
      * @throws IllegalArgumentException if width or height <= 0 or frame is null
      */
     public static GameCanvas createCanvas(Frame frame, int width, int height) {

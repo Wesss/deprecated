@@ -71,6 +71,7 @@ public class GameCanvasGraphics {
 
     /**
      * All String related drawing currently does not support scaling
+     *
      * @see Graphics#getFont
      */
     public Font getFont() {
@@ -79,6 +80,7 @@ public class GameCanvasGraphics {
 
     /**
      * All String related drawing currently does not support scaling
+     *
      * @see Graphics#setFont
      */
     public void setFont(Font font) {
@@ -87,6 +89,7 @@ public class GameCanvasGraphics {
 
     /**
      * All String related drawing currently does not support scaling
+     *
      * @see Graphics#getFontMetrics
      */
     public FontMetrics getFontMetrics(Font f) {
@@ -228,6 +231,7 @@ public class GameCanvasGraphics {
 
     /**
      * All String related drawing currently does not support scaling
+     *
      * @see Graphics#drawString
      */
     public void drawString(String str, int x, int y) {
@@ -236,6 +240,7 @@ public class GameCanvasGraphics {
 
     /**
      * All String related drawing currently does not support scaling
+     *
      * @see Graphics#drawString
      */
     public void drawString(AttributedCharacterIterator iterator, int x, int y) {

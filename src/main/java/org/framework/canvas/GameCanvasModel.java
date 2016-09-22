@@ -51,10 +51,10 @@ public class GameCanvasModel extends Canvas {
     /**
      * Creates a new GameCanvasModel
      *
-     * @param width the width of the canvas
+     * @param width  the width of the canvas
      * @param height the height of the canvas
-     * @param frame the frame in which this canvas is to reside.
-     *              <UL><LI> must not already contain a Component </UL>
+     * @param frame  the frame in which this canvas is to reside.
+     *               <UL><LI> must not already contain a Component </UL>
      */
     protected GameCanvasModel(int width, int height, Frame frame) {
         super();
@@ -64,13 +64,14 @@ public class GameCanvasModel extends Canvas {
         virtualX = DEFAULT_VIRTUAL_X;
         virtualY = DEFAULT_VIRTUAL_Y;
     }
-    
+
     /**
      * Sets the references needed for this class to function
+     *
      * @param gameListener The Game this Panel displays
      */
     public void setReferences(GameEventListener gameListener) {
-        addKeyListener(new GameCanvasKeyListener(gameListener ,GAME_LOCK));
+        addKeyListener(new GameCanvasKeyListener(gameListener, GAME_LOCK));
         addMouseListener(new GameCanvasMousePressListener(this, gameListener, GAME_LOCK));
         addMouseMotionListener(new GameCanvasMouseMotionListener(this, gameListener, GAME_LOCK));
     }
@@ -102,6 +103,7 @@ public class GameCanvasModel extends Canvas {
 
     /**
      * Set the x coordinate that the Graphics object will interpret the the rightmost edge of the canvas.
+     *
      * @param virtualX
      */
     protected void setVirtualX(int virtualX) {
@@ -117,6 +119,7 @@ public class GameCanvasModel extends Canvas {
 
     /**
      * Set the x coordinate that the Graphics object will interpret the the bottommost edge of the canvas.
+     *
      * @param virtualY
      */
     protected void setVirtualY(int virtualY) {
@@ -128,13 +131,13 @@ public class GameCanvasModel extends Canvas {
     //////////////////////////////////////////////////
 
     private static int virtualToActualDimension(int metric, int actual, int virtual) {
-        long product = ((long)metric) * ((long)actual);
-        return (int)(product / virtual);
+        long product = ((long) metric) * ((long) actual);
+        return (int) (product / virtual);
     }
 
     private static int actualToVirtualDimension(int metric, int actual, int virtual) {
-        long product = ((long)metric) * ((long)virtual);
-        return (int)(product / actual);
+        long product = ((long) metric) * ((long) virtual);
+        return (int) (product / actual);
     }
 
     public int virtualToActualX(int x) {

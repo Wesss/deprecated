@@ -43,14 +43,14 @@ public class MainLoopRunnableTarget implements Runnable {
                 graphics = strategy.getDrawGraphics();
                 clearCanvas(graphics, canvas);
                 mainLoopModel.nextFrame(new GameCanvasGraphics(graphics, canvas));
-                if( !strategy.contentsLost() )
+                if (!strategy.contentsLost())
                     strategy.show();
 
                 Thread.sleep(waitTime);
             } catch (InterruptedException ignored) {
                 running = false;
             } finally {
-                if( graphics != null )
+                if (graphics != null)
                     graphics.dispose();
             }
         }

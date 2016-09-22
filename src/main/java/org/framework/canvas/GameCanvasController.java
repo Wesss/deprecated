@@ -34,6 +34,7 @@ public class GameCanvasController {
 
     /**
      * Set the x coordinate that the Graphics object will interpret the the rightmost edge of the canvas.
+     *
      * @param virtualX
      */
     public void setVirtualX(int virtualX) {
@@ -49,6 +50,7 @@ public class GameCanvasController {
 
     /**
      * Set the x coordinate that the Graphics object will interpret the the bottommost edge of the canvas.
+     *
      * @param virtualY
      */
     public void setVirtualY(int virtualY) {

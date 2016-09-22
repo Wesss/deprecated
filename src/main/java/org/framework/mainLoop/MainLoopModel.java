@@ -164,6 +164,7 @@ public class MainLoopModel {
 
     /**
      * Moves the game state up one frame/update cycle
+     *
      * @param g The graphics object to paint with
      */
     public void nextFrame(GameCanvasGraphics g) {
@@ -282,7 +283,6 @@ public class MainLoopModel {
             indexToObjs.remove(index);
         }
     }
-
 
 
     //////////////////////////////////////////////////

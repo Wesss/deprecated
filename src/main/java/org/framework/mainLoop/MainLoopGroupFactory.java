@@ -30,6 +30,7 @@ public class MainLoopGroupFactory {
     /**
      * Creates a mainloop group such that all objs added to it have the group's priority and layer and can be cleared
      * independently of other groups
+     *
      * @param priority
      * @param layer
      * @return
@@ -47,6 +48,7 @@ public class MainLoopGroupFactory {
 
     /**
      * does not remove any objs in the group
+     *
      * @param group
      */
     protected void destroyMainLoopGroup(MainLoopGroup group) {

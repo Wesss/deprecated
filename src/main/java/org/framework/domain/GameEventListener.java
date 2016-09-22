@@ -3,7 +3,7 @@ package org.framework.domain;
 
 /**
  * This represents an event listener that handles player input
- * 
+ *
  * @author Wesley Cox
  */
 public interface GameEventListener {
@@ -34,20 +34,20 @@ public interface GameEventListener {
     /**
      * Fires appropriate commands when provided mouse button is initially pushed down
      *
-     * @param x coordinate of the press on the overall Panel
-     * @param y coordinate of the press on the overall Panel
+     * @param x      coordinate of the press on the overall Panel
+     * @param y      coordinate of the press on the overall Panel
      * @param button an int representing which mouse button was pressed.
-     * 		<UL><LI> 1 - left, 2 - middle, 3 - right, 4+ fancy mouse buttons </UL>
+     *               <UL><LI> 1 - left, 2 - middle, 3 - right, 4+ fancy mouse buttons </UL>
      */
     public void mousePressed(int x, int y, int button);
 
     /**
      * Fires appropriate commands when provided mouse button is released
      *
-     * @param x coordinate of the press on the overall Panel
-     * @param y coordinate of the press on the overall Panel
+     * @param x      coordinate of the press on the overall Panel
+     * @param y      coordinate of the press on the overall Panel
      * @param button an int representing which mouse button was pressed.
-     * 		<UL><LI> 1 - left, 2 - middle, 3 - right, 4+ fancy mouse buttons </UL>
+     *               <UL><LI> 1 - left, 2 - middle, 3 - right, 4+ fancy mouse buttons </UL>
      */
     public void mouseReleased(int x, int y, int button);
 
@@ -61,11 +61,22 @@ public interface GameEventListener {
     public void mouseMoved(int x, int y);
 
     class EmptyGameListener implements GameEventListener {
-        public void keyPressed(int keyCode) {}
-        public void keyReleased(int keyCode) {}
-        public void mousePressed(int x, int y, int button) {}
-        public void mouseReleased(int x, int y, int button) {}
-        public void mouseMoved(int x, int y) {}
-        public void acceptGame(Game game) {}
+        public void keyPressed(int keyCode) {
+        }
+
+        public void keyReleased(int keyCode) {
+        }
+
+        public void mousePressed(int x, int y, int button) {
+        }
+
+        public void mouseReleased(int x, int y, int button) {
+        }
+
+        public void mouseMoved(int x, int y) {
+        }
+
+        public void acceptGame(Game game) {
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * This class passes key press/release events to the game
- *
+ * <p>
  * Key event are filtered such that only when a key is pressed
  * will keyPressed() be fired (instead of multiple firings when
  * a key is held down).
@@ -50,5 +50,6 @@ public class GameCanvasKeyListener implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 }

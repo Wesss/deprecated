@@ -5,7 +5,7 @@ import org.framework.domain.GameEventListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-public class GameCanvasMouseMotionListener implements MouseMotionListener{
+public class GameCanvasMouseMotionListener implements MouseMotionListener {
 
     private final Object GAME_LOCK;
     private GameEventListener gameEventListener;
