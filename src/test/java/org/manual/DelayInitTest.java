@@ -1,4 +1,4 @@
-package org.integration;
+package org.manual;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
@@ -31,6 +31,11 @@ public class DelayInitTest implements Game{
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
             return new DelayInitTest(mainLoop, canvas);
         }
+
+        @Override
+        public GameEventListener dispatchGameEventListener() {
+            return GameEventListener.EMPTY_GAME_LISTENER;
+        }
     }
 
     public DelayInitTest(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -41,11 +46,6 @@ public class DelayInitTest implements Game{
             }
         }
         mainLoop.add(new Num(sum));
-    }
-
-    @Override
-    public GameEventListener dispatchGameEventListener() {
-        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     private class Num implements GameObj {

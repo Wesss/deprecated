@@ -5,9 +5,9 @@ package org.framework.domain;
  */
 public interface Game {
 
-    /**
-     * TODO document dispatchGameEventListener
-     * @return
-     */
-    public GameEventListener dispatchGameEventListener();
+    public static final Game EMPTY_GAME = new EmptyGame();
+
+    static class EmptyGame implements Game {
+
+    }
 }

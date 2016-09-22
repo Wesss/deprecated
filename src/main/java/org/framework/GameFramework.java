@@ -24,7 +24,7 @@ import static java.lang.Math.min;
  */
 public class GameFramework {
 
-    // TODO close window if game creation fails
+    // TODO throw better exceptions
 
     public static final double SCREEN_RATIO = 0.9;
 
@@ -39,14 +39,14 @@ public class GameFramework {
 
     public static Pair<MainLoopController, GameCanvasController> startGame(GameFactory factory,
                                                                            int updatesPerSecond)
-            throws InstantiationException {
+            throws RuntimeException {
         return frameworkSingleton.startGame(factory, updatesPerSecond, true);
     }
 
     private Pair<MainLoopController, GameCanvasController> startGame(GameFactory factory,
                                                                      int updatesPerSecond,
                                                                      boolean dummy)
-            throws InstantiationException {
+            throws RuntimeException {
         MainLoop mainLoop = MainLoopFactory.getMainLoop(updatesPerSecond);
         MainLoopController mainLoopController = mainLoop.getController();
 
@@ -57,10 +57,15 @@ public class GameFramework {
         GameCanvasController canvasController = canvas.getController();
         GameCanvasModel canvasModel = canvas.getModel();
 
-        Game newGame = factory.createGame(mainLoopController, canvasController);
+        Game newGame;
+        try {
+            newGame = factory.createGame(mainLoopController, canvasController);
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating instance of game", e);
+        }
 
         mainLoop.setReferences(canvasModel);
-        canvasModel.setReferences(newGame.dispatchGameEventListener());
+        canvasModel.setReferences(factory.dispatchGameEventListener());
         gameToFrameworkComponents.put(newGame, new Pair<>(mainLoop, canvas));
 
         canvas.start();

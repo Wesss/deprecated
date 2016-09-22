@@ -1,4 +1,4 @@
-package org.integration;
+package org.manual;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
@@ -25,15 +25,15 @@ public class ExitTest implements Game {
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
             return new ExitTest(mainLoop, canvas);
         }
+
+        @Override
+        public GameEventListener dispatchGameEventListener() {
+            return GameEventListener.EMPTY_GAME_LISTENER;
+        }
     }
 
     public ExitTest(MainLoopController mainLoop, GameCanvasController canvas) {
         mainLoop.add(new CountdownExit(this));
-    }
-
-    @Override
-    public GameEventListener dispatchGameEventListener() {
-        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     private class CountdownExit implements GameObj {

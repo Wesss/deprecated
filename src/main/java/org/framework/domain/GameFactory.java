@@ -9,10 +9,16 @@ import org.framework.mainLoop.MainLoopController;
 public interface GameFactory {
 
     /**
-     * TODO document createGame
+     * TODO document GameFactory
      * @param mainLoop
      * @param canvas
      * @return
      */
     public Game createGame(MainLoopController mainLoop, GameCanvasController canvas);
+
+    /**
+     *
+     * @return
+     */
+    public GameEventListener dispatchGameEventListener();
 }

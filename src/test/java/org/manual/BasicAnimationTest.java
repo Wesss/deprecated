@@ -1,4 +1,4 @@
-package org.integration;
+package org.manual;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
@@ -30,6 +30,11 @@ public class BasicAnimationTest implements Game {
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
             return new BasicAnimationTest(mainLoop, canvas);
         }
+
+        @Override
+        public GameEventListener dispatchGameEventListener() {
+            return GameEventListener.EMPTY_GAME_LISTENER;
+        }
     }
 
     public BasicAnimationTest(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -39,11 +44,6 @@ public class BasicAnimationTest implements Game {
         mainLoop.add(new Display1());
         mainLoop.add(new Display2());
         mainLoop.add(new Display3());
-    }
-
-    @Override
-    public GameEventListener dispatchGameEventListener() {
-        return GameEventListener.EMPTY_GAME_LISTENER;
     }
 
     /**************************************** Basic Shapes *************************************************/

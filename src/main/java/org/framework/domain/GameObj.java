@@ -7,7 +7,7 @@ import org.framework.canvas.GameCanvasGraphics;
  */
 public interface GameObj {
 
-    public static final GameObj EMTPY_GAME_OBJ = new emptyGameObj();
+    public static final GameObj EMTPY_GAME_OBJ = new EmptyGameObj();
 
     /**
      * Updates obj state after a single interval of game time (one frame)
@@ -21,7 +21,7 @@ public interface GameObj {
      */
     public void paint(GameCanvasGraphics g);
 
-    static class emptyGameObj implements GameObj {
+    static class EmptyGameObj implements GameObj {
 
         @Override
         public void update() {}

@@ -1,4 +1,4 @@
-package org.integration;
+package org.manual;
 
 import org.framework.GameFramework;
 import org.framework.canvas.GameCanvasController;
@@ -24,9 +24,17 @@ public class EventFireTest implements Game{
     }
 
     private static class EventFireTestFactory implements GameFactory {
+        private EventFireTest singleton;
+
         @Override
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
-            return new EventFireTest(mainLoop, canvas);
+            singleton = new EventFireTest(mainLoop, canvas);
+            return singleton;
+        }
+
+        @Override
+        public GameEventListener dispatchGameEventListener() {
+            return new EventFireTestListener(singleton);
         }
     }
 
@@ -43,11 +51,6 @@ public class EventFireTest implements Game{
 
         mouseLoc = new GameString(20, 460);
         mainLoop.add(mouseLoc);
-    }
-
-    @Override
-    public GameEventListener dispatchGameEventListener() {
-        return new EventFireTestListener(this);
     }
 
     private void newEvent(String s) {
