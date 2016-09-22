@@ -40,11 +40,6 @@ public class RestaurantGame implements Game {
         swapState(MAIN_MENU); // TODO create a game.start method such that the game can be initiallized without worrying about transitioinal stuff
     }
 
-    @Override
-    public GameEventListener dispatchGameEventListener() {
-        return new EventListener(this);
-    }
-
     ////////////////////
     // Game State
     ////////////////////
