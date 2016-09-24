@@ -1,12 +1,12 @@
 package org.personalRestaurantGame.game;
 
-import org.gameUtil.EventAcceptor;
+import org.framework.domain.GameEventListener;
 
-public class LevelEventAcceptor implements EventAcceptor {
+public class LevelEventListener implements GameEventListener {
 
     private Level level;
 
-    public LevelEventAcceptor(Level level) {
+    public LevelEventListener(Level level) {
         this.level = level;
     }
 

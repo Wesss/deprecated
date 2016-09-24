@@ -8,7 +8,6 @@ import org.framework.mainLoop.MainLoopController;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
-import org.gameUtil.EventAcceptor;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
 
@@ -27,7 +26,7 @@ public class RestaurantGame implements Game {
     private final GameCanvasController canvas;
 
     private GamePipeline currentGamePipeline;
-    private EventAcceptor currentEventAcceptor;
+    private GameEventListener currentEventListener;
     private State state;
 
     public RestaurantGame(MainLoopController mainLoop, GameCanvasController canvas) {
@@ -35,16 +34,15 @@ public class RestaurantGame implements Game {
         this.canvas = canvas;
         this.state = UNINITIALIZED;
         currentGamePipeline = GamePipeline.EMPTY_GAME_PIPELINE;
-        currentEventAcceptor = EventAcceptor.EMPTY_EVENT_ACCEPTOR;
+        currentEventListener = GameEventListener.EMPTY_GAME_LISTENER;
         currentGamePipeline.acceptGameStateStore(new GameStateStore());
-        swapState(MAIN_MENU); // TODO create a game.start method such that the game can be initiallized without worrying about transitioinal stuff
+        swapState(MAIN_MENU);
     }
 
     ////////////////////
     // Game State
     ////////////////////
 
-    // TODO split into different methods
     public void swapState(State newState) {
         if (newState == UNINITIALIZED) {
             throw new IllegalArgumentException("cannot switch to uninitialized state");
@@ -76,8 +74,7 @@ public class RestaurantGame implements Game {
         }
 
         currentGamePipeline.acceptGameStateStore(currentStore);
-        currentEventAcceptor = currentGamePipeline.dispatchEventAcceptor();
-        // TODO rewire how game framework becomes aware of the pipeline
+        currentEventListener = currentGamePipeline.dispatchEventAcceptor();
     }
 
     public void exit() {
@@ -89,22 +86,22 @@ public class RestaurantGame implements Game {
     ////////////////////
 
     public void keyPressed(int keyCode) {
-        currentEventAcceptor.keyPressed(keyCode);
+        currentEventListener.keyPressed(keyCode);
     }
 
     public void keyReleased(int keyCode) {
-        currentEventAcceptor.keyReleased(keyCode);
+        currentEventListener.keyReleased(keyCode);
     }
 
     public void mousePressed(int x, int y, int button) {
-        currentEventAcceptor.mousePressed(x, y, button);
+        currentEventListener.mousePressed(x, y, button);
     }
 
     public void mouseReleased(int x, int y, int button) {
-        currentEventAcceptor.mouseReleased(x, y, button);
+        currentEventListener.mouseReleased(x, y, button);
     }
 
     public void mouseMoved(int x, int y) {
-        currentEventAcceptor.mouseMoved(x, y);
+        currentEventListener.mouseMoved(x, y);
     }
 }

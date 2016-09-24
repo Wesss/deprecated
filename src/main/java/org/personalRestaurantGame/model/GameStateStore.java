@@ -5,7 +5,7 @@ public class GameStateStore {
     private String playerName;
 
     ////////////////////
-    // Tons of Getters and Setters
+    // Getters and Setters
     ////////////////////
 
     public String getPlayerName() {

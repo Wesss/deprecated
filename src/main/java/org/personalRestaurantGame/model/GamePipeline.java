@@ -1,10 +1,8 @@
 package org.personalRestaurantGame.model;
 
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.GameObj;
-import org.gameUtil.EventAcceptor;
+import org.framework.domain.GameEventListener;
 
-public interface GamePipeline extends GameObj {
+public interface GamePipeline {
 
     public static final GamePipeline EMPTY_GAME_PIPELINE = new EmptyGamePipeline();
 
@@ -27,7 +25,7 @@ public interface GamePipeline extends GameObj {
     /**
      * @return an EventAcceptor that will be funneled all game events
      */
-    public EventAcceptor dispatchEventAcceptor();
+    public GameEventListener dispatchEventAcceptor();
 
     ////////////////////
     // Empty instance
@@ -48,18 +46,8 @@ public interface GamePipeline extends GameObj {
         }
 
         @Override
-        public EventAcceptor dispatchEventAcceptor() {
-            return EventAcceptor.EMPTY_EVENT_ACCEPTOR;
-        }
-
-        @Override
-        public void update() {
-
-        }
-
-        @Override
-        public void paint(GameCanvasGraphics g) {
-
+        public GameEventListener dispatchEventAcceptor() {
+            return GameEventListener.EMPTY_GAME_LISTENER;
         }
     }
 }

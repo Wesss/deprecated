@@ -1,16 +1,16 @@
 package org.personalRestaurantGame.mainMenu;
 
-import org.gameUtil.EventAcceptor;
+import org.framework.domain.GameEventListener;
 
 import java.awt.event.KeyEvent;
 
 import static org.gameUtil.Mouse.MOUSE_LEFT;
 
-public class MainMenuEventAcceptor implements EventAcceptor {
+public class MainMenuEventListener implements GameEventListener {
 
     private MainMenu menu;
 
-    public MainMenuEventAcceptor(MainMenu menu) {
+    public MainMenuEventListener(MainMenu menu) {
         this.menu = menu;
     }
 

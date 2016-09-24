@@ -1,11 +1,9 @@
 package org.personalRestaurantGame.mainMenu;
 
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.mainLoop.MainLoopCustomGroupsInterface;
+import org.framework.domain.GameEventListener;
+import org.gameUtil.ButtonList;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
-import org.gameUtil.ButtonList;
-import org.gameUtil.EventAcceptor;
 
 public class MainMenu implements GamePipeline {
 
@@ -34,8 +32,8 @@ public class MainMenu implements GamePipeline {
     }
 
     @Override
-    public EventAcceptor dispatchEventAcceptor() {
-        return new MainMenuEventAcceptor(this);
+    public GameEventListener dispatchEventAcceptor() {
+        return new MainMenuEventListener(this);
     }
 
     ////////////////////
@@ -62,15 +60,9 @@ public class MainMenu implements GamePipeline {
         buttonList.selectWithMouse(x, y);
     }
 
-    ////////////////////
-    // Internal Events
-    ////////////////////
-
-    public void update() {
-        // TODO animation
-    }
-
-    public void paint(GameCanvasGraphics g) {
-        buttonList.paint(g);
-    }
+    // Transition notes
+    //disable buttons (cut off events) while transitioning
+    //set flag to transitioning out
+    //let update handle fading or moving out
+    //let update call swap state
 }
