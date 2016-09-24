@@ -4,6 +4,12 @@ public class CountdownEvent {
 
     // TODO document CountdownEvent
 
+    public static CountdownEvent EMPTY_COUNTDOWN_EVENT = new CountdownEvent(-1, CountdownEvent::stub);
+
+    private static void stub() {
+
+    }
+
     private int remainingTicks;
     private Runnable callback;
     private boolean isDisabled;
