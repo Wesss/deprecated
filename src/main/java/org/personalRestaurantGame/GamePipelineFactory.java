@@ -2,6 +2,7 @@ package org.personalRestaurantGame;
 
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.gameUtil.ButtonList;
+import org.gameUtil.CountdownEvent;
 import org.personalRestaurantGame.mainMenu.ExitButton;
 import org.personalRestaurantGame.mainMenu.MainMenu;
 import org.personalRestaurantGame.mainMenu.NewGameButton;
@@ -14,7 +15,7 @@ public class GamePipelineFactory {
     public static GamePipeline getMainMenu(RestaurantGame game, MainLoopCustomGroupsInterface mainLoop) {
         ButtonList buttons = new ButtonList(
                 new NewGameButton(game, X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT),
-                new ExitButton(game, X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT));
+                new ExitButton(new CountdownEvent(60, game::exit), X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT));
         mainLoop.createGroup(0, 0).add(buttons);
         return new MainMenu(buttons);
     }
