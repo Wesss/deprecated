@@ -1,8 +1,9 @@
 package org.personalRestaurantGame.model;
 
+import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
 
-public interface GamePipeline {
+public interface GamePipeline extends Game {
 
     public static final GamePipeline EMPTY_GAME_PIPELINE = new EmptyGamePipeline();
 
@@ -25,7 +26,7 @@ public interface GamePipeline {
     /**
      * @return an EventAcceptor that will be funneled all game events
      */
-    public GameEventListener dispatchEventAcceptor();
+    public GameEventListener dispatchEventListener();
 
     ////////////////////
     // Empty instance
@@ -46,7 +47,7 @@ public interface GamePipeline {
         }
 
         @Override
-        public GameEventListener dispatchEventAcceptor() {
+        public GameEventListener dispatchEventListener() {
             return GameEventListener.EMPTY_GAME_LISTENER;
         }
     }

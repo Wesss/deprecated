@@ -1,5 +1,6 @@
 package org.personalRestaurantGame.mainMenu;
 
+import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
 import org.gameUtil.ButtonList;
 import org.personalRestaurantGame.model.GamePipeline;
@@ -32,7 +33,7 @@ public class MainMenu implements GamePipeline {
     }
 
     @Override
-    public GameEventListener dispatchEventAcceptor() {
+    public GameEventListener dispatchEventListener() {
         return new MainMenuEventListener(this);
     }
 

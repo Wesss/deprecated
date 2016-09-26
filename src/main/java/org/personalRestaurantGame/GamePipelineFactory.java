@@ -12,7 +12,7 @@ import static org.personalRestaurantGame.mainMenu.MainMenu.*;
 
 public class GamePipelineFactory {
 
-    public static GamePipeline getMainMenu(RestaurantGame game, MainLoopCustomGroupsInterface mainLoop) {
+    public static MainMenu getMainMenu(RestaurantGame game, MainLoopCustomGroupsInterface mainLoop) {
         ButtonList buttons = new ButtonList(
                 new NewGameButton(game, X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT),
                 new ExitButton(new CountdownEvent(60, game::exit), X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT));

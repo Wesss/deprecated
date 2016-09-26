@@ -74,7 +74,7 @@ public class RestaurantGame implements Game {
         }
 
         currentGamePipeline.acceptGameStateStore(currentStore);
-        currentEventListener = currentGamePipeline.dispatchEventAcceptor();
+        currentEventListener = currentGamePipeline.dispatchEventListener();
     }
 
     public void exit() {
