@@ -1,16 +1,13 @@
-package org.personalRestaurantGame;
+package org.personalRestaurantGame.mainMenu;
 
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.gameUtil.ButtonList;
 import org.gameUtil.CountdownEvent;
-import org.personalRestaurantGame.mainMenu.ExitButton;
-import org.personalRestaurantGame.mainMenu.MainMenu;
-import org.personalRestaurantGame.mainMenu.NewGameButton;
-import org.personalRestaurantGame.model.GamePipeline;
+import org.personalRestaurantGame.RestaurantGame;
 
 import static org.personalRestaurantGame.mainMenu.MainMenu.*;
 
-public class GamePipelineFactory {
+public class MainMenuFactory {
 
     public static MainMenu getMainMenu(RestaurantGame game, MainLoopCustomGroupsInterface mainLoop) {
         ButtonList buttons = new ButtonList(
@@ -20,8 +17,5 @@ public class GamePipelineFactory {
         return new MainMenu(buttons);
     }
 
-    public static GamePipeline getLevel1() {
-        // TODO
-        return GamePipeline.EMPTY_GAME_PIPELINE;
-    }
+
 }

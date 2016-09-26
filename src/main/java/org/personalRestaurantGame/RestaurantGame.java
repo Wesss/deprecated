@@ -6,6 +6,8 @@ import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.MainLoopController;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
+import org.personalRestaurantGame.game.LevelFactory;
+import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 import org.personalRestaurantGame.model.GamePipeline;
 import org.personalRestaurantGame.model.GameStateStore;
 
@@ -36,7 +38,6 @@ public class RestaurantGame implements Game {
         currentGamePipeline = GamePipeline.EMPTY_GAME_PIPELINE;
         currentEventListener = GameEventListener.EMPTY_GAME_LISTENER;
         currentGamePipeline.acceptGameStateStore(new GameStateStore());
-        swapState(MAIN_MENU);
     }
 
     ////////////////////
@@ -64,10 +65,10 @@ public class RestaurantGame implements Game {
         state = newState;
         switch (state) {
             case MAIN_MENU:
-                currentGamePipeline = GamePipelineFactory.getMainMenu(this, mainLoop);
+                currentGamePipeline = MainMenuFactory.getMainMenu(this, mainLoop);
                 break;
             case NEW_GAME:
-                currentGamePipeline = GamePipelineFactory.getLevel1();
+                currentGamePipeline = LevelFactory.getLevel1();
                 break;
             default:
                 throw new RuntimeException(UNKNOWN_STATE_ERROR_MSG);

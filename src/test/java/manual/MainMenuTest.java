@@ -6,10 +6,10 @@ import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
 import org.framework.domain.GameFactory;
 import org.framework.mainLoop.MainLoopController;
-import org.personalRestaurantGame.GamePipelineFactory;
 import org.personalRestaurantGame.RestaurantGame;
 import org.personalRestaurantGame.mainMenu.MainMenu;
 import org.personalRestaurantGame.mainMenu.MainMenuEventListener;
+import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 
 import static org.mockito.Mockito.mock;
 
@@ -26,7 +26,7 @@ public class MainMenuTest {
 
         @Override
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
-            singleton = GamePipelineFactory.getMainMenu(
+            singleton = MainMenuFactory.getMainMenu(
                     new FakeRestaurantGame(),
                     mainLoop.customGroupsInterface(5));
             return singleton;
