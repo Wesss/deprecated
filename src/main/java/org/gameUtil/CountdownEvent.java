@@ -1,5 +1,7 @@
 package org.gameUtil;
 
+import org.framework.canvas.GameCanvasGraphics;
+
 public class CountdownEvent {
 
     // TODO document CountdownEvent
@@ -53,5 +55,19 @@ public class CountdownEvent {
 
     public void resume() {
         isSuspended = false;
+    }
+
+    ////////////////////
+    // Testing
+    ////////////////////
+
+    public void printStats(GameCanvasGraphics g, int x, int y, int offset) {
+        if (isDisabled) {
+            g.drawString("[disabled]", x, y + (20 * offset));
+        } else if (isSuspended) {
+            g.drawString("[suspended] " + remainingTicks, x, y + (20 * offset));
+        } else {
+            g.drawString("[active] " + remainingTicks, x, y + (20 * offset));
+        }
     }
 }

@@ -5,23 +5,31 @@ import org.framework.domain.GameObj;
 
 import java.awt.*;
 
-public abstract class Button implements GameObj {
+public class Button implements GameObj {
 
     /**
      * (x, y) is the center coordinate of the button
+     * isCurrentSelection is true when the player has their selector over it
      */
+    private CountdownEvent event;
     private int x, y, width, height;
     private boolean isCurrentSelection;
+    private String label;
+    // TODO have buttons use images
 
-    protected Button(int x, int y, int width, int height) {
+    public Button(CountdownEvent event, int x, int y, int width, int height, String label) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Button width/height must be positive");
         }
+        this.event = event;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.label = label;
         isCurrentSelection = false;
+
+        event.suspend();
     }
 
     ////////////////////
@@ -83,9 +91,25 @@ public abstract class Button implements GameObj {
     }
 
     /**
-     * Fires the event attached to this button
+     * Fires the functionality attached to this button
      */
-    public abstract void fireEvent();
+    public void fireEvent() {
+        event.resume();
+    }
+
+    @Override
+    public void update() {
+        event.tick();
+    }
+
+    @Override
+    public void paint(GameCanvasGraphics g) {
+        paintButtonWithoutImage(g, x, y, width, height, isCurrentSelection, label);
+    }
+
+    /////////////////////
+    // Static Utils
+    /////////////////////
 
     public static void paintButtonWithoutImage(GameCanvasGraphics g,
                                                int x, int y, int width, int height,
