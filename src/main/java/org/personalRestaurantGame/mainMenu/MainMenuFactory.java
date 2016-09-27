@@ -7,22 +7,24 @@ import org.gameUtil.CountdownEvent;
 import org.personalRestaurantGame.RestaurantGame;
 
 import static org.personalRestaurantGame.RestaurantGame.State.*;
+import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
 public class MainMenuFactory {
 
     public static MainMenu getMainMenu(RestaurantGame game, MainLoopCustomGroupsInterface mainLoop) {
 
         Button newGameButton = new Button(
-                new CountdownEvent(MainMenuModel.TRANSITION_OUT_CYCLES, () -> game.swapState(NEW_GAME)),
-                MainMenuModel.X, MainMenuModel.Y_TOP, MainMenuModel.BUTTON_WIDTH, MainMenuModel.BUTTON_HEIGHT,
+                new CountdownEvent(TRANSITION_OUT_CYCLES, () -> game.swapState(NEW_GAME)),
+                X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "New Game");
         Button quitButton = new Button(
                 new CountdownEvent(0, game::exit),
-                MainMenuModel.X, MainMenuModel.Y_TOP + MainMenuModel.BUTTON_HEIGHT + MainMenuModel.Y_MARGIN, MainMenuModel.BUTTON_WIDTH, MainMenuModel.BUTTON_HEIGHT,
+                X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "Quit");
 
         ButtonList buttons = new ButtonList(newGameButton, quitButton);
-        mainLoop.createGroup(0, 0).add(buttons);
+        mainLoop.createGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER).add(buttons);
+        mainLoop.createGroup(DEFAULT_PRIORITY, MASK_LAYER); // TODO add in fade out mask
 
         MainMenuModel model = new MainMenuModel(buttons);
         MainMenuController controller = new MainMenuController(model);
