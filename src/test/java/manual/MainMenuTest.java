@@ -34,7 +34,7 @@ public class MainMenuTest {
 
         @Override
         public GameEventListener dispatchGameEventListener() {
-            return new MainMenuEventListener(singleton);
+            return singleton.dispatchEventListener();
         }
     }
 

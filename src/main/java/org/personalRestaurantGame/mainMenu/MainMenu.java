@@ -1,64 +1,36 @@
 package org.personalRestaurantGame.mainMenu;
 
-import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
-import org.gameUtil.ButtonList;
-import org.personalRestaurantGame.model.GamePipeline;
-import org.personalRestaurantGame.model.GameStateStore;
+import org.personalRestaurantGame.domain.GamePipeline;
+import org.personalRestaurantGame.domain.GameStateStore;
 
 public class MainMenu implements GamePipeline {
 
-    public static final int X = 500;
-    public static final int Y_TOP = 100;
-    public static final int Y_MARGIN = 50;
-    public static final int BUTTON_WIDTH = 200;
-    public static final int BUTTON_HEIGHT = 100;
+    private MainMenuModel model;
+    private MainMenuController controller;
+    private MainMenuEventListener listener;
 
     // TODO music
-    private GameStateStore store; // TODO wire in getting of players name
-    private ButtonList buttonList;
-
-    public MainMenu(ButtonList buttonList) {
-        this.buttonList = buttonList;
+    // TODO wire in getting of players name
+    public MainMenu(MainMenuModel model, MainMenuController controller, MainMenuEventListener listener) {
+        this.model = model;
+        this.controller = controller;
+        this.listener = listener;
     }
 
     @Override
     public void acceptGameStateStore(GameStateStore store) {
-        this.store = store;
+        model.setStore(store);
     }
 
     @Override
     public GameStateStore returnGameStateStore() {
-        return store;
+        return model.getStore();
     }
 
     @Override
     public GameEventListener dispatchEventListener() {
-        return new MainMenuEventListener(this);
-    }
-
-    ////////////////////
-    // Player Events
-    ////////////////////
-
-    public void selectWithKeyboard() {
-        buttonList.selectWithKeyboard();
-    }
-
-    public void moveSelectorUp() {
-        buttonList.moveSelectorUp();
-    }
-
-    public void moveSelectorDown() {
-        buttonList.moveSelectorDown();
-    }
-
-    public void updateMousePosition(int x, int y) {
-        buttonList.updateMousePosition(x, y);
-    }
-
-    public void selectWithMouse(int x, int y) {
-        buttonList.selectWithMouse(x, y);
+        return listener;
     }
 
     // Transition notes

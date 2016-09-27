@@ -1,8 +1,8 @@
 package org.personalRestaurantGame.game;
 
 import org.framework.domain.GameEventListener;
-import org.personalRestaurantGame.model.GamePipeline;
-import org.personalRestaurantGame.model.GameStateStore;
+import org.personalRestaurantGame.domain.GamePipeline;
+import org.personalRestaurantGame.domain.GameStateStore;
 
 public class Level implements GamePipeline {
 

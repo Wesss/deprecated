@@ -1,6 +1,6 @@
 package org.personalRestaurantGame.game;
 
-import org.personalRestaurantGame.model.GamePipeline;
+import org.personalRestaurantGame.domain.GamePipeline;
 
 public class LevelFactory {
     public static GamePipeline getLevel1() {

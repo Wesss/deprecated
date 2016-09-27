@@ -1,4 +1,4 @@
-package org.personalRestaurantGame.model;
+package org.personalRestaurantGame.domain;
 
 import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;

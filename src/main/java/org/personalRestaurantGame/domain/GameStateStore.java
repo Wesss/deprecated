@@ -1,4 +1,4 @@
-package org.personalRestaurantGame.model;
+package org.personalRestaurantGame.domain;
 
 public class GameStateStore {
 
