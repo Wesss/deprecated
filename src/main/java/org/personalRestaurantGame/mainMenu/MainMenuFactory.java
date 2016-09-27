@@ -18,7 +18,7 @@ public class MainMenuFactory {
                 X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "New Game");
         Button quitButton = new Button(
-                new CountdownEvent(0, game::exit),
+                new CountdownEvent(1, game::exit),
                 X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "Quit");
 
