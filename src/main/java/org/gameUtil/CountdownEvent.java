@@ -1,8 +1,9 @@
 package org.gameUtil;
 
 import org.framework.canvas.GameCanvasGraphics;
+import org.framework.domain.GameObj;
 
-public class CountdownEvent {
+public class CountdownEvent implements GameObj{
 
     // TODO document CountdownEvent
 
@@ -55,6 +56,16 @@ public class CountdownEvent {
 
     public void resume() {
         isSuspended = false;
+    }
+
+    @Override
+    public void update() {
+        tick();
+    }
+
+    @Override
+    public void paint(GameCanvasGraphics g) {
+
     }
 
     ////////////////////
