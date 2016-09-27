@@ -75,7 +75,9 @@ public class GameFramework {
     }
 
     /**
-     * Exits given game, destroying its canvas and stopping the main loop
+     * Exits given game, destroying its canvas and stopping the main loop.
+     * <p>
+     * Does nothing if game hasn't finished the startGame routine yet
      *
      * @param game
      */
