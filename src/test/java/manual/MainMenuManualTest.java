@@ -7,13 +7,13 @@ import org.framework.domain.GameEventListener;
 import org.framework.domain.GameFactory;
 import org.framework.mainLoop.MainLoopController;
 import org.personalRestaurantGame.RestaurantGame;
-import org.personalRestaurantGame.mainMenu.MainMenu;
-import org.personalRestaurantGame.mainMenu.MainMenuEventListener;
-import org.personalRestaurantGame.mainMenu.MainMenuFactory;
+import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenu;
+import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenuEventListener;
+import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenuFactory;
 
 import static org.mockito.Mockito.mock;
 
-public class MainMenuTest {
+public class MainMenuManualTest {
     public static final int FPS = 60;
 
     public static void main(String[] args) {
