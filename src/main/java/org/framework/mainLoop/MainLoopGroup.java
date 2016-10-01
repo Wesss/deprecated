@@ -166,4 +166,15 @@ public class MainLoopGroup implements GameObj {
     public void paint(GameCanvasGraphics g) {
         // nothing
     }
+
+    ////////////////////
+    // Testing
+    ////////////////////
+
+    public Set<GameObj> getGameObjsInMainLoop() {
+        HashSet<GameObj> mainLoopObjs = new HashSet<>();
+        mainLoopObjs.addAll(remObjs);
+        mainLoopObjs.addAll(objs);
+        return mainLoopObjs;
+    }
 }

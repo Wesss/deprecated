@@ -4,6 +4,8 @@ import org.framework.canvas.GameCanvasModel;
 
 public class MainLoop {
 
+    // TODO create event driven interface?
+
     public static final String PRE_INIT_ERRMSG = "This Object has not been fully initiallized yet";
 
     private MainLoopModel model;
