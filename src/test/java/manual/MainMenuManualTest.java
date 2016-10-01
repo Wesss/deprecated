@@ -7,9 +7,8 @@ import org.framework.domain.GameEventListener;
 import org.framework.domain.GameFactory;
 import org.framework.mainLoop.MainLoopController;
 import org.personalRestaurantGame.RestaurantGame;
-import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenu;
-import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenuEventListener;
-import org.personalRestaurantGame.mainMenu.MainMenuTest.MainMenuFactory;
+import org.personalRestaurantGame.mainMenu.MainMenu;
+import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 
 import static org.mockito.Mockito.mock;
 

@@ -4,7 +4,11 @@ public class MainMenuController {
 
     MainMenuModel model;
 
-    public MainMenuController(MainMenuModel model) {
+    public MainMenuController() {
+
+    }
+
+    public void setModelReference(MainMenuModel model) {
         this.model = model;
     }
 

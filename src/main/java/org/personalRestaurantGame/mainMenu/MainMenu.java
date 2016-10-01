@@ -33,6 +33,10 @@ public class MainMenu implements GamePipeline {
         return listener;
     }
 
+    public MainMenuController getMainMenuController() {
+        return controller;
+    }
+
     // Transition notes
     //disable buttons (cut off events) while transitioning
     //set flag to transitioning out
