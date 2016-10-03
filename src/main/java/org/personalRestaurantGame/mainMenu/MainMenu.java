@@ -7,14 +7,12 @@ import org.personalRestaurantGame.domain.GameStateStore;
 public class MainMenu implements GamePipeline {
 
     private MainMenuModel model;
-    private MainMenuController controller;
     private MainMenuEventListener listener;
 
     // TODO music
     // TODO wire in getting of players name
-    public MainMenu(MainMenuModel model, MainMenuController controller, MainMenuEventListener listener) {
+    public MainMenu(MainMenuModel model, MainMenuEventListener listener) {
         this.model = model;
-        this.controller = controller;
         this.listener = listener;
     }
 
@@ -33,13 +31,7 @@ public class MainMenu implements GamePipeline {
         return listener;
     }
 
-    public MainMenuController getMainMenuController() {
-        return controller;
+    public MainMenuModel getModel() {
+        return model;
     }
-
-    // Transition notes
-    //disable buttons (cut off events) while transitioning
-    //set flag to transitioning out
-    //let update handle fading or moving out
-    //let update call swap state
 }

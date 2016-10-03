@@ -26,9 +26,13 @@ public class MainMenuModel {
 
     private GameStateStore store;
     private ButtonList buttonList;
+    private MainLoopGroup foregroundGroup;
+    private MainLoopGroup maskGroup;
 
-    public MainMenuModel(ButtonList buttons) {
+    public MainMenuModel(ButtonList buttons, MainLoopGroup foregroundGroup, MainLoopGroup maskGroup) {
         this.buttonList = buttons;
+        this.foregroundGroup = foregroundGroup;
+        this.maskGroup = maskGroup;
     }
 
     public GameStateStore getStore() {
@@ -39,34 +43,23 @@ public class MainMenuModel {
         this.store = store;
     }
 
-    public ButtonList getButtonList() {
-        return buttonList;
+    public void selectWithKeyboard() {
+        buttonList.selectWithKeyboard();
     }
 
-    public void setButtonList(ButtonList buttonList) {
-        this.buttonList = buttonList;
+    public void moveSelectorUp() {
+        buttonList.moveSelectorUp();
     }
 
-    public static ButtonList getButtons(MainMenuController controller,
-                                        RestaurantGame game,
-                                        MainLoopGroup maskGroup,
-                                        MainLoopGroup foregroundGroup) {
-        Button newGameButton = new Button(
-                new CountdownCallback(1, () -> {
-                    maskGroup.add(new FadeOutMask(TRANSITION_OUT_CYCLES));
-                    foregroundGroup.add(new CountdownCallback(TRANSITION_OUT_CYCLES, () -> {
-                        game.swapState(NEW_GAME);
-                    }));
-                }),
-                X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
-                "New Game");
-        Button quitButton = new Button(
-                new CountdownCallback(1, game::exit),
-                X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
-                "Quit");
+    public void moveSelectorDown() {
+        buttonList.moveSelectorDown();
+    }
 
-        ButtonList buttons = new ButtonList(newGameButton, quitButton);
-        foregroundGroup.add(buttons);
-        return buttons;
+    public void updateMousePosition(int x, int y) {
+        buttonList.updateMousePosition(x, y);
+    }
+
+    public void selectWithMouse(int x, int y) {
+        buttonList.selectWithMouse(x, y);
     }
 }

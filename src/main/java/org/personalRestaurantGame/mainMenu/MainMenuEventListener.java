@@ -8,9 +8,9 @@ import static org.gameUtil.Mouse.MOUSE_LEFT;
 
 public class MainMenuEventListener implements GameEventListener {
 
-    private MainMenuController menu;
+    private MainMenuModel menu;
 
-    public MainMenuEventListener(MainMenuController menu) {
+    public MainMenuEventListener(MainMenuModel menu) {
         this.menu = menu;
     }
 

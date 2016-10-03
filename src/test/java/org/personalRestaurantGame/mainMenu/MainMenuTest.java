@@ -12,12 +12,14 @@ import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
 public class MainMenuTest {
 
+    // TODO abstract out a test main loop custom groups interface
+
+    private MainMenuModel model;
     private RestaurantGame mockGame = mock(RestaurantGame.class);
     private MainLoopCustomGroupsInterface mockMainLoop = mock(MainLoopCustomGroupsInterface.class);
     private MainLoopGroup backgroundGroup;
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup maskGroup;
-    private MainMenuController controller;
 
     @Before
     public void setup() {
@@ -29,18 +31,29 @@ public class MainMenuTest {
         when(mockMainLoop.createGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER)).thenReturn(foregroundGroup);
 
         MainMenu mainMenu = MainMenuFactory.getMainMenu(mockGame, mockMainLoop);
-        controller = mainMenu.getMainMenuController();
+        model = mainMenu.getModel();
         nextFrame(); // to resolve add actions
     }
 
     @Test
     public void exitButton() {
-        controller.moveSelectorDown();
-        controller.moveSelectorDown();
-        controller.selectWithKeyboard();
+        model.moveSelectorDown();
+        model.moveSelectorDown();
+        model.selectWithKeyboard();
         nextFrame();
 
         verify(mockGame).exit();
+    }
+
+    @Test
+    public void newGameButton() {
+        model.moveSelectorDown();
+        model.selectWithKeyboard();
+        for (int i = 0; i < TRANSITION_OUT_CYCLES + 1; i++) {
+            nextFrame();
+        }
+
+        verify(mockGame).swapState(RestaurantGame.State.NEW_GAME);
     }
 
     private void nextFrame() {
