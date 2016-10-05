@@ -3,11 +3,11 @@ package org.gameUtil;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.GameObj;
 
-public class CountdownEvent implements GameObj{
+public class CountdownCallback implements GameObj{
 
-    // TODO document CountdownEvent
+    // TODO document CountdownCallback
 
-    public static CountdownEvent EMPTY_COUNTDOWN_EVENT = new CountdownEvent(-1, CountdownEvent::stub);
+    public static CountdownCallback EMPTY_COUNTDOWN_EVENT = new CountdownCallback(-1, CountdownCallback::stub);
 
     private static void stub() {
 
@@ -24,7 +24,7 @@ public class CountdownEvent implements GameObj{
      * @param ticksToEvent
      * @param callback
      */
-    public CountdownEvent(int ticksToEvent, Runnable callback) {
+    public CountdownCallback(int ticksToEvent, Runnable callback) {
         this.remainingTicks = ticksToEvent;
         this.callback = callback;
         isSuspended = false;
