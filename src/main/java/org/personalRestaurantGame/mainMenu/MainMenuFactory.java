@@ -18,16 +18,18 @@ public class MainMenuFactory {
 
         // TODO code review MainMenuFactory
         Button newGameButton = new Button(
-                new CountdownCallback(1, () -> {
+                new CountdownCallback(0, () -> {
                     maskGroup.add(new FadeOutMask(TRANSITION_OUT_CYCLES));
-                    foregroundGroup.add(new CountdownCallback(TRANSITION_OUT_CYCLES, () -> {
+                    CountdownCallback newGameSwap = new CountdownCallback(TRANSITION_OUT_CYCLES, () -> {
                         game.swapState(NEW_GAME);
-                    }));
+                    });
+                    newGameSwap.resume();
+                    foregroundGroup.add(newGameSwap);
                 }),
                 X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "New Game");
         Button quitButton = new Button(
-                new CountdownCallback(1, game::exit),
+                new CountdownCallback(0, game::exit),
                 X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "Quit");
 

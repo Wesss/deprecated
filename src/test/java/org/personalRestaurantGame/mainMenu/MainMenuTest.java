@@ -40,7 +40,6 @@ public class MainMenuTest {
         model.moveSelectorDown();
         model.moveSelectorDown();
         model.selectWithKeyboard();
-        nextFrame();
 
         verify(mockGame).exit();
     }
