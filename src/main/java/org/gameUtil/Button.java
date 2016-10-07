@@ -28,8 +28,6 @@ public class Button implements GameObj {
         this.height = height;
         this.label = label;
         isCurrentSelection = false;
-
-        event.suspend();
     }
 
     ////////////////////

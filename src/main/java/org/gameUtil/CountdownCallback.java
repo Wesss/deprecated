@@ -19,7 +19,9 @@ public class CountdownCallback implements GameObj{
     private boolean isSuspended;
 
     /**
-     * If ticksToEvent is 0, the callback is run immediately, if negative it is never run
+     * If ticksToEvent is 0, the callback is run as soon as the countdown is unsuspended
+     * <p>
+     * if negative, the callback is never run
      *
      * @param ticksToEvent
      * @param callback
@@ -27,14 +29,11 @@ public class CountdownCallback implements GameObj{
     public CountdownCallback(int ticksToEvent, Runnable callback) {
         this.remainingTicks = ticksToEvent;
         this.callback = callback;
-        isSuspended = false;
+        isSuspended = true;
         isDisabled = false;
 
         if (ticksToEvent < 0) {
             isDisabled = true;
-        } else if (ticksToEvent == 0) {
-            isDisabled = true;
-            callback.run();
         }
     }
 
@@ -56,6 +55,10 @@ public class CountdownCallback implements GameObj{
 
     public void resume() {
         isSuspended = false;
+        if (remainingTicks == 0) {
+            isDisabled = true;
+            callback.run();
+        }
     }
 
     @Override
