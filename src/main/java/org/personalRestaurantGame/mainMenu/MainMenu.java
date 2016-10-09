@@ -30,8 +30,4 @@ public class MainMenu implements GamePipeline {
     public GameEventListener dispatchEventListener() {
         return listener;
     }
-
-    public MainMenuModel getModel() {
-        return model;
-    }
 }

@@ -1,5 +1,6 @@
 package org.personalRestaurantGame.mainMenu;
 
+import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.framework.mainLoop.MainLoopGroup;
 import org.framework.test.MainLoopGroupTest;
@@ -7,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.personalRestaurantGame.RestaurantGame;
 
+import java.awt.event.KeyEvent;
+
+import static java.awt.event.KeyEvent.*;
 import static org.mockito.Mockito.*;
 import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
@@ -14,7 +18,7 @@ public class MainMenuTest {
 
     // TODO abstract out a test main loop custom groups interface
 
-    private MainMenuModel model;
+    private GameEventListener eventListener;
     private RestaurantGame mockGame = mock(RestaurantGame.class);
     private MainLoopCustomGroupsInterface mockMainLoop = mock(MainLoopCustomGroupsInterface.class);
     private MainLoopGroup backgroundGroup;
@@ -31,23 +35,23 @@ public class MainMenuTest {
         when(mockMainLoop.createGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER)).thenReturn(foregroundGroup);
 
         MainMenu mainMenu = MainMenuFactory.getMainMenu(mockGame, mockMainLoop);
-        model = mainMenu.getModel();
+        eventListener = mainMenu.dispatchEventListener();
         nextFrame(); // to resolve add actions
     }
 
     @Test
     public void exitButton() {
-        model.moveSelectorDown();
-        model.moveSelectorDown();
-        model.selectWithKeyboard();
+        moveSelectorDown();
+        moveSelectorDown();
+        selectWithKeyboard();
 
         verify(mockGame).exit();
     }
 
     @Test
     public void newGameButton() {
-        model.moveSelectorDown();
-        model.selectWithKeyboard();
+        moveSelectorDown();
+        selectWithKeyboard();
         for (int i = 0; i < TRANSITION_OUT_CYCLES + 1; i++) {
             nextFrame();
         }
@@ -58,5 +62,15 @@ public class MainMenuTest {
     private void nextFrame() {
         foregroundGroup.update();
         maskGroup.update();
+    }
+
+    private void moveSelectorDown() {
+        eventListener.keyPressed(VK_DOWN);
+        eventListener.keyReleased(VK_DOWN);
+    }
+
+    private void selectWithKeyboard() {
+        eventListener.keyPressed(VK_ENTER);
+        eventListener.keyReleased(VK_ENTER);
     }
 }
