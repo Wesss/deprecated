@@ -25,14 +25,20 @@ public class MainMenuModel {
     public static final int MASK_LAYER = 2;
 
     private GameStateStore store;
-    private ButtonList buttonList;
+    private RestaurantGame game;
     private MainLoopGroup foregroundGroup;
     private MainLoopGroup maskGroup;
+    private ButtonList buttonList;
 
-    public MainMenuModel(ButtonList buttons, MainLoopGroup foregroundGroup, MainLoopGroup maskGroup) {
-        this.buttonList = buttons;
+    public MainMenuModel() {
+
+    }
+
+    public void setReferences(RestaurantGame game, MainLoopGroup foregroundGroup, MainLoopGroup maskGroup, ButtonList buttons) {
+        this.game = game;
         this.foregroundGroup = foregroundGroup;
         this.maskGroup = maskGroup;
+        this.buttonList = buttons;
     }
 
     public GameStateStore getStore() {
@@ -42,6 +48,10 @@ public class MainMenuModel {
     public void setStore(GameStateStore store) {
         this.store = store;
     }
+
+    ////////////////////
+    // User events
+    ////////////////////
 
     public void selectWithKeyboard() {
         buttonList.selectWithKeyboard();
@@ -61,5 +71,25 @@ public class MainMenuModel {
 
     public void selectWithMouse(int x, int y) {
         buttonList.selectWithMouse(x, y);
+    }
+
+    ////////////////////
+    // Button callbacks
+    ////////////////////
+
+    public void newGameButton() {
+        maskGroup.add(new FadeOutMask(TRANSITION_OUT_CYCLES));
+        CountdownCallback newGameSwap = new CountdownCallback(TRANSITION_OUT_CYCLES, this::newGameButton2);
+        newGameSwap.resume();
+        foregroundGroup.add(newGameSwap);
+    }
+
+    // TODO better name
+    public void newGameButton2() {
+        game.swapState(NEW_GAME);
+    }
+
+    public void quitButton() {
+        game.exit();
     }
 }

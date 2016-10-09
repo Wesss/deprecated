@@ -16,27 +16,20 @@ public class MainMenuFactory {
         MainLoopGroup foregroundGroup = mainLoop.createGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER);
         MainLoopGroup maskGroup = mainLoop.createGroup(DEFAULT_PRIORITY, MASK_LAYER);
 
-        // TODO code review MainMenuFactory
+        MainMenuModel model = new MainMenuModel();
         Button newGameButton = new Button(
-                new CountdownCallback(0, () -> {
-                    maskGroup.add(new FadeOutMask(TRANSITION_OUT_CYCLES));
-                    CountdownCallback newGameSwap = new CountdownCallback(TRANSITION_OUT_CYCLES, () -> {
-                        game.swapState(NEW_GAME);
-                    });
-                    newGameSwap.resume();
-                    foregroundGroup.add(newGameSwap);
-                }),
+                new CountdownCallback(0, model::newGameButton),
                 X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "New Game");
         Button quitButton = new Button(
-                new CountdownCallback(0, game::exit),
+                new CountdownCallback(0, model::quitButton),
                 X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "Quit");
 
         ButtonList buttons = new ButtonList(newGameButton, quitButton);
         foregroundGroup.add(buttons);
 
-        MainMenuModel model = new MainMenuModel(buttons, foregroundGroup, maskGroup);
+        model.setReferences(game, foregroundGroup, maskGroup, buttons);
         MainMenuEventListener listener = new MainMenuEventListener(model);
         return new MainMenu(model, listener);
     }
