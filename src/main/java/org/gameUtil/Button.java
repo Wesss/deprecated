@@ -97,7 +97,7 @@ public class Button implements GameObj {
 
     @Override
     public void update() {
-        event.tick();
+        event.update();
     }
 
     @Override

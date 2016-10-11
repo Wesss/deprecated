@@ -75,6 +75,7 @@ public class CountdownCallback implements GameObj{
     // Testing
     ////////////////////
 
+    // TODO incorporate in some debug printing framework
     public void printStats(GameCanvasGraphics g, int x, int y, int offset) {
         if (isDisabled) {
             g.drawString("[disabled]", x, y + (20 * offset));
