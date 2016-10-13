@@ -16,8 +16,6 @@ import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
 public class MainMenuTest {
 
-    // TODO abstract out a test main loop custom groups interface
-
     private GameEventListener eventListener;
     private RestaurantGame mockGame = mock(RestaurantGame.class);
     private MainLoopCustomGroupsInterface mockMainLoop = mock(MainLoopCustomGroupsInterface.class);
@@ -27,6 +25,7 @@ public class MainMenuTest {
 
     @Before
     public void setup() {
+        // TODO rewire to use FakeMainLoopCustomGroupsInterface
         reset(mockGame, mockMainLoop);
 
         maskGroup = new MainLoopGroupTest(DEFAULT_PRIORITY, MASK_LAYER);
