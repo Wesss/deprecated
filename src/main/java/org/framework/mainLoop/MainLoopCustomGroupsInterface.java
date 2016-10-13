@@ -1,6 +1,5 @@
 package org.framework.mainLoop;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,8 +7,6 @@ import java.util.Set;
  * TODO
  */
 public class MainLoopCustomGroupsInterface {
-
-    // TODO figure out how to disable auto generated class javadoc from intiilJ(ie. 'created by' stuff)
 
     private MainLoopGroupFactory factory;
 

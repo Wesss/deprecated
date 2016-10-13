@@ -21,7 +21,7 @@ public class MainLoopGroupFactory {
      * @param inter
      * @param maximumPriority
      */
-    protected MainLoopGroupFactory(MainLoopAdvancedInterface inter, int maximumPriority) {
+    public MainLoopGroupFactory(MainLoopAdvancedInterface inter, int maximumPriority) {
         this.inter = inter;
         this.addedGroupsActions = new HashMap<>();
         this.maxPriority = maximumPriority;
@@ -51,6 +51,7 @@ public class MainLoopGroupFactory {
      *
      * @param group
      */
+    //TODO move destroyMainLoopGroup onto MainLoopGroup
     protected void destroyMainLoopGroup(MainLoopGroup group) {
         MainLoopAction action = addedGroupsActions.remove(group);
         if (inter.containsAction(action)) {

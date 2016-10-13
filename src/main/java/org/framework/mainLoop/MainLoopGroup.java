@@ -171,6 +171,9 @@ public class MainLoopGroup implements GameObj {
     // Testing
     ////////////////////
 
+    /**
+     * PUBLIC FOR TESTING
+     */
     public Set<GameObj> getGameObjsInMainLoop() {
         HashSet<GameObj> mainLoopObjs = new HashSet<>();
         mainLoopObjs.addAll(remObjs);
