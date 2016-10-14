@@ -179,7 +179,7 @@ public class MainLoopModel {
     }
 
     public void visitResolution(MainLoopAddAction action) {
-        Integer prevLayer = layerToObjs.getKey(action.getObj());
+        Integer prevLayer = layerToObjs.getKey(action.getObj()); // TODO remove taking out of previous k,v pair
         Integer prevPriority = priorityToObjs.getKey(action.getObj());
 
         if (prevLayer != null && prevPriority != null) {

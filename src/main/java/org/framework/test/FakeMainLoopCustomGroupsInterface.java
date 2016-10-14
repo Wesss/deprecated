@@ -1,24 +1,31 @@
 package org.framework.test;
 
+import org.framework.canvas.GameCanvasGraphics;
+import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopAdvancedInterface;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.framework.mainLoop.MainLoopGroup;
 import org.framework.mainLoop.MainLoopGroupFactory;
+import org.util.collection.MapToSets;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.Math.max;
 import static org.mockito.Mockito.mock;
 
 /**
- * TODO
+ * A Standalone interface used for testing games without the need of any of the other gameframework overhead
  */
 public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInterface {
 
-    private Map<Integer, Set<MainLoopGroup>> priorityToGroup; //TODO abstract this out in general-utils
-    private Map<Integer, Set<MainLoopGroup>> layerToGroup;
+    private GameCanvasGraphics dummyGraphics = mock(GameCanvasGraphics.class);
+    private MapToSets<Integer, MainLoopGroup> layerToGroups;
+    private int maxLayer; //TODO abstract this out in general-utils
+    private MapToSets<Integer, MainLoopGroup> priorityToGroups;
+    private int maxPriority;
 
     public static FakeMainLoopCustomGroupsInterface getFake(int maxPriority) {
         return new FakeMainLoopCustomGroupsInterface(maxPriority);
@@ -26,44 +33,48 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
 
     protected FakeMainLoopCustomGroupsInterface(int maxPriority) {
         super(new MainLoopGroupFactory(mock(MainLoopAdvancedInterface.class), maxPriority));
-        priorityToGroup = new HashMap<>();
-        layerToGroup = new HashMap<>();
+        priorityToGroups = new MapToSets<>();
+        layerToGroups = new MapToSets<>();
     }
 
     @Override
     public MainLoopGroup createGroup(int priority, int layer) {
         MainLoopGroup newGroup = super.createGroup(priority, layer);
-        if (!priorityToGroup.containsKey(priority))
-            priorityToGroup.put(priority, new HashSet<MainLoopGroup>());
-        priorityToGroup.get(priority).add(newGroup);
-        if (!layerToGroup.containsKey(layer))
-            layerToGroup.put(layer, new HashSet<MainLoopGroup>());
-        layerToGroup.get(layer).add(newGroup);
+        layerToGroups.put(layer, newGroup);
+        priorityToGroups.put(priority, newGroup);
+        maxLayer = max(layer, maxLayer);
+        maxPriority = max(layer, maxPriority);
         return newGroup;
     }
 
     @Override
-    public boolean containsGroup(MainLoopGroup group) {
-        return super.containsGroup(group);
-    }
-
-    @Override
     public boolean removeGroup(MainLoopGroup group) {
-        // TODO blocked on refactoring out (A -> B) and (B -> Set<A>) pairings
+        //TODO double check null cases in mapToSets as called in this FakeMainLoop interface
+        //TODO mapToSet removeKey and removeValue
+        layerToGroups.remove(layerToGroups.getKey(group), group);
+        priorityToGroups.remove(priorityToGroups.getKey(group), group);
         return super.removeGroup(group);
     }
 
-    @Override
-    public void removeAllGroups() {
-        super.removeAllGroups();
-    }
-
-    @Override
-    public Set<MainLoopGroup> getGroups() {
-        return super.getGroups();
-    }
-
     public void nextFrame() {
-        // TODO
+        nextFrame(dummyGraphics);
+    }
+
+    public void nextFrame(GameCanvasGraphics mockGraphics) {
+        for (int i = 0; i < maxPriority + 1; i++) {
+            for (GameObj gameObj : priorityToGroups.get(i)) {
+                if (gameObj != null) {
+                    gameObj.update();
+                }
+            }
+        }
+
+        for (int i = 0; i < maxLayer + 1; i++) {
+            for (GameObj gameObj : layerToGroups.get(i)) {
+                if (gameObj != null) {
+                    gameObj.paint(mockGraphics);
+                }
+            }
+        }
     }
 }
