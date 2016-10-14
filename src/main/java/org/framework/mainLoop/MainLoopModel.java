@@ -6,12 +6,14 @@ import org.framework.domain.MainLoopAddAction;
 import org.framework.domain.MainLoopClearAction;
 import org.framework.domain.MainLoopRemoveAction;
 import org.framework.domain.GameObj;
+import org.util.collection.MapToSets;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import static java.lang.Math.max;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
@@ -19,49 +21,17 @@ import static org.junit.Assert.*;
  */
 public class MainLoopModel {
 
-    // TODO abstract out index/obj pairings
 
     /*
      * Representation of all the game objects currently being tracked by the MainLoopController
      *
-     * objToLayer != null
-     * for each (obj --> layer) pair in objToLayer
-     * 		layerToObj.get(layer) contains obj
-     *
-     * objToPriority != null
-     * for each key value pair (obj --> layer) in objToPriority
-     * 		priorityToObj.get(priority) contains obj
-     *
-     * objToLayer.keySet is equivalent to objToPriority.keyset
-     *
-     * layerToObj != null
+     * layerToObj.values() is unordered-equivalents to keyToObjs.values()
      * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
-     * for each (layer --> objs) pair in layerToObj.keset()
-     * 		layer >= 0
-     * 		objs != null
-     * 		objs.isEmpty
-     * 		for each obj being stored within objs
-     * 			obj != null
-     * 			obj also exists in priorityToObj
-     * 			obj also exists in objToLayer, objToPriority, priorityToObj
-     * 			obj does not exist anywhere else in layerToObj
-     *
-     * priorityToObj != null
      * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
-     * for each (priority --> objs) pair in priorityToObj.keset()
-     * 		priority >= 0
-     * 		objs != null
-     * 		!objs.isEmpty
-     * 		for each obj being stored within objs
-     * 			obj != null
-     * 			obj also exists in objToLayer, layerToObj, objToPriority
-     * 			obj does not exist anywhere else in priorityToObj
      */
-    private HashMap<GameObj, Integer> objToLayer;
-    private HashMap<Integer, HashSet<GameObj>> layerToObj;
-    private int maxLayer;
-    private HashMap<GameObj, Integer> objToPriority;
-    private HashMap<Integer, HashSet<GameObj>> priorityToObj;
+    private MapToSets<Integer, GameObj> layerToObjs;
+    private int maxLayer; // TODO abstract max index into mapToSets, actually reduce to minimum
+    private MapToSets<Integer, GameObj> priorityToObjs;
     private int maxPriority;
 
     /*
@@ -84,11 +54,9 @@ public class MainLoopModel {
     private int maxGroup;
 
     protected MainLoopModel() {
-        objToLayer = new HashMap<>();
-        layerToObj = new HashMap<>();
+        layerToObjs = new MapToSets<>();
         maxLayer = 0;
-        objToPriority = new HashMap<>();
-        priorityToObj = new HashMap<>();
+        priorityToObjs = new MapToSets<>();
         maxPriority = 0;
 
         groupToAction = new HashMap<>();
@@ -101,7 +69,7 @@ public class MainLoopModel {
     //////////////////////////////////////////////////
 
     protected boolean containsAdv(GameObj obj) {
-        return obj != null && objToLayer.containsKey(obj);
+        return obj != null && layerToObjs.containsValue(obj);
     }
 
     protected void insertAction(MainLoopAction action, int actionGroup) {
@@ -175,7 +143,7 @@ public class MainLoopModel {
 
     private void updateObjs() {
         for (int i = 0; i <= maxPriority; i++) {
-            HashSet<GameObj> objs = priorityToObj.get(i);
+            Set<GameObj> objs = priorityToObjs.get(i);
             if (objs != null) {
                 for (GameObj obj : objs)
                     obj.update();
@@ -185,7 +153,7 @@ public class MainLoopModel {
 
     private void paintObjs(GameCanvasGraphics g) {
         for (int i = 0; i <= maxLayer; i++) {
-            HashSet<GameObj> objs = layerToObj.get(i);
+            Set<GameObj> objs = layerToObjs.get(i);
             if (objs != null) {
                 for (GameObj obj : objs)
                     obj.paint(g);
@@ -211,79 +179,38 @@ public class MainLoopModel {
     }
 
     public void visitResolution(MainLoopAddAction action) {
-        Integer prevLayer = objToLayer.get(action.getObj());
-        Integer prevPriority = objToPriority.get(action.getObj());
+        Integer prevLayer = layerToObjs.getKey(action.getObj());
+        Integer prevPriority = priorityToObjs.getKey(action.getObj());
 
         if (prevLayer != null && prevPriority != null) {
-            removeObjIndexPair(layerToObj, objToLayer, action.getObj(), prevLayer);
-            if (!layerToObj.containsKey(prevLayer)) {
-                layerToObj.remove(prevLayer);
-                if (prevLayer == maxLayer && maxLayer > 0)
-                    maxLayer--; // TODO actually find max efficiently
-            }
-            removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), prevPriority);
-            if (!priorityToObj.containsKey(prevPriority)) {
-                priorityToObj.remove(prevPriority);
-                if (prevPriority == maxPriority && maxPriority > 0) {
-                    maxPriority--;
-                }
-            }
+            layerToObjs.remove(prevLayer, action.getObj());
+            priorityToObjs.remove(prevPriority, action.getObj());
         }
 
-        objToLayer.put(action.getObj(), action.getLayer());
-        objToPriority.put(action.getObj(), action.getPriority());
-        if (!layerToObj.containsKey(action.getLayer()))
-            layerToObj.put(action.getLayer(), new HashSet<GameObj>());
-        layerToObj.get(action.getLayer()).add(action.getObj());
-        if (!priorityToObj.containsKey(action.getPriority()))
-            priorityToObj.put(action.getPriority(), new HashSet<GameObj>());
-        priorityToObj.get(action.getPriority()).add(action.getObj());
+        layerToObjs.put(action.getLayer(), action.getObj());
+        priorityToObjs.put(action.getPriority(), action.getObj());
 
         maxLayer = max(maxLayer, action.getLayer());
         maxPriority = max(maxPriority, action.getPriority());
     }
 
     public void visitResolution(MainLoopRemoveAction action) {
-        Integer layer = objToLayer.get(action.getObj());
-        Integer priority = objToPriority.get(action.getObj());
+        Integer layer = layerToObjs.getKey(action.getObj());
+        Integer priority = priorityToObjs.getKey(action.getObj());
+
         if (layer != null && priority != null) {
-            removeObjIndexPair(layerToObj, objToLayer, action.getObj(), layer);
-            if (!layerToObj.containsKey(layer)) {
-                layerToObj.remove(layer);
-                if (layer == maxLayer && maxLayer > 0)
-                    maxLayer--; // TODO duplicated above in Add resolution, to be resolved with refactoring out hashmap pairings
-            }
-            removeObjIndexPair(priorityToObj, objToPriority, action.getObj(), priority);
-            if (!priorityToObj.containsKey(priority)) {
-                priorityToObj.remove(priority);
-                if (priority == maxPriority && maxPriority > 0) {
-                    maxPriority--;
-                }
-            }
+            layerToObjs.remove(layer, action.getObj());
+            priorityToObjs.remove(priority, action.getObj());
         }
     }
 
     @SuppressWarnings("unused")
     public void visitResolution(MainLoopClearAction action) {
-        objToLayer.clear();
-        layerToObj.clear();
+        layerToObjs.clear();
         maxLayer = 0;
-        objToPriority.clear();
-        priorityToObj.clear();
+        priorityToObjs.clear();
         maxPriority = 0;
     }
-
-    private void removeObjIndexPair(HashMap<Integer, HashSet<GameObj>> indexToObjs,
-                                    HashMap<GameObj, Integer> objToIndex,
-                                    GameObj obj,
-                                    int index) {
-        objToIndex.remove(obj);
-        indexToObjs.get(index).remove(obj);
-        if (indexToObjs.get(index).isEmpty()) {
-            indexToObjs.remove(index);
-        }
-    }
-
 
     //////////////////////////////////////////////////
     // Testing
@@ -293,55 +220,16 @@ public class MainLoopModel {
         // game objs
         assertTrue(maxLayer >= 0);
         assertTrue(maxPriority >= 0);
-        assertNotNull(objToLayer);
-        assertNotNull(layerToObj);
-        assertNotNull(objToPriority);
-        assertNotNull(priorityToObj);
+        assertNotNull(layerToObjs);
+        assertNotNull(priorityToObjs);
 
-        for (GameObj obj : objToLayer.keySet()) {
-            assertNotNull(obj);
-            assertTrue(layerToObj.get(objToLayer.get(obj)).contains(obj));
-        }
+        // TODO abstract comparison of array lists into custom matchers
+        Set<GameObj> layerObjs = new HashSet<>(layerToObjs.values());
+        Set<GameObj> priorityObjs = new HashSet<>(priorityToObjs.values());
+        assertThat(layerToObjs.values(), hasSize(layerObjs.size()));
+        assertThat(priorityToObjs.values(), hasSize(priorityObjs.size()));
+        assertThat(layerObjs, hasSize(priorityObjs.size()));
 
-        for (GameObj obj : objToPriority.keySet()) {
-            assertNotNull(obj);
-            assertTrue(priorityToObj.get(objToPriority.get(obj)).contains(obj));
-        }
-
-        Set<GameObj> layerObjStore = new HashSet<>();
-        Set<GameObj> priorityObjStore = new HashSet<>();
-        Set<Integer> layers = layerToObj.keySet();
-        Set<Integer> priorities = priorityToObj.keySet();
-
-        for (int layer : layers) {
-            assertTrue(layer >= 0);
-            assertTrue(maxLayer >= layer);
-            Set<GameObj> objs = layerToObj.get(layer);
-            assertNotNull(objs);
-            assertFalse(objs.isEmpty());
-            for (GameObj obj : objs) {
-                assertNotNull(obj);
-                assertFalse("duplicate layer objs", layerObjStore.contains(obj));
-                layerObjStore.add(obj);
-            }
-        }
-
-        for (int priority : priorities) {
-            assertTrue(priority >= 0);
-            assertTrue(maxPriority >= priority);
-            Set<GameObj> objs = priorityToObj.get(priority);
-            assertNotNull(objs);
-            assertFalse(objs.isEmpty());
-            for (GameObj obj : objs) {
-                assertNotNull(obj);
-                assertFalse("duplicate priority objs", priorityObjStore.contains(obj));
-                priorityObjStore.add(obj);
-            }
-        }
-
-        assertEquals(objToPriority.keySet(), objToLayer.keySet());
-        assertEquals(objToPriority.keySet(), priorityObjStore);
-        assertEquals(objToLayer.keySet(), layerObjStore);
 
         // actions
         assertTrue(maxGroup >= 0);
