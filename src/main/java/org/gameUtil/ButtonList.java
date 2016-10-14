@@ -6,7 +6,7 @@ import org.framework.domain.GameObj;
 
 import java.util.List;
 
-import static org.util.CollectionFactory.ArrayListOf;
+import static org.util.collection.CollectionFactory.ArrayListOf;
 import static org.util.math.Math.modPos;
 
 public class ButtonList implements GameObj {
