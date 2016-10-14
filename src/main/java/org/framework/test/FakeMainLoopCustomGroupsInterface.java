@@ -62,17 +62,31 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
 
     public void nextFrame(GameCanvasGraphics mockGraphics) {
         for (int i = 0; i < maxPriority + 1; i++) {
-            for (GameObj gameObj : priorityToGroups.get(i)) {
-                if (gameObj != null) {
-                    gameObj.update();
+            Set<MainLoopGroup> priorityGroups = priorityToGroups.get(i);
+            if (priorityGroups != null) {
+                for (MainLoopGroup group : priorityGroups) {
+                    for (GameObj gameObj : group.getGameObjsInMainLoop()) {
+                        gameObj.update();
+                    }
                 }
             }
         }
 
+        for (MainLoopGroup group : priorityToGroups.values()) {
+            group.update();
+        }
+
+        for (MainLoopGroup group : priorityToGroups.values()) {
+            group.paint(mockGraphics);
+        }
+
         for (int i = 0; i < maxLayer + 1; i++) {
-            for (GameObj gameObj : layerToGroups.get(i)) {
-                if (gameObj != null) {
-                    gameObj.paint(mockGraphics);
+            Set<MainLoopGroup> layerGroups = layerToGroups.get(i);
+            if (layerGroups != null) {
+                for (MainLoopGroup group : layerGroups) {
+                    for (GameObj gameObj : group.getGameObjsInMainLoop()) {
+                        gameObj.paint(mockGraphics);
+                    }
                 }
             }
         }
