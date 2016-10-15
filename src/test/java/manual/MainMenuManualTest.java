@@ -16,7 +16,7 @@ public class MainMenuManualTest {
     public static final int FPS = 60;
 
     public static void main(String[] args) {
-        GameFramework.startGame(new MainMenuTestFactory(), FPS);
+        GameFramework.startGame(new MainMenuTestFactory(), RestaurantGame.FPS);
     }
 
     private static class MainMenuTestFactory implements GameFactory {
@@ -27,7 +27,7 @@ public class MainMenuManualTest {
         public Game createGame(MainLoopController mainLoop, GameCanvasController canvas) {
             singleton = MainMenuFactory.getMainMenu(
                     new FakeRestaurantGame(),
-                    mainLoop.customGroupsInterface(5));
+                    mainLoop.customGroupsInterface(RestaurantGame.MAXIMUM_UPDATE_PRIORITY));
             return singleton;
         }
 

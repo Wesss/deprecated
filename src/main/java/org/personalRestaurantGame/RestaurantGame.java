@@ -17,6 +17,7 @@ public class RestaurantGame implements Game {
 
     // TODO game transition
 
+    public static final int FPS = 60;
     public static final int MAXIMUM_UPDATE_PRIORITY = 10;
     public static final String UNKNOWN_STATE_ERROR_MSG = "unknown state reached";
 
