@@ -21,6 +21,8 @@ import static org.mockito.Mockito.mock;
  */
 public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInterface {
 
+    //TODO needs an endpoint to get/examine individual groups
+
     private GameCanvasGraphics dummyGraphics = mock(GameCanvasGraphics.class);
     private MapToSets<Integer, MainLoopGroup> layerToGroups;
     private int maxLayer; //TODO abstract this out in general-utils

@@ -2,7 +2,6 @@ package org.framework.test;
 
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.GameObj;
-import org.framework.mainLoop.MainLoop;
 import org.framework.mainLoop.MainLoopGroup;
 import org.junit.Before;
 import org.junit.Test;
