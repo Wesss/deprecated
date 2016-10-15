@@ -3,6 +3,7 @@ package org.personalRestaurantGame.mainMenu;
 import org.framework.domain.GameEventListener;
 import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.framework.mainLoop.MainLoopGroup;
+import org.framework.test.FakeMainLoopCustomGroupsInterface;
 import org.framework.test.MainLoopGroupTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,24 +19,16 @@ public class MainMenuTest {
 
     private GameEventListener eventListener;
     private RestaurantGame mockGame = mock(RestaurantGame.class);
-    private MainLoopCustomGroupsInterface mockMainLoop = mock(MainLoopCustomGroupsInterface.class);
-    private MainLoopGroup backgroundGroup;
-    private MainLoopGroup foregroundGroup;
-    private MainLoopGroup maskGroup;
+    private FakeMainLoopCustomGroupsInterface fakeMainLoop;
 
     @Before
     public void setup() {
-        // TODO rewire to use FakeMainLoopCustomGroupsInterface
-        reset(mockGame, mockMainLoop);
+        reset(mockGame);
+        fakeMainLoop = FakeMainLoopCustomGroupsInterface.getFake(RestaurantGame.MAXIMUM_UPDATE_PRIORITY);
 
-        maskGroup = new MainLoopGroupTest(DEFAULT_PRIORITY, MASK_LAYER);
-        foregroundGroup = new MainLoopGroupTest(DEFAULT_PRIORITY, FOREGROUND_LAYER);
-        when(mockMainLoop.createGroup(DEFAULT_PRIORITY, MASK_LAYER)).thenReturn(maskGroup);
-        when(mockMainLoop.createGroup(DEFAULT_PRIORITY, FOREGROUND_LAYER)).thenReturn(foregroundGroup);
-
-        MainMenu mainMenu = MainMenuFactory.getMainMenu(mockGame, mockMainLoop);
+        MainMenu mainMenu = MainMenuFactory.getMainMenu(mockGame, fakeMainLoop);
         eventListener = mainMenu.dispatchEventListener();
-        nextFrame(); // to resolve add actions
+        fakeMainLoop.nextFrame(); // to resolve add actions
     }
 
     @Test
@@ -52,15 +45,10 @@ public class MainMenuTest {
         moveSelectorDown();
         selectWithKeyboard();
         for (int i = 0; i < TRANSITION_OUT_CYCLES + 1; i++) {
-            nextFrame();
+            fakeMainLoop.nextFrame();
         }
 
         verify(mockGame).swapState(RestaurantGame.State.NEW_GAME);
-    }
-
-    private void nextFrame() {
-        foregroundGroup.update();
-        maskGroup.update();
     }
 
     private void moveSelectorDown() {
