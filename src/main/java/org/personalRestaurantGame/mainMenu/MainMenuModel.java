@@ -1,7 +1,6 @@
 package org.personalRestaurantGame.mainMenu;
 
 import org.framework.mainLoop.MainLoopGroup;
-import org.gameUtil.Button;
 import org.gameUtil.ButtonList;
 import org.gameUtil.CountdownCallback;
 import org.personalRestaurantGame.RestaurantGame;
