@@ -3,6 +3,9 @@ package org.gameUtil;
 import org.framework.canvas.GameCanvasGraphics;
 import org.framework.domain.GameObj;
 
+/**
+ * This represents a function that will be fired after a delay
+ */
 public class CountdownCallback implements GameObj{
 
     // TODO document CountdownCallback
