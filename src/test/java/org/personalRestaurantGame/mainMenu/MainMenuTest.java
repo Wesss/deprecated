@@ -15,7 +15,7 @@ import static java.awt.event.KeyEvent.*;
 import static org.mockito.Mockito.*;
 import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
-public class MainMenuTest {
+public class MainMenuTest extends GamePipelineTest {
 
     private GameEventListener eventListener;
     private RestaurantGame mockGame = mock(RestaurantGame.class);
