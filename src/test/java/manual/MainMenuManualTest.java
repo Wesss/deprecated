@@ -10,8 +10,6 @@ import org.personalRestaurantGame.RestaurantGame;
 import org.personalRestaurantGame.mainMenu.MainMenuFactory;
 
 public class MainMenuManualTest {
-    public static final int FPS = 60;
-
     public static void main(String[] args) {
         GameFramework.startGame(new MainMenuTestFactory(), RestaurantGame.FPS);
     }
