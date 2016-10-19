@@ -69,7 +69,7 @@ public class RestaurantGame implements Game {
                 currentGamePipeline = MainMenuFactory.getMainMenu(this, mainLoop);
                 break;
             case NEW_GAME:
-                currentGamePipeline = LevelFactory.getLevel1();
+                currentGamePipeline = LevelFactory.getLevel1(this, mainLoop);
                 break;
             default:
                 throw new RuntimeException(UNKNOWN_STATE_ERROR_MSG);
