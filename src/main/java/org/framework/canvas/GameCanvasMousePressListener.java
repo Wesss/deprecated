@@ -1,6 +1,8 @@
 package org.framework.canvas;
 
 import org.framework.domain.GameEventListener;
+import org.framework.domain.event.MousePressedEvent;
+import org.framework.domain.event.MouseReleasedEvent;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,18 +25,26 @@ public class GameCanvasMousePressListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mousePressed(canvas.actualToVirtualX(e.getX()),
-                    canvas.actualToVirtualY(e.getY()),
-                    e.getButton());
+            gameEventListener.processGameEvent(
+                    new MousePressedEvent(
+                            canvas.actualToVirtualX(e.getX()),
+                            canvas.actualToVirtualY(e.getY()),
+                            e.getButton()
+                    )
+            );
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mouseReleased(canvas.actualToVirtualX(e.getX()),
-                    canvas.actualToVirtualY(e.getY()),
-                    e.getButton());
+            gameEventListener.processGameEvent(
+                    new MouseReleasedEvent(
+                            canvas.actualToVirtualX(e.getX()),
+                            canvas.actualToVirtualY(e.getY()),
+                            e.getButton()
+                    )
+            );
         }
     }
 

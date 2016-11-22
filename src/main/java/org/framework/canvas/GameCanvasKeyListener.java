@@ -1,6 +1,8 @@
 package org.framework.canvas;
 
 import org.framework.domain.GameEventListener;
+import org.framework.domain.event.KeyPressedEvent;
+import org.framework.domain.event.KeyReleasedEvent;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,7 +34,12 @@ public class GameCanvasKeyListener implements KeyListener {
         synchronized (GAME_LOCK) {
             if (!pressedKeys.contains(code)) {
                 pressedKeys.add(code);
-                gameEventListener.keyPressed(code);
+                gameEventListener.processGameEvent(
+                        //TODO put all event creation into a factory?
+                        new KeyPressedEvent(
+                                e.getKeyCode()
+                        )
+                );
             }
         }
     }
@@ -43,7 +50,11 @@ public class GameCanvasKeyListener implements KeyListener {
         synchronized (GAME_LOCK) {
             if (pressedKeys.contains(code)) {
                 pressedKeys.remove(code);
-                gameEventListener.keyReleased(code);
+                gameEventListener.processGameEvent(
+                        new KeyReleasedEvent(
+                                e.getKeyCode()
+                        )
+                );
             }
         }
 

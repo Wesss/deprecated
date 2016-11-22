@@ -1,10 +1,10 @@
 package org.framework.mainLoop;
 
 import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.MainLoopAction;
-import org.framework.domain.MainLoopAddAction;
-import org.framework.domain.MainLoopClearAction;
-import org.framework.domain.MainLoopRemoveAction;
+import org.framework.domain.action.MainLoopAction;
+import org.framework.domain.action.MainLoopAddAction;
+import org.framework.domain.action.MainLoopClearAction;
+import org.framework.domain.action.MainLoopRemoveAction;
 import org.framework.domain.GameObj;
 import org.util.collection.MapToSets;
 
@@ -166,7 +166,7 @@ public class MainLoopModel {
             HashSet<MainLoopAction> actions = groupToAction.get(i);
             if (actions != null) {
                 for (MainLoopAction action : actions)
-                    action.acceptResolution(this);
+                    action.acceptAction(this);
             }
         }
         groupToAction.clear();
@@ -174,11 +174,11 @@ public class MainLoopModel {
     }
 
     @SuppressWarnings("unused")
-    public void visitResolution(MainLoopAction action) {
+    public void visitAction(MainLoopAction action) {
         throw new RuntimeException("visited unknown action type");
     }
 
-    public void visitResolution(MainLoopAddAction action) {
+    public void visitAction(MainLoopAddAction action) {
         Integer prevLayer = layerToObjs.getKey(action.getObj()); // TODO remove taking out of previous k,v pair
         Integer prevPriority = priorityToObjs.getKey(action.getObj());
 
@@ -194,7 +194,7 @@ public class MainLoopModel {
         maxPriority = max(maxPriority, action.getPriority());
     }
 
-    public void visitResolution(MainLoopRemoveAction action) {
+    public void visitAction(MainLoopRemoveAction action) {
         Integer layer = layerToObjs.getKey(action.getObj());
         Integer priority = priorityToObjs.getKey(action.getObj());
 
@@ -205,7 +205,7 @@ public class MainLoopModel {
     }
 
     @SuppressWarnings("unused")
-    public void visitResolution(MainLoopClearAction action) {
+    public void visitAction(MainLoopClearAction action) {
         layerToObjs.clear();
         maxLayer = 0;
         priorityToObjs.clear();

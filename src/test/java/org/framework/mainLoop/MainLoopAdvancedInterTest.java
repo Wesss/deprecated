@@ -1,6 +1,6 @@
 package org.framework.mainLoop;
 
-import org.framework.domain.MainLoopAction;
+import org.framework.domain.action.MainLoopAction;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;

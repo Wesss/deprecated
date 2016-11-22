@@ -1,4 +1,6 @@
-package org.framework.domain;
+package org.framework.domain.action;
+
+import org.framework.domain.GameObj;
 
 public class MainLoopActionFactory {
 

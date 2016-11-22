@@ -1,5 +1,6 @@
-package org.framework.domain;
+package org.framework.domain.action;
 
+import org.framework.domain.GameObj;
 import org.framework.mainLoop.MainLoopModel;
 
 public class MainLoopAddAction extends MainLoopAction {
@@ -26,7 +27,7 @@ public class MainLoopAddAction extends MainLoopAction {
     }
 
     @Override
-    public void acceptResolution(MainLoopModel loop) {
-        loop.visitResolution(this);
+    public void acceptAction(MainLoopModel loop) {
+        loop.visitAction(this);
     }
 }

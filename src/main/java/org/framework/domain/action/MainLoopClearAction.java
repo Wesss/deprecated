@@ -1,4 +1,4 @@
-package org.framework.domain;
+package org.framework.domain.action;
 
 import org.framework.mainLoop.MainLoopModel;
 
@@ -8,7 +8,7 @@ public class MainLoopClearAction extends MainLoopAction {
     }
 
     @Override
-    public void acceptResolution(MainLoopModel loop) {
-        loop.visitResolution(this);
+    public void acceptAction(MainLoopModel loop) {
+        loop.visitAction(this);
     }
 }

@@ -7,6 +7,7 @@ import org.framework.domain.Game;
 import org.framework.domain.GameEventListener;
 import org.framework.domain.GameFactory;
 import org.framework.domain.GameObj;
+import org.framework.domain.event.*;
 import org.framework.mainLoop.MainLoopController;
 
 import java.awt.event.KeyEvent;
@@ -98,7 +99,7 @@ public class EventFireTest implements Game {
         }
     }
 
-    private static class EventFireTestListener implements GameEventListener {
+    private static class EventFireTestListener extends RawGameEventListener {
 
         private EventFireTest eventTest;
 
@@ -107,28 +108,28 @@ public class EventFireTest implements Game {
         }
 
         @Override
-        public void mousePressed(int x, int y, int button) {
-            eventTest.newEvent("pressed button " + button);
+        public void processGameEvent(MousePressedEvent event) {
+            eventTest.newEvent("pressed button " + event.getButtonID());
         }
 
         @Override
-        public void mouseReleased(int x, int y, int button) {
-            eventTest.newEvent("released button " + button);
+        public void processGameEvent(MouseReleasedEvent event) {
+            eventTest.newEvent("released button " + event.getButtonID());
         }
 
         @Override
-        public void mouseMoved(int x, int y) {
-            eventTest.setMouseLoc(x, y);
+        public void processGameEvent(MouseMovedEvent event) {
+            eventTest.setMouseLoc(event.getX(), event.getY());
         }
 
         @Override
-        public void keyPressed(int key) {
-            eventTest.newEvent("pressed  key " + KeyEvent.getKeyText(key));
+        public void processGameEvent(KeyPressedEvent event) {
+            eventTest.newEvent("pressed  key " + KeyEvent.getKeyText(event.getKeyCode()));
         }
 
         @Override
-        public void keyReleased(int key) {
-            eventTest.newEvent("released key " + KeyEvent.getKeyText(key));
+        public void processGameEvent(KeyReleasedEvent event) {
+            eventTest.newEvent("released key " + KeyEvent.getKeyText(event.getKeyCode()));
         }
     }
 

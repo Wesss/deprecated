@@ -1,4 +1,4 @@
-package org.framework.domain;
+package org.framework.domain.action;
 
 import org.framework.mainLoop.MainLoopModel;
 
@@ -7,7 +7,7 @@ import org.framework.mainLoop.MainLoopModel;
  * triggering the next frame
  */
 public abstract class MainLoopAction {
-    public void acceptResolution(MainLoopModel loop) {
-        loop.visitResolution(this);
+    public void acceptAction(MainLoopModel loop) {
+        loop.visitAction(this);
     }
 }

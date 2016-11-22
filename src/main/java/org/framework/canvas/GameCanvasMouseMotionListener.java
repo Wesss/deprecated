@@ -1,6 +1,7 @@
 package org.framework.canvas;
 
 import org.framework.domain.GameEventListener;
+import org.framework.domain.event.MouseMovedEvent;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -38,7 +39,12 @@ public class GameCanvasMouseMotionListener implements MouseMotionListener {
      */
     private void mouseMovedTo(int x, int y) {
         synchronized (GAME_LOCK) {
-            gameEventListener.mouseMoved(x, y);
+            gameEventListener.processGameEvent(
+                    new MouseMovedEvent(
+                            canvas.actualToVirtualX(x),
+                            canvas.actualToVirtualY(y)
+                    )
+            );
         }
     }
 }
