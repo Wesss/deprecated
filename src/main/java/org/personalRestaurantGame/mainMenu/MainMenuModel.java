@@ -2,7 +2,7 @@ package org.personalRestaurantGame.mainMenu;
 
 import org.framework.mainLoop.MainLoopGroup;
 import org.gameUtil.ButtonList;
-import org.gameUtil.CountdownCallback;
+import org.gameUtil.GameCallback;
 import org.personalRestaurantGame.RestaurantGame;
 import org.personalRestaurantGame.domain.GameStateStore;
 
@@ -78,7 +78,7 @@ public class MainMenuModel {
 
     public void newGameButton() {
         maskGroup.add(new FadeOutMask(TRANSITION_OUT_CYCLES));
-        CountdownCallback newGameSwap = new CountdownCallback(TRANSITION_OUT_CYCLES, this::newGameButton2);
+        GameCallback newGameSwap = new GameCallback(TRANSITION_OUT_CYCLES, this::newGameButton2);
         newGameSwap.resume();
         foregroundGroup.add(newGameSwap);
     }

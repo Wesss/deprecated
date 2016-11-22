@@ -4,10 +4,9 @@ import org.framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.framework.mainLoop.MainLoopGroup;
 import org.gameUtil.Button;
 import org.gameUtil.ButtonList;
-import org.gameUtil.CountdownCallback;
+import org.gameUtil.GameCallback;
 import org.personalRestaurantGame.RestaurantGame;
 
-import static org.personalRestaurantGame.RestaurantGame.State.NEW_GAME;
 import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
 public class MainMenuFactory {
@@ -18,11 +17,11 @@ public class MainMenuFactory {
 
         MainMenuModel model = new MainMenuModel();
         Button newGameButton = new Button(
-                new CountdownCallback(0, model::newGameButton),
+                new GameCallback(0, model::newGameButton),
                 X, Y_TOP, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "New Game");
         Button quitButton = new Button(
-                new CountdownCallback(0, model::quitButton),
+                new GameCallback(0, model::quitButton),
                 X, Y_TOP + BUTTON_HEIGHT + Y_MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT,
                 "Quit");
 
