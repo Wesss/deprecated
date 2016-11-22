@@ -11,13 +11,13 @@ public class Button implements GameObj {
      * (x, y) is the center coordinate of the button
      * isCurrentSelection is true when the player has their selector over it
      */
-    private CountdownCallback event;
+    private GameCallback event;
     private int x, y, width, height;
     private boolean isCurrentSelection;
     private String label;
     // TODO have buttons use images
 
-    public Button(CountdownCallback event, int x, int y, int width, int height, String label) {
+    public Button(GameCallback event, int x, int y, int width, int height, String label) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Button width/height must be positive");
         }

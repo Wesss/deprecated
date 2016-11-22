@@ -6,11 +6,11 @@ import org.framework.domain.GameObj;
 /**
  * This represents a function that will be fired after a delay
  */
-public class CountdownCallback implements GameObj{
+public class GameCallback implements GameObj{
 
-    // TODO document CountdownCallback
+    // TODO document GameCallback
 
-    public static CountdownCallback EMPTY_COUNTDOWN_EVENT = new CountdownCallback(-1, CountdownCallback::stub);
+    public static GameCallback EMPTY_COUNTDOWN_EVENT = new GameCallback(-1, GameCallback::stub);
 
     private static void stub() {
 
@@ -29,7 +29,7 @@ public class CountdownCallback implements GameObj{
      * @param ticksToEvent
      * @param callback
      */
-    public CountdownCallback(int ticksToEvent, Runnable callback) {
+    public GameCallback(int ticksToEvent, Runnable callback) {
         this.remainingTicks = ticksToEvent;
         this.callback = callback;
         isSuspended = true;

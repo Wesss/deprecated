@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * This object returns biased spread of random integers using java's default random class
  */
-public class ModRandomBasic {
+public class RandomSpreadBasic {
     private int marbleTypeCount;
 
     //represents chance to be chosen for each marble type, increases when not picked
@@ -13,11 +13,11 @@ public class ModRandomBasic {
 
     private Random random;
 
-    //Creates a new ModRandom object to return a stream of random integers from 0 to count,
+    //Creates a new RandomSpread object to return a stream of random integers from 0 to count,
     //in a controlled spread.
-    public ModRandomBasic(int count) {
+    public RandomSpreadBasic(int count) {
         if (count < 1)
-            throw new IllegalArgumentException("Illegal Parameters on ModRandom");
+            throw new IllegalArgumentException("Illegal Parameters on RandomSpread");
 
         marbleTypeCount = count;
         random = new Random();
