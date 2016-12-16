@@ -1,7 +1,7 @@
-package org.gameUtil;
+package org.wesss.game_utils;
 
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.GameObj;
+import org.wesss.game_framework.canvas.GameCanvasGraphics;
+import org.wesss.game_framework.domain.GameObj;
 
 import java.awt.*;
 

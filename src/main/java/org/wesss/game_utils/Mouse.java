@@ -1,4 +1,4 @@
-package org.gameUtil;
+package org.wesss.game_utils;
 
 import java.awt.event.MouseEvent;
 

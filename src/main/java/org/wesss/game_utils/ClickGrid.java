@@ -1,6 +1,6 @@
-package org.gameUtil;
+package org.wesss.game_utils;
 
-import org.framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.GameEventListener;
 
 /**
  * This represents a grid on the canvas, where clicking on a tile will fire its corresponding event listener

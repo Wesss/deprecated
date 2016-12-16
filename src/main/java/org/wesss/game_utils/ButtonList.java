@@ -1,13 +1,13 @@
-package org.gameUtil;
+package org.wesss.game_utils;
 
 import com.sun.istack.internal.Nullable;
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.GameObj;
+import org.wesss.game_framework.canvas.GameCanvasGraphics;
+import org.wesss.game_framework.domain.GameObj;
 
 import java.util.List;
 
-import static org.util.collection.CollectionFactory.ArrayListOf;
-import static org.util.math.Math.modPos;
+import static org.wess.general_utils.collection.CollectionFactory.ArrayListOf;
+import static org.wess.general_utils.math.Math.modPos;
 
 public class ButtonList implements GameObj {
 
