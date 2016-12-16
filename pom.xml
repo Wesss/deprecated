@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.wesss.database_access</groupId>
+    <groupId>org.wesss</groupId>
     <artifactId>database-access</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -22,7 +22,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>general-utils</groupId>
+            <groupId>org.wesss</groupId>
             <artifactId>general-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
