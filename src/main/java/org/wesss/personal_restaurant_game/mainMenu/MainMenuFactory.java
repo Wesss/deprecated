@@ -1,13 +1,11 @@
-package org.personalRestaurantGame.mainMenu;
+package org.wesss.personal_restaurant_game.mainMenu;
 
-import org.framework.mainLoop.MainLoopCustomGroupsInterface;
-import org.framework.mainLoop.MainLoopGroup;
-import org.gameUtil.Button;
-import org.gameUtil.ButtonList;
-import org.gameUtil.GameCallback;
-import org.personalRestaurantGame.RestaurantGame;
-
-import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
+import org.wesss.game_framework.mainLoop.MainLoopCustomGroupsInterface;
+import org.wesss.game_framework.mainLoop.MainLoopGroup;
+import org.wesss.game_utils.Button;
+import org.wesss.game_utils.ButtonList;
+import org.wesss.game_utils.GameCallback;
+import org.wesss.personal_restaurant_game.RestaurantGame;
 
 public class MainMenuFactory {
 

@@ -1,7 +1,7 @@
-package org.personalRestaurantGame.domain;
+package org.wesss.personal_restaurant_game.domain;
 
-import org.framework.domain.Game;
-import org.framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.Game;
+import org.wesss.game_framework.domain.GameEventListener;
 
 public interface GamePipeline extends Game {
 

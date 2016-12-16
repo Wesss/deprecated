@@ -1,12 +1,12 @@
-package org.personalRestaurantGame;
+package org.wesss.personal_restaurant_game;
 
-import org.framework.canvas.GameCanvasController;
-import org.framework.domain.Game;
-import org.framework.domain.GameEventListener;
-import org.framework.domain.GameFactory;
-import org.framework.mainLoop.MainLoopController;
+import org.wesss.game_framework.canvas.GameCanvasController;
+import org.wesss.game_framework.domain.Game;
+import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.GameFactory;
+import org.wesss.game_framework.mainLoop.MainLoopController;
 
-import static org.personalRestaurantGame.RestaurantGame.State.MAIN_MENU;
+import static org.wesss.personal_restaurant_game.RestaurantGame.State.MAIN_MENU;
 
 public class RestaurantGameFactory implements GameFactory {
     private RestaurantGame singleton;

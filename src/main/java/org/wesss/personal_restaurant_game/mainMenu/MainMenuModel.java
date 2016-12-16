@@ -1,12 +1,12 @@
-package org.personalRestaurantGame.mainMenu;
+package org.wesss.personal_restaurant_game.mainMenu;
 
-import org.framework.mainLoop.MainLoopGroup;
-import org.gameUtil.ButtonList;
-import org.gameUtil.GameCallback;
-import org.personalRestaurantGame.RestaurantGame;
-import org.personalRestaurantGame.domain.GameStateStore;
+import org.wesss.game_framework.mainLoop.MainLoopGroup;
+import org.wesss.game_utils.ButtonList;
+import org.wesss.game_utils.GameCallback;
+import org.wesss.personal_restaurant_game.RestaurantGame;
+import org.wesss.personal_restaurant_game.domain.GameStateStore;
 
-import static org.personalRestaurantGame.RestaurantGame.State.NEW_GAME;
+import static org.wesss.personal_restaurant_game.RestaurantGame.State.NEW_GAME;
 
 public class MainMenuModel {
 

@@ -1,6 +1,6 @@
-package org.personalRestaurantGame.game;
+package org.wesss.personal_restaurant_game.game;
 
-import org.framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.GameEventListener;
 
 public class LevelEventListener implements GameEventListener {
 

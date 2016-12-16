@@ -1,7 +1,7 @@
-package org.personalRestaurantGame.mainMenu;
+package org.wesss.personal_restaurant_game.mainMenu;
 
-import org.framework.canvas.GameCanvasGraphics;
-import org.framework.domain.GameObj;
+import org.wesss.game_framework.canvas.GameCanvasGraphics;
+import org.wesss.game_framework.domain.GameObj;
 
 public class FadeOutMask implements GameObj {
 

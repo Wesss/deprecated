@@ -1,19 +1,13 @@
-package org.personalRestaurantGame.mainMenu;
+package org.wesss.personal_restaurant_game.mainMenu;
 
-import org.framework.domain.GameEventListener;
-import org.framework.mainLoop.MainLoopCustomGroupsInterface;
-import org.framework.mainLoop.MainLoopGroup;
-import org.framework.test.FakeMainLoopCustomGroupsInterface;
-import org.framework.test.MainLoopGroupTest;
+import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.game_framework.test.FakeMainLoopCustomGroupsInterface;
 import org.junit.Before;
 import org.junit.Test;
-import org.personalRestaurantGame.RestaurantGame;
-
-import java.awt.event.KeyEvent;
+import org.wesss.personal_restaurant_game.RestaurantGame;
 
 import static java.awt.event.KeyEvent.*;
 import static org.mockito.Mockito.*;
-import static org.personalRestaurantGame.mainMenu.MainMenuModel.*;
 
 public class MainMenuTest extends GamePipelineTest {
 
@@ -44,7 +38,7 @@ public class MainMenuTest extends GamePipelineTest {
     public void newGameButton() {
         moveSelectorDown();
         selectWithKeyboard();
-        for (int i = 0; i < TRANSITION_OUT_CYCLES + 1; i++) {
+        for (int i = 0; i < MainMenuModel.TRANSITION_OUT_CYCLES + 1; i++) {
             fakeMainLoop.nextFrame();
         }
 

@@ -1,4 +1,4 @@
-package org.personalRestaurantGame.domain;
+package org.wesss.personal_restaurant_game.domain;
 
 public class GameStateStore {
 

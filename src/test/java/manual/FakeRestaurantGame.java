@@ -1,11 +1,11 @@
 package manual;
 
 
-import org.framework.GameFramework;
-import org.framework.canvas.GameCanvasController;
-import org.framework.mainLoop.MainLoopController;
-import org.personalRestaurantGame.RestaurantGame;
-import org.personalRestaurantGame.domain.GamePipeline;
+import org.wesss.game_framework.GameFramework;
+import org.wesss.game_framework.canvas.GameCanvasController;
+import org.wesss.game_framework.mainLoop.MainLoopController;
+import org.wesss.personal_restaurant_game.RestaurantGame;
+import org.wesss.personal_restaurant_game.domain.GamePipeline;
 
 import static org.mockito.Mockito.mock;
 

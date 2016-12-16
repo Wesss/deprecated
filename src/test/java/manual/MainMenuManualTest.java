@@ -1,13 +1,13 @@
 package manual;
 
-import org.framework.GameFramework;
-import org.framework.canvas.GameCanvasController;
-import org.framework.domain.Game;
-import org.framework.domain.GameEventListener;
-import org.framework.domain.GameFactory;
-import org.framework.mainLoop.MainLoopController;
-import org.personalRestaurantGame.RestaurantGame;
-import org.personalRestaurantGame.mainMenu.MainMenuFactory;
+import org.wesss.game_framework.GameFramework;
+import org.wesss.game_framework.canvas.GameCanvasController;
+import org.wesss.game_framework.domain.Game;
+import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.GameFactory;
+import org.wesss.game_framework.mainLoop.MainLoopController;
+import org.wesss.personal_restaurant_game.RestaurantGame;
+import org.wesss.personal_restaurant_game.mainMenu.MainMenuFactory;
 
 public class MainMenuManualTest {
     public static void main(String[] args) {

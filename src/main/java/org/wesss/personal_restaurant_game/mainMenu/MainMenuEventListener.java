@@ -1,10 +1,10 @@
-package org.personalRestaurantGame.mainMenu;
+package org.wesss.personal_restaurant_game.mainMenu;
 
-import org.framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.GameEventListener;
 
 import java.awt.event.KeyEvent;
 
-import static org.gameUtil.Mouse.MOUSE_LEFT;
+import static org.wesss.game_utils.Mouse.MOUSE_LEFT;
 
 public class MainMenuEventListener implements GameEventListener {
 

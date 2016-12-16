@@ -1,8 +1,8 @@
-package org.personalRestaurantGame.game;
+package org.wesss.personal_restaurant_game.game;
 
-import org.framework.domain.GameEventListener;
-import org.personalRestaurantGame.domain.GamePipeline;
-import org.personalRestaurantGame.domain.GameStateStore;
+import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.personal_restaurant_game.domain.GamePipeline;
+import org.wesss.personal_restaurant_game.domain.GameStateStore;
 
 public class Level implements GamePipeline {
 

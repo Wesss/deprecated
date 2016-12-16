@@ -1,17 +1,17 @@
-package org.personalRestaurantGame;
+package org.wesss.personal_restaurant_game;
 
-import org.framework.GameFramework;
-import org.framework.canvas.GameCanvasController;
-import org.framework.domain.Game;
-import org.framework.domain.GameEventListener;
-import org.framework.mainLoop.MainLoopController;
-import org.framework.mainLoop.MainLoopCustomGroupsInterface;
-import org.personalRestaurantGame.game.LevelFactory;
-import org.personalRestaurantGame.mainMenu.MainMenuFactory;
-import org.personalRestaurantGame.domain.GamePipeline;
-import org.personalRestaurantGame.domain.GameStateStore;
+import org.wesss.game_framework.GameFramework;
+import org.wesss.game_framework.canvas.GameCanvasController;
+import org.wesss.game_framework.domain.Game;
+import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.game_framework.mainLoop.MainLoopController;
+import org.wesss.game_framework.mainLoop.MainLoopCustomGroupsInterface;
+import org.wesss.personal_restaurant_game.game.LevelFactory;
+import org.wesss.personal_restaurant_game.mainMenu.MainMenuFactory;
+import org.wesss.personal_restaurant_game.domain.GamePipeline;
+import org.wesss.personal_restaurant_game.domain.GameStateStore;
 
-import static org.personalRestaurantGame.RestaurantGame.State.*;
+import static org.wesss.personal_restaurant_game.RestaurantGame.State.*;
 
 public class RestaurantGame implements Game {
 

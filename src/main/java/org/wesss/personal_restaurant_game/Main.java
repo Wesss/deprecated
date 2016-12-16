@@ -1,6 +1,6 @@
-package org.personalRestaurantGame;
+package org.wesss.personal_restaurant_game;
 
-import org.framework.GameFramework;
+import org.wesss.game_framework.GameFramework;
 
 public class Main {
     public static void main(String[] args) {
