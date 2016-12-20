@@ -25,6 +25,11 @@
             <groupId>org.wesss</groupId>
             <artifactId>general-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wesss</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
