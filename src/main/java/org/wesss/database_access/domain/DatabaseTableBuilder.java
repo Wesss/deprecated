@@ -15,10 +15,6 @@ public class DatabaseTableBuilder {
         return new DatabaseTableBuilder(name);
     }
 
-    public static DatabaseColumn buildColumn(String name) {
-        return new DatabaseColumn(name);
-    }
-
     public DatabaseTableBuilder with(DatabaseColumn column) {
         DatabaseTableBuilder newTable = new DatabaseTableBuilder(this);
         newTable.addColumn(column);

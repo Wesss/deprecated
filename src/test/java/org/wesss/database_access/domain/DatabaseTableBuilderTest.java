@@ -12,7 +12,8 @@ public class DatabaseTableBuilderTest {
 
     @Test
     public void singleColumnTable() {
-        DatabaseColumn column = DatabaseTableBuilder.buildColumn("HelloData");
+        DatabaseColumn column = DatabaseColumnBuilder.buildIntegerColumn("HelloData")
+                .build();
 
         DatabaseTable table = DatabaseTableBuilder.buildTable("HelloTable")
                 .with(column)
