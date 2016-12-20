@@ -4,9 +4,9 @@ import org.wesss.database_access.domain.DatabaseTable;
 import org.wesss.database_access.exceptions.DAOException;
 import org.wesss.general_utils.exceptions.NotImplementedException;
 
-public class InMemoryDAO implements DatabaseAccessObject {
+public class InJVMMemoryDAO implements DatabaseAccessObject {
 
-    // TODO implement InMemoryDAO
+    // TODO implement InJVMMemoryDAO
 
     @Override
     public void createTable(DatabaseTable table) throws DAOException {
