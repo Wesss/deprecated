@@ -15,5 +15,4 @@ public class DatabaseColumn {
         this.limit = limit;
     }
 
-    // TODO override column equals/hashcode
 }
