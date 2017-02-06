@@ -6,8 +6,8 @@ import org.wesss.game_framework.domain.GameObj;
 
 import java.util.List;
 
-import static org.wess.general_utils.collection.CollectionFactory.ArrayListOf;
-import static org.wess.general_utils.math.Math.modPos;
+import static org.wesss.general_utils.collection.CollectionFactory.arrayListOf;
+import static org.wesss.general_utils.math.MathUtils.modPos;
 
 public class ButtonList implements GameObj {
 
@@ -25,7 +25,7 @@ public class ButtonList implements GameObj {
     private boolean isKeyboardActiveSelector;
 
     public ButtonList(Button... buttons) {
-        this.buttons = ArrayListOf(buttons);
+        this.buttons = arrayListOf(buttons);
         buttonThatHasSelector = null;
         isMouseActiveSelector = false;
         isKeyboardActiveSelector = false;

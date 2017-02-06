@@ -1,6 +1,7 @@
 package org.wesss.game_utils;
 
 import org.wesss.game_framework.domain.GameEventListener;
+import org.wesss.game_framework.domain.event.GameEvent;
 
 /**
  * This represents a grid on the canvas, where clicking on a tile will fire its corresponding event listener
@@ -17,27 +18,7 @@ public class ClickGrid implements GameEventListener {
     private int verticalTiles;
 
     @Override
-    public void keyPressed(int keyCode) {
-
-    }
-
-    @Override
-    public void keyReleased(int keyCode) {
-
-    }
-
-    @Override
-    public void mousePressed(int x, int y, int button) {
-
-    }
-
-    @Override
-    public void mouseReleased(int x, int y, int button) {
-
-    }
-
-    @Override
-    public void mouseMoved(int x, int y) {
+    public void processGameEvent(GameEvent event) {
 
     }
 }
