@@ -6,7 +6,7 @@ import org.wesss.game_framework.mainLoop.MainLoopAdvancedInterface;
 import org.wesss.game_framework.mainLoop.MainLoopCustomGroupsInterface;
 import org.wesss.game_framework.mainLoop.MainLoopGroup;
 import org.wesss.game_framework.mainLoop.MainLoopGroupFactory;
-import org.wess.general_utils.collection.MapToSets;
+import org.wesss.general_utils.collection.OneToMany;
 
 import java.util.Set;
 
@@ -21,9 +21,9 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
     //TODO needs an endpoint to get/examine individual groups
 
     private GameCanvasGraphics dummyGraphics = mock(GameCanvasGraphics.class);
-    private MapToSets<Integer, MainLoopGroup> layerToGroups;
+    private OneToMany<Integer, MainLoopGroup> layerToGroups;
     private int maxLayer; //TODO abstract this out in general-utils
-    private MapToSets<Integer, MainLoopGroup> priorityToGroups;
+    private OneToMany<Integer, MainLoopGroup> priorityToGroups;
     private int maxPriority;
 
     public static FakeMainLoopCustomGroupsInterface getFake(int maxPriority) {
@@ -32,8 +32,8 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
 
     protected FakeMainLoopCustomGroupsInterface(int maxPriority) {
         super(new MainLoopGroupFactory(mock(MainLoopAdvancedInterface.class), maxPriority));
-        priorityToGroups = new MapToSets<>();
-        layerToGroups = new MapToSets<>();
+        priorityToGroups = new OneToMany<>();
+        layerToGroups = new OneToMany<>();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
 
     public void nextFrame(GameCanvasGraphics mockGraphics) {
         for (int i = 0; i < maxPriority + 1; i++) {
-            Set<MainLoopGroup> priorityGroups = priorityToGroups.get(i);
+            Set<MainLoopGroup> priorityGroups = priorityToGroups.getValues(i);
             if (priorityGroups != null) {
                 for (MainLoopGroup group : priorityGroups) {
                     for (GameObj gameObj : group.getGameObjsInMainLoop()) {
@@ -71,16 +71,16 @@ public class FakeMainLoopCustomGroupsInterface extends MainLoopCustomGroupsInter
             }
         }
 
-        for (MainLoopGroup group : priorityToGroups.values()) {
+        for (MainLoopGroup group : priorityToGroups.valueSet()) {
             group.update();
         }
 
-        for (MainLoopGroup group : priorityToGroups.values()) {
+        for (MainLoopGroup group : priorityToGroups.valueSet()) {
             group.paint(mockGraphics);
         }
 
         for (int i = 0; i < maxLayer + 1; i++) {
-            Set<MainLoopGroup> layerGroups = layerToGroups.get(i);
+            Set<MainLoopGroup> layerGroups = layerToGroups.getValues(i);
             if (layerGroups != null) {
                 for (MainLoopGroup group : layerGroups) {
                     for (GameObj gameObj : group.getGameObjsInMainLoop()) {

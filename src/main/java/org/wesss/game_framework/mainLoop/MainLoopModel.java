@@ -1,19 +1,19 @@
 package org.wesss.game_framework.mainLoop;
 
 import org.wesss.game_framework.canvas.GameCanvasGraphics;
+import org.wesss.game_framework.domain.GameObj;
 import org.wesss.game_framework.domain.action.MainLoopAction;
 import org.wesss.game_framework.domain.action.MainLoopAddAction;
 import org.wesss.game_framework.domain.action.MainLoopClearAction;
 import org.wesss.game_framework.domain.action.MainLoopRemoveAction;
-import org.wesss.game_framework.domain.GameObj;
-import org.wess.general_utils.collection.MapToSets;
+import org.wesss.general_utils.collection.OneToMany;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import static java.lang.Math.max;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
 /**
@@ -29,9 +29,9 @@ public class MainLoopModel {
      * maxLayer >= layerToObj.keyset()'s maximum when non-empty, 0 when empty
      * maxPriority >= priorityToObj.keyset()'s maximum when non-empty, 0 when empty
      */
-    private MapToSets<Integer, GameObj> layerToObjs;
+    private OneToMany<Integer, GameObj> layerToObjs;
     private int maxLayer; // TODO abstract max index into mapToSets, actually reduce to minimum
-    private MapToSets<Integer, GameObj> priorityToObjs;
+    private OneToMany<Integer, GameObj> priorityToObjs;
     private int maxPriority;
 
     /*
@@ -54,9 +54,9 @@ public class MainLoopModel {
     private int maxGroup;
 
     protected MainLoopModel() {
-        layerToObjs = new MapToSets<>();
+        layerToObjs = new OneToMany<>();
         maxLayer = 0;
-        priorityToObjs = new MapToSets<>();
+        priorityToObjs = new OneToMany<>();
         maxPriority = 0;
 
         groupToAction = new HashMap<>();
@@ -143,7 +143,7 @@ public class MainLoopModel {
 
     private void updateObjs() {
         for (int i = 0; i <= maxPriority; i++) {
-            Set<GameObj> objs = priorityToObjs.get(i);
+            Set<GameObj> objs = priorityToObjs.getValues(i);
             if (objs != null) {
                 for (GameObj obj : objs)
                     obj.update();
@@ -153,7 +153,7 @@ public class MainLoopModel {
 
     private void paintObjs(GameCanvasGraphics g) {
         for (int i = 0; i <= maxLayer; i++) {
-            Set<GameObj> objs = layerToObjs.get(i);
+            Set<GameObj> objs = layerToObjs.getValues(i);
             if (objs != null) {
                 for (GameObj obj : objs)
                     obj.paint(g);
@@ -224,10 +224,10 @@ public class MainLoopModel {
         assertNotNull(priorityToObjs);
 
         // TODO abstract comparison of array lists into custom matchers
-        Set<GameObj> layerObjs = new HashSet<>(layerToObjs.values());
-        Set<GameObj> priorityObjs = new HashSet<>(priorityToObjs.values());
-        assertThat(layerToObjs.values(), hasSize(layerObjs.size()));
-        assertThat(priorityToObjs.values(), hasSize(priorityObjs.size()));
+        Set<GameObj> layerObjs = new HashSet<>(layerToObjs.valueSet());
+        Set<GameObj> priorityObjs = new HashSet<>(priorityToObjs.valueSet());
+        assertThat(layerToObjs.valueSet(), hasSize(layerObjs.size()));
+        assertThat(priorityToObjs.valueSet(), hasSize(priorityObjs.size()));
         assertThat(layerObjs, hasSize(priorityObjs.size()));
 
 
